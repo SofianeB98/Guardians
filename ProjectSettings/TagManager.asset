@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - Seed
+  - Ground
   layers:
   - Default
   - TransparentFX
@@ -15,9 +17,9 @@ TagManager:
   - 
   - 
   - PostProcessing
-  - TeamA
-  - TeamB
-  - 
+  - Guardian
+  - Pillier
+  - Seed
   - 
   - 
   - 

@@ -20,39 +20,55 @@ public class CharacterInputDetector : Bolt.EntityBehaviour<IGuardianState>
 	// Update is called once per frame
 	public void CustomUpdate ()
 	{
-	    if (!this.guardian.IsStuned)
+	    if (entity.IsOwner)
 	    {
-	        #region Deplacement
-
-	        if (this.characterController != null && (Input.GetButton(InputName.Horizontal) || Input.GetButton(InputName.Vertical)))
+	        if (!this.guardian.IsStuned)
 	        {
-	            var tmpVec = new Vector3(Input.GetAxis(InputName.Horizontal), 0, Input.GetAxis(InputName.Vertical)).normalized;
-	            this.characterController.UpdateDirection(tmpVec);
-	            if (tmpVec != Vector3.zero) this.characterController.UpdateRotation(tmpVec);
-	        }
-	        else
-	        {
-	            this.characterController.UpdateDirection(Vector3.zero);
-	        }
+	            #region Deplacement
 
-	        if (this.characterController != null && Input.GetButtonDown(InputName.Jump))
-	        {
-	            this.characterController.UpdateJump();
-	        }
-
-	        #endregion
-
-	        #region Attack
-
-	        if (this.guardian != null)
-	        {
-	            if (!this.guardian.IsCooldown && !this.guardian.IsMeleeAttack && Input.GetButtonDown(InputName.Bucheronner))
+	            if (this.characterController != null && (Input.GetButton(InputName.Horizontal) || Input.GetButton(InputName.Vertical)))
 	            {
-	                this.guardian.StartCoroutine(this.guardian.LaunchMeleeAttack());
+	                var tmpVec = new Vector3(Input.GetAxis(InputName.Horizontal), 0, Input.GetAxis(InputName.Vertical)).normalized;
+	                this.characterController.UpdateDirection(tmpVec);
+	                if (tmpVec != Vector3.zero) this.characterController.UpdateRotation(tmpVec);
 	            }
-	        }
+	            else
+	            {
+	                this.characterController.UpdateDirection(Vector3.zero);
+	            }
 
-	        #endregion
+	            if (this.characterController != null && Input.GetButtonDown(InputName.Jump))
+	            {
+	                this.characterController.UpdateJump();
+	            }
+
+	            #endregion
+
+	            #region Attack
+
+	            if (this.guardian != null)
+	            {
+	                if (!this.guardian.IsCooldown && !this.guardian.IsMeleeAttack && Input.GetButtonDown(InputName.Bucheronner))
+	                {
+	                    this.guardian.StartCoroutine(this.guardian.LaunchMeleeAttack());
+	                }
+	            }
+
+	            #endregion
+
+	            #region SeedLaunch
+
+	            if (this.guardian != null)
+	            {
+	                if (Input.GetButtonUp(InputName.SeedLaunch))
+	                {
+	                    this.guardian.LaunchSeed();
+	                }
+	            }
+
+	            #endregion
+	        }
         }
+	    
     }
 }

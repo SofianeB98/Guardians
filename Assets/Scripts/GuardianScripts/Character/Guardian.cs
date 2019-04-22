@@ -31,7 +31,9 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     [SerializeField] private LayerMask seedLayerMask;
     [SerializeField] private Transform feetPosition;
     [SerializeField] private float checkRadius = 1f;
-    
+
+    [Header("Seed Launch")]
+    [SerializeField] private Seed seedPrefab;
 
     public override void Attached()
     {
@@ -160,19 +162,39 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         this.currentCooldownMeleeHit = Time.time + evnt.Durantion;
     }
 
-    public void CheckBombSeed()
-    {
-        Collider[] col = Physics.OverlapSphere(this.feetPosition.position, 1f, this.seedLayerMask);
+    #endregion
 
-        if (col.Length > 0)
-        {
-            for (int i = 0; i < col.Length; i++)
-            {
-                Destroy(col[i].gameObject);
-            }
-        }
+    #region SeedInteraction
+
+    public void LaunchSeed()
+    {
+        Seed seed = BoltNetwork.Instantiate(BoltPrefabs.Seed, this.transform.position + this.transform.forward, Quaternion.identity).GetComponent<Seed>();
+        seed.Init(this.myTeam, this, this.transform.rotation);
+        seed.InitVelocity(10f, this.transform.forward);
     }
     
+    public void CheckBombSeed()
+    {
+        if (this.currentInventorySeed < this.maxSeedInInventory)
+        {
+            Collider[] col = Physics.OverlapSphere(this.feetPosition.position, 1f, this.seedLayerMask);
+
+            if (col.Length > 0)
+            {
+                for (int i = 0; i < col.Length; i++)
+                {
+                    Destroy(col[i].gameObject);
+                    this.currentInventorySeed++;
+                }
+            }
+        }
+        else
+        {
+            return;
+        }
+        
+    }
+
     #endregion
 
     private void SetupTeam(int team)

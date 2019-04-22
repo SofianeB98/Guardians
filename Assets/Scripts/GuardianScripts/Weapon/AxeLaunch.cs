@@ -9,16 +9,9 @@ public class AxeLaunch : MonoBehaviour
     [SerializeField] private Rigidbody rigid;
     [SerializeField] private GameObject axeGraphics;
     [SerializeField] private Transform myHandParent;
-    [SerializeField] private Animator axeAnim;
     [SerializeField] private Guardian myGuardian;
 
     [Header("Gestion Lancer De Hache")]
-    [SerializeField] [Range(0,100)] private float axeLaunchCost = 5f;
-    public float AxeLaunchCost
-    {
-        get { return axeLaunchCost; }
-    }
-
     [SerializeField] private float axeRadiusLaunchCheck = 1f;
     [SerializeField] private float axeDistanceLaunchCheck = 1f;
     [SerializeField] private Transform pointOneAxeLaunch;
@@ -55,7 +48,6 @@ public class AxeLaunch : MonoBehaviour
     [SerializeField] private float axeBackSpeed = 10f;
     [SerializeField] [Range(0.5f, 1.5f)] private float distYGround = 1f;
     [SerializeField] private LayerMask groundLayerMask;
-    private int combuCut = 0;
     private Vector3 axeInitPos;
     private Quaternion axeInitRotate;
     
@@ -104,9 +96,7 @@ public class AxeLaunch : MonoBehaviour
             Vector3 forwardVector = new Vector3(0,0,forwardVelocity * this.currentAxeReachForwardDistance / Time.deltaTime);
 
             Vector3 direction = bucheronRotation * (sideVector + forwardVector);
-
-
-            //this.rigid.MovePosition(this.rigid.position + direction);
+            
             this.rigid.velocity = direction;
         }
     }
@@ -123,7 +113,6 @@ public class AxeLaunch : MonoBehaviour
                 this.isCanLaunchAxe(true, Quaternion.identity);
                 this.backToBucheronPos = false;
             }
-            
         }
     }
 
@@ -143,7 +132,6 @@ public class AxeLaunch : MonoBehaviour
 
         while (!this.canLauchAxe)
         {
-
             bool check = true;
             yield return new WaitForEndOfFrame();
             Collider[] col = Physics.OverlapCapsule(this.pointOneAxeLaunch.position, this.pointTwoAxeLaunch.position, axeRadiusLaunchCheck);
@@ -161,7 +149,6 @@ public class AxeLaunch : MonoBehaviour
                     }*/
                     
                 }
-
                 check = false;
             }
         }
@@ -209,15 +196,12 @@ public class AxeLaunch : MonoBehaviour
         if (!canLaunch)
         {
             this.rigid.isKinematic = false;
-            
 
             this.transform.parent = null;
 
             this.transform.eulerAngles = new Vector3(0,0,0);
 
             this.transform.position = this.myGuardian.transform.position + Vector3.up;
-
-            this.axeAnim.enabled = true;
             
             StartCoroutine(this.CheckObject());
             StartCoroutine(this.CheckDistanceGround());
@@ -225,14 +209,11 @@ public class AxeLaunch : MonoBehaviour
         else if(canLaunch)
         {
             this.rigid.isKinematic = true;
-            this.axeAnim.enabled = false;
             this.transform.parent = myHandParent.transform;
             this.transform.localPosition = axeInitPos;
             this.transform.localRotation = axeInitRotate;
             this.axeGraphics.transform.localPosition = Vector3.zero;
             this.axeGraphics.transform.localRotation = Quaternion.Euler(0,0,0);
-            
-            
         }
 
         //myGuardian.SetLaunchAxe(!canLaunch);
