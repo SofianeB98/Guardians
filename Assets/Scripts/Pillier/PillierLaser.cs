@@ -1,18 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Bolt;
 using UnityEngine;
 
-public class Pillier : Bolt.EntityEventListener<IPillierState>
+public class PillierLaser : MonoBehaviour
 {
-    private BoltEntity myOwner;
-
     [Header("Base")]
     [SerializeField] private GameObject pillierGO;
     [SerializeField] private GameObject laserGO;
     [SerializeField] private Transform seedDrop;
     private bool destroy = false;
-    [SerializeField] private Seed prefabSeed;
+    [SerializeField] private SeedBomb prefabSeed;
 
     [Header("Rotate Laser")]
     [SerializeField] private float maxRotation = 90.0f;
@@ -20,72 +17,28 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
     private bool reverseRotate = false;
     private float currentAngleRotate = 45f;
 
-    public override void Attached()
-    {
-        state.SetTransforms(state.Transform, this.transform);
-        if (entity.IsOwner)
-        {
-            state.Active = laserGO.activeSelf;
-            state.Scale = pillierGO.transform.localScale;
-            
-            entity.TakeControl();
-        }
-        state.AddCallback("Active", ActiveLaser);
-        state.AddCallback("Scale", ScalePillier);
-
-    }
-
-    public void Init(BoltEntity ent)
-    {
-        this.myOwner = ent;
-        if (entity.IsOwner)
-        {
-            state.MyOwner = ent;
-        }
-    }
-
-    public override void SimulateOwner()
+    private void Update()
     {
         if (this.pillierGO.transform.localScale.y < 4.0f)
         {
-            state.Scale += BoltNetwork.FrameDeltaTime * Vector3.up * 4f;
+            this.pillierGO.transform.localScale += BoltNetwork.FrameDeltaTime * Vector3.up * 4f;
         }
         else if (!this.laserGO.activeSelf)
         {
-            state.Active = true;
+            this.laserGO.SetActive(true);
         }
         else
         {
             this.RotateLaser();
         }
-    }
-    
-    private void ScalePillier()
-    {
-        this.pillierGO.transform.localScale = state.Scale;
-    }
 
-    private void ActiveLaser()
-    {
-        this.laserGO.SetActive(state.Active);
-    }
-
-    public void DestroyPillier()
-    {
-        Seed s = BoltNetwork.Instantiate(BoltPrefabs.Seed, this.seedDrop.position, Quaternion.identity).GetComponent<Seed>();
-        s.Init(0, null, Quaternion.identity, false, myOwner); 
-        if (entity.IsOwner)
+        if (this.destroy)
         {
-            BoltNetwork.Destroy(this.gameObject);
-        }
-        else
-        {
-            var evnt = DestroyEvent.Create(state.MyOwner, EntityTargets.Everyone);
-            evnt.EntityDestroy = entity;
-            evnt.Send();
+            SeedBomb s = Instantiate(prefabSeed, this.seedDrop.position, Quaternion.identity);
+            s.Init(0, null, Quaternion.identity, false);
         }
     }
-    
+
     private void RotateLaser()
     {
         if (!reverseRotate)
@@ -119,5 +72,10 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
     {
         var newRotate = this.transform.eulerAngles.y + rotationAngle;
         this.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x, newRotate, this.transform.eulerAngles.z);
+    }
+
+    public void DestroyPillier()
+    {
+        this.destroy = true;
     }
 }

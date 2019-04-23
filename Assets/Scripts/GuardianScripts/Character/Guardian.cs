@@ -33,7 +33,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     [SerializeField] private float checkRadius = 1f;
 
     [Header("Seed Launch")]
-    [SerializeField] private Seed seedPrefab;
+    [SerializeField] private SeedBomb seedPrefab;
 
     public override void Attached()
     {
@@ -41,7 +41,9 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         if (entity.IsOwner)
         {
             state.Team = this.myTeam;
+            entity.TakeControl();
         }
+        
     }
 
     private void Update()
@@ -84,14 +86,25 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
             for (int i = 0; i < col.Length; i++)
             {
                 Guardian enemyGuardian = col[i].GetComponent<Guardian>();
+                Pillier pillier = col[i].GetComponent<Pillier>();
 
-                if (enemyGuardian != null && !this.IsStuned)
+                if (!this.IsStuned)
                 {
-                    if (currentEnemyGuardian.myTeam != enemyGuardian.myTeam && !this.IsStuned)
+                    if (enemyGuardian != null)
                     {
-                        currentEnemyGuardian = enemyGuardian;
-                        enemyGuardian.TakeDamage(1);
-                        Debug.Log("enemy has been hit");
+                        if (currentEnemyGuardian.myTeam != enemyGuardian.myTeam && !this.IsStuned)
+                        {
+                            currentEnemyGuardian = enemyGuardian;
+                            enemyGuardian.TakeDamage(1);
+                            Debug.Log("enemy has been hit");
+                            i = col.Length;
+                            return;
+                        }
+                    }
+                    else if (pillier != null)
+                    {
+                        Debug.Log("Pillier hit");
+                        pillier.DestroyPillier();
                         i = col.Length;
                         return;
                     }
@@ -120,7 +133,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     #region Interaction
     
     public void TakeDamage(float getDamage){
-        var flash = TakeDamageEvent.Create(entity, EntityTargets.OnlySelf);
+        var flash = TakeDamageEvent.Create(entity, EntityTargets.OnlyOwner);
         flash.GetDamage = getDamage;
         flash.Send();
         return;
@@ -136,7 +149,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
 
     private void SetCooldown()
     {
-        var coolD = CooldownEvent.Create(entity, EntityTargets.OnlySelf);
+        var coolD = CooldownEvent.Create(entity, EntityTargets.OnlyOwner);
         coolD.Durantion = this.cooldownMeleeHit;
         coolD.Send();
     }
@@ -168,11 +181,20 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
 
     public void LaunchSeed()
     {
-        Seed seed = BoltNetwork.Instantiate(BoltPrefabs.Seed, this.transform.position + this.transform.forward, Quaternion.identity).GetComponent<Seed>();
-        seed.Init(this.myTeam, this, this.transform.rotation);
-        seed.InitVelocity(10f, this.transform.forward);
+        if (this.currentInventorySeed > 0)
+        {
+            Seed s = BoltNetwork.Instantiate(BoltPrefabs.Seed, this.transform.position + this.transform.forward, Quaternion.identity).GetComponent<Seed>();
+            s.Init(this.myTeam, this, this.transform.rotation, true, entity);
+            s.InitVelocity(10f, this.transform.forward);
+            this.currentInventorySeed--;
+        }
+        else
+        {
+            return;
+        }
+        
     }
-    
+
     public void CheckBombSeed()
     {
         if (this.currentInventorySeed < this.maxSeedInInventory)
@@ -183,7 +205,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
             {
                 for (int i = 0; i < col.Length; i++)
                 {
-                    Destroy(col[i].gameObject);
+                    col[i].GetComponent<Seed>().DestroyOnPickUp();
                     this.currentInventorySeed++;
                 }
             }
@@ -210,5 +232,10 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         this.transform.position = spawnPosition;
 
     }
-    
+
+    public override void OnEvent(DestroyEvent evnt)
+    {
+        BoltNetwork.Destroy(evnt.EntityDestroy.gameObject);
+    }
+
 }

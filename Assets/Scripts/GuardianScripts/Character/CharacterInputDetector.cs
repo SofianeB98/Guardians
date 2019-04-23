@@ -22,6 +22,7 @@ public class CharacterInputDetector : Bolt.EntityBehaviour<IGuardianState>
 	{
 	    if (entity.IsOwner)
 	    {
+            this.guardian.CheckBombSeed();
 	        if (!this.guardian.IsStuned)
 	        {
 	            #region Deplacement
