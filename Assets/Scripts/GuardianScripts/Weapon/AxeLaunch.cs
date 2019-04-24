@@ -7,7 +7,7 @@ public class AxeLaunch : MonoBehaviour
 {
     [Header("Info Base")]
     [SerializeField] private Rigidbody rigid;
-    [SerializeField] private GameObject axeGraphics;
+    //[SerializeField] private GameObject axeGraphics;
     [SerializeField] private Transform myHandParent;
     [SerializeField] private Guardian myGuardian;
 
@@ -201,10 +201,10 @@ public class AxeLaunch : MonoBehaviour
 
             this.transform.eulerAngles = new Vector3(0,0,0);
 
-            this.transform.position = this.myGuardian.transform.position + Vector3.up;
+            this.transform.position = this.myGuardian.transform.position;
             
-            StartCoroutine(this.CheckObject());
-            StartCoroutine(this.CheckDistanceGround());
+            //StartCoroutine(this.CheckObject());
+            //StartCoroutine(this.CheckDistanceGround());
         }
         else if(canLaunch)
         {
@@ -212,11 +212,11 @@ public class AxeLaunch : MonoBehaviour
             this.transform.parent = myHandParent.transform;
             this.transform.localPosition = axeInitPos;
             this.transform.localRotation = axeInitRotate;
-            this.axeGraphics.transform.localPosition = Vector3.zero;
-            this.axeGraphics.transform.localRotation = Quaternion.Euler(0,0,0);
+            //this.axeGraphics.transform.localPosition = Vector3.zero;
+            //this.axeGraphics.transform.localRotation = Quaternion.Euler(0,0,0);
         }
 
-        //myGuardian.SetLaunchAxe(!canLaunch);
+        myGuardian.SetLaunchAxe(!canLaunch);
         canLauchAxe = canLaunch;
     }
 }

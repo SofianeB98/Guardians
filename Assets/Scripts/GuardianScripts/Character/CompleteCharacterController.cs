@@ -129,4 +129,9 @@ public class CompleteCharacterController : Bolt.EntityBehaviour<IGuardianState>
 			this.jumpTimer = 0.0f;
 		}
 	}
+
+    public void WhenILaunchIMLookingToForwardCam()
+    {
+        this.orientation = new Vector3(this.cameraReferential.forward.x, 0, this.cameraReferential.forward.z);
+    }
 }

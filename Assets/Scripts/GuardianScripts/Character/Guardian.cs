@@ -7,7 +7,8 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
 {
     [Header("General Info")]
     [SerializeField] private int myTeam = 0;
-    
+    private int currentKill = 0;
+
     [Header("Player Stats")]
     [SerializeField] private float health = 100f;
     private float lastHealth = 100f;
@@ -16,6 +17,9 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     public bool IsStuned { get; private set; }
     [SerializeField] private float stunTime = 5f;
     private float currentStunTime = 0f;
+    public bool IsInvinsible { get; private set; }
+    [SerializeField] private float invinsibleTime = 2f;
+    private float currentInvinsibleTime = 0f;
 
     [Header("Melee Hit Info")]
     [SerializeField] private float detectionHitRadius = 1f;
@@ -27,25 +31,30 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     public bool IsCooldown { get; private set; }
     public bool IsMeleeAttack { get; private set; }
 
+    [Header("Axe Launch")]
+    [SerializeField] private AxeLaunch myAxe;
+    public AxeLaunch MyAxe
+    {
+        get { return myAxe; }
+    }
+    public bool IsLaunchAxe { get; private set; }
+
     [Header("Seed Pick Up")]
     [SerializeField] private LayerMask seedLayerMask;
     [SerializeField] private Transform feetPosition;
     [SerializeField] private float checkRadius = 1f;
-
-    [Header("Seed Launch")]
-    [SerializeField] private SeedBomb seedPrefab;
+    
 
     public override void Attached()
     {
         SetupTeam(NetworkCallbacks.team);
+        this.currentKill = 0;
         if (entity.IsOwner)
         {
-            state.Team = this.myTeam;
             entity.TakeControl();
         }
-        
     }
-
+    
     private void Update()
     {
         if (this.currentStunTime < Time.time)
@@ -56,6 +65,11 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         if (this.currentCooldownMeleeHit < Time.time)
         {
             this.IsCooldown = false;
+        }
+
+        if (this.currentInvinsibleTime < Time.time)
+        {
+            this.IsInvinsible = false;
         }
     }
 
@@ -85,23 +99,11 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         {
             for (int i = 0; i < col.Length; i++)
             {
-                Guardian enemyGuardian = col[i].GetComponent<Guardian>();
                 Pillier pillier = col[i].GetComponent<Pillier>();
 
                 if (!this.IsStuned)
                 {
-                    if (enemyGuardian != null)
-                    {
-                        if (currentEnemyGuardian.myTeam != enemyGuardian.myTeam && !this.IsStuned)
-                        {
-                            currentEnemyGuardian = enemyGuardian;
-                            enemyGuardian.TakeDamage(1);
-                            Debug.Log("enemy has been hit");
-                            i = col.Length;
-                            return;
-                        }
-                    }
-                    else if (pillier != null)
+                    if (pillier != null)
                     {
                         Debug.Log("Pillier hit");
                         pillier.DestroyPillier();
@@ -130,9 +132,23 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
 
     #endregion
 
+    #region LancerDeHache
+
+    public void SetLaunchAxe(bool launch)
+    {
+        this.IsLaunchAxe = launch;
+        if (launch)
+        {
+            this.myAxe.isCanLaunchAxe(false, this.transform.rotation);
+        }
+    }
+
+    #endregion
+
     #region Interaction
-    
-    public void TakeDamage(float getDamage){
+
+    public void TakeDamage(float getDamage)
+    {
         var flash = TakeDamageEvent.Create(entity, EntityTargets.OnlyOwner);
         flash.GetDamage = getDamage;
         flash.Send();
@@ -149,14 +165,16 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
 
     private void SetCooldown()
     {
-        var coolD = CooldownEvent.Create(entity, EntityTargets.OnlyOwner);
+        var coolD = CooldownEvent.Create(entity, EntityTargets.OnlySelf);
         coolD.Durantion = this.cooldownMeleeHit;
         coolD.Send();
     }
 
     public override void OnEvent(TakeDamageEvent evnt)
     {
-       this.health -= evnt.GetDamage;
+        this.health -= evnt.GetDamage;
+        this.IsInvinsible = true;
+        this.currentInvinsibleTime = Time.time + invinsibleTime;
         if (this.health <= 0)
         {
             Debug.Log("Death");
@@ -173,6 +191,14 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     public override void OnEvent(CooldownEvent evnt)
     {
         this.currentCooldownMeleeHit = Time.time + evnt.Durantion;
+    }
+
+    private void Death()
+    {
+        var spawnPosition = new Vector3(Random.Range(-8, 8), 0, Random.Range(-8, 8));
+        this.health = this.lastHealth;
+        this.transform.position = spawnPosition;
+
     }
 
     #endregion
@@ -218,21 +244,13 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     }
 
     #endregion
-
+    
     private void SetupTeam(int team)
     {
         this.myTeam = team;
         this.lastHealth = health;
     }
     
-    private void Death()
-    {
-        var spawnPosition = new Vector3(Random.Range(-8, 8), 0, Random.Range(-8, 8));
-        this.health = this.lastHealth;
-        this.transform.position = spawnPosition;
-
-    }
-
     public override void OnEvent(DestroyEvent evnt)
     {
         BoltNetwork.Destroy(evnt.EntityDestroy.gameObject);
