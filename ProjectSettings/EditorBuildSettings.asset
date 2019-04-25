@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Menu.unity
-    guid: 21c0ee464825a1347b3bbc3d1a0bee45
+    path: Assets/Scenes/PhotonLobby.unity
+    guid: 42d6ac873a5b84d439478f72d40c21ce
   - enabled: 1
     path: Assets/Scenes/Multiplayer.unity
     guid: 765896632ccc41b44b2f3443c5f7addd

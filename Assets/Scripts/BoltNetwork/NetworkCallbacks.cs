@@ -33,7 +33,7 @@ public class NetworkCallbacks : Bolt.GlobalEventListener
         logMessages.Insert(0, evnt.Message);
     }
 
-    void OnGUI()
+    /*void OnGUI()
     {
         // only display max the 5 latest log messages
         int maxMessages = Mathf.Min(5, logMessages.Count);
@@ -46,5 +46,5 @@ public class NetworkCallbacks : Bolt.GlobalEventListener
         }
 
         GUILayout.EndArea();
-    }
+    }*/
 }
