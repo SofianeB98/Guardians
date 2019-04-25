@@ -13,7 +13,6 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
     [SerializeField] private GameObject laserGO;
     [SerializeField] private Transform seedDrop;
     private bool destroy = false;
-    [SerializeField] private Seed prefabSeed;
 
     [Header("Rotate Laser")]
     [SerializeField] private float maxRotation = 90.0f;

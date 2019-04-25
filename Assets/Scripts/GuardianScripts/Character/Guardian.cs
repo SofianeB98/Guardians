@@ -32,11 +32,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     public bool IsMeleeAttack { get; private set; }
 
     [Header("Axe Launch")]
-    [SerializeField] private AxeLaunch myAxe;
-    public AxeLaunch MyAxe
-    {
-        get { return myAxe; }
-    }
+    [SerializeField] private Axe myAxe;
     public bool IsLaunchAxe { get; private set; }
 
     [Header("Seed Pick Up")]
@@ -52,6 +48,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         if (entity.IsOwner)
         {
             entity.TakeControl();
+            //BoltNetwork.Attach(myAxe.GetComponent<BoltEntity>());
         }
     }
     
@@ -136,11 +133,15 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
 
     public void SetLaunchAxe(bool launch)
     {
-        this.IsLaunchAxe = launch;
-        if (launch)
-        {
-            this.myAxe.isCanLaunchAxe(false, this.transform.rotation);
-        }
+        var lnch = LaunchAxeEvent.Create(entity);
+        lnch.Launch = launch;
+        lnch.Send();
+    }
+
+    public override void OnEvent(LaunchAxeEvent evnt)
+    {
+        this.IsLaunchAxe = evnt.Launch;
+        if (evnt.Launch) this.myAxe.isCanLaunchAxe(!evnt.Launch);
     }
 
     #endregion

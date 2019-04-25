@@ -6,8 +6,7 @@ using UnityEngine;
 public class Seed : Bolt.EntityEventListener<ISeedState>
 {
     private BoltEntity myOwner;
-
-    [SerializeField] private Pillier prefabPillier;
+    
     [SerializeField] private Rigidbody rigid;
     [SerializeField] private Quaternion pillierRotate;
     [SerializeField] private Guardian myGuardian;

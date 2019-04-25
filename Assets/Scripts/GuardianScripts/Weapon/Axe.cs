@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-public class AxeLaunch : Bolt.EntityEventListener<IAxeState>
+public class Axe : MonoBehaviour
 {
     [Header("Info Base")]
     [SerializeField] private Rigidbody rigid;
@@ -50,20 +50,8 @@ public class AxeLaunch : Bolt.EntityEventListener<IAxeState>
         this.axeInitRotate = this.transform.localRotation;
         if(this.transform.parent == null) BoltNetwork.Destroy(this.gameObject);
     }
-    
-    public override void Attached()
-    {
-        state.SetTransforms(state.Transform, transform);
-        if (entity.IsOwner)
-        {
-            state.IsKinematic = rigid.isKinematic;
-            state.CanLaunch = canLauchAxe;
-        }
-        state.AddCallback("IsKinematic", SetKinematicCB);
-        state.AddCallback("CanLaunch", SetCanLaunchCB);
-    }
 
-    public override void SimulateOwner()
+    private void Update()
     {
         if (!canLauchAxe && !backToBucheronPos)
         {
@@ -109,7 +97,7 @@ public class AxeLaunch : Bolt.EntityEventListener<IAxeState>
     {
         if (this.backToBucheronPos)
         {
-            state.IsKinematic = true;
+            this.rigid.isKinematic = true;
             this.transform.position = Vector3.MoveTowards(this.transform.position, myGuardian.transform.position, Time.deltaTime * axeBackSpeed);
 
             if (Vector3.Distance(this.transform.position, myGuardian.transform.position) <= 1f)
@@ -142,15 +130,15 @@ public class AxeLaunch : Bolt.EntityEventListener<IAxeState>
             {
                 for (int i = 0; i < col.Length; i++)
                 {
-                    /*Pillier colWood = col[i].GetComponent<Pillier>();
-                    if (colWood != null && currentWood != colWood)
+                    Guardian g = col[i].GetComponent<Guardian>();
+                    if (g != null)
                     {
-                        currentWood = colWood;
-                        this.myGuardian.MonsterPooling.AddWood(currentWood.transform.position);
-                        colWood.TakeDamage();
-                        this.combuCut = colWood.contaminated == false ? this.combuCut + 1 : this.combuCut + 2;
-                    }*/
-                    
+                        if (g != myGuardian && !g.IsStuned)
+                        {
+                            g.SetStun();
+                        }
+                    }
+
                 }
                 check = false;
             }
@@ -191,25 +179,16 @@ public class AxeLaunch : Bolt.EntityEventListener<IAxeState>
         }
         yield break;
     }
-
-    private void SetKinematicCB()
-    {
-        this.rigid.isKinematic = state.IsKinematic;
-    }
-
-    private void SetCanLaunchCB()
-    {
-        this.canLauchAxe = state.CanLaunch;
-    }
+    
 
     public void isCanLaunchAxe(bool canLaunch)
     {
         this.bucheronRotation = new Quaternion(0, this.myGuardian.transform.rotation.y, 0, this.myGuardian.transform.rotation.w);
-        state.CanLaunch = canLaunch;
+        this.canLauchAxe = canLaunch;
 
-        if (!state.CanLaunch)
+        if (!this.canLauchAxe)
         {
-            state.IsKinematic = false;
+            this.rigid.isKinematic = false;
 
             this.transform.parent = null;
 
@@ -220,9 +199,9 @@ public class AxeLaunch : Bolt.EntityEventListener<IAxeState>
             StartCoroutine(this.CheckObject());
             StartCoroutine(this.CheckDistanceGround());
         }
-        else if (state.CanLaunch)
+        else if (this.canLauchAxe)
         {
-            state.IsKinematic = true;
+            this.rigid.isKinematic = true;
             this.transform.parent = myHandParent.transform;
             this.transform.localPosition = Vector3.zero;
             myGuardian.SetLaunchAxe(false);

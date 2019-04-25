@@ -54,7 +54,7 @@ public class CharacterInputDetector : Bolt.EntityBehaviour<IGuardianState>
 	                    this.guardian.StartCoroutine(this.guardian.LaunchMeleeAttack());
 	                }
 
-	                if (Input.GetButtonUp(InputName.LancerDeHache) && !this.guardian.IsLaunchAxe)
+	                if (Input.GetButtonUp(InputName.LancerDeHache) && !this.guardian.IsLaunchAxe && !this.guardian.IsMeleeAttack)
 	                {
                         this.guardian.SetLaunchAxe(true);
                     }
