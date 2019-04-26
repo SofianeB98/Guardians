@@ -16,23 +16,24 @@ public class CameraController : Bolt.EntityBehaviour<IGuardianState>
 	[SerializeField]private bool inverseX;
 	[SerializeField][Range(0.4f,4.0f)] private float angleXSpeed = 1.0f;
 	[SerializeField] private Vector2 angleXLimits = new Vector2(85,-85);
-	[SerializeField] private Transform character;
+	[SerializeField] private Transform focus;
 	[SerializeField] private Transform camera;
 	private RaycastHit rayHit;
 	private float trueDistance;
 	[SerializeField] private float timeUntilAutomatedControl = 5.0f;
 	private float timerUntilAutomatedControl = 0.0f;
     [SerializeField] private LayerMask ignoreLayerMask;
-
+    
     public void CustomUpdate () {
 
 	    if (this.myGuardian != null)
 	    {
+	        Vector3 focusPoint = focus.position + camera.right;
 	        if (!this.myGuardian.IsPreLaunchSeed)
 	        {
 	            this.camera.rotation = Quaternion.Euler(this.angleX, this.angleY, 0.0f);
-	            this.trueDistance = Physics.Raycast(this.character.position, this.camera.rotation * new Vector3(0, 0, -this.distance), out this.rayHit, this.distance, ignoreLayerMask) ? Vector3.Distance(this.character.position, this.rayHit.point) : this.distance;
-	            this.camera.position = this.character.position + this.camera.rotation * new Vector3(0, 0, -this.trueDistance);
+	            this.trueDistance = Physics.Raycast(focusPoint, this.camera.rotation * new Vector3(0, 0, -this.distance), out this.rayHit, this.distance, ignoreLayerMask) ? Vector3.Distance(focusPoint, this.rayHit.point) : this.distance;
+	            this.camera.position = focusPoint + this.camera.rotation * new Vector3(0, 0, -this.trueDistance);
 	            if (this.timerUntilAutomatedControl < this.timeUntilAutomatedControl)
 	            {
 	                this.timerUntilAutomatedControl += Time.deltaTime;
@@ -40,10 +41,10 @@ public class CameraController : Bolt.EntityBehaviour<IGuardianState>
             }
 	        else
 	        {
-	            this.trueDistance = Physics.Raycast(this.character.position, this.camera.rotation * new Vector3(0, 0, -this.distance), out this.rayHit, this.distance, ignoreLayerMask) ? Vector3.Distance(this.character.position, this.rayHit.point) : this.distance;
+	            this.trueDistance = Physics.Raycast(focusPoint, this.camera.rotation * new Vector3(0, 0, -this.distance), out this.rayHit, this.distance, ignoreLayerMask) ? Vector3.Distance(focusPoint, this.rayHit.point) : this.distance;
                 this.myGuardian.transform.rotation = Quaternion.AngleAxis(this.camera.eulerAngles.y, Vector3.up);
 	            this.camera.rotation = Quaternion.Euler(this.angleX, this.angleY, 0.0f);
-	            this.camera.position = this.character.position + this.camera.rotation * new Vector3(0, 0, -this.trueDistance);
+	            this.camera.position = focusPoint + this.camera.rotation * new Vector3(0, 0, -this.trueDistance);
             }
 	        
         }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[BoltGlobalBehaviour] //Le script ne peut pas etre mis sur un GO mais est appeler par Bolt automatiquement.
+[BoltGlobalBehaviour("Multiplayer")] //Le script ne peut pas etre mis sur un GO mais est appeler par Bolt automatiquement.
 public class NetworkCallbacks : Bolt.GlobalEventListener
 {
     List<string> logMessages = new List<string>();
@@ -10,13 +10,17 @@ public class NetworkCallbacks : Bolt.GlobalEventListener
     public static int team = 1;
     public static int maxPlayers = 20;
 
+    public static GameObject[] SpawnPointsTransforms;
+
     public override void SceneLoadLocalDone(string map)
     {
+        SpawnPointsTransforms = GameObject.FindGameObjectsWithTag("Spawn");
+
         // randomize a position
-        var spawnPosition = new Vector3(Random.Range(-8, 8), 0, Random.Range(-8, 8));
+        var spawnPosition = SpawnPointsTransforms[Random.Range(0, SpawnPointsTransforms.Length)].transform.position + Vector3.up * 2;
 
         // instantiate cube
-        BoltEntity go = BoltNetwork.Instantiate(BoltPrefabs.Guardian, spawnPosition, Quaternion.identity);
+        BoltEntity go = BoltNetwork.Instantiate(BoltPrefabs.Guardian, spawnPosition , Quaternion.identity);
         UpdateTeam();
     }
 

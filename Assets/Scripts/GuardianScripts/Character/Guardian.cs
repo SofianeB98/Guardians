@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Bolt;
+using TMPro;
 using UnityEngine;
 
 public class Guardian : Bolt.EntityEventListener<IGuardianState>
@@ -8,7 +9,8 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     [Header("General Info")]
     [SerializeField] private int myTeam = 0;
     private int currentKill = 0;
-
+    [SerializeField] private CompleteCharacterController characterController;
+    [SerializeField] private LayerMask videLayerMask;
     [Header("Player Stats")]
     [SerializeField] private float health = 100f;
     private float lastHealth = 100f;
@@ -20,19 +22,24 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     public bool IsInvinsible { get; private set; }
     [SerializeField] private float invinsibleTime = 2f;
     private float currentInvinsibleTime = 0f;
+    [SerializeField] private TextMeshProUGUI killText;
 
     [Header("Melee Hit Info")]
     [SerializeField] private float detectionHitRadius = 1f;
     [SerializeField] private Transform meleeHitPosition;
     [SerializeField] private LayerMask meleeHitCheckLayerMask;
     [SerializeField] private float durationMeleeAttack = 1f;
-    [SerializeField] private float cooldownMeleeHit = 5f;
-    private float currentCooldownMeleeHit = 0f;
+    [SerializeField] private float cooldownLaunchSeed = 5f;
+    private float currentCooldownLaunchSeed = 0f;
     public bool IsCooldown { get; private set; }
     public bool IsMeleeAttack { get; private set; }
 
     [Header("Axe Launch")]
     [SerializeField] private Axe myAxe;
+    public Axe MyAxe
+    {
+        get { return myAxe; }
+    }
     public bool IsLaunchAxe { get; private set; }
 
     [Header("Seed Pick Up")]
@@ -42,6 +49,10 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
 
     [Header("Seed Launch")]
     [SerializeField] private Transform cameraRef;
+    public Transform CameraRef
+    {
+        get { return cameraRef; }
+    }
     [SerializeField] private float forceLaunch = 10f;
     [SerializeField] private Vector3 dirLaunch;
     public bool IsPreLaunchSeed { get; private set; }
@@ -60,12 +71,13 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     
     private void Update()
     {
+        this.killText.text = "My Score : " + this.currentKill.ToString();
         if (this.currentStunTime < Time.time)
         {
             this.IsStuned = false;
         }
 
-        if (this.currentCooldownMeleeHit < Time.time)
+        if (this.currentCooldownLaunchSeed < Time.time)
         {
             this.IsCooldown = false;
         }
@@ -144,6 +156,17 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         lnch.Send();
     }
 
+    public void BackToBucheron()
+    {
+        var bck = BackToBucheronEvent.Create(entity);
+        bck.Send();
+    }
+
+    public override void OnEvent(BackToBucheronEvent evnt)
+    {
+        this.myAxe.ActiveBackToBucheron();
+    }
+
     public override void OnEvent(LaunchAxeEvent evnt)
     {
         this.IsLaunchAxe = evnt.Launch;
@@ -156,24 +179,25 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
 
     public void TakeDamage(float getDamage)
     {
-        var flash = TakeDamageEvent.Create(entity, EntityTargets.OnlyOwner);
+        var flash = TakeDamageEvent.Create(entity);
         flash.GetDamage = getDamage;
         flash.Send();
         return;
     }
 
-    public void SetStun()
+    public void SetStun(Vector3 dir, float force)
     {
         var stun = SetStunEvent.Create(entity);
         stun.IsStuned = true;
-        stun.StunTime = this.stunTime;
+        stun.Direction = dir;
+        stun.Force = force;
         stun.Send();
     }
 
-    private void SetCooldown()
+    public void SetCooldown()
     {
         var coolD = CooldownEvent.Create(entity, EntityTargets.OnlySelf);
-        coolD.Durantion = this.cooldownMeleeHit;
+        coolD.Durantion = this.cooldownLaunchSeed;
         coolD.Send();
     }
 
@@ -192,20 +216,67 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     public override void OnEvent(SetStunEvent evnt)
     {
         this.IsStuned = evnt.IsStuned;
-        this.currentStunTime = Time.time + evnt.StunTime;
+        this.currentStunTime = Time.time + this.stunTime;
+        if (this.IsStuned)
+        {
+            this.characterController.AddForce(evnt.Direction, evnt.Force);
+        }
+            
     }
 
     public override void OnEvent(CooldownEvent evnt)
     {
-        this.currentCooldownMeleeHit = Time.time + evnt.Durantion;
+        this.IsCooldown = true;
+        this.currentCooldownLaunchSeed = Time.time + evnt.Durantion;
     }
 
     private void Death()
     {
-        var spawnPosition = new Vector3(Random.Range(-8, 8), 0, Random.Range(-8, 8));
+        var spawnPosition = RespawnPoint();
         this.health = this.lastHealth;
         this.transform.position = spawnPosition;
+    }
 
+    private Vector3 RespawnPoint()
+    {
+        int[] point = new int[NetworkCallbacks.SpawnPointsTransforms.Length];
+        int currentPoint = 9999999;
+        int currentIndex = 0;
+        for (int i = 0; i < point.Length; i++)
+        {
+            Collider[] col = Physics.OverlapSphere(NetworkCallbacks.SpawnPointsTransforms[i].transform.position, 5f);
+            if (col.Length > 0)
+            {
+                for (int j = 0; j < col.Length; j++)
+                {
+                    Guardian g = col[j].GetComponent<Guardian>();
+                    Pillier p = col[j].GetComponent<Pillier>();
+                    if (g != null)
+                    {
+                        point[i] += 2;
+                    }
+                    else if (p != null)
+                    {
+                        point[i] += 1;
+                    }
+                }
+            }
+            else
+            {
+                point[i] = 0;
+            }
+        }
+
+        for (int i = 0; i < point.Length; i++)
+        {
+            if (point[i] <= currentPoint)
+            {
+                currentPoint = point[i];
+                currentIndex = i;
+            }
+        }
+
+        return NetworkCallbacks.SpawnPointsTransforms[currentIndex].transform.position + Vector3.up*2;
     }
 
     #endregion
@@ -214,7 +285,8 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
 
     public void SetupLaunchSeed()
     {
-        if (this.currentInventorySeed > 0)
+        //if (this.currentInventorySeed > 0)
+        if(!this.IsCooldown)
         {
             IsPreLaunchSeed = true;
             this.dirLaunch = this.cameraRef.forward;
@@ -228,16 +300,18 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     public void LaunchSeed()
     {
         this.IsPreLaunchSeed = false;
-        if (this.currentInventorySeed > 0)
+        //if (this.currentInventorySeed > 0)
+        if(!IsCooldown)
         {
             Seed s = BoltNetwork.Instantiate(BoltPrefabs.Seed, this.transform.position + this.transform.forward, Quaternion.identity).GetComponent<Seed>();
             s.Init(this.myTeam, this, this.transform.rotation, true, entity);
             s.InitVelocity(this.forceLaunch, this.dirLaunch);
-            this.currentInventorySeed--;
+            
+            //this.currentInventorySeed--;
         }
         else
         {
-            return;
+           // return;
         }
     }
 
@@ -263,8 +337,42 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         
     }
 
+    public void CheckVide()
+    {
+        if (this.currentInventorySeed < this.maxSeedInInventory)
+        {
+            Collider[] col = Physics.OverlapSphere(this.feetPosition.position, 1.25f, this.videLayerMask);
+
+            if (col.Length > 0)
+            {
+                this.TakeDamage(1);
+                UpdateScore(true);
+            }
+        }
+        else
+        {
+            return;
+        }
+
+    }
+
     #endregion
-    
+
+    public void UpdateScore(bool isMe)
+    {
+        var evnt = UpdateScoreEvent.Create(entity);
+        evnt.IsMe = isMe;
+        evnt.Send();
+    }
+
+    public override void OnEvent(UpdateScoreEvent evnt)
+    {
+        if (!evnt.IsMe)
+            this.currentKill++;
+        else
+            this.currentKill--;
+    }
+
     private void SetupTeam(int team)
     {
         this.myTeam = team;

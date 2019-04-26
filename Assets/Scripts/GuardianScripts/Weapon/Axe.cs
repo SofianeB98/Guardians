@@ -40,9 +40,9 @@ public class Axe : MonoBehaviour
     [SerializeField] private LayerMask groundLayerMask;
     private Vector3 axeInitPos;
     private Quaternion axeInitRotate;
-    
+    [SerializeField] private LayerMask ignoreLayerMask;
     private Quaternion bucheronRotation;
-    
+    [SerializeField] private float forcePush = 10f;
     private void Awake()
     {
         this.rigid = this.GetComponent<Rigidbody>();
@@ -86,7 +86,7 @@ public class Axe : MonoBehaviour
             
             Vector3 forwardVector = new Vector3(0,0,forwardVelocity * this.currentAxeReachForwardDistance / Time.deltaTime);
 
-            Vector3 direction = bucheronRotation * (sideVector + forwardVector);
+            Vector3 direction = bucheronRotation * forwardVector;//(sideVector + forwardVector);
             
             this.rigid.velocity = direction;
             this.transform.position = rigid.position;
@@ -124,8 +124,9 @@ public class Axe : MonoBehaviour
         while (!this.canLauchAxe)
         {
             bool check = true;
+            bool objetFind = false;
             yield return new WaitForEndOfFrame();
-            Collider[] col = Physics.OverlapCapsule(this.pointOneAxeLaunch.position, this.pointTwoAxeLaunch.position, axeRadiusLaunchCheck);
+            Collider[] col = Physics.OverlapCapsule(this.pointOneAxeLaunch.position, this.pointTwoAxeLaunch.position, axeRadiusLaunchCheck, ~ignoreLayerMask);
             if (col != null && check)
             {
                 for (int i = 0; i < col.Length; i++)
@@ -133,14 +134,21 @@ public class Axe : MonoBehaviour
                     Guardian g = col[i].GetComponent<Guardian>();
                     if (g != null)
                     {
-                        if (g != myGuardian && !g.IsStuned)
+                        if (g != myGuardian)//&& !g.IsStuned)
                         {
-                            g.SetStun();
+                            Vector3 dir = this.transform.position - myGuardian.transform.position;
+                            dir.y = 0;
+                            g.SetStun(dir, forcePush);
+                            objetFind = true;
                         }
                     }
-
+                    else
+                    {
+                        objetFind = true;
+                    }
                 }
-                check = false;
+
+                if(objetFind) ActiveBackToBucheron();
             }
         }
         yield break;
@@ -183,7 +191,7 @@ public class Axe : MonoBehaviour
 
     public void isCanLaunchAxe(bool canLaunch)
     {
-        this.bucheronRotation = new Quaternion(0, this.myGuardian.transform.rotation.y, 0, this.myGuardian.transform.rotation.w);
+        this.bucheronRotation = this.myGuardian.CameraRef.rotation;
         this.canLauchAxe = canLaunch;
 
         if (!this.canLauchAxe)
@@ -197,7 +205,7 @@ public class Axe : MonoBehaviour
             this.transform.position = this.myGuardian.transform.position;
 
             StartCoroutine(this.CheckObject());
-            StartCoroutine(this.CheckDistanceGround());
+            //StartCoroutine(this.CheckDistanceGround());
         }
         else if (this.canLauchAxe)
         {

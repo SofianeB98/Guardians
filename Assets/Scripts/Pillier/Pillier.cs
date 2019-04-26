@@ -98,28 +98,28 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
 
     private void RotateLaser()
     {
-        if (!reverseRotate)
+        //if (!reverseRotate)
         {
-            if (currentAngleRotate < 90)
+            //if (currentAngleRotate < 90)
             {
                 this.transform.eulerAngles += Vector3.up * BoltNetwork.FrameDeltaTime * this.speedRotation;
                 this.currentAngleRotate += BoltNetwork.FrameDeltaTime * this.speedRotation;
             }
-            else
+            //else
             {
-                this.reverseRotate = true;
+                //this.reverseRotate = true;
             }
         }
-        else
+        //else
         {
-            if (currentAngleRotate > 0)
+            //if (currentAngleRotate > 0)
             {
-                this.transform.eulerAngles -= Vector3.up * BoltNetwork.FrameDeltaTime * this.speedRotation;
+            //    this.transform.eulerAngles -= Vector3.up * BoltNetwork.FrameDeltaTime * this.speedRotation;
                 this.currentAngleRotate -= BoltNetwork.FrameDeltaTime * this.speedRotation;
             }
-            else
+           // else
             {
-                this.reverseRotate = false;
+             //   this.reverseRotate = false;
             }
         }
 
@@ -161,6 +161,14 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
                     {
                         g.TakeDamage(this.damage);
                         Debug.Log("Gardian toucher");
+                        if (g != myOwner.GetComponent<Guardian>())
+                        {
+                            myOwner.GetComponent<Guardian>().UpdateScore(false);
+                        }
+                        else
+                        {
+                            myOwner.GetComponent<Guardian>().UpdateScore(true);
+                        }
                     }
 
                     return;

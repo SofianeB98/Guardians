@@ -19,77 +19,100 @@ public class CharacterInputDetector : Bolt.EntityBehaviour<IGuardianState>
 	// Update is called once per frame
 	public void CustomUpdate ()
 	{
-	    if (entity.IsOwner)
-	    {
-            this.guardian.CheckBombSeed();
-	        if (!this.guardian.IsStuned)
-	        {
-	            #region Deplacement
+        if (entity.IsOwner)
+        {
+            //this.guardian.CheckBombSeed();
+            this.guardian.CheckVide();
+            #region Deplacement
 
-	            if (this.characterController != null && (Input.GetButton(InputName.Horizontal) || Input.GetButton(InputName.Vertical)))
-	            {
-	                var tmpVec = new Vector3(Input.GetAxis(InputName.Horizontal), 0, Input.GetAxis(InputName.Vertical)).normalized;
-	                this.characterController.UpdateDirection(tmpVec);
-	                if (tmpVec != Vector3.zero)
-	                {
-	                    if (!this.guardian.IsPreLaunchSeed)
-	                    {
-	                        this.characterController.UpdateRotation(tmpVec);
+            if (!this.guardian.IsStuned)
+            {
+                if (this.characterController != null && (Input.GetButton(InputName.Horizontal) || Input.GetButton(InputName.Vertical)))
+                {
+                    var tmpVec = new Vector3(Input.GetAxis(InputName.Horizontal), 0, Input.GetAxis(InputName.Vertical)).normalized;
+                    this.characterController.UpdateDirection(tmpVec);
+                    if (tmpVec != Vector3.zero)
+                    {
+                        if (!this.guardian.IsPreLaunchSeed)
+                        {
+                            this.characterController.UpdateRotation(tmpVec);
                         }
-	                }
-	            }
-	            else
-	            {
-	                this.characterController.UpdateDirection(Vector3.zero);
-	            }
-
-	            if (this.characterController != null && Input.GetButtonDown(InputName.Jump))
-	            {
-	                this.characterController.UpdateJump();
-	            }
-
-	            #endregion
-
-	            #region Attack
-
-	            if (this.guardian != null)
-	            {
-	                if (!this.guardian.IsCooldown && !this.guardian.IsMeleeAttack && !this.guardian.IsLaunchAxe && Input.GetButtonDown(InputName.Bucheronner))
-	                {
-	                    this.guardian.StartCoroutine(this.guardian.LaunchMeleeAttack());
-	                }
-
-	                if (Input.GetButtonUp(InputName.LancerDeHache) && !this.guardian.IsLaunchAxe && !this.guardian.IsMeleeAttack)
-	                {
-                        this.guardian.SetLaunchAxe(true);
                     }
-	            }
+                }
+                else
+                {
+                    this.characterController.UpdateDirection(Vector3.zero);
+                }
 
-	            #endregion
+                if (this.characterController != null && Input.GetButtonDown(InputName.Jump))
+                {
+                    if (this.characterController.doubleJumping)
+                    {
+                        this.characterController.UpdateJump();
+                    }
+                    else if (!this.characterController.doubleJumping || !this.characterController.Grounded)
+                    {
+                        this.characterController.UpdateDoubleJump();
+                    }
 
-	            #region SeedLaunch
 
-	            if (this.guardian != null)
-	            {
-	                if (Input.GetButtonDown(InputName.SeedLaunch))
-	                {
+                }
+            }
+            
+
+            #endregion
+
+            #region Attack
+
+            if (this.guardian != null)
+            {
+                //if (!this.guardian.IsCooldown && !this.guardian.IsMeleeAttack && !this.guardian.IsLaunchAxe && Input.GetButtonDown(InputName.Bucheronner))
+                {
+                    // this.guardian.StartCoroutine(this.guardian.LaunchMeleeAttack());
+                }
+
+                if (Input.GetButtonDown(InputName.Bucheronner) && !this.guardian.IsLaunchAxe && !this.guardian.IsMeleeAttack)
+                {
+                    this.guardian.SetLaunchAxe(true);
+                    this.characterController.WhenILaunchIMLookingToForwardCam();
+                }
+                else if (Input.GetButtonDown(InputName.Bucheronner) && this.guardian.IsLaunchAxe && !this.guardian.MyAxe.BackToBucheron)
+                {
+                    this.guardian.BackToBucheron();
+
+                }
+            }
+
+            #endregion
+
+            #region SeedLaunch
+
+            if (this.guardian != null)
+            {
+                if (!this.guardian.IsCooldown)
+                {
+                    if (Input.GetButtonDown(InputName.LancerDeHache))
+                    {
                         this.guardian.SetupLaunchSeed();
-	                }
+                    }
 
-	                if (Input.GetButton(InputName.SeedLaunch))
-	                {
-	                    this.guardian.SetupLaunchSeed();
-	                }
+                    if (Input.GetButton(InputName.LancerDeHache))
+                    {
+                        this.guardian.SetupLaunchSeed();
+                    }
 
-                    if (Input.GetButtonUp(InputName.SeedLaunch))
-	                {
-	                    this.guardian.LaunchSeed();
-	                }
-	            }
+                    if (Input.GetButtonUp(InputName.LancerDeHache))
+                    {
+                        this.guardian.LaunchSeed();
+                        this.guardian.SetCooldown();
+                    }
+                }
 
-	            #endregion
-	        }
+            }
+
+            #endregion
+
         }
-	    
+
     }
 }
