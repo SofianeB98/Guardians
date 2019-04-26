@@ -6,7 +6,6 @@ using UnityEngine.Serialization;
 
 public class CharacterInputDetector : Bolt.EntityBehaviour<IGuardianState>
 {
-
 	[SerializeField] private CompleteCharacterController characterController;
     [SerializeField] private Guardian guardian;
 
@@ -31,7 +30,13 @@ public class CharacterInputDetector : Bolt.EntityBehaviour<IGuardianState>
 	            {
 	                var tmpVec = new Vector3(Input.GetAxis(InputName.Horizontal), 0, Input.GetAxis(InputName.Vertical)).normalized;
 	                this.characterController.UpdateDirection(tmpVec);
-	                if (tmpVec != Vector3.zero) this.characterController.UpdateRotation(tmpVec);
+	                if (tmpVec != Vector3.zero)
+	                {
+	                    if (!this.guardian.IsPreLaunchSeed)
+	                    {
+	                        this.characterController.UpdateRotation(tmpVec);
+                        }
+	                }
 	            }
 	            else
 	            {
@@ -66,7 +71,17 @@ public class CharacterInputDetector : Bolt.EntityBehaviour<IGuardianState>
 
 	            if (this.guardian != null)
 	            {
-	                if (Input.GetButtonUp(InputName.SeedLaunch))
+	                if (Input.GetButtonDown(InputName.SeedLaunch))
+	                {
+                        this.guardian.SetupLaunchSeed();
+	                }
+
+	                if (Input.GetButton(InputName.SeedLaunch))
+	                {
+	                    this.guardian.SetupLaunchSeed();
+	                }
+
+                    if (Input.GetButtonUp(InputName.SeedLaunch))
 	                {
 	                    this.guardian.LaunchSeed();
 	                }

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class CameraController : Bolt.EntityBehaviour<IGuardianState>
 {
-
+    [SerializeField] private Guardian myGuardian;
 
 	[SerializeField] private float distance = 10.0f;
 	[SerializeField] private float speed = 10.0f;
@@ -24,13 +24,31 @@ public class CameraController : Bolt.EntityBehaviour<IGuardianState>
 	private float timerUntilAutomatedControl = 0.0f;
     [SerializeField] private LayerMask ignoreLayerMask;
 
-	public void CustomUpdate () {
-		this.camera.rotation = Quaternion.Euler(this.angleX, this.angleY, 0.0f);
-		this.trueDistance = Physics.Raycast(this.character.position, this.camera.rotation * new Vector3(0, 0, -this.distance),out this.rayHit,this.distance, ignoreLayerMask) ? Vector3.Distance(this.character.position, this.rayHit.point) : this.distance;
-		this.camera.position = this.character.position + this.camera.rotation * new Vector3(0, 0, -this.trueDistance);
-		if (this.timerUntilAutomatedControl < this.timeUntilAutomatedControl) {
-			this.timerUntilAutomatedControl += Time.deltaTime;
-		}
+    public void CustomUpdate () {
+
+	    if (this.myGuardian != null)
+	    {
+	        if (!this.myGuardian.IsPreLaunchSeed)
+	        {
+	            this.camera.rotation = Quaternion.Euler(this.angleX, this.angleY, 0.0f);
+	            this.trueDistance = Physics.Raycast(this.character.position, this.camera.rotation * new Vector3(0, 0, -this.distance), out this.rayHit, this.distance, ignoreLayerMask) ? Vector3.Distance(this.character.position, this.rayHit.point) : this.distance;
+	            this.camera.position = this.character.position + this.camera.rotation * new Vector3(0, 0, -this.trueDistance);
+	            if (this.timerUntilAutomatedControl < this.timeUntilAutomatedControl)
+	            {
+	                this.timerUntilAutomatedControl += Time.deltaTime;
+	            }
+            }
+	        else
+	        {
+	            this.trueDistance = Physics.Raycast(this.character.position, this.camera.rotation * new Vector3(0, 0, -this.distance), out this.rayHit, this.distance, ignoreLayerMask) ? Vector3.Distance(this.character.position, this.rayHit.point) : this.distance;
+                this.myGuardian.transform.rotation = Quaternion.AngleAxis(this.camera.eulerAngles.y, Vector3.up);
+	            this.camera.rotation = Quaternion.Euler(this.angleX, this.angleY, 0.0f);
+	            this.camera.position = this.character.position + this.camera.rotation * new Vector3(0, 0, -this.trueDistance);
+            }
+	        
+        }
+
+		
 	}
 
 	public void UpdateAngleManual(Vector3 vec) {

@@ -2453,7 +2453,7 @@ MonoBehaviour:
   gameScene:
     sceneAsset: {fileID: 102900000, guid: 765896632ccc41b44b2f3443c5f7addd, type: 3}
     sceneName: Scenes/Multiplayer
-  minPlayers: 2
+  minPlayers: 1
   prematchCountdown: 5
   topPanel: {fileID: 11424994}
   mainMenuPanel: {fileID: 22442386}

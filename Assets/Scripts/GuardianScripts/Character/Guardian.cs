@@ -39,7 +39,13 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     [SerializeField] private LayerMask seedLayerMask;
     [SerializeField] private Transform feetPosition;
     [SerializeField] private float checkRadius = 1f;
-    
+
+    [Header("Seed Launch")]
+    [SerializeField] private Transform cameraRef;
+    [SerializeField] private float forceLaunch = 10f;
+    [SerializeField] private Vector3 dirLaunch;
+    public bool IsPreLaunchSeed { get; private set; }
+
 
     public override void Attached()
     {
@@ -206,20 +212,33 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
 
     #region SeedInteraction
 
+    public void SetupLaunchSeed()
+    {
+        if (this.currentInventorySeed > 0)
+        {
+            IsPreLaunchSeed = true;
+            this.dirLaunch = this.cameraRef.forward;
+        }
+        else
+        {
+            return;
+        }
+    }
+
     public void LaunchSeed()
     {
+        this.IsPreLaunchSeed = false;
         if (this.currentInventorySeed > 0)
         {
             Seed s = BoltNetwork.Instantiate(BoltPrefabs.Seed, this.transform.position + this.transform.forward, Quaternion.identity).GetComponent<Seed>();
             s.Init(this.myTeam, this, this.transform.rotation, true, entity);
-            s.InitVelocity(10f, this.transform.forward);
+            s.InitVelocity(this.forceLaunch, this.dirLaunch);
             this.currentInventorySeed--;
         }
         else
         {
             return;
         }
-        
     }
 
     public void CheckBombSeed()
