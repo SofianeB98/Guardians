@@ -6,7 +6,6 @@ using UnityEngine;
 public class Seed : Bolt.EntityEventListener<ISeedState>
 {
     private BoltEntity myOwner;
-    
     [SerializeField] private Rigidbody rigid;
     [SerializeField] private Quaternion pillierRotate;
     [SerializeField] private Guardian myGuardian;
@@ -23,7 +22,7 @@ public class Seed : Bolt.EntityEventListener<ISeedState>
         }
     }
 
-    public void Init(int team, Guardian guardian, Quaternion rotation, bool launchPlayer, BoltEntity ent)
+    public void Init(int team, Guardian guardian, Quaternion rotation, bool launchPlayer, BoltEntity ent, Color ownerColor)
     {
         this.myTeam = team;
         this.myGuardian = guardian;
@@ -31,11 +30,17 @@ public class Seed : Bolt.EntityEventListener<ISeedState>
         if (entity.IsOwner)
         {
             state.MyOwner = ent;
+            state.MyColor = ownerColor;
         }
-
+        state.AddCallback("MyColor", ColorChanged);
         this.pillierRotate = rotation;
         this.isLaunchPlayer = launchPlayer;
         this.rigid.isKinematic = false;
+    }
+
+    void ColorChanged()
+    {
+        GetComponent<Renderer>().material.color = state.MyColor;
     }
 
     public void InitVelocity(float force, Vector3 dir)
@@ -56,7 +61,7 @@ public class Seed : Bolt.EntityEventListener<ISeedState>
             if (col.transform.tag.Contains(this.groundTag))
             {
                 Pillier p = BoltNetwork.Instantiate(BoltPrefabs.Pillier, this.transform.position, this.pillierRotate).GetComponent<Pillier>();
-                p.Init(state.MyOwner);
+                p.Init(state.MyOwner, state.MyColor);
                 BoltNetwork.Destroy(this.gameObject);
             }
         }

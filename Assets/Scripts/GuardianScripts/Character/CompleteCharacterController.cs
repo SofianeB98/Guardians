@@ -138,7 +138,7 @@ public class CompleteCharacterController : Bolt.EntityBehaviour<IGuardianState>
 			this.characterController.Move(new Vector3(0, Vector3.Distance(this.lastGroundDetectedInfos.point,new Vector3(this.transform.position.x,this.transform.position.y - this.characterControllerRadiusCompensator - this.characterController.height/2, this.transform.position.z)), 0));
 			this.grounded = true;
 		}
-		else if(Mathf.Abs(this.transform.position.y - this.characterControllerRadiusCompensator - this.characterController.height/2 - this.lastGroundDetectedInfos.point.y) > this.lastGroundDetectedInfos.point.y - this.groundTolerance){
+		else if(Mathf.Abs(this.transform.position.y - this.characterControllerRadiusCompensator - this.characterController.height/2 - this.lastGroundDetectedInfos.point.y) > this.groundTolerance){
 			this.grounded = false;
 		}
 		else {

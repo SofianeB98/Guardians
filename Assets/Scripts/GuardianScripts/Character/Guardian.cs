@@ -64,9 +64,12 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         this.currentKill = 0;
         if (entity.IsOwner)
         {
+            state.MyColor = new Color(1 - this.myTeam/100, 0 + this.myTeam / 100 + 0.025f, 0.5f + this.myTeam/100);
             entity.TakeControl();
+            Cursor.lockState = CursorLockMode.Locked;
             //BoltNetwork.Attach(myAxe.GetComponent<BoltEntity>());
         }
+        state.AddCallback("MyColor", ColorChanged);
     }
     
     private void Update()
@@ -304,7 +307,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         if(!IsCooldown)
         {
             Seed s = BoltNetwork.Instantiate(BoltPrefabs.Seed, this.transform.position + this.transform.forward, Quaternion.identity).GetComponent<Seed>();
-            s.Init(this.myTeam, this, this.transform.rotation, true, entity);
+            s.Init(this.myTeam, this, this.transform.rotation, true, entity, state.MyColor);
             s.InitVelocity(this.forceLaunch, this.dirLaunch);
             
             //this.currentInventorySeed--;
@@ -382,6 +385,11 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     public override void OnEvent(DestroyEvent evnt)
     {
         BoltNetwork.Destroy(evnt.EntityDestroy.gameObject);
+    }
+
+    void ColorChanged()
+    {
+        GetComponent<Renderer>().material.color = state.MyColor;
     }
 
 }

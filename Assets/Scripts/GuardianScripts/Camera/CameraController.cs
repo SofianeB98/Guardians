@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CameraController : Bolt.EntityBehaviour<IGuardianState>
 {
@@ -23,7 +24,19 @@ public class CameraController : Bolt.EntityBehaviour<IGuardianState>
 	[SerializeField] private float timeUntilAutomatedControl = 5.0f;
 	private float timerUntilAutomatedControl = 0.0f;
     [SerializeField] private LayerMask ignoreLayerMask;
-    
+
+    [Header("UI and Cam Speed")]
+    [SerializeField] private Slider speedCamSlider;
+    [SerializeField] private Slider xCamSlider;
+    [SerializeField] private Slider yCamSlider;
+    [SerializeField] private GameObject optionPanel;
+
+
+    private void Start()
+    {
+        LoadValue();
+    }
+
     public void CustomUpdate () {
 
 	    if (this.myGuardian != null)
@@ -49,6 +62,18 @@ public class CameraController : Bolt.EntityBehaviour<IGuardianState>
 	        
         }
 
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            optionPanel.SetActive(!optionPanel.activeSelf);
+            if (optionPanel.activeSelf)
+            {
+                Cursor.lockState = CursorLockMode.None;
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+            }
+        }
 		
 	}
 
@@ -87,4 +112,35 @@ public class CameraController : Bolt.EntityBehaviour<IGuardianState>
 			this.angleX = this.angleXLimits.y;
 		}
 	}
+
+    public void OnValueSpeedCam()
+    {
+        this.speed = this.speedCamSlider.value;
+        this.angleXSpeed = this.xCamSlider.value;
+        this.angleYSpeed = this.yCamSlider.value;
+
+        PlayerPrefs.SetFloat("SpeedCam", this.speed);
+        PlayerPrefs.SetFloat("XCam", this.angleXSpeed);
+        PlayerPrefs.SetFloat("YCam", this.angleYSpeed);
+        PlayerPrefs.Save();
+    }
+
+    private void LoadValue()
+    {
+        if (PlayerPrefs.HasKey("SpeedCam"))
+        {
+            this.speed = PlayerPrefs.GetFloat("SpeedCam");
+            this.speedCamSlider.value = this.speed;
+        }
+        if (PlayerPrefs.HasKey("XCam"))
+        {
+            this.angleXSpeed = PlayerPrefs.GetFloat("XCam");
+            this.xCamSlider.value = this.angleXSpeed;
+        }
+        if (PlayerPrefs.HasKey("YCam"))
+        {
+            this.angleYSpeed = PlayerPrefs.GetFloat("YCam");
+            this.yCamSlider.value = this.angleYSpeed;
+        }
+    }
 }
