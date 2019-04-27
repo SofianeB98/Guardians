@@ -20,6 +20,7 @@ public class Seed : Bolt.EntityEventListener<ISeedState>
         {
             entity.TakeControl();
         }
+        state.AddCallback("MyColor", ColorChanged);
     }
 
     public void Init(int team, Guardian guardian, Quaternion rotation, bool launchPlayer, BoltEntity ent, Color ownerColor)
@@ -32,7 +33,7 @@ public class Seed : Bolt.EntityEventListener<ISeedState>
             state.MyOwner = ent;
             state.MyColor = ownerColor;
         }
-        state.AddCallback("MyColor", ColorChanged);
+        
         this.pillierRotate = rotation;
         this.isLaunchPlayer = launchPlayer;
         this.rigid.isKinematic = false;
@@ -62,6 +63,7 @@ public class Seed : Bolt.EntityEventListener<ISeedState>
             {
                 Pillier p = BoltNetwork.Instantiate(BoltPrefabs.Pillier, this.transform.position, this.pillierRotate).GetComponent<Pillier>();
                 p.Init(state.MyOwner, state.MyColor);
+                this.myGuardian.AddPillierToMyList(p);
                 BoltNetwork.Destroy(this.gameObject);
             }
         }

@@ -137,6 +137,7 @@ public class Axe : MonoBehaviour
                         if (g != myGuardian)//&& !g.IsStuned)
                         {
                             Vector3 dir = this.transform.position - myGuardian.transform.position;
+                            dir = this.BackToBucheron ? dir * -1 : dir;
                             dir.y = 0;
                             g.SetStun(dir, forcePush);
                             objetFind = true;

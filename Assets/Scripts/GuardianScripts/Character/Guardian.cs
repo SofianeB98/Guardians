@@ -56,7 +56,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     [SerializeField] private float forceLaunch = 10f;
     [SerializeField] private Vector3 dirLaunch;
     public bool IsPreLaunchSeed { get; private set; }
-
+    [SerializeField] private List<Pillier> myPillier = new List<Pillier>();
 
     public override void Attached()
     {
@@ -64,8 +64,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         this.currentKill = 0;
         if (entity.IsOwner)
         {
-            state.MyColor = new Color(1 - this.myTeam/100, 0 + this.myTeam / 100 + 0.025f, 0.5f + this.myTeam/100);
-            entity.TakeControl();
+            state.MyColor = new Color(Random.value, Random.value, Random.value);
             Cursor.lockState = CursorLockMode.Locked;
             //BoltNetwork.Attach(myAxe.GetComponent<BoltEntity>());
         }
@@ -213,6 +212,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         {
             Debug.Log("Death");
             Death();
+            
         }
     }
 
@@ -235,6 +235,11 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
 
     private void Death()
     {
+        foreach (var pillier in this.myPillier)
+        {
+            BoltNetwork.Destroy(pillier.gameObject);
+        }
+        this.myPillier = new List<Pillier>();
         var spawnPosition = RespawnPoint();
         this.health = this.lastHealth;
         this.transform.position = spawnPosition;
@@ -280,6 +285,11 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         }
 
         return NetworkCallbacks.SpawnPointsTransforms[currentIndex].transform.position + Vector3.up*2;
+    }
+
+    public void AddPillierToMyList(Pillier pillierToAdd)
+    {
+        this.myPillier.Add(pillierToAdd);
     }
 
     #endregion

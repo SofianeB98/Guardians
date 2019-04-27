@@ -38,7 +38,7 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
         }
         state.AddCallback("Active", ActiveLaser);
         state.AddCallback("Scale", ScalePillier);
-
+        state.AddCallback("MyColor", ColorChanged);
     }
 
     public void Init(BoltEntity ent, Color myOwnerColor)
@@ -49,7 +49,6 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
             state.MyOwner = ent;
             state.MyColor = myOwnerColor;
         }
-        state.AddCallback("MyColor", ColorChanged);
     }
 
     public override void SimulateOwner()
@@ -151,7 +150,7 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
     private void CheckPlayer()
     {
         Collider[] col = Physics.OverlapBox(this.laserGO.transform.position, this.laserGO.transform.localScale / 2,
-            Quaternion.identity, this.checkLayer);
+            this.laserGO.transform.rotation, this.checkLayer);
         if (col.Length > 0 && col != null)
         {
             for (int i = 0; i < col.Length; i++)
