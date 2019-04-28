@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Bolt;
 using UnityEngine;
 
@@ -12,7 +13,8 @@ public class Seed : Bolt.EntityEventListener<ISeedState>
     [SerializeField] private int myTeam;
     [SerializeField] private string groundTag = "Ground";
     private bool isLaunchPlayer = false;
-    
+    [SerializeField] private LayerMask groundLayerMask;
+
     public override void Attached()
     {
         state.SetTransforms(state.Transform, this.transform);
@@ -53,6 +55,7 @@ public class Seed : Bolt.EntityEventListener<ISeedState>
     public override void SimulateOwner()
     {
         this.transform.position = this.rigid.position;
+        CheckGround();
     }
 
     private void OnCollisionEnter(Collision col)
@@ -61,10 +64,7 @@ public class Seed : Bolt.EntityEventListener<ISeedState>
         {
             if (col.transform.tag.Contains(this.groundTag))
             {
-                Pillier p = BoltNetwork.Instantiate(BoltPrefabs.Pillier, this.transform.position, this.pillierRotate).GetComponent<Pillier>();
-                p.Init(state.MyOwner, state.MyColor);
-                this.myGuardian.AddPillierToMyList(p);
-                BoltNetwork.Destroy(this.gameObject);
+                
             }
         }
         else
@@ -73,6 +73,18 @@ public class Seed : Bolt.EntityEventListener<ISeedState>
             {
                 this.rigid.isKinematic = true;
             }
+        }
+    }
+
+    private void CheckGround()
+    {
+        bool raycast = Physics.Raycast(transform.position, Vector3.down, 0.5f, groundLayerMask);
+        if (raycast)
+        {
+            Pillier p = BoltNetwork.Instantiate(BoltPrefabs.Pillier, this.transform.position - new Vector3(0, 0.4f, 0), this.pillierRotate).GetComponent<Pillier>();
+            p.Init(state.MyOwner, state.MyColor);
+            this.myGuardian.AddPillierToMyList(p);
+            BoltNetwork.Destroy(this.gameObject);
         }
     }
 

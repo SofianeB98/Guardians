@@ -95,8 +95,8 @@ MonoBehaviour:
   laserGO: {fileID: 157}
   seedDrop: {fileID: 288}
   maxRotation: 90
-  speedRotation: 25
-  speedScalePillier: 12
+  speedRotation: 45
+  speedScalePillier: 16
   scaleMaxPillier: 4
   checkLayer:
     serializedVersion: 2

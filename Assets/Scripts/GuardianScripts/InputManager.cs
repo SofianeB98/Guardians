@@ -6,11 +6,12 @@ public class InputManager : MonoBehaviour
 {
     private enum InputState
     {
-        PC,
-        PLAYSTATION,
-        XBOX
+        PC = 0,
+        PLAYSTATION = 1,
+        XBOX = 2
     };
     [SerializeField] private InputState currentInput = InputState.PLAYSTATION;
+    private int inputCurrent = 0;
 
     private void Awake()
     {
@@ -39,6 +40,25 @@ public class InputManager : MonoBehaviour
 
     void AssignInput()
     {
+        if (PlayerPrefs.HasKey("Input"))
+        {
+            inputCurrent = PlayerPrefs.GetInt("Input");
+            switch (inputCurrent)
+            {
+                case 0:
+                    currentInput = InputState.PC;
+                    break;
+
+                case 1:
+                    currentInput = InputState.PLAYSTATION;
+                    break;
+
+                case 2:
+                    currentInput = InputState.XBOX;
+                    break;
+            }
+        }
+
         switch (currentInput)
         {
             case InputState.PC:

@@ -206,10 +206,6 @@ MonoBehaviour:
   ignoreLayerMask:
     serializedVersion: 2
     m_Bits: 4096
-  speedCamSlider: {fileID: 542}
-  xCamSlider: {fileID: 536}
-  yCamSlider: {fileID: 549}
-  optionPanel: {fileID: 269}
 --- !u!114 &502
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -290,7 +286,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   durationMeleeAttack: 0.5
-  cooldownLaunchSeed: 2
+  cooldownLaunchSeed: 1.5
   myAxe: {fileID: 506}
   seedLayerMask:
     serializedVersion: 2
@@ -298,7 +294,7 @@ MonoBehaviour:
   feetPosition: {fileID: 279}
   checkRadius: 1.25
   cameraRef: {fileID: 281}
-  forceLaunch: 20
+  forceLaunch: 100
   dirLaunch: {x: 0, y: 0, z: 0}
   myPillier: []
 --- !u!1 &163
