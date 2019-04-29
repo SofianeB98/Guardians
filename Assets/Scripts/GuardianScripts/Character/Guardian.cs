@@ -81,7 +81,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
             }
             
             state.MyColor = new Color(Random.value, Random.value, Random.value);
-            Cursor.lockState = CursorLockMode.Locked;
+            
         }
         state.AddCallback("MyColor", ColorChanged);
         state.AddCallback("GuardianName", PlayerName);

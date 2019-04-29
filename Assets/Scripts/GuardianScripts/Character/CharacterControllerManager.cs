@@ -27,7 +27,8 @@ public class CharacterControllerManager : Bolt.EntityBehaviour<IGuardianState>
 		if (this.cameraInput == null){
 			this.cameraInput = GetComponent<CameraInputDetector>();
 		}
-        
+	    Cursor.lockState = CursorLockMode.Locked;
+	    Cursor.visible = false;
 	}
 
     // Update is called once per frame

@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Bolt.Samples.Photon.Lobby;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
 {
@@ -111,8 +113,14 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
 
     private IEnumerator Deconnect()
     {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         yield return new WaitForSeconds(4f);
-        BoltNetwork.Shutdown();
+        foreach (var connect in BoltNetwork.Connections)
+        {
+            LobbyManager.s_Singleton.Disconnected(connect);
+        }
+        LobbyManager.s_Singleton.Stop();
         yield break;
     }
 
