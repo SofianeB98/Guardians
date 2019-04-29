@@ -14,7 +14,9 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
     [SerializeField] private GameObject scorePanel;
     [SerializeField] private List<GameObject> playersScore;
     [SerializeField] private GameObject prefabPlayersScore;
-    
+
+    [SerializeField] private TextMeshProUGUI winnerText;
+
     public List<Guardian> GuardiansInScene;
 
     private void Awake()
@@ -38,6 +40,17 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
         }
         else
         {
+            partyTimer = 0.0f;
+
+            if (winnerText.enabled == false)
+            {
+                winnerText.enabled = true;
+            }
+
+            winnerText.text = "Winner is " + WinGuardian().guardianName;
+
+            StartCoroutine(Deconnect());
+
             Debug.Log("Party Fini");
         }
 
@@ -62,7 +75,7 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
                     }
                     else if (texts[j].name.Contains("Score"))
                     {
-                        texts[j].text = GuardiansInScene[i].CurrentKill.ToString();
+                        texts[j].text = GuardiansInScene[i].CurrentScore.ToString();
                     }
                     else if (texts[j].name.Contains("Kill"))
                     {
@@ -94,6 +107,30 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
             }
         }
         yield break;
+    }
+
+    private IEnumerator Deconnect()
+    {
+        yield return new WaitForSeconds(4f);
+        BoltNetwork.Shutdown();
+        yield break;
+    }
+
+    private Guardian WinGuardian()
+    {
+        Guardian win = null;
+        int score = 0;
+
+        for (int i = 0; i < this.GuardiansInScene.Count; i++)
+        {
+            if (GuardiansInScene[i].CurrentScore > score)
+            {
+                win = GuardiansInScene[i];
+                score = GuardiansInScene[i].CurrentScore;
+            }
+        }
+
+        return win != null ? win : GuardiansInScene[Random.Range(0, GuardiansInScene.Count)];
     }
 
 }

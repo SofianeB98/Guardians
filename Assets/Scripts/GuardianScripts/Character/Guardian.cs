@@ -13,6 +13,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     {
         get { return currentKill; }
     }
+    public int CurrentScore { get; private set; }
     [SerializeField] private CompleteCharacterController characterController;
     [SerializeField] private LayerMask videLayerMask;
     public string guardianName { get; private set; }
@@ -374,9 +375,15 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     public override void OnEvent(UpdateScoreEvent evnt)
     {
         if (!evnt.IsMe)
+        {
             this.currentKill++;
+            this.CurrentScore += 10;
+        }
         else
-            this.currentKill--;
+        {
+            this.CurrentScore -= 5;
+        }
+            
     }
 
     private void SetupTeam(int team)
