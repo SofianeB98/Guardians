@@ -33,10 +33,10 @@ public class CharacterInputDetector : Bolt.EntityBehaviour<IGuardianState>
                     this.characterController.UpdateDirection(tmpVec);
                     if (tmpVec != Vector3.zero)
                     {
-                        if (!this.guardian.IsPreLaunchSeed)
+                        /*if (!this.guardian.IsPreLaunchSeed)
                         {
                             this.characterController.UpdateRotation(tmpVec);
-                        }
+                        }*/
                     }
                 }
                 else

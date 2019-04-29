@@ -12,6 +12,8 @@ public class NetworkCallbacks : Bolt.GlobalEventListener
 
     public static GameObject[] SpawnPointsTransforms;
 
+    public List<Guardian> GuardiansInScene;
+
     public override void SceneLoadLocalDone(string map)
     {
         SpawnPointsTransforms = GameObject.FindGameObjectsWithTag("Spawn");
@@ -19,7 +21,7 @@ public class NetworkCallbacks : Bolt.GlobalEventListener
         // randomize a position
         var spawnPosition = SpawnPointsTransforms[Random.Range(0, SpawnPointsTransforms.Length)].transform.position + Vector3.up * 2;
 
-        // instantiate cube
+        // instantiate guardian
         BoltEntity go = BoltNetwork.Instantiate(BoltPrefabs.Guardian, spawnPosition , Quaternion.identity);
         UpdateTeam();
     }

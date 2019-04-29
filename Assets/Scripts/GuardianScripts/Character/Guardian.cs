@@ -9,6 +9,10 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     [Header("General Info")]
     [SerializeField] private int myTeam = 0;
     private int currentKill = 0;
+    public int CurrentKill
+    {
+        get { return currentKill; }
+    }
     [SerializeField] private CompleteCharacterController characterController;
     [SerializeField] private LayerMask videLayerMask;
     [Header("Player Stats")]
@@ -66,7 +70,6 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         {
             state.MyColor = new Color(Random.value, Random.value, Random.value);
             Cursor.lockState = CursorLockMode.Locked;
-            //BoltNetwork.Attach(myAxe.GetComponent<BoltEntity>());
         }
         state.AddCallback("MyColor", ColorChanged);
     }
@@ -327,29 +330,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
            // return;
         }
     }
-
-    public void CheckBombSeed()
-    {
-        if (this.currentInventorySeed < this.maxSeedInInventory)
-        {
-            Collider[] col = Physics.OverlapSphere(this.feetPosition.position, 1f, this.seedLayerMask);
-
-            if (col.Length > 0)
-            {
-                for (int i = 0; i < col.Length; i++)
-                {
-                    col[i].GetComponent<Seed>().DestroyOnPickUp();
-                    this.currentInventorySeed++;
-                }
-            }
-        }
-        else
-        {
-            return;
-        }
-        
-    }
-
+    
     public void CheckVide()
     {
         if (this.currentInventorySeed < this.maxSeedInInventory)
