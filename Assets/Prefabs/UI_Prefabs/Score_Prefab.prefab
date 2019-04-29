@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Spacing: 2
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
-  m_ChildControlWidth: 1
+  m_ChildControlWidth: 0
   m_ChildControlHeight: 1
 --- !u!1 &7976445405145494053
 GameObject:
@@ -136,7 +136,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 360.4467, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7976445405145494050
 CanvasRenderer:
@@ -296,7 +296,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 356.21667, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7976445405535811561
 CanvasRenderer:
@@ -456,7 +456,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 259.33667, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7976445406134173544
 CanvasRenderer:
@@ -521,7 +521,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
-  m_textAlignment: 514
+  m_textAlignment: 516
   m_isAlignmentEnumConverted: 1
   m_characterSpacing: 0
   m_wordSpacing: 0

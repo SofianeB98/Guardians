@@ -10,6 +10,7 @@ public class MainMenuScript : MonoBehaviour
     [SerializeField] private Slider camXSpeedslider;
     [SerializeField] private Slider camYSpeedslider;
     [SerializeField] private Dropdown selectInput;
+    [SerializeField] private InputField inputFieldPlayerName;
 
     private void Awake()
     {
@@ -33,6 +34,7 @@ public class MainMenuScript : MonoBehaviour
 
     public void OnValueChanged()
     {
+        PlayerPrefs.SetString("PlayerName", this.inputFieldPlayerName.text);
         PlayerPrefs.SetFloat("SpeedCam", this.camSpeedslider.value);
         PlayerPrefs.SetFloat("XCam", this.camXSpeedslider.value);
         PlayerPrefs.SetFloat("YCam", this.camYSpeedslider.value);
@@ -42,6 +44,11 @@ public class MainMenuScript : MonoBehaviour
 
     private void LoadValue()
     {
+        if (PlayerPrefs.HasKey("PlayerName"))
+        {
+            this.inputFieldPlayerName.text = PlayerPrefs.GetString("PlayerName");
+        }
+
         if (PlayerPrefs.HasKey("SpeedCam"))
         {
             this.camSpeedslider.value = PlayerPrefs.GetFloat("SpeedCam");

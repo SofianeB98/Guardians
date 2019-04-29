@@ -707,6 +707,24 @@
             "ExtrapolationMaxFrames": 9,
             "SnapMagnitude": 10.0
           }
+        },
+        {
+          "Name": "GuardianName",
+          "Enabled": true,
+          "Expanded": true,
+          "ReplicationMode": 1,
+          "Priority": 1,
+          "PropertyType": {
+            "$type": "Bolt.Compiler.PropertyTypeString, bolt.compiler",
+            "MaxLength": 1
+          },
+          "AssetSettings": {
+            "$type": "Bolt.Compiler.PropertyStateSettings, bolt.compiler",
+            "ExtrapolationErrorTolerance": 0.25,
+            "_ExtrapolationCorrectionFrames": 6,
+            "ExtrapolationMaxFrames": 9,
+            "SnapMagnitude": 10.0
+          }
         }
       ],
       "PacketMaxBits": 512,
@@ -1842,27 +1860,6 @@
       "GlobalSenders": 3,
       "Name": "UpdateScoreEvent",
       "Guid": "2d9a1f59-ad4f-48a9-a737-7c770de53f10",
-      "Groups": []
-    },
-    {
-      "$type": "Bolt.Compiler.EventDefinition, bolt.compiler",
-      "Properties": [
-        {
-          "Name": "GuardianEntity",
-          "Enabled": true,
-          "Expanded": true,
-          "ReplicationMode": 1,
-          "Priority": 1,
-          "PropertyType": {
-            "$type": "Bolt.Compiler.PropertyTypeEntity, bolt.compiler"
-          },
-          "AssetSettings": {
-            "$type": "Bolt.Compiler.PropertyEventSettings, bolt.compiler"
-          }
-        }
-      ],
-      "Name": "InstantiateScoreEvent",
-      "Guid": "8989cb08-2683-43b6-a25b-1092a02280a3",
       "Groups": []
     },
     {

@@ -58,7 +58,7 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
                 {
                     if (texts[j].name.Contains("Name"))
                     {
-                        texts[j].text = GuardiansInScene[i].name;
+                        texts[j].text = GuardiansInScene[i].guardianName;
                     }
                     else if (texts[j].name.Contains("Score"))
                     {

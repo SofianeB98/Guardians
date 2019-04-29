@@ -15,6 +15,8 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     }
     [SerializeField] private CompleteCharacterController characterController;
     [SerializeField] private LayerMask videLayerMask;
+    public string guardianName { get; private set; }
+
     [Header("Player Stats")]
     [SerializeField] private float health = 100f;
     private float lastHealth = 100f;
@@ -68,10 +70,20 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         this.currentKill = 0;
         if (entity.IsOwner)
         {
+            if (PlayerPrefs.HasKey("PlayerName"))
+            {
+                state.GuardianName = PlayerPrefs.GetString("PlayerName");
+            }
+            else
+            {
+                state.GuardianName = "New Player";
+            }
+            
             state.MyColor = new Color(Random.value, Random.value, Random.value);
             Cursor.lockState = CursorLockMode.Locked;
         }
         state.AddCallback("MyColor", ColorChanged);
+        state.AddCallback("GuardianName", PlayerName);
     }
     
     private void Update()
@@ -381,6 +393,11 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     void ColorChanged()
     {
         GetComponent<Renderer>().material.color = state.MyColor;
+    }
+
+    void PlayerName()
+    {
+        this.guardianName = state.GuardianName;
     }
 
 }
