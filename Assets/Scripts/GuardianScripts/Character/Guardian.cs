@@ -65,6 +65,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     public bool IsPreLaunchSeed { get; private set; }
     [SerializeField] private List<Pillier> myPillier = new List<Pillier>();
     [SerializeField] private int maxPillier = 20;
+    [SerializeField] private bool destroyAllPillierwhenIDie = true;
 
     public override void Attached()
     {
@@ -252,11 +253,15 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
 
     private void Death()
     {
-        foreach (var pillier in this.myPillier)
+        if (this.destroyAllPillierwhenIDie)
         {
-            BoltNetwork.Destroy(pillier.gameObject);
+            foreach (var pillier in this.myPillier)
+            {
+                BoltNetwork.Destroy(pillier.gameObject);
+            }
+            this.myPillier = new List<Pillier>();
         }
-        this.myPillier = new List<Pillier>();
+        
         var spawnPosition = RespawnPoint();
         this.health = this.lastHealth;
         this.transform.position = spawnPosition;
