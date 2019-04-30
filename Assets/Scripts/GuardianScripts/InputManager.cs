@@ -15,31 +15,6 @@ public class InputManager : MonoBehaviour
 
     private void Awake()
     {
-        AssignInput();
-    }
-
-    private void LateUpdate()
-    {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            currentInput = InputState.PC;
-            AssignInput();
-        }
-
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            currentInput = InputState.XBOX;
-            AssignInput();
-        }
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            currentInput = InputState.PLAYSTATION;
-            AssignInput();
-        }
-    }
-
-    void AssignInput()
-    {
         if (PlayerPrefs.HasKey("Input"))
         {
             inputCurrent = PlayerPrefs.GetInt("Input");
@@ -58,7 +33,29 @@ public class InputManager : MonoBehaviour
                     break;
             }
         }
+    }
 
+    private void LateUpdate()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            currentInput = InputState.PC;
+            AssignInput();
+        }
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            currentInput = InputState.XBOX;
+            AssignInput();
+        }
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            currentInput = InputState.PLAYSTATION;
+            AssignInput();
+        }
+    }
+
+    void AssignInput()
+    {
         switch (currentInput)
         {
             case InputState.PC:

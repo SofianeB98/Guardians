@@ -27,7 +27,8 @@ public class CharacterInputDetector : Bolt.EntityBehaviour<IGuardianState>
 
             if (!this.guardian.IsStuned)
             {
-                if (this.characterController != null && (Input.GetButton(InputName.Horizontal) || Input.GetButton(InputName.Vertical)))
+                if (this.characterController != null && (Mathf.Abs(Input.GetAxis(InputName.Horizontal)) > 0.1f 
+                                                         || Mathf.Abs(Input.GetAxis(InputName.Vertical)) > 0.1f))
                 {
                     var tmpVec = new Vector3(Input.GetAxis(InputName.Horizontal), 0, Input.GetAxis(InputName.Vertical)).normalized;
                     this.characterController.UpdateDirection(tmpVec);
