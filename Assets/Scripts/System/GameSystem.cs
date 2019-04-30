@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Bolt;
 using Bolt.Samples.Photon.Lobby;
 using TMPro;
 using UnityEngine;
@@ -20,11 +21,13 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
     [SerializeField] private TextMeshProUGUI winnerText;
 
     public List<Guardian> GuardiansInScene;
+    public bool EndGame = false;
 
     private void Awake()
     {
         GameSystem.GSystem = this;
         StartCoroutine(WaitToFindGuardians());
+        EndGame = false;
     }
 
     private void Update()
@@ -43,17 +46,21 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
         else
         {
             partyTimer = 0.0f;
-
-            if (winnerText.enabled == false)
+            if (!EndGame)
             {
-                winnerText.enabled = true;
+                if (winnerText.enabled == false)
+                {
+                    winnerText.enabled = true;
+                }
+
+                winnerText.text = "Winner is " + WinGuardian().guardianName;
+
+                StartCoroutine(Deconnect());
+
+                Debug.Log("Party Fini");
+                EndGame = true;
             }
-
-            winnerText.text = "Winner is " + WinGuardian().guardianName;
-
-            StartCoroutine(Deconnect());
-
-            Debug.Log("Party Fini");
+            
         }
 
         if (Input.GetKeyDown(KeyCode.Tab))
@@ -69,21 +76,25 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
             for (int i = 0; i < playersScore.Count; i++)
             {
                 TextMeshProUGUI[] texts = playersScore[i].GetComponentsInChildren<TextMeshProUGUI>();
-                for (int j = 0; j < texts.Length; j++)
+                if (texts.Length > 0)
                 {
-                    if (texts[j].name.Contains("Name"))
+                    for (int j = 0; j < texts.Length; j++)
                     {
-                        texts[j].text = GuardiansInScene[i].guardianName;
-                    }
-                    else if (texts[j].name.Contains("Score"))
-                    {
-                        texts[j].text = GuardiansInScene[i].CurrentScore.ToString();
-                    }
-                    else if (texts[j].name.Contains("Kill"))
-                    {
-                        texts[j].text = GuardiansInScene[i].CurrentKill.ToString();
+                        if (texts[j].name.Contains("Name"))
+                        {
+                            texts[j].text = GuardiansInScene[i].guardianName;
+                        }
+                        else if (texts[j].name.Contains("Score"))
+                        {
+                            texts[j].text = GuardiansInScene[i].CurrentScore.ToString();
+                        }
+                        else if (texts[j].name.Contains("Kill"))
+                        {
+                            texts[j].text = GuardiansInScene[i].CurrentKill.ToString();
+                        }
                     }
                 }
+                
             }
         }
     }
@@ -116,11 +127,12 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         yield return new WaitForSeconds(4f);
-        foreach (var connect in BoltNetwork.Connections)
+        if (BoltNetwork.IsServer)
         {
-            LobbyManager.s_Singleton.Disconnected(connect);
+            var evnt = DisconnectEvent.Create(GlobalTargets.Everyone);
+            evnt.Send();
         }
-        LobbyManager.s_Singleton.Stop();
+        
         yield break;
     }
 

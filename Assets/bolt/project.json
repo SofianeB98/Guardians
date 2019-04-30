@@ -1836,7 +1836,8 @@
     {
       "$type": "Bolt.Compiler.EventDefinition, bolt.compiler",
       "Properties": [],
-      "Name": "NewEvent",
+      "EntitySenders": 3,
+      "Name": "DisconnectEvent",
       "Guid": "aa629d25-15d7-4058-9383-a14ee8d3ea91",
       "Groups": []
     },

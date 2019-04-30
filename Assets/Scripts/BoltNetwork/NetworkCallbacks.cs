@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Bolt.Samples.Photon.Lobby;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [BoltGlobalBehaviour("Multiplayer")] //Le script ne peut pas etre mis sur un GO mais est appeler par Bolt automatiquement.
 public class NetworkCallbacks : Bolt.GlobalEventListener
@@ -37,6 +39,16 @@ public class NetworkCallbacks : Bolt.GlobalEventListener
     public override void OnEvent(LogEvent evnt)
     {
         logMessages.Insert(0, evnt.Message);
+    }
+
+    public override void OnEvent(DisconnectEvent evnt)
+    {
+        foreach (var connect in BoltNetwork.Connections)
+        {
+            LobbyManager.s_Singleton.Disconnected(connect);
+        }
+        
+        LobbyManager.s_Singleton.Stop();
     }
 
     /*void OnGUI()

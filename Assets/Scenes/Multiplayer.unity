@@ -1327,6 +1327,7 @@ MonoBehaviour:
     type: 3}
   winnerText: {fileID: 529891907}
   GuardiansInScene: []
+  EndGame: 0
 --- !u!4 &1148599481
 Transform:
   m_ObjectHideFlags: 0
