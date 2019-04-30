@@ -136,11 +136,20 @@ public class Axe : MonoBehaviour
                     {
                         if (g != myGuardian)//&& !g.IsStuned)
                         {
-                            Vector3 dir = this.transform.position - myGuardian.transform.position;
-                            dir = this.BackToBucheron ? dir * -1 : dir;
-                            dir.y = 0;
-                            g.SetStun(dir, forcePush);
-                            objetFind = true;
+                            if (!g.IsStuned)
+                            {
+                                Vector3 dir = myGuardian.transform.position - this.transform.position;
+
+                                if (!this.BackToBucheron)
+                                {
+                                    dir = -dir;
+                                }
+
+                                dir.y = 0;
+                                g.SetStun(dir.normalized, forcePush);
+                                objetFind = true;
+                            }
+                            
                         }
                     }
                     else
@@ -189,7 +198,6 @@ public class Axe : MonoBehaviour
         yield break;
     }
     
-
     public void isCanLaunchAxe(bool canLaunch)
     {
         this.bucheronRotation = this.myGuardian.CameraRef.rotation;

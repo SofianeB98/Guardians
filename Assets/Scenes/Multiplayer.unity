@@ -2019,7 +2019,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91170a2484a32ea4e90eb0ae0de8613f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  partyTimer: 20
+  partyTimer: 180
   timerText: {fileID: 1767789090}
   scorePanel: {fileID: 910760189}
   playersScore: []

@@ -64,6 +64,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     [SerializeField] private Vector3 dirLaunch;
     public bool IsPreLaunchSeed { get; private set; }
     [SerializeField] private List<Pillier> myPillier = new List<Pillier>();
+    [SerializeField] private int maxPillier = 20;
 
     public override void Attached()
     {
@@ -306,6 +307,11 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     public void AddPillierToMyList(Pillier pillierToAdd)
     {
         this.myPillier.Add(pillierToAdd);
+        if (this.myPillier.Count > this.maxPillier)
+        {
+            BoltNetwork.Destroy(this.myPillier[0].gameObject);
+            this.myPillier.RemoveAt(0);
+        }
     }
 
     #endregion
