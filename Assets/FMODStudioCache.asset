@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EditorBanks:
   - {fileID: 114948850115042040}
-  - {fileID: 114052357140622630}
+  - {fileID: 114395979743891986}
   EditorEvents:
   - {fileID: 114906243743004130}
   - {fileID: 114248053245076026}
@@ -32,7 +32,7 @@ MonoBehaviour:
   - {fileID: 114052357140622630}
   StringsBanks:
   - {fileID: 114948850115042040}
-  stringsBankWriteTime: 636923162216599145
+  stringsBankWriteTime: 636923137178742062
   cacheVersion: 3
 --- !u!114 &114013576806595744
 MonoBehaviour:
@@ -168,7 +168,7 @@ MonoBehaviour:
   FileSizes:
   - Name: Desktop
     Value: 232032
-  Exists: 1
+  Exists: 0
 --- !u!114 &114058208846237678
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -540,7 +540,7 @@ MonoBehaviour:
   Path: "event:/Feedbacks Objets/Collision de balle (d\xE9cor)"
   guid: 395cd959792132449e2cc9570d0f7121
   Banks:
-  - {fileID: 114052357140622630}
+  - {fileID: 114395979743891986}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -809,7 +809,7 @@ MonoBehaviour:
   Path: event:/Feedbacks Joueur Communs/Saut
   guid: b55ec8fa85864e4c88d006dbf7dbfe74
   Banks:
-  - {fileID: 114052357140622630}
+  - {fileID: 114395979743891986}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -1065,6 +1065,26 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 297
+--- !u!114 &114395979743891986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: D:\Cours\3GDA\Final Act\Guardians\Assets\Resources\Audio\FMOD Guardian\Build\Desktop\Master
+    Bank.bank
+  lastModified: 636923137178682222
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 232032
+  Exists: 1
 --- !u!114 &114400209687187244
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1417,7 +1437,7 @@ MonoBehaviour:
   Path: "event:/Feedbacks Joueur Personnels/Balle r\xE9cup\xE9r\xE9e"
   guid: dd98e806308f364cae6619840315c394
   Banks:
-  - {fileID: 114052357140622630}
+  - {fileID: 114395979743891986}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1462,7 +1482,7 @@ MonoBehaviour:
   Path: "event:/Feedbacks Objets/Joueur \xE9limin\xE9 (ennemi)"
   guid: 49f63088c1a3fc469a29a86f5533ed12
   Banks:
-  - {fileID: 114052357140622630}
+  - {fileID: 114395979743891986}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -1621,7 +1641,7 @@ MonoBehaviour:
   Path: event:/Feedbacks Objets/Collision de balle (ennemi)
   guid: e3b4b2a04acaea4a9a231c609c441eda
   Banks:
-  - {fileID: 114052357140622630}
+  - {fileID: 114395979743891986}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -1690,7 +1710,7 @@ MonoBehaviour:
   Path: event:/Feedbacks Objets/Construction de pilier
   guid: b490196450efd7479b4f38fa44a79a07
   Banks:
-  - {fileID: 114052357140622630}
+  - {fileID: 114395979743891986}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -1782,7 +1802,7 @@ MonoBehaviour:
   Path: "event:/Feedbacks Joueur Personnels/Joueur \xE9limin\xE9 (soi)"
   guid: 1073bd87f9d1ef43aaa2e4e8339141d4
   Banks:
-  - {fileID: 114052357140622630}
+  - {fileID: 114395979743891986}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1847,7 +1867,7 @@ MonoBehaviour:
   Path: event:/Feedbacks Joueur Personnels/Collision de balle (soi)
   guid: b82d68aca143b840bf62a3ce8476c28e
   Banks:
-  - {fileID: 114052357140622630}
+  - {fileID: 114395979743891986}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1976,7 +1996,7 @@ MonoBehaviour:
   Path: event:/Feedbacks Joueur Communs/Lancer de graine-pilier
   guid: b7a3c5373bc2164d830d29de582a1b11
   Banks:
-  - {fileID: 114052357140622630}
+  - {fileID: 114395979743891986}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -2202,7 +2222,7 @@ MonoBehaviour:
   Path: event:/Feedbacks Joueur Communs/Lancer de balle
   guid: 6f87e6043d105a46912fcc2439627fba
   Banks:
-  - {fileID: 114052357140622630}
+  - {fileID: 114395979743891986}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -2294,7 +2314,7 @@ MonoBehaviour:
   Path: event:/Feedbacks Objets/Rayon
   guid: 1f63e19bb9a79b42b7308f4ae07af9d9
   Banks:
-  - {fileID: 114052357140622630}
+  - {fileID: 114395979743891986}
   IsStream: 1
   Is3D: 1
   IsOneShot: 0
@@ -2402,7 +2422,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Path: Assets\Resources\Audio\FMOD Guardian\Build\Desktop\Master Bank.strings.bank
-  lastModified: 636923162216599145
+  lastModified: 636923137178742062
   LoadResult: 0
   FileSizes:
   - Name: Desktop
