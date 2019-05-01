@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
-public class CompleteCharacterController : Bolt.EntityBehaviour<IGuardianState>
+public class CompleteCharacterController : Bolt.EntityEventListener<IGuardianState>
 {
 
 	[SerializeField] private CharacterController characterController;
@@ -43,6 +43,9 @@ public class CompleteCharacterController : Bolt.EntityBehaviour<IGuardianState>
     [FMODUnity.EventRef]
     public string colBalleMeEvent;
     public FMOD.Studio.EventInstance colBalleMe;
+    [FMODUnity.EventRef]
+    [SerializeField] private string launchSeedAudioEvent = "";
+    [SerializeField] private FMOD.Studio.EventInstance launchSeedAudio;
 
     // Use this for initialization
     void Awake () {
@@ -55,6 +58,8 @@ public class CompleteCharacterController : Bolt.EntityBehaviour<IGuardianState>
 
         sautAudio = FMODUnity.RuntimeManager.CreateInstance(sautAudioEvent);
         colBalleMe = FMODUnity.RuntimeManager.CreateInstance(colBalleMeEvent);
+
+        launchSeedAudio = FMODUnity.RuntimeManager.CreateInstance(launchSeedAudioEvent);
     }
 
     public override void Attached()
@@ -163,9 +168,11 @@ public class CompleteCharacterController : Bolt.EntityBehaviour<IGuardianState>
 		    this.doubleJumping = false;
 			this.jumpTimer = 0.0f;
 
-		    sautAudio.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(transform.position));
-		    sautAudio.start();
-        }
+		    var evnt = AudioStartEvent.Create(entity);
+		    evnt.Position = transform.position;
+		    evnt.AudioID = 0;
+            evnt.Send();
+		}
 	}
 
     public void UpdateDoubleJump()
@@ -176,8 +183,28 @@ public class CompleteCharacterController : Bolt.EntityBehaviour<IGuardianState>
             this.doubleJumping = true;
             this.jumpTimer = 0.0f;
 
-            sautAudio.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(transform.position));
-            sautAudio.start();
+            var evnt = AudioStartEvent.Create(entity);
+            evnt.Position = transform.position;
+            evnt.AudioID = 0;
+            evnt.Send();
+        }
+    }
+
+    public override void OnEvent(AudioStartEvent evnt)
+    {
+        switch (evnt.AudioID)
+        {
+            case 0:
+                sautAudio.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(evnt.Position));
+                sautAudio.start();
+                break;
+
+            case 1:
+                /////Son
+                launchSeedAudio.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(transform.position));
+                launchSeedAudio.start();
+                /////Son
+                break;
         }
     }
 

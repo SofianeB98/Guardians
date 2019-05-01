@@ -119,7 +119,10 @@ public class CharacterInputDetector : Bolt.EntityBehaviour<IGuardianState>
 
             }
         }
-       
+	    else
+	    {
+	        this.characterController.UpdateDirection(Vector3.zero);
+	    }
 
     }
 }

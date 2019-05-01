@@ -14,24 +14,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EditorBanks:
   - {fileID: 114948850115042040}
-  - {fileID: 114716097960646106}
+  - {fileID: 114052357140622630}
   EditorEvents:
   - {fileID: 114906243743004130}
   - {fileID: 114248053245076026}
   - {fileID: 114533469378502028}
   - {fileID: 114621156722768112}
   - {fileID: 114617704994533510}
-  - {fileID: 114260518053221670}
-  - {fileID: 114139663738015740}
-  - {fileID: 114406195059049802}
-  - {fileID: 114032415938481404}
-  - {fileID: 114141775733614090}
-  - {fileID: 114489292253639984}
+  - {fileID: 114638604767585240}
+  - {fileID: 114856401803397796}
+  - {fileID: 114303118853386420}
+  - {fileID: 114758416859111628}
+  - {fileID: 114671951919071358}
+  - {fileID: 114528743717310382}
   MasterBanks:
   - {fileID: 114716097960646106}
+  - {fileID: 114052357140622630}
   StringsBanks:
   - {fileID: 114948850115042040}
-  stringsBankWriteTime: 636923137178742062
+  stringsBankWriteTime: 636923162216599145
   cacheVersion: 3
 --- !u!114 &114013576806595744
 MonoBehaviour:
@@ -148,6 +149,26 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 25
   Length: 400
+--- !u!114 &114052357140622630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: C:\Users\sofia\Desktop\Cours\3. Troisieme Annee\0. Projet Annuel\Projet_Unity\Multi_Project\Bolt\Guardians\Assets\Resources\Audio\FMOD
+    Guardian\Build\Desktop\Master Bank.bank
+  lastModified: 636923162216539191
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 232032
+  Exists: 1
 --- !u!114 &114058208846237678
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -233,6 +254,28 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1054
+--- !u!114 &114124146983619412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: "event:/Feedbacks Joueur/Balle r\xE9cup\xE9r\xE9e"
+  guid: dd98e806308f364cae6619840315c394
+  Banks: []
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 225
 --- !u!114 &114139663738015740
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -497,7 +540,7 @@ MonoBehaviour:
   Path: "event:/Feedbacks Objets/Collision de balle (d\xE9cor)"
   guid: 395cd959792132449e2cc9570d0f7121
   Banks:
-  - {fileID: 114716097960646106}
+  - {fileID: 114052357140622630}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -751,6 +794,29 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 400
+--- !u!114 &114303118853386420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Feedbacks Joueur Communs/Saut
+  guid: b55ec8fa85864e4c88d006dbf7dbfe74
+  Banks:
+  - {fileID: 114052357140622630}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 40
+  Length: 297
 --- !u!114 &114306197352273908
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1336,6 +1402,29 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 195
+--- !u!114 &114528743717310382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: "event:/Feedbacks Joueur Personnels/Balle r\xE9cup\xE9r\xE9e"
+  guid: dd98e806308f364cae6619840315c394
+  Banks:
+  - {fileID: 114052357140622630}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 225
 --- !u!114 &114530816604888104
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1373,7 +1462,7 @@ MonoBehaviour:
   Path: "event:/Feedbacks Objets/Joueur \xE9limin\xE9 (ennemi)"
   guid: 49f63088c1a3fc469a29a86f5533ed12
   Banks:
-  - {fileID: 114716097960646106}
+  - {fileID: 114052357140622630}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -1427,6 +1516,28 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 297
+--- !u!114 &114574679349598440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Feedbacks Joueur/Lancer de graine-pilier
+  guid: b7a3c5373bc2164d830d29de582a1b11
+  Banks: []
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 184
 --- !u!114 &114575276492632864
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1473,6 +1584,28 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 184
+--- !u!114 &114603482045381622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Feedbacks Joueur/Lancer de balle
+  guid: 6f87e6043d105a46912fcc2439627fba
+  Banks: []
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 400
 --- !u!114 &114617704994533510
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1488,7 +1621,7 @@ MonoBehaviour:
   Path: event:/Feedbacks Objets/Collision de balle (ennemi)
   guid: e3b4b2a04acaea4a9a231c609c441eda
   Banks:
-  - {fileID: 114716097960646106}
+  - {fileID: 114052357140622630}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -1557,7 +1690,7 @@ MonoBehaviour:
   Path: event:/Feedbacks Objets/Construction de pilier
   guid: b490196450efd7479b4f38fa44a79a07
   Banks:
-  - {fileID: 114716097960646106}
+  - {fileID: 114052357140622630}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -1634,6 +1767,29 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1054
+--- !u!114 &114638604767585240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: "event:/Feedbacks Joueur Personnels/Joueur \xE9limin\xE9 (soi)"
+  guid: 1073bd87f9d1ef43aaa2e4e8339141d4
+  Banks:
+  - {fileID: 114052357140622630}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 1064
 --- !u!114 &114654229447998058
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1675,6 +1831,29 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
+  Length: 265
+--- !u!114 &114671951919071358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Feedbacks Joueur Personnels/Collision de balle (soi)
+  guid: b82d68aca143b840bf62a3ce8476c28e
+  Banks:
+  - {fileID: 114052357140622630}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
   Length: 265
 --- !u!114 &114691351126237506
 MonoBehaviour:
@@ -1761,7 +1940,7 @@ MonoBehaviour:
   FileSizes:
   - Name: Desktop
     Value: 232032
-  Exists: 1
+  Exists: 0
 --- !u!114 &114728207336602602
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1782,6 +1961,29 @@ MonoBehaviour:
   - Name: Desktop
     Value: 232832
   Exists: 1
+--- !u!114 &114758416859111628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Feedbacks Joueur Communs/Lancer de graine-pilier
+  guid: b7a3c5373bc2164d830d29de582a1b11
+  Banks:
+  - {fileID: 114052357140622630}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 25
+  Length: 184
 --- !u!114 &114761977206183780
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1851,6 +2053,50 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 195
+--- !u!114 &114795612655807128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Feedbacks Joueur/Saut
+  guid: b55ec8fa85864e4c88d006dbf7dbfe74
+  Banks: []
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 297
+--- !u!114 &114807240621462776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Feedbacks Joueur/Collision de balle (soi)
+  guid: b82d68aca143b840bf62a3ce8476c28e
+  Banks: []
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 265
 --- !u!114 &114828784695825668
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1941,6 +2187,29 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 184
+--- !u!114 &114856401803397796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Feedbacks Joueur Communs/Lancer de balle
+  guid: 6f87e6043d105a46912fcc2439627fba
+  Banks:
+  - {fileID: 114052357140622630}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 25
+  Length: 400
 --- !u!114 &114857541253876334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2025,7 +2294,7 @@ MonoBehaviour:
   Path: event:/Feedbacks Objets/Rayon
   guid: 1f63e19bb9a79b42b7308f4ae07af9d9
   Banks:
-  - {fileID: 114716097960646106}
+  - {fileID: 114052357140622630}
   IsStream: 1
   Is3D: 1
   IsOneShot: 0
@@ -2098,6 +2367,28 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 320
+--- !u!114 &114915289971204926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: "event:/Feedbacks Joueur/Joueur \xE9limin\xE9 (soi)"
+  guid: 1073bd87f9d1ef43aaa2e4e8339141d4
+  Banks: []
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 1064
 --- !u!114 &114948850115042040
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2111,7 +2402,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Path: Assets\Resources\Audio\FMOD Guardian\Build\Desktop\Master Bank.strings.bank
-  lastModified: 636923137178742062
+  lastModified: 636923162216599145
   LoadResult: 0
   FileSizes:
   - Name: Desktop

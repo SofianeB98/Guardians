@@ -19,6 +19,7 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
     [SerializeField] private GameObject prefabPlayersScore;
 
     [SerializeField] private TextMeshProUGUI winnerText;
+    [SerializeField] private GameObject winnerPanel;
 
     public List<Guardian> GuardiansInScene;
     public bool EndGame = false;
@@ -37,20 +38,26 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
             AssignScore();
         }
         
-        timerText.text = string.Format("{0:0}:{1:00}", Mathf.Floor(partyTimer / 60), partyTimer % 60);
+        timerText.text = string.Format("{0:0}:{1:00}", Mathf.Floor(partyTimer / 60), partyTimer % 60 > 59 ? 59 : partyTimer % 60);
 
         if (partyTimer > 0.0f)
         {
             partyTimer -= Time.deltaTime;
+
+            if (Input.GetKeyDown(KeyCode.Tab))
+            {
+                this.scorePanel.SetActive(!this.scorePanel.activeSelf);
+            }
         }
         else
         {
             partyTimer = 0.0f;
             if (!EndGame)
             {
-                if (winnerText.enabled == false)
+                if (winnerPanel.activeSelf == false)
                 {
-                    winnerText.enabled = true;
+                    winnerPanel.SetActive(true);
+                    this.scorePanel.SetActive(true);
                 }
 
                 winnerText.text = "Winner is " + WinGuardian().guardianName;
@@ -63,10 +70,7 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
             
         }
 
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            this.scorePanel.SetActive(!this.scorePanel.activeSelf);
-        }
+        
     }
 
     private void AssignScore()

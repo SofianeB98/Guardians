@@ -12,7 +12,6 @@ public class AxeLaunch : Bolt.EntityEventListener<IAxeState>
 
     [Header("Gestion Lancer De Hache")]
     [SerializeField] private float axeRadiusLaunchCheck = 1f;
-    [SerializeField] private float axeDistanceLaunchCheck = 1f;
     [SerializeField] private Transform pointOneAxeLaunch;
     [SerializeField] private Transform pointTwoAxeLaunch;
 

@@ -77,9 +77,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     [FMODUnity.EventRef]
     [SerializeField] private string launchAxeAudioEvent = "";
     [SerializeField] private FMOD.Studio.EventInstance launchAxeAudio;
-    [FMODUnity.EventRef]
-    [SerializeField] private string launchSeedAudioEvent = "";
-    [SerializeField] private FMOD.Studio.EventInstance launchSeedAudio;
+    
     [FMODUnity.EventRef]
     [SerializeField] private string axeIsBackEvent = "";
     [SerializeField] private FMOD.Studio.EventInstance axeIsBack;
@@ -108,13 +106,12 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         deathAudioMe = FMODUnity.RuntimeManager.CreateInstance(deathAudioMeEvent);
         deathAudioOther = FMODUnity.RuntimeManager.CreateInstance(deathAudioOtherEvent);
         launchAxeAudio = FMODUnity.RuntimeManager.CreateInstance(launchAxeAudioEvent);
-        launchSeedAudio = FMODUnity.RuntimeManager.CreateInstance(launchSeedAudioEvent);
         axeIsBack = FMODUnity.RuntimeManager.CreateInstance(axeIsBackEvent);
     }
     
     private void Update()
     {
-        this.killText.text = "My Score : " + this.currentKill.ToString();
+        this.killText.text = "Kill : " + this.currentKill.ToString();
         if (this.currentStunTime < Time.time)
         {
             this.IsStuned = false;
@@ -196,6 +193,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     {
         var lnch = LaunchAxeEvent.Create(entity);
         lnch.Launch = launch;
+        lnch.Orientation = this.cameraRef.rotation;
         lnch.Send();
     }
 
@@ -221,7 +219,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
             launchAxeAudio.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(transform.position));
             launchAxeAudio.start();
             /////Son
-            this.myAxe.isCanLaunchAxe(!evnt.Launch);
+            this.myAxe.isCanLaunchAxe(!evnt.Launch, evnt.Orientation);
         }
         else
         {
@@ -398,10 +396,10 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
             s.Init(this.myTeam, this, this.transform.rotation, true, entity, state.MyColor);
             s.InitVelocity(this.forceLaunch, this.dirLaunch);
 
-            /////Son
-            launchSeedAudio.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(transform.position));
-            launchSeedAudio.start();
-            /////Son
+            var evnt = AudioStartEvent.Create(entity);
+            evnt.Position = transform.position;
+            evnt.AudioID = 1;
+            evnt.Send();
 
             //this.currentInventorySeed--;
         }

@@ -12,7 +12,6 @@ public class Axe : MonoBehaviour
 
     [Header("Gestion Lancer De Hache")]
     [SerializeField] private float axeRadiusLaunchCheck = 1f;
-    [SerializeField] private float axeDistanceLaunchCheck = 1f;
     [SerializeField] private Transform pointOneAxeLaunch;
     [SerializeField] private Transform pointTwoAxeLaunch;
 
@@ -41,7 +40,7 @@ public class Axe : MonoBehaviour
     private Vector3 axeInitPos;
     private Quaternion axeInitRotate;
     [SerializeField] private LayerMask ignoreLayerMask;
-    private Quaternion bucheronRotation;
+    private Quaternion axeOrientation;
     [SerializeField] private float forcePush = 10f;
 
     [Header("Audio")]
@@ -100,7 +99,7 @@ public class Axe : MonoBehaviour
             
             Vector3 forwardVector = new Vector3(0,0,forwardVelocity * this.currentAxeReachForwardDistance / Time.deltaTime);
 
-            Vector3 direction = bucheronRotation * forwardVector;//(sideVector + forwardVector);
+            Vector3 direction = axeOrientation * forwardVector;//(sideVector + forwardVector);
             
             this.rigid.velocity = direction;
             this.transform.position = rigid.position;
@@ -116,7 +115,7 @@ public class Axe : MonoBehaviour
 
             if (Vector3.Distance(this.transform.position, myGuardian.transform.position) <= 1f)
             {
-                this.isCanLaunchAxe(true);
+                this.isCanLaunchAxe(true, Quaternion.identity);
                 this.backToBucheronPos = false;
                 
             }
@@ -131,7 +130,7 @@ public class Axe : MonoBehaviour
             this.axeLaunchTimer = 0f;
         }
     }
-
+    
     IEnumerator CheckObject()
     {
         yield return new WaitForSeconds(0.1f);
@@ -142,6 +141,7 @@ public class Axe : MonoBehaviour
             bool objetFind = false;
             yield return new WaitForEndOfFrame();
             Collider[] col = Physics.OverlapCapsule(this.pointOneAxeLaunch.position, this.pointTwoAxeLaunch.position, axeRadiusLaunchCheck, ~ignoreLayerMask);
+            Vector3 dir = myGuardian.transform.position - this.transform.position;
             if (col != null && check)
             {
                 for (int i = 0; i < col.Length; i++)
@@ -153,8 +153,6 @@ public class Axe : MonoBehaviour
                         {
                             if (!g.IsStuned)
                             {
-                                Vector3 dir = myGuardian.transform.position - this.transform.position;
-
                                 if (!this.BackToBucheron)
                                 {
                                     dir = -dir;
@@ -167,6 +165,7 @@ public class Axe : MonoBehaviour
                                 collisionPlayer.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(transform.position));
                                 collisionPlayer.start();
                                 /////Son
+                                check = false;
                             }
 
                         }
@@ -178,11 +177,11 @@ public class Axe : MonoBehaviour
                         collisionDecor.start();
                         /////Son
                         objetFind = true;
+                        check = false;
                     }
                 }
-
-                if(objetFind) ActiveBackToBucheron();
             }
+            if (objetFind) ActiveBackToBucheron();
         }
         yield break;
     }
@@ -221,9 +220,9 @@ public class Axe : MonoBehaviour
         yield break;
     }
     
-    public void isCanLaunchAxe(bool canLaunch)
+    public void isCanLaunchAxe(bool canLaunch, Quaternion orientation)
     {
-        this.bucheronRotation = this.myGuardian.CameraRef.rotation;
+        this.axeOrientation = orientation;
         this.canLauchAxe = canLaunch;
 
         if (!this.canLauchAxe)
