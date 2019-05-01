@@ -23,7 +23,7 @@ public class CharacterInputDetector : Bolt.EntityBehaviour<IGuardianState>
 	{
 	    if (!GameSystem.GSystem.EndGame)
 	    {
-            if (entity.IsOwner)
+            if (entity.IsOwner && !this.guardian.IsDie)
             {
                 //this.guardian.CheckBombSeed();
                 this.guardian.CheckVide();
@@ -117,6 +117,11 @@ public class CharacterInputDetector : Bolt.EntityBehaviour<IGuardianState>
 
                 #endregion
 
+            }
+
+	        if (this.guardian.IsDie)
+	        {
+	            this.characterController.UpdateDirection(Vector3.zero);
             }
         }
 	    else

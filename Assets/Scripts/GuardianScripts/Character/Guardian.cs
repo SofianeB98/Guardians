@@ -17,6 +17,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     [SerializeField] private CompleteCharacterController characterController;
     [SerializeField] private LayerMask videLayerMask;
     public string guardianName { get; private set; }
+    Color lastColor = Color.black;
 
     [Header("Player Stats")]
     [SerializeField] private float health = 100f;
@@ -30,6 +31,9 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     [SerializeField] private float invinsibleTime = 2f;
     private float currentInvinsibleTime = 0f;
     [SerializeField] private TextMeshProUGUI killText;
+    public bool IsDie { get; private set; }
+    [SerializeField] private float dietime = 5f;
+    private float currentDietime = 0f;
 
     [Header("Melee Hit Info")]
     [SerializeField] private float detectionHitRadius = 1f;
@@ -98,7 +102,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
             }
             
             state.MyColor = new Color(Random.value, Random.value, Random.value);
-            
+            lastColor = state.MyColor;
         }
         state.AddCallback("MyColor", ColorChanged);
         state.AddCallback("GuardianName", PlayerName);
@@ -240,6 +244,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     {
         var flash = TakeDamageEvent.Create(entity);
         flash.GetDamage = getDamage;
+        flash.Respawn = false;
         flash.Send();
         return;
     }
@@ -262,15 +267,36 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
 
     public override void OnEvent(TakeDamageEvent evnt)
     {
-        this.health -= evnt.GetDamage;
-        this.IsInvinsible = true;
-        this.currentInvinsibleTime = Time.time + invinsibleTime;
-        if (this.health <= 0)
+        if (!evnt.Respawn)
         {
-            Debug.Log("Death");
-            Death();
-            
+            this.health -= evnt.GetDamage;
+            this.IsInvinsible = true;
+            this.currentInvinsibleTime = Time.time + invinsibleTime;
+            if (this.health <= 0)
+            {
+                Debug.Log("Death");
+
+                if (entity.IsOwner)
+                {
+                    deathAudioMe.start();
+                }
+                else
+                {
+                    deathAudioOther.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(transform.position));
+                    deathAudioOther.start();
+                }
+
+                IsDie = true;
+                this.currentDietime = Time.time + this.dietime;
+                StartCoroutine(Death());
+
+            }
         }
+        else
+        {
+            Respawn();
+        }
+        
     }
 
     public override void OnEvent(SetStunEvent evnt)
@@ -290,7 +316,44 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         this.currentCooldownLaunchSeed = Time.time + evnt.Durantion;
     }
 
-    private void Death()
+    private void Respawn()
+    {
+        if (this.destroyAllPillierwhenIDie)
+        {
+            foreach (var pillier in this.myPillier)
+            {
+                BoltNetwork.Destroy(pillier.gameObject);
+            }
+            this.myPillier = new List<Pillier>();
+        }
+
+        state.MyColor = lastColor;
+
+        var spawnPosition = RespawnPoint();
+
+        this.health = this.lastHealth;
+
+        this.transform.position = spawnPosition;
+
+        IsDie = false;
+    }
+
+    IEnumerator Death()
+    {
+        yield return new WaitForEndOfFrame();
+        while (Time.time < this.currentDietime)
+        {
+            yield return new WaitForEndOfFrame();
+            state.MyColor = Color.Lerp(state.MyColor, Color.black, Time.deltaTime * this.dietime);
+        }
+
+        var flash = TakeDamageEvent.Create(entity);
+        flash.GetDamage = 0;
+        flash.Respawn = true;
+        flash.Send();
+    }
+
+   /*private void Death()
     {
         if (this.destroyAllPillierwhenIDie)
         {
@@ -314,7 +377,8 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         var spawnPosition = RespawnPoint();
         this.health = this.lastHealth;
         this.transform.position = spawnPosition;
-    }
+        IsDie = false;
+    }*/
 
     private Vector3 RespawnPoint()
     {

@@ -151,7 +151,7 @@ public class Axe : MonoBehaviour
                     {
                         if (g != myGuardian)//&& !g.IsStuned)
                         {
-                            if (!g.IsStuned)
+                            if (!g.IsStuned && !g.IsDie && !g.IsInvinsible)
                             {
                                 if (!this.BackToBucheron)
                                 {

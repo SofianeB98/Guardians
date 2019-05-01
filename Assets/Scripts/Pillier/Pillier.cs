@@ -158,7 +158,7 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
                 Guardian g = col[i].GetComponent<Guardian>();
                 if (g != null)
                 {
-                    if (!g.IsInvinsible)
+                    if (!g.IsInvinsible && !g.IsDie)
                     {
                         g.TakeDamage(this.damage);
                         Debug.Log("Gardian toucher");

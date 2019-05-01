@@ -283,6 +283,7 @@ MonoBehaviour:
   stunTime: 0.5
   invinsibleTime: 2
   killText: {fileID: 615}
+  dietime: 2
   detectionHitRadius: 0.5
   meleeHitPosition: {fileID: 342}
   meleeHitCheckLayerMask:
