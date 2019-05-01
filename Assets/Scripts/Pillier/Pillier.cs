@@ -160,6 +160,8 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
                 {
                     if (!g.IsInvinsible && !g.IsDie)
                     {
+                        string s = myOwner.GetComponent<Guardian>().guardianName + " kills " + g.guardianName;
+
                         g.TakeDamage(this.damage);
                         Debug.Log("Gardian toucher");
                         if (g != myOwner.GetComponent<Guardian>())
@@ -169,7 +171,14 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
                         else
                         {
                             myOwner.GetComponent<Guardian>().UpdateScore(true);
+                            s = myOwner.GetComponent<Guardian>().guardianName + " kills himself !";
                         }
+
+                        
+                        var evnt = KillFeedEvent.Create(GameSystem.GSystem.entity);
+                        evnt.Message = s;
+                        evnt.RemoveFeed = false;
+                        evnt.Send();
                     }
 
                     return;

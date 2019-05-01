@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 554}
   - component: {fileID: 446}
   - component: {fileID: 553}
-  - component: {fileID: 623}
+  - component: {fileID: 619}
   m_Layer: 10
   m_Name: Pillier
   m_TagString: Untagged
@@ -103,7 +103,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   damage: 1
---- !u!114 &623
+--- !u!114 &619
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -138,7 +138,7 @@ GameObject:
   - component: {fileID: 429}
   - component: {fileID: 413}
   - component: {fileID: 447}
-  - component: {fileID: 624}
+  - component: {fileID: 620}
   m_Layer: 0
   m_Name: Laser
   m_TagString: Untagged
@@ -218,7 +218,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &624
+--- !u!114 &620
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

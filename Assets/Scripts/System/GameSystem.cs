@@ -10,16 +10,24 @@ using UnityEngine.SceneManagement;
 public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
 {
     public static GameSystem GSystem;
-
+    [Header("Timer Party")]
     [SerializeField] private float partyTimer = 180.0f;
     [SerializeField] private TextMeshProUGUI timerText;
 
+    [Header("Score")]
     [SerializeField] private GameObject scorePanel;
     [SerializeField] private List<GameObject> playersScore;
     [SerializeField] private GameObject prefabPlayersScore;
 
+    [Header("Winner")]
     [SerializeField] private TextMeshProUGUI winnerText;
     [SerializeField] private GameObject winnerPanel;
+
+    [Header("Kill Feed")]
+    [SerializeField] private List<GameObject> killFeedList = new List<GameObject>();
+    [SerializeField] private int maxKillFeedPref = 5;
+    [SerializeField] private GameObject killFeedPanel;
+    [SerializeField] private GameObject killFeedPrefab;
 
     public List<Guardian> GuardiansInScene;
     public bool EndGame = false;
@@ -110,7 +118,30 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
         
         
     }
+
+    public void AddKillFeed(string text)
+    {
+        if (killFeedList.Count > maxKillFeedPref - 1 )
+        {
+            GameObject lastFeed = killFeedList[maxKillFeedPref - 1].gameObject;
+            killFeedList.RemoveAt(maxKillFeedPref - 1);
+            Destroy(lastFeed);
+        }
+
+        GameObject go = Instantiate(killFeedPrefab, killFeedPanel.transform);
+        go.GetComponentInChildren<TextMeshProUGUI>().text = text;
+
+        killFeedList.Add(go);
+    }
     
+    public override void OnEvent(KillFeedEvent evnt)
+    {
+        if (!evnt.RemoveFeed)
+        {
+            AddKillFeed(evnt.Message);
+        }
+    }
+
     private IEnumerator WaitToFindGuardians()
     {
         yield return new WaitForSeconds(2f);

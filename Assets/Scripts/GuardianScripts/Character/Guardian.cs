@@ -327,7 +327,11 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
             this.myPillier = new List<Pillier>();
         }
 
-        state.MyColor = lastColor;
+        if (entity.IsOwner)
+        {
+            state.MyColor = lastColor;
+        }
+        
 
         var spawnPosition = RespawnPoint();
 
@@ -344,7 +348,11 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         while (Time.time < this.currentDietime)
         {
             yield return new WaitForEndOfFrame();
-            state.MyColor = Color.Lerp(state.MyColor, Color.black, Time.deltaTime * this.dietime);
+            if (entity.IsOwner)
+            {
+                state.MyColor = Color.Lerp(state.MyColor, Color.black, Time.deltaTime * this.dietime);
+            }
+            
         }
 
         var flash = TakeDamageEvent.Create(entity);
