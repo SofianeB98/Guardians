@@ -145,7 +145,14 @@
     </object>
     <object class="MixerBusPanner" id="{2f15316b-1ec2-4d12-a0b5-5ff1b30acc8d}"/>
     <object class="MixerBusFader" id="{80722ec1-24ad-4dc0-af8c-3a15e2396dc6}"/>
-    <object class="SpatialiserEffect" id="{c4a697cc-f5f4-4013-9373-290aa550e0c5}"/>
+    <object class="SpatialiserEffect" id="{c4a697cc-f5f4-4013-9373-290aa550e0c5}">
+        <property name="maximumDistance">
+            <value>40</value>
+        </property>
+        <property name="soundSize">
+            <value>4</value>
+        </property>
+    </object>
     <object class="MixerBusFader" id="{06fb0087-0168-4432-98cf-e96a477eb594}"/>
     <object class="HighpassEffect" id="{d386224e-51c6-4c58-978d-a0aada97450c}">
         <property name="cutoff">
