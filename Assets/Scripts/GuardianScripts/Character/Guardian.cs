@@ -67,6 +67,23 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     [SerializeField] private int maxPillier = 20;
     [SerializeField] private bool destroyAllPillierwhenIDie = true;
 
+    [Header("Audio")]
+    [FMODUnity.EventRef]
+    [SerializeField] private string deathAudioMeEvent = "";
+    [SerializeField] private FMOD.Studio.EventInstance deathAudioMe;
+    [FMODUnity.EventRef]
+    [SerializeField] private string deathAudioOtherEvent = "";
+    [SerializeField] private FMOD.Studio.EventInstance deathAudioOther;
+    [FMODUnity.EventRef]
+    [SerializeField] private string launchAxeAudioEvent = "";
+    [SerializeField] private FMOD.Studio.EventInstance launchAxeAudio;
+    [FMODUnity.EventRef]
+    [SerializeField] private string launchSeedAudioEvent = "";
+    [SerializeField] private FMOD.Studio.EventInstance launchSeedAudio;
+    [FMODUnity.EventRef]
+    [SerializeField] private string axeIsBackEvent = "";
+    [SerializeField] private FMOD.Studio.EventInstance axeIsBack;
+
     public override void Attached()
     {
         SetupTeam(NetworkCallbacks.team);
@@ -87,6 +104,12 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         }
         state.AddCallback("MyColor", ColorChanged);
         state.AddCallback("GuardianName", PlayerName);
+
+        deathAudioMe = FMODUnity.RuntimeManager.CreateInstance(deathAudioMeEvent);
+        deathAudioOther = FMODUnity.RuntimeManager.CreateInstance(deathAudioOtherEvent);
+        launchAxeAudio = FMODUnity.RuntimeManager.CreateInstance(launchAxeAudioEvent);
+        launchSeedAudio = FMODUnity.RuntimeManager.CreateInstance(launchSeedAudioEvent);
+        axeIsBack = FMODUnity.RuntimeManager.CreateInstance(axeIsBackEvent);
     }
     
     private void Update()
@@ -189,8 +212,26 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
 
     public override void OnEvent(LaunchAxeEvent evnt)
     {
+        
+        
         this.IsLaunchAxe = evnt.Launch;
-        if (evnt.Launch) this.myAxe.isCanLaunchAxe(!evnt.Launch);
+        if (evnt.Launch)
+        {
+            /////Son
+            launchAxeAudio.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(transform.position));
+            launchAxeAudio.start();
+            /////Son
+            this.myAxe.isCanLaunchAxe(!evnt.Launch);
+        }
+        else
+        {
+            if (entity.IsOwner)
+            {
+                /////Son
+                axeIsBack.start();
+                /////Son
+            }
+        }
     }
 
     #endregion
@@ -261,7 +302,17 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
             }
             this.myPillier = new List<Pillier>();
         }
-        
+
+        if (entity.IsOwner)
+        {
+            deathAudioMe.start();
+        }
+        else
+        {
+            deathAudioOther.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(transform.position));
+            deathAudioOther.start();
+        }
+
         var spawnPosition = RespawnPoint();
         this.health = this.lastHealth;
         this.transform.position = spawnPosition;
@@ -343,10 +394,15 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         //if (this.currentInventorySeed > 0)
         if(!IsCooldown)
         {
-            Seed s = BoltNetwork.Instantiate(BoltPrefabs.Seed, this.transform.position + this.transform.forward, Quaternion.identity).GetComponent<Seed>();
+            Seed s = BoltNetwork.Instantiate(BoltPrefabs.Seed, this.transform.position + this.transform.forward * 2, Quaternion.identity).GetComponent<Seed>();
             s.Init(this.myTeam, this, this.transform.rotation, true, entity, state.MyColor);
             s.InitVelocity(this.forceLaunch, this.dirLaunch);
-            
+
+            /////Son
+            launchSeedAudio.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(transform.position));
+            launchSeedAudio.start();
+            /////Son
+
             //this.currentInventorySeed--;
         }
         else

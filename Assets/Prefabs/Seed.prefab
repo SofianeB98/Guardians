@@ -130,6 +130,8 @@ MonoBehaviour:
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 4096
+  collisionObstacleEvent: "event:/Feedbacks Objets/Collision de balle (d\xE9cor)"
+  collisionPlayerEvent: event:/Feedbacks Objets/Collision de balle (ennemi)
 --- !u!114 &509
 MonoBehaviour:
   m_ObjectHideFlags: 0

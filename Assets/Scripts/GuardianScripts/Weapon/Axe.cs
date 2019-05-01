@@ -43,12 +43,26 @@ public class Axe : MonoBehaviour
     [SerializeField] private LayerMask ignoreLayerMask;
     private Quaternion bucheronRotation;
     [SerializeField] private float forcePush = 10f;
+
+    [Header("Audio")]
+    [FMODUnity.EventRef]
+    [SerializeField] private string collisionPlayerEvent = "";
+    [SerializeField] private FMOD.Studio.EventInstance collisionPlayer;
+    [FMODUnity.EventRef]
+    [SerializeField] private string collisionDecorEvent = "";
+    [SerializeField] private FMOD.Studio.EventInstance collisionDecor;
+    
+
     private void Awake()
     {
         this.rigid = this.GetComponent<Rigidbody>();
         this.axeInitPos = this.transform.localPosition;
         this.axeInitRotate = this.transform.localRotation;
         if(this.transform.parent == null) BoltNetwork.Destroy(this.gameObject);
+
+        collisionPlayer = FMODUnity.RuntimeManager.CreateInstance(collisionPlayerEvent);
+        collisionDecor = FMODUnity.RuntimeManager.CreateInstance(collisionDecorEvent);
+        
     }
 
     private void Update()
@@ -104,6 +118,7 @@ public class Axe : MonoBehaviour
             {
                 this.isCanLaunchAxe(true);
                 this.backToBucheronPos = false;
+                
             }
         }
     }
@@ -148,12 +163,20 @@ public class Axe : MonoBehaviour
                                 dir.y = 0;
                                 g.SetStun(dir.normalized, forcePush);
                                 objetFind = true;
+                                /////Son
+                                collisionPlayer.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(transform.position));
+                                collisionPlayer.start();
+                                /////Son
                             }
-                            
+
                         }
                     }
                     else
                     {
+                        /////Son
+                        collisionDecor.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(transform.position));
+                        collisionDecor.start();
+                        /////Son
                         objetFind = true;
                     }
                 }
@@ -226,7 +249,5 @@ public class Axe : MonoBehaviour
         }
         
     }
-
-
 }
 

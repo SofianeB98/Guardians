@@ -8,10 +8,12 @@ public class CharacterInputDetector : Bolt.EntityBehaviour<IGuardianState>
 {
 	[SerializeField] private CompleteCharacterController characterController;
     [SerializeField] private Guardian guardian;
-
-	void Awake()
+    
+    void Awake()
 	{
-		if (this.characterController == null) this.characterController = this.GetComponent<CompleteCharacterController>();
+	    
+
+        if (this.characterController == null) this.characterController = this.GetComponent<CompleteCharacterController>();
 	    if (this.guardian == null) this.guardian = this.GetComponent<Guardian>();
 
 	}

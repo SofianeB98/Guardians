@@ -15,8 +15,15 @@ public class Seed : Bolt.EntityEventListener<ISeedState>
     private bool isLaunchPlayer = false;
     [SerializeField] private LayerMask groundLayerMask;
 
+    //Son
+    [FMODUnity.EventRef]
+    public string collisionObstacleEvent;
+    public FMOD.Studio.EventInstance collisionObstacle;
+    
     public override void Attached()
     {
+        collisionObstacle = FMODUnity.RuntimeManager.CreateInstance(collisionObstacleEvent);
+
         state.SetTransforms(state.Transform, this.transform);
         if (entity.IsOwner)
         {
@@ -60,14 +67,12 @@ public class Seed : Bolt.EntityEventListener<ISeedState>
 
     private void OnCollisionEnter(Collision col)
     {
-        if (this.isLaunchPlayer)
-        {
-            if (col.transform.tag.Contains(this.groundTag))
-            {
-                
-            }
-        }
-        else
+        /////Son
+        collisionObstacle.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(transform.position));
+        collisionObstacle.start();
+        /////Son
+
+        if (!this.isLaunchPlayer)
         {
             if (col.transform.tag.Contains(this.groundTag))
             {

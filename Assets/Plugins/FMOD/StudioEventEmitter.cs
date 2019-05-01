@@ -116,9 +116,10 @@ namespace FMODUnity
             }
         }
 
-        void OnCollisionEnter()
+        void OnCollisionEnter(Collision other)
         {
             HandleGameEvent(EmitterGameEvent.CollisionEnter);
+            
         }
 
         void OnCollisionExit()

@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 505}
   m_Layer: 9
   m_Name: Guardian
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -237,14 +237,14 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0
+      time: -0.0019264221
       value: 0
-      inSlope: 2
-      outSlope: 2
+      inSlope: 3.174119
+      outSlope: 3.174119
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.049999658
     - serializedVersion: 3
       time: 1
       value: 1
@@ -257,6 +257,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  sautAudioEvent: event:/Feedbacks Joueur/Saut
+  colBalleMeEvent: event:/Feedbacks Joueur/Collision de balle (soi)
 --- !u!114 &505
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -299,6 +301,11 @@ MonoBehaviour:
   myPillier: []
   maxPillier: 5
   destroyAllPillierwhenIDie: 1
+  deathAudioMeEvent: "event:/Feedbacks Joueur/Joueur \xE9limin\xE9 (soi)"
+  deathAudioOtherEvent: "event:/Feedbacks Objets/Joueur \xE9limin\xE9 (ennemi)"
+  launchAxeAudioEvent: event:/Feedbacks Joueur/Lancer de balle
+  launchSeedAudioEvent: event:/Feedbacks Joueur/Lancer de graine-pilier
+  axeIsBackEvent: "event:/Feedbacks Joueur/Balle r\xE9cup\xE9r\xE9e"
 --- !u!1 &169
 GameObject:
   m_ObjectHideFlags: 0
@@ -369,7 +376,7 @@ GameObject:
   m_Component:
   - component: {fileID: 287}
   - component: {fileID: 357}
-  - component: {fileID: 394}
+  - component: {fileID: 3312433199362735990}
   m_Layer: 0
   m_Name: GuardianCamera
   m_TagString: Untagged
@@ -433,14 +440,19 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &394
-AudioListener:
+--- !u!114 &3312433199362735990
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 171}
   m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ListenerNumber: 0
 --- !u!1 &172
 GameObject:
   m_ObjectHideFlags: 0
@@ -488,7 +500,7 @@ GameObject:
   - component: {fileID: 511}
   m_Layer: 13
   m_Name: Axe
-  m_TagString: Untagged
+  m_TagString: Axe
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -669,6 +681,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 10240
   forcePush: 30
+  collisionPlayerEvent: event:/Feedbacks Objets/Collision de balle (ennemi)
+  collisionDecorEvent: "event:/Feedbacks Objets/Collision de balle (d\xE9cor)"
 --- !u!1 &196
 GameObject:
   m_ObjectHideFlags: 0
@@ -2378,7 +2392,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.000061035156}
+  m_AnchoredPosition: {x: 0, y: 0.00012207031}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 1, y: 1}
 --- !u!222 &436

@@ -8,6 +8,7 @@ TagManager:
   - Seed
   - Ground
   - Spawn
+  - Axe
   layers:
   - Default
   - TransparentFX

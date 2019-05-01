@@ -35,16 +35,27 @@ public class CompleteCharacterController : Bolt.EntityBehaviour<IGuardianState>
 	[SerializeField] private float jumpTimeToReachMax = 0.5f;
 	[SerializeField] private AnimationCurve jumpBehaviour;
 	private float jumpTimer;
-	
-	// Use this for initialization
-	void Awake () {
+
+    [Header("Audio")]
+    [FMODUnity.EventRef]
+    public string sautAudioEvent;
+    public FMOD.Studio.EventInstance sautAudio;
+    [FMODUnity.EventRef]
+    public string colBalleMeEvent;
+    public FMOD.Studio.EventInstance colBalleMe;
+
+    // Use this for initialization
+    void Awake () {
 		if (this.characterController == null) {
 			this.characterController = this.GetComponent<CharacterController>();
 		}
 
 	    this.jumping = false;
 	    this.doubleJumping = true;
-	}
+
+        sautAudio = FMODUnity.RuntimeManager.CreateInstance(sautAudioEvent);
+        colBalleMe = FMODUnity.RuntimeManager.CreateInstance(colBalleMeEvent);
+    }
 
     public override void Attached()
     {
@@ -151,7 +162,10 @@ public class CompleteCharacterController : Bolt.EntityBehaviour<IGuardianState>
 			this.jumping = true;
 		    this.doubleJumping = false;
 			this.jumpTimer = 0.0f;
-		}
+
+		    sautAudio.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(transform.position));
+		    sautAudio.start();
+        }
 	}
 
     public void UpdateDoubleJump()
@@ -161,6 +175,9 @@ public class CompleteCharacterController : Bolt.EntityBehaviour<IGuardianState>
             this.jumping = true;
             this.doubleJumping = true;
             this.jumpTimer = 0.0f;
+
+            sautAudio.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(transform.position));
+            sautAudio.start();
         }
     }
 
@@ -172,5 +189,8 @@ public class CompleteCharacterController : Bolt.EntityBehaviour<IGuardianState>
     public void AddForce(Vector3 dir, float force)
     {
         this.direction = dir.normalized * force;
+        /////Son
+        colBalleMe.start();
+        /////Son
     }
 }
