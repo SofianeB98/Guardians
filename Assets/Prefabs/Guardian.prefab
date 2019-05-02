@@ -3274,7 +3274,7 @@ GameObject:
   - component: {fileID: 2703652222760223898}
   - component: {fileID: 7666035866094921601}
   m_Layer: 9
-  m_Name: Cube
+  m_Name: ForwardJoueur
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

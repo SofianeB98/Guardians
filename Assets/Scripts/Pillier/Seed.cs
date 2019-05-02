@@ -14,6 +14,7 @@ public class Seed : Bolt.EntityEventListener<ISeedState>
     [SerializeField] private string groundTag = "Ground";
     private bool isLaunchPlayer = false;
     [SerializeField] private LayerMask groundLayerMask;
+    [SerializeField] private TrailRenderer trailRenderer;
 
     //Son
     [FMODUnity.EventRef]
@@ -51,6 +52,8 @@ public class Seed : Bolt.EntityEventListener<ISeedState>
     void ColorChanged()
     {
         GetComponent<Renderer>().material.color = state.MyColor;
+        trailRenderer.endColor = state.MyColor;
+        trailRenderer.startColor = state.MyColor;
     }
 
     public void InitVelocity(float force, Vector3 dir)
