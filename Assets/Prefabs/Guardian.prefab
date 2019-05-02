@@ -170,10 +170,6 @@ MonoBehaviour:
   guardian: {fileID: 559}
   viseurStandard: {fileID: 2045306000312196359}
   viseurSeed: {fileID: 8291611754286787656}
-  sensPillierImage: {fileID: 2315206537986442561}
-  sensHoraireSprite: {fileID: 21300000, guid: d9aebfeae5aab85488295d2bc8c85769, type: 3}
-  sensAntiHoraireSprite: {fileID: 21300000, guid: cd34c56edbaa65c41b3ba1882e78f7b1,
-    type: 3}
 --- !u!114 &560
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -317,6 +313,10 @@ MonoBehaviour:
   destroyAllPillierwhenIDie: 1
   myHand: {fileID: 342}
   seedReadyImage: {fileID: 8435313709763872702}
+  sensPillierImage: {fileID: 2315206537986442561}
+  sensHoraireSprite: {fileID: 21300000, guid: d9aebfeae5aab85488295d2bc8c85769, type: 3}
+  sensAntiHoraireSprite: {fileID: 21300000, guid: cd34c56edbaa65c41b3ba1882e78f7b1,
+    type: 3}
   deathAudioMeEvent: "event:/Feedbacks Joueur Personnels/Joueur \xE9limin\xE9 (soi)"
   deathAudioOtherEvent: "event:/Feedbacks Objets/Joueur \xE9limin\xE9 (ennemi)"
   launchAxeAudioEvent: event:/Feedbacks Joueur Communs/Lancer de balle
