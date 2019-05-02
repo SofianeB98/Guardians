@@ -699,6 +699,8 @@ MonoBehaviour:
     m_Bits: 26912
   forcePush: 60
   myTrail: {fileID: 2549973228026315237}
+  contactParticulePrefab: {fileID: 2585152672974213350, guid: 8a16da03d5172294ab5e3c6d9a2a2a30,
+    type: 3}
   collisionPlayerEvent: event:/Feedbacks Objets/Collision de balle (ennemi)
   collisionDecorEvent: "event:/Feedbacks Objets/Collision de balle (d\xE9cor)"
 --- !u!1 &250

@@ -31,12 +31,14 @@ MonoBehaviour:
   - {fileID: 114469869446596384}
   - {fileID: 114281477556928450}
   - {fileID: 114613873989173624}
+  - {fileID: 114407405118640570}
+  - {fileID: 114498652063541552}
   MasterBanks:
   - {fileID: 114348723048255472}
   - {fileID: 114814780844775754}
   StringsBanks:
   - {fileID: 114411290415161358}
-  stringsBankWriteTime: 636923997651117029
+  stringsBankWriteTime: 636924191295211790
   cacheVersion: 3
 --- !u!114 &114056122987405808
 MonoBehaviour:
@@ -288,6 +290,29 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 40
   Length: 639
+--- !u!114 &114407405118640570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Feedbacks Objets/Respawn joueur (ennemi)
+  guid: 0ff5896e62bfc84080b8ef61a2b26c04
+  Banks:
+  - {fileID: 114814780844775754}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 50
+  Length: 1068
 --- !u!114 &114411290415161358
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -301,11 +326,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Path: Assets\Resources\Audio\FMOD Guardian\Build\Desktop\Master Bank.strings.bank
-  lastModified: 636923997651117029
+  lastModified: 636924191295211790
   LoadResult: 0
   FileSizes:
   - Name: Desktop
-    Value: 1550
+    Value: 1666
   Exists: 1
 --- !u!114 &114469869446596384
 MonoBehaviour:
@@ -330,6 +355,29 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 200
+--- !u!114 &114498652063541552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Feedbacks Joueur Personnels/Respawn joueur (soi)
+  guid: 18e2a275a211fe449456f738d76fc70a
+  Banks:
+  - {fileID: 114814780844775754}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 1228
 --- !u!114 &114519679958678662
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -398,7 +446,7 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 1
   MaxDistance: 40
-  Length: 297
+  Length: 348
 --- !u!114 &114569484117735118
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -458,11 +506,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: C:\Users\sofia\Desktop\Cours\3. Troisieme Annee\0. Projet Annuel\Projet_Unity\Multi_Project\Bolt\Guardians\Assets\Resources\Audio\FMOD
     Guardian\Build\Desktop\Master Bank.bank
-  lastModified: 636923997651017086
+  lastModified: 636924191295111844
   LoadResult: 0
   FileSizes:
   - Name: Desktop
-    Value: 251360
+    Value: 274880
   Exists: 1
 --- !u!114 &114839710508997268
 MonoBehaviour:
