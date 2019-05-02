@@ -2451,8 +2451,8 @@ MonoBehaviour:
     sceneAsset: {fileID: 102900000, guid: 42d6ac873a5b84d439478f72d40c21ce, type: 3}
     sceneName: bolt_samples/NEW-PhotonCloud/demo_lobby/Scenes/PhotonLobby
   gameScene:
-    sceneAsset: {fileID: 102900000, guid: 765896632ccc41b44b2f3443c5f7addd, type: 3}
-    sceneName: Scenes/Multiplayer
+    sceneAsset: {fileID: 102900000, guid: 776a8c42ed669b34d9c198a22fa859ee, type: 3}
+    sceneName: Scenes/Multiplayer_TDM
   minPlayers: 1
   prematchCountdown: 5
   topPanel: {fileID: 11424994}
@@ -3791,7 +3791,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.000015258789, y: -0.000030517578}
+  m_AnchoredPosition: {x: 0.000015258789, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &22213516
