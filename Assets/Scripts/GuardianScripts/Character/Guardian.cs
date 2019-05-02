@@ -36,6 +36,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     public bool IsDie { get; private set; }
     [SerializeField] private float dietime = 5f;
     private float currentDietime = 0f;
+    [SerializeField] private GameObject deathParticulePrefab;
 
     [Header("Melee Hit Info")]
     [SerializeField] private float detectionHitRadius = 1f;
@@ -72,6 +73,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     [SerializeField] private List<Pillier> myPillier = new List<Pillier>();
     [SerializeField] private int maxPillier = 20;
     [SerializeField] private bool destroyAllPillierwhenIDie = true;
+    [SerializeField] private Transform myHand;
 
     [Header("Audio")]
     [FMODUnity.EventRef]
@@ -355,11 +357,13 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
             }
             
         }
-
+        GameObject go = Instantiate(deathParticulePrefab, this.transform.position, Quaternion.identity);
+        Destroy(go, 0.9f);
         var flash = TakeDamageEvent.Create(entity);
         flash.GetDamage = 0;
         flash.Respawn = true;
         flash.Send();
+        yield break;
     }
     
     private Vector3 RespawnPoint()
@@ -438,7 +442,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         //if (this.currentInventorySeed > 0)
         if(!IsCooldown)
         {
-            Seed s = BoltNetwork.Instantiate(BoltPrefabs.Seed, this.transform.position + this.transform.forward * 2, Quaternion.identity).GetComponent<Seed>();
+            Seed s = BoltNetwork.Instantiate(BoltPrefabs.Seed, this.myHand.position + this.transform.forward, Quaternion.identity).GetComponent<Seed>();
             s.Init(this.myTeam, this, this.transform.rotation, true, entity, state.MyColor);
             s.InitVelocity(this.forceLaunch, this.dirLaunch);
 
@@ -465,6 +469,13 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
             {
                 this.TakeDamage(1);
                 UpdateScore(true);
+
+                string s = guardianName + " is lost in the Void !";
+
+                var evnt = KillFeedEvent.Create(GameSystem.GSystem.entity);
+                evnt.Message = s;
+                evnt.RemoveFeed = false;
+                evnt.Send();
             }
         }
         else

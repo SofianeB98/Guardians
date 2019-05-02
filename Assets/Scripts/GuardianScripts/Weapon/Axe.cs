@@ -27,9 +27,9 @@ public class Axe : MonoBehaviour
         get { return backToBucheronPos; }
     }
 
-    private float axeLaunchTimer = 0f;
+    [Header("Gestion du Mouvement")]
     [SerializeField] private float axeReachTime = 0.5f;
-
+    private float axeLaunchTimer = 0f;
     [SerializeField] private AnimationCurve axeLaunchForwardBehaviour;
     [SerializeField] private float currentAxeReachForwardDistance = 10f;
     [SerializeField] private AnimationCurve axeLaunchSideBehaviour;
@@ -42,6 +42,9 @@ public class Axe : MonoBehaviour
     [SerializeField] private LayerMask ignoreLayerMask;
     private Quaternion axeOrientation;
     [SerializeField] private float forcePush = 10f;
+
+    [Header("FeedBack")]
+    [SerializeField] private TrailRenderer myTrail;
 
     [Header("Audio")]
     [FMODUnity.EventRef]
@@ -143,7 +146,7 @@ public class Axe : MonoBehaviour
             yield return new WaitForEndOfFrame();
             Collider[] col = Physics.OverlapCapsule(this.pointOneAxeLaunch.position, this.pointTwoAxeLaunch.position, axeRadiusLaunchCheck, ~ignoreLayerMask);
             Vector3 dir = myGuardian.transform.position - this.transform.position;
-            if (col != null && check)
+            if (col != null && check && !objetFind)
             {
                 for (int i = 0; i < col.Length; i++)
                 {
@@ -187,7 +190,6 @@ public class Axe : MonoBehaviour
 
             if (objetFind)
             {
-                yield return new WaitForSeconds(0.1f);
                 ActiveBackToBucheron();
             }
         }
@@ -235,19 +237,22 @@ public class Axe : MonoBehaviour
 
         if (!this.canLauchAxe)
         {
+            this.myTrail.enabled = true;
+
             this.rigid.isKinematic = false;
 
             this.transform.parent = null;
 
             this.transform.eulerAngles = new Vector3(0, 0, 0);
 
-            this.transform.position = this.myGuardian.transform.position;
+            this.transform.position = this.myHandParent.transform.position;
 
             StartCoroutine(this.CheckObject());
             //StartCoroutine(this.CheckDistanceGround());
         }
         else if (this.canLauchAxe)
         {
+            this.myTrail.enabled = false;
             this.rigid.isKinematic = true;
             this.transform.parent = myHandParent.transform;
             this.transform.localPosition = Vector3.zero;
