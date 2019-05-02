@@ -18,6 +18,8 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     [SerializeField] private LayerMask videLayerMask;
     public string guardianName { get; private set; }
     Color lastColor = Color.black;
+    [SerializeField] private Canvas myCanvas;
+    [SerializeField] private GameObject winLosePointPrefab;
 
     [Header("Player Stats")]
     [SerializeField] private float health = 100f;
@@ -81,7 +83,6 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     [FMODUnity.EventRef]
     [SerializeField] private string launchAxeAudioEvent = "";
     [SerializeField] private FMOD.Studio.EventInstance launchAxeAudio;
-    
     [FMODUnity.EventRef]
     [SerializeField] private string axeIsBackEvent = "";
     [SerializeField] private FMOD.Studio.EventInstance axeIsBack;
@@ -360,34 +361,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         flash.Respawn = true;
         flash.Send();
     }
-
-   /*private void Death()
-    {
-        if (this.destroyAllPillierwhenIDie)
-        {
-            foreach (var pillier in this.myPillier)
-            {
-                BoltNetwork.Destroy(pillier.gameObject);
-            }
-            this.myPillier = new List<Pillier>();
-        }
-
-        if (entity.IsOwner)
-        {
-            deathAudioMe.start();
-        }
-        else
-        {
-            deathAudioOther.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(transform.position));
-            deathAudioOther.start();
-        }
-
-        var spawnPosition = RespawnPoint();
-        this.health = this.lastHealth;
-        this.transform.position = spawnPosition;
-        IsDie = false;
-    }*/
-
+    
     private Vector3 RespawnPoint()
     {
         int[] point = new int[NetworkCallbacks.SpawnPointsTransforms.Length];
@@ -515,10 +489,24 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         {
             this.currentKill++;
             this.CurrentScore += 10;
+            if (entity.IsOwner)
+            {
+                GameObject go = Instantiate(winLosePointPrefab, this.myCanvas.transform);
+                go.GetComponent<TextMeshProUGUI>().text = "+ 10";
+                go.GetComponent<TextMeshProUGUI>().color = Color.yellow;
+                Destroy(go, 1f);
+            }
         }
         else
         {
             this.CurrentScore -= 5;
+            if (entity.IsOwner)
+            {
+                GameObject go = Instantiate(winLosePointPrefab, this.myCanvas.transform);
+                go.GetComponent<TextMeshProUGUI>().text = "- 5";
+                go.GetComponent<TextMeshProUGUI>().color = Color.red;
+                Destroy(go, 1f);
+            }
         }
             
     }
@@ -545,3 +533,30 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     }
 
 }
+
+/*private void Death()
+   {
+       if (this.destroyAllPillierwhenIDie)
+       {
+           foreach (var pillier in this.myPillier)
+           {
+               BoltNetwork.Destroy(pillier.gameObject);
+           }
+           this.myPillier = new List<Pillier>();
+       }
+
+       if (entity.IsOwner)
+       {
+           deathAudioMe.start();
+       }
+       else
+       {
+           deathAudioOther.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(transform.position));
+           deathAudioOther.start();
+       }
+
+       var spawnPosition = RespawnPoint();
+       this.health = this.lastHealth;
+       this.transform.position = spawnPosition;
+       IsDie = false;
+   }*/

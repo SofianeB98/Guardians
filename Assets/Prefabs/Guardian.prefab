@@ -277,6 +277,9 @@ MonoBehaviour:
   videLayerMask:
     serializedVersion: 2
     m_Bits: 16384
+  myCanvas: {fileID: 499}
+  winLosePointPrefab: {fileID: 1330491832018886311, guid: 4b0f69ab230867246b7e24ed7663e7d2,
+    type: 3}
   health: 1
   currentInventorySeed: 1
   maxSeedInInventory: 5

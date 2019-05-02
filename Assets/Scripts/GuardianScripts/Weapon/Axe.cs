@@ -117,7 +117,7 @@ public class Axe : MonoBehaviour
             {
                 this.isCanLaunchAxe(true, Quaternion.identity);
                 this.backToBucheronPos = false;
-                
+                lastGuardian = null;
             }
         }
     }
@@ -130,7 +130,8 @@ public class Axe : MonoBehaviour
             this.axeLaunchTimer = 0f;
         }
     }
-    
+
+    private Guardian lastGuardian = null;
     IEnumerator CheckObject()
     {
         yield return new WaitForSeconds(0.1f);
@@ -149,10 +150,12 @@ public class Axe : MonoBehaviour
                     Guardian g = col[i].GetComponent<Guardian>();
                     if (g != null)
                     {
-                        if (g != myGuardian)//&& !g.IsStuned)
+                        if (g != myGuardian && g != lastGuardian)//&& !g.IsStuned)
                         {
                             if (!g.IsStuned && !g.IsDie && !g.IsInvinsible)
                             {
+                                lastGuardian = g;
+
                                 if (!this.BackToBucheron)
                                 {
                                     dir = -dir;
@@ -181,7 +184,12 @@ public class Axe : MonoBehaviour
                     }
                 }
             }
-            if (objetFind) ActiveBackToBucheron();
+
+            if (objetFind)
+            {
+                yield return new WaitForSeconds(0.1f);
+                ActiveBackToBucheron();
+            }
         }
         yield break;
     }
