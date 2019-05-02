@@ -12,6 +12,7 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
     [SerializeField] private GameObject pillierGO;
     [SerializeField] private GameObject laserGO;
     [SerializeField] private Transform seedDrop;
+    [SerializeField] private Renderer rdToColor;
     private bool destroy = false;
 
     [Header("Rotate Laser")]
@@ -46,6 +47,7 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
         this.myOwner = ent;
         if (entity.IsOwner)
         {
+            myOwnerColor.a = 0.75f;
             state.MyOwner = ent;
             state.MyColor = myOwnerColor;
         }
@@ -192,7 +194,7 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
 
     void ColorChanged()
     {
-        GetComponentInChildren<Renderer>().material.color = state.MyColor;
+        rdToColor.material.color = state.MyColor;
     }
 
 }

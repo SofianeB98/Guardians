@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Bolt;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Guardian : Bolt.EntityEventListener<IGuardianState>
 {
@@ -74,6 +75,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     [SerializeField] private int maxPillier = 20;
     [SerializeField] private bool destroyAllPillierwhenIDie = true;
     [SerializeField] private Transform myHand;
+    [SerializeField] private Image seedReadyImage;
 
     [Header("Audio")]
     [FMODUnity.EventRef]
@@ -127,6 +129,11 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         if (this.currentCooldownLaunchSeed < Time.time)
         {
             this.IsCooldown = false;
+        }
+        else
+        {
+            this.seedReadyImage.color = Color.Lerp(this.seedReadyImage.color, Color.green,
+                Time.deltaTime);
         }
 
         if (this.currentInvinsibleTime < Time.time)
@@ -445,6 +452,8 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
             Seed s = BoltNetwork.Instantiate(BoltPrefabs.Seed, this.myHand.position + this.transform.forward, Quaternion.identity).GetComponent<Seed>();
             s.Init(this.myTeam, this, this.transform.rotation, true, entity, state.MyColor);
             s.InitVelocity(this.forceLaunch, this.dirLaunch);
+
+            this.seedReadyImage.color = Color.red;
 
             var evnt = AudioStartEvent.Create(entity);
             evnt.Position = transform.position;

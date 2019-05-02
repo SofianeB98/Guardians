@@ -96,6 +96,7 @@ MonoBehaviour:
   pillierGO: {fileID: 218}
   laserGO: {fileID: 217}
   seedDrop: {fileID: 348}
+  rdToColor: {fileID: 413}
   maxRotation: 90
   speedRotation: 100
   speedScalePillier: 16
@@ -147,7 +148,7 @@ MonoBehaviour:
   TriggerOnce: 0
   Preload: 0
   Params: []
-  OverrideAttenuation: 0
+  OverrideAttenuation: 1
   OverrideMinDistance: 1
   OverrideMaxDistance: 40
 --- !u!1 &217

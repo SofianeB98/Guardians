@@ -3,12 +3,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 public class CharacterInputDetector : Bolt.EntityBehaviour<IGuardianState>
 {
+    [Header("Base")]
 	[SerializeField] private CompleteCharacterController characterController;
     [SerializeField] private Guardian guardian;
-    
+
+    [Header("Viseur")]
+    [SerializeField] private GameObject viseurStandard;
+    [SerializeField] private GameObject viseurSeed;
+
+    [Header("Pillier Sens")]
+    [SerializeField] private Image sensPillierImage;
+    [SerializeField] private Sprite sensHoraireSprite;
+    [SerializeField] private Sprite sensAntiHoraireSprite;
+
+
     void Awake()
 	{
 	    
@@ -99,17 +111,24 @@ public class CharacterInputDetector : Bolt.EntityBehaviour<IGuardianState>
                         if (Input.GetButtonDown(InputName.LancerDeHache))
                         {
                             this.guardian.SetupLaunchSeed();
+                            this.viseurSeed.SetActive(true);
+                            this.viseurStandard.SetActive(false);
                         }
 
                         if (Input.GetButton(InputName.LancerDeHache))
                         {
                             this.guardian.SetupLaunchSeed();
+                            this.viseurSeed.SetActive(true);
+                            this.viseurStandard.SetActive(false);
                         }
 
                         if (Input.GetButtonUp(InputName.LancerDeHache))
                         {
                             this.guardian.LaunchSeed();
                             this.guardian.SetCooldown();
+
+                            this.viseurSeed.SetActive(false);
+                            this.viseurStandard.SetActive(true);
                         }
                     }
 
