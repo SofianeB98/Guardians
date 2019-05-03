@@ -45,6 +45,7 @@ public class Axe : MonoBehaviour
 
     [Header("FeedBack")]
     [SerializeField] private TrailRenderer myTrail;
+    [SerializeField] private GameObject contactParticulePrefab;
 
     [Header("Audio")]
     [FMODUnity.EventRef]
@@ -171,6 +172,11 @@ public class Axe : MonoBehaviour
                                 collisionPlayer.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(transform.position));
                                 collisionPlayer.start();
                                 /////Son
+
+                                GameObject go = Instantiate(contactParticulePrefab, this.transform.position,
+                                    Quaternion.LookRotation(-dir, Vector3.up));
+                                Destroy(go, 1f);
+                                
                                 check = false;
                             }
 
