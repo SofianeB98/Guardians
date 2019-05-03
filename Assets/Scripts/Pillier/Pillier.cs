@@ -22,6 +22,7 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
     [SerializeField] private float scaleMaxPillier = 4f;
     private bool reverseRotate = false;
     private float currentAngleRotate = 45f;
+    private int currentDir = 1;
 
     [Header("Laser")]
     [SerializeField] private LayerMask checkLayer;
@@ -42,14 +43,16 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
         state.AddCallback("MyColor", ColorChanged);
     }
 
-    public void Init(BoltEntity ent, Color myOwnerColor)
+    public void Init(BoltEntity ent, Color myOwnerColor, int dir)
     {
+        this.currentDir = dir;
         this.myOwner = ent;
         if (entity.IsOwner)
         {
             myOwnerColor.a = 0.75f;
             state.MyOwner = ent;
             state.MyColor = myOwnerColor;
+            
         }
     }
 
@@ -86,7 +89,7 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
     public void DestroyPillier()
     {
         Seed s = BoltNetwork.Instantiate(BoltPrefabs.Seed, this.seedDrop.position, Quaternion.identity).GetComponent<Seed>();
-        s.Init(0, null, Quaternion.identity, false, myOwner, state.MyColor);
+        s.Init(0, null, Quaternion.identity, false, myOwner, state.MyColor, this.currentDir);
         if (entity.IsOwner)
         {
             BoltNetwork.Destroy(this.gameObject);
@@ -105,8 +108,8 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
         {
             //if (currentAngleRotate < 90)
             {
-                this.transform.eulerAngles += Vector3.up * BoltNetwork.FrameDeltaTime * this.speedRotation;
-                this.currentAngleRotate += BoltNetwork.FrameDeltaTime * this.speedRotation;
+                this.transform.eulerAngles += Vector3.up * BoltNetwork.FrameDeltaTime * this.speedRotation * this.currentDir;
+                //this.currentAngleRotate += BoltNetwork.FrameDeltaTime * this.speedRotation;
             }
             //else
             {
@@ -118,7 +121,7 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
             //if (currentAngleRotate > 0)
             {
             //    this.transform.eulerAngles -= Vector3.up * BoltNetwork.FrameDeltaTime * this.speedRotation;
-                this.currentAngleRotate -= BoltNetwork.FrameDeltaTime * this.speedRotation;
+                //this.currentAngleRotate -= BoltNetwork.FrameDeltaTime * this.speedRotation;
             }
            // else
             {
