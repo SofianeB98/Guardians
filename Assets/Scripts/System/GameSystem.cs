@@ -161,7 +161,7 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
     {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(4f);
         if (BoltNetwork.IsServer)
         {
             var evnt = DisconnectEvent.Create(GlobalTargets.Everyone);
