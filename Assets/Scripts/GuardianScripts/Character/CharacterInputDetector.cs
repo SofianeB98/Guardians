@@ -15,8 +15,11 @@ public class CharacterInputDetector : Bolt.EntityBehaviour<IGuardianState>
     [SerializeField] private GameObject viseurStandard;
     [SerializeField] private GameObject viseurSeed;
 
-    
-    private bool seedInput = false;
+    [Header("Pillier Sens")]
+    [SerializeField] private Image sensPillierImage;
+    [SerializeField] private Sprite sensHoraireSprite;
+    [SerializeField] private Sprite sensAntiHoraireSprite;
+
 
     void Awake()
 	{
@@ -127,18 +130,6 @@ public class CharacterInputDetector : Bolt.EntityBehaviour<IGuardianState>
                             this.viseurSeed.SetActive(false);
                             this.viseurStandard.SetActive(true);
                         }
-
-                        
-                    }
-
-                    if (Input.GetAxis(InputName.ChangeSeedSelection) != 0f && !this.seedInput)
-                    {
-                        this.guardian.ChangePillierDir();
-                        this.seedInput = true;
-                    }
-                    else if (Input.GetAxis(InputName.ChangeSeedSelection) == 0 && this.seedInput)
-                    {
-                        this.seedInput = false;
                     }
 
                 }
