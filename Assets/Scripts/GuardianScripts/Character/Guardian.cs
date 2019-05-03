@@ -124,6 +124,8 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         deathAudioOther = FMODUnity.RuntimeManager.CreateInstance(deathAudioOtherEvent);
         launchAxeAudio = FMODUnity.RuntimeManager.CreateInstance(launchAxeAudioEvent);
         axeIsBack = FMODUnity.RuntimeManager.CreateInstance(axeIsBackEvent);
+
+        StartCoroutine(BestEnemyCheck());
     }
 
     private void Start()
@@ -134,10 +136,10 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         }
     }
 
+    private Guardian bestEnemy = null;
     private void Update()
     {
-        Guardian bestEnemy = GameSystem.GSystem.BestEnemyGuardian(this);
-
+        //bestEnemy = GameSystem.GSystem.BestEnemyGuardian(this);
         this.scoreText.text = this.guardianName + " - " + this.CurrentScore.ToString();
         if (bestEnemy != null)
         {
@@ -167,6 +169,18 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         {
             this.IsInvinsible = false;
         }
+    }
+
+    IEnumerator BestEnemyCheck()
+    {
+        bestEnemy = GameSystem.GSystem.BestEnemyGuardian(this);
+        while (!GameSystem.GSystem.EndGame)
+        {
+            yield return new WaitForSeconds(1f);
+            bestEnemy = GameSystem.GSystem.BestEnemyGuardian(this);
+        }
+
+        yield break;
     }
 
     #region MeleeAttack

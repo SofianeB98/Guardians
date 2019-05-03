@@ -207,6 +207,7 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
                 if (guard.CurrentScore > score)
                 {
                     enemy = guard;
+                    score = enemy.CurrentScore;
                 }
             }
         }
