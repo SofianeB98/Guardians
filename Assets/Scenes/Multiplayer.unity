@@ -467,7 +467,7 @@ GameObject:
   m_Layer: 0
   m_Name: Spawn (2)
   m_TagString: Spawn
-  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -697,7 +697,7 @@ GameObject:
   m_Layer: 0
   m_Name: Spawn (5)
   m_TagString: Spawn
-  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -887,7 +887,7 @@ GameObject:
   m_Layer: 0
   m_Name: Spawn (1)
   m_TagString: Spawn
-  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -980,6 +980,67 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 870800522}
   m_CullTransparentMesh: 0
+--- !u!1001 &878154854
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 937767377}
+    m_Modifications:
+    - target: {fileID: 100000, guid: c8a586061f8347148ab0450b2afad658, type: 3}
+      propertyPath: m_Name
+      value: arene_tour 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: c8a586061f8347148ab0450b2afad658, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -9.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: c8a586061f8347148ab0450b2afad658, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 7.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: c8a586061f8347148ab0450b2afad658, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -215.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: c8a586061f8347148ab0450b2afad658, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: c8a586061f8347148ab0450b2afad658, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: c8a586061f8347148ab0450b2afad658, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: c8a586061f8347148ab0450b2afad658, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: c8a586061f8347148ab0450b2afad658, type: 3}
+      propertyPath: m_RootOrder
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: c8a586061f8347148ab0450b2afad658, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: c8a586061f8347148ab0450b2afad658, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: c8a586061f8347148ab0450b2afad658, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: c8a586061f8347148ab0450b2afad658, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 3
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c8a586061f8347148ab0450b2afad658, type: 3}
 --- !u!1 &910760189
 GameObject:
   m_ObjectHideFlags: 0
@@ -1127,6 +1188,7 @@ Transform:
   - {fileID: 2072843502}
   - {fileID: 1765226677}
   - {fileID: 1730171225}
+  - {fileID: 1781789055}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1170,8 +1232,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1056519288}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -2.84, z: 0}
-  m_LocalScale: {x: 300, y: 10.1916, z: 300}
+  m_LocalPosition: {x: 0, y: -2.84, z: -103.99}
+  m_LocalScale: {x: 300, y: 10.1916, z: 507.15}
   m_Children: []
   m_Father: {fileID: 937767377}
   m_RootOrder: 0
@@ -1478,7 +1540,7 @@ GameObject:
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
-  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1494,7 +1556,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91170a2484a32ea4e90eb0ae0de8613f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  partyTimer: 120
+  partyTimer: 180
   timerText: {fileID: 1767789090}
   scorePanel: {fileID: 910760189}
   playersScore: []
@@ -1564,7 +1626,7 @@ GameObject:
   m_Layer: 0
   m_Name: Spawn (4)
   m_TagString: Spawn
-  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1894,7 +1956,7 @@ GameObject:
   m_Layer: 0
   m_Name: Spawn (7)
   m_TagString: Spawn
-  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -2348,6 +2410,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1767789088}
   m_CullTransparentMesh: 0
+--- !u!4 &1781789055 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400000, guid: c8a586061f8347148ab0450b2afad658,
+    type: 3}
+  m_PrefabInstance: {fileID: 878154854}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1807542274
 GameObject:
   m_ObjectHideFlags: 0
@@ -2360,7 +2428,7 @@ GameObject:
   m_Layer: 0
   m_Name: Spawn (8)
   m_TagString: Spawn
-  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -2482,7 +2550,7 @@ GameObject:
   m_Layer: 0
   m_Name: Spawn (6)
   m_TagString: Spawn
-  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -2604,7 +2672,7 @@ GameObject:
   m_Layer: 0
   m_Name: Spawn (3)
   m_TagString: Spawn
-  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
