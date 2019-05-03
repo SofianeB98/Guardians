@@ -76,6 +76,12 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     [SerializeField] private bool destroyAllPillierwhenIDie = true;
     [SerializeField] private Transform myHand;
     [SerializeField] private Image seedReadyImage;
+    private int currentDir = 1;
+
+    [Header("Pillier Sens")]
+    [SerializeField] private Image sensPillierImage;
+    [SerializeField] private Sprite sensHoraireSprite;
+    [SerializeField] private Sprite sensAntiHoraireSprite;
 
     [Header("Audio")]
     [FMODUnity.EventRef]
@@ -450,7 +456,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         if(!IsCooldown)
         {
             Seed s = BoltNetwork.Instantiate(BoltPrefabs.Seed, this.myHand.position + this.transform.forward, Quaternion.identity).GetComponent<Seed>();
-            s.Init(this.myTeam, this, this.transform.rotation, true, entity, state.MyColor);
+            s.Init(this.myTeam, this, this.transform.rotation, true, entity, state.MyColor, this.currentDir);
             s.InitVelocity(this.forceLaunch, this.dirLaunch);
 
             this.seedReadyImage.color = Color.red;
@@ -494,6 +500,19 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
 
     }
 
+    public void ChangePillierDir()
+    {
+        if (this.currentDir == 1)
+        {
+            this.currentDir = -1;
+            this.sensPillierImage.sprite = this.sensAntiHoraireSprite;
+        }
+        else
+        {
+            this.currentDir = 1;
+            this.sensPillierImage.sprite = this.sensHoraireSprite;
+        }
+    }
     #endregion
 
     public void UpdateScore(bool isMe)

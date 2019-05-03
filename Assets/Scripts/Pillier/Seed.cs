@@ -15,6 +15,7 @@ public class Seed : Bolt.EntityEventListener<ISeedState>
     private bool isLaunchPlayer = false;
     [SerializeField] private LayerMask groundLayerMask;
     [SerializeField] private TrailRenderer trailRenderer;
+    private int currentDir = 1;
 
     //Son
     [FMODUnity.EventRef]
@@ -33,7 +34,7 @@ public class Seed : Bolt.EntityEventListener<ISeedState>
         state.AddCallback("MyColor", ColorChanged);
     }
 
-    public void Init(int team, Guardian guardian, Quaternion rotation, bool launchPlayer, BoltEntity ent, Color ownerColor)
+    public void Init(int team, Guardian guardian, Quaternion rotation, bool launchPlayer, BoltEntity ent, Color ownerColor, int dir)
     {
         this.myTeam = team;
         this.myGuardian = guardian;
@@ -43,7 +44,8 @@ public class Seed : Bolt.EntityEventListener<ISeedState>
             state.MyOwner = ent;
             state.MyColor = ownerColor;
         }
-        
+
+        this.currentDir = dir;
         this.pillierRotate = rotation;
         this.isLaunchPlayer = launchPlayer;
         this.rigid.isKinematic = false;
@@ -90,7 +92,7 @@ public class Seed : Bolt.EntityEventListener<ISeedState>
         if (raycast)
         {
             Pillier p = BoltNetwork.Instantiate(BoltPrefabs.Pillier, this.transform.position - new Vector3(0, 0.4f, 0), this.pillierRotate).GetComponent<Pillier>();
-            p.Init(state.MyOwner, state.MyColor);
+            p.Init(state.MyOwner, state.MyColor, this.currentDir);
             this.myGuardian.AddPillierToMyList(p);
             BoltNetwork.Destroy(this.gameObject);
         }

@@ -46,9 +46,10 @@ public class NetworkCallbacks : Bolt.GlobalEventListener
         foreach (var connect in BoltNetwork.Connections)
         {
             LobbyManager.s_Singleton.Disconnected(connect);
+            BoltNetwork.Shutdown();
         }
-        
-        LobbyManager.s_Singleton.Stop();
+
+        SceneManager.LoadScene(0, LoadSceneMode.Single);
     }
 
     /*void OnGUI()
