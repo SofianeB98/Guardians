@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Bolt;
 using UnityEngine;
@@ -11,8 +12,10 @@ public class PillierTraining : MonoBehaviour
     [Header("Base")]
     [SerializeField] private GameObject pillierGO;
     [SerializeField] private GameObject laserGO;
+    [SerializeField] private GameObject laserDeuxGo;
     [SerializeField] private Transform seedDrop;
     [SerializeField] private Renderer rdToColor;
+    [SerializeField] private bool doubleLaser = true;
     private bool destroy = false;
 
     [Header("Rotate Laser")]
@@ -46,6 +49,10 @@ public class PillierTraining : MonoBehaviour
         else if (!this.laserGO.activeSelf)
         {
             this.laserGO.SetActive(true);
+            if (doubleLaser)
+            {
+                this.laserDeuxGo.SetActive(true);
+            }
             StartCoroutine(LaunchCheck());
         }
         else
@@ -105,11 +112,15 @@ public class PillierTraining : MonoBehaviour
 
     IEnumerator LaunchCheck()
     {
-        yield return new WaitForEndOfFrame();
+        
         while (true)
         {
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForEndOfFrame();
             this.CheckPlayer();
+            if (doubleLaser)
+            {
+                CheckPlayerDouble();
+            }
         }
         yield break;
     }
@@ -118,6 +129,30 @@ public class PillierTraining : MonoBehaviour
     {
         Collider[] col = Physics.OverlapBox(this.laserGO.transform.position, this.laserGO.transform.localScale / 2,
             this.laserGO.transform.rotation, this.checkLayer);
+        if (col.Length > 0 && col != null)
+        {
+            for (int i = 0; i < col.Length; i++)
+            {
+                GuardianTraining g = col[i].GetComponent<GuardianTraining>();
+                if (g != null)
+                {
+                    if (!g.IsInvinsible && !g.IsDie)
+                    {
+                        g.TakeDamage(this.damage);
+                        Debug.Log("Gardian toucher");
+                    }
+
+                    return;
+                }
+            }
+        }
+        return;
+    }
+
+    private void CheckPlayerDouble()
+    {
+        Collider[] col = Physics.OverlapBox(this.laserDeuxGo.transform.position, this.laserDeuxGo.transform.localScale / 2,
+            this.laserDeuxGo.transform.rotation, this.checkLayer);
         if (col.Length > 0 && col != null)
         {
             for (int i = 0; i < col.Length; i++)

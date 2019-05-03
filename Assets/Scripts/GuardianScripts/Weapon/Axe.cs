@@ -32,10 +32,10 @@ public class Axe : MonoBehaviour
     private float axeLaunchTimer = 0f;
     [SerializeField] private AnimationCurve axeLaunchForwardBehaviour;
     [SerializeField] private float currentAxeReachForwardDistance = 10f;
-    [SerializeField] private AnimationCurve axeLaunchSideBehaviour;
-    [SerializeField] private float currentAxeReachSideDistance = 3f;
+    //[SerializeField] private AnimationCurve axeLaunchSideBehaviour;
+    //[SerializeField] private float currentAxeReachSideDistance = 3f;
     [SerializeField] private float axeBackSpeed = 10f;
-    [SerializeField] [Range(0.5f, 1.5f)] private float distYGround = 1f;
+    //[SerializeField] [Range(0.5f, 1.5f)] private float distYGround = 1f;
     [SerializeField] private LayerMask groundLayerMask;
     private Vector3 axeInitPos;
     private Quaternion axeInitRotate;
@@ -95,11 +95,11 @@ public class Axe : MonoBehaviour
                 this.axeLaunchForwardBehaviour.Evaluate(this.axeLaunchTimer + Time.deltaTime / this.axeReachTime)
                                   - this.axeLaunchForwardBehaviour.Evaluate(this.axeLaunchTimer);
 
-            var sideVelocity =
-                this.axeLaunchSideBehaviour.Evaluate(this.axeLaunchTimer + Time.deltaTime / this.axeReachTime)
-                               - this.axeLaunchSideBehaviour.Evaluate(this.axeLaunchTimer);
+            //var sideVelocity =
+               // this.axeLaunchSideBehaviour.Evaluate(this.axeLaunchTimer + Time.deltaTime / this.axeReachTime)
+               //                - this.axeLaunchSideBehaviour.Evaluate(this.axeLaunchTimer);
             
-            Vector3 sideVector = new Vector3(sideVelocity * this.currentAxeReachSideDistance / Time.deltaTime,0,0);
+            //Vector3 sideVector = new Vector3(sideVelocity * this.currentAxeReachSideDistance / Time.deltaTime,0,0);
             
             Vector3 forwardVector = new Vector3(0,0,forwardVelocity * this.currentAxeReachForwardDistance / Time.deltaTime);
 
@@ -117,7 +117,7 @@ public class Axe : MonoBehaviour
             this.rigid.isKinematic = true;
             this.transform.position = Vector3.MoveTowards(this.transform.position, myGuardian.transform.position, Time.deltaTime * axeBackSpeed);
 
-            if (Vector3.Distance(this.transform.position, myGuardian.transform.position) <= 1f)
+            if (Vector3.Distance(this.transform.position, myGuardian.transform.position) <= 0.5f)
             {
                 this.isCanLaunchAxe(true, Quaternion.identity);
                 this.backToBucheronPos = false;
@@ -138,13 +138,11 @@ public class Axe : MonoBehaviour
     private Guardian lastGuardian = null;
     IEnumerator CheckObject()
     {
-        yield return new WaitForSeconds(0.1f);
-
         while (!this.canLauchAxe)
         {
+            yield return new WaitForEndOfFrame();
             bool check = true;
             bool objetFind = false;
-            yield return new WaitForEndOfFrame();
             Collider[] col = Physics.OverlapCapsule(this.pointOneAxeLaunch.position, this.pointTwoAxeLaunch.position, axeRadiusLaunchCheck, ~ignoreLayerMask);
             Vector3 dir = myGuardian.transform.position - this.transform.position;
             if (col != null && check && !objetFind)
@@ -202,7 +200,7 @@ public class Axe : MonoBehaviour
         yield break;
     }
 
-    IEnumerator CheckDistanceGround()
+   /* IEnumerator CheckDistanceGround()
     {
         yield return new WaitForSeconds(0.1f);
         while (!this.canLauchAxe)
@@ -234,7 +232,7 @@ public class Axe : MonoBehaviour
             }
         }
         yield break;
-    }
+    }*/
     
     public void isCanLaunchAxe(bool canLaunch, Quaternion orientation)
     {
@@ -243,6 +241,8 @@ public class Axe : MonoBehaviour
 
         if (!this.canLauchAxe)
         {
+            StartCoroutine(this.CheckObject());
+
             this.myTrail.enabled = true;
 
             this.rigid.isKinematic = false;
@@ -252,8 +252,7 @@ public class Axe : MonoBehaviour
             this.transform.eulerAngles = new Vector3(0, 0, 0);
 
             this.transform.position = this.myHandParent.transform.position;
-
-            StartCoroutine(this.CheckObject());
+            
             //StartCoroutine(this.CheckDistanceGround());
         }
         else if (this.canLauchAxe)

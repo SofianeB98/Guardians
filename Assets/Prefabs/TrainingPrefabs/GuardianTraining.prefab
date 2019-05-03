@@ -127,7 +127,7 @@ MonoBehaviour:
   rigid: {fileID: 6959245732380511175}
   myHandParent: {fileID: 4873829021597750768}
   myGuardian: {fileID: 5345986359602158806}
-  axeRadiusLaunchCheck: 1
+  axeRadiusLaunchCheck: 0.75
   pointOneAxeLaunch: {fileID: 4305970662412692110}
   pointTwoAxeLaunch: {fileID: 7711669725877147125}
   axeReachTime: 0.5
@@ -156,42 +156,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   currentAxeReachForwardDistance: 25
-  axeLaunchSideBehaviour:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.5
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: -2
-      outSlope: -2
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  currentAxeReachSideDistance: 3
   axeBackSpeed: 50
-  distYGround: 1
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 4096

@@ -32,10 +32,10 @@ public class AxeTraining : MonoBehaviour
     private float axeLaunchTimer = 0f;
     [SerializeField] private AnimationCurve axeLaunchForwardBehaviour;
     [SerializeField] private float currentAxeReachForwardDistance = 10f;
-    [SerializeField] private AnimationCurve axeLaunchSideBehaviour;
-    [SerializeField] private float currentAxeReachSideDistance = 3f;
+    //[SerializeField] private AnimationCurve axeLaunchSideBehaviour;
+    //[SerializeField] private float currentAxeReachSideDistance = 3f;
     [SerializeField] private float axeBackSpeed = 10f;
-    [SerializeField] [Range(0.5f, 1.5f)] private float distYGround = 1f;
+    //[SerializeField] [Range(0.5f, 1.5f)] private float distYGround = 1f;
     [SerializeField] private LayerMask groundLayerMask;
     private Vector3 axeInitPos;
     private Quaternion axeInitRotate;
@@ -95,11 +95,11 @@ public class AxeTraining : MonoBehaviour
                 this.axeLaunchForwardBehaviour.Evaluate(this.axeLaunchTimer + Time.deltaTime / this.axeReachTime)
                                   - this.axeLaunchForwardBehaviour.Evaluate(this.axeLaunchTimer);
 
-            var sideVelocity =
-                this.axeLaunchSideBehaviour.Evaluate(this.axeLaunchTimer + Time.deltaTime / this.axeReachTime)
-                               - this.axeLaunchSideBehaviour.Evaluate(this.axeLaunchTimer);
-            
-            Vector3 sideVector = new Vector3(sideVelocity * this.currentAxeReachSideDistance / Time.deltaTime,0,0);
+           // var sideVelocity =
+           //     this.axeLaunchSideBehaviour.Evaluate(this.axeLaunchTimer + Time.deltaTime / this.axeReachTime)
+            //                   - this.axeLaunchSideBehaviour.Evaluate(this.axeLaunchTimer);
+            //
+            //Vector3 sideVector = new Vector3(sideVelocity * this.currentAxeReachSideDistance / Time.deltaTime,0,0);
             
             Vector3 forwardVector = new Vector3(0,0,forwardVelocity * this.currentAxeReachForwardDistance / Time.deltaTime);
 
@@ -138,13 +138,12 @@ public class AxeTraining : MonoBehaviour
     private GuardianTraining lastGuardian = null;
     IEnumerator CheckObject()
     {
-        yield return new WaitForSeconds(0.1f);
-
         while (!this.canLauchAxe)
         {
+            yield return new WaitForEndOfFrame();
             bool check = true;
             bool objetFind = false;
-            yield return new WaitForEndOfFrame();
+            
             Collider[] col = Physics.OverlapCapsule(this.pointOneAxeLaunch.position, this.pointTwoAxeLaunch.position, axeRadiusLaunchCheck, ~ignoreLayerMask);
             Vector3 dir = myGuardian.transform.position - this.transform.position;
             if (col != null && check && !objetFind)
@@ -202,7 +201,7 @@ public class AxeTraining : MonoBehaviour
         yield break;
     }
 
-    IEnumerator CheckDistanceGround()
+    /*IEnumerator CheckDistanceGround()
     {
         yield return new WaitForSeconds(0.1f);
         while (!this.canLauchAxe)
@@ -234,7 +233,7 @@ public class AxeTraining : MonoBehaviour
             }
         }
         yield break;
-    }
+    }*/
     
     public void isCanLaunchAxe(bool canLaunch, Quaternion orientation)
     {

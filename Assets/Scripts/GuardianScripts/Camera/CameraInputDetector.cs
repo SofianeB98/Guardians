@@ -15,7 +15,7 @@ public class CameraInputDetector : Bolt.EntityBehaviour<IGuardianState>
 			this.cameraController.UpdateAngleManual(new Vector3(
 				Input.GetAxis(InputName.MouseVertical),
 				Input.GetAxis(InputName.MouseHorizontal),
-				0).normalized);
+				0));
 		}
 	}
 }

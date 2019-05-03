@@ -11,8 +11,10 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
     [Header("Base")]
     [SerializeField] private GameObject pillierGO;
     [SerializeField] private GameObject laserGO;
+    [SerializeField] private GameObject laserDeuxGo;
     [SerializeField] private Transform seedDrop;
     [SerializeField] private Renderer rdToColor;
+    [SerializeField] private bool doubleLaser = true;
     private bool destroy = false;
 
     [Header("Rotate Laser")]
@@ -83,6 +85,10 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
     private void ActiveLaser()
     {
         this.laserGO.SetActive(state.Active);
+        if (this.doubleLaser)
+        {
+            this.laserDeuxGo.SetActive(state.Active);
+        }
     }
 
     public void DestroyPillier()
@@ -142,11 +148,14 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
 
     IEnumerator LaunchCheck()
     {
-        yield return new WaitForEndOfFrame();
         while (true)
         {
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForEndOfFrame();
             this.CheckPlayer();
+            if (this.doubleLaser)
+            {
+                CheckPlayerDouble();
+            }
         }
         yield break;
     }
@@ -192,11 +201,56 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
         return;
     }
 
+    private void CheckPlayerDouble()
+    {
+        Collider[] col = Physics.OverlapBox(this.laserDeuxGo.transform.position, this.laserDeuxGo.transform.localScale / 2,
+            this.laserDeuxGo.transform.rotation, this.checkLayer);
+        if (col.Length > 0 && col != null)
+        {
+            for (int i = 0; i < col.Length; i++)
+            {
+                Guardian g = col[i].GetComponent<Guardian>();
+                if (g != null)
+                {
+                    if (!g.IsInvinsible && !g.IsDie)
+                    {
+                        string s = myOwner.GetComponent<Guardian>().guardianName + " kills " + g.guardianName;
+
+                        g.TakeDamage(this.damage);
+                        Debug.Log("Gardian toucher");
+                        if (g != myOwner.GetComponent<Guardian>())
+                        {
+                            myOwner.GetComponent<Guardian>().UpdateScore(false);
+                        }
+                        else
+                        {
+                            myOwner.GetComponent<Guardian>().UpdateScore(true);
+                            s = myOwner.GetComponent<Guardian>().guardianName + " kills himself !";
+                        }
+
+
+                        var evnt = KillFeedEvent.Create(GameSystem.GSystem.entity);
+                        evnt.Message = s;
+                        evnt.RemoveFeed = false;
+                        evnt.Send();
+                    }
+
+                    return;
+                }
+            }
+        }
+        return;
+    }
+
     #endregion
 
     void ColorChanged()
     {
         rdToColor.material.color = state.MyColor;
+        if (doubleLaser)
+        {
+            this.laserDeuxGo.GetComponent<Renderer>().material.color = state.MyColor;
+        }
     }
 
 }

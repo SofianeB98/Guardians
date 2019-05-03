@@ -251,8 +251,6 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
 
     public override void OnEvent(LaunchAxeEvent evnt)
     {
-        
-        
         this.IsLaunchAxe = evnt.Launch;
         if (evnt.Launch)
         {
@@ -559,14 +557,14 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         }
         else
         {
-            this.CurrentScore -= 5;
+            /*this.CurrentScore -= 5;
             if (entity.IsOwner)
             {
                 GameObject go = Instantiate(winLosePointPrefab, this.myCanvas.transform);
                 go.GetComponent<TextMeshProUGUI>().text = "- 5";
                 go.GetComponent<TextMeshProUGUI>().color = Color.red;
                 Destroy(go, 1f);
-            }
+            }*/
         }
             
     }
