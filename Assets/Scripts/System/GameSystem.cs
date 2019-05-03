@@ -10,9 +10,13 @@ using UnityEngine.SceneManagement;
 public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
 {
     public static GameSystem GSystem;
-    [Header("Timer Party")]
+    [Header("Party Info")]
     [SerializeField] private float partyTimer = 180.0f;
     [SerializeField] private TextMeshProUGUI timerText;
+    [SerializeField] private Canvas worldCanvas;
+    [SerializeField] private TextMeshProUGUI playerNamePrefab;
+    private List<TextMeshProUGUI> playerNameList = new List<TextMeshProUGUI>();
+    [SerializeField] private Guardian guardianAssignWorlCanvas;
 
     [Header("Score")]
     [SerializeField] private GameObject scorePanel;
@@ -56,6 +60,11 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
             {
                 this.scorePanel.SetActive(!this.scorePanel.activeSelf);
             }
+            else if (Input.GetKeyUp(KeyCode.Tab))
+            {
+                this.scorePanel.SetActive(!this.scorePanel.activeSelf);
+            }
+
         }
         else
         {
@@ -106,7 +115,19 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
                         }
                     }
                 }
-                
+
+                if (GuardiansInScene[i] != this.guardianAssignWorlCanvas)
+                {
+                    playerNameList[i].text = GuardiansInScene[i].guardianName;
+                }
+                else
+                {
+                    playerNameList[i].text = "";
+                }
+                playerNameList[i].transform.position = GuardiansInScene[i].NamePosition.position;
+                if(this.worldCanvas.worldCamera != null) playerNameList[i].transform.rotation = 
+                    Quaternion.LookRotation((playerNameList[i].transform.position - this.worldCanvas.worldCamera.transform.position), Vector3.up);
+                playerNameList[i].transform.eulerAngles = new Vector3(0, playerNameList[i].transform.eulerAngles.y, 0);
             }
         }
     }
@@ -115,8 +136,9 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
     {
         GameObject go = Instantiate(prefabPlayersScore, scorePanel.transform);
         playersScore.Add(go);
-        
-        
+
+        TextMeshProUGUI name = Instantiate(playerNamePrefab, worldCanvas.transform);
+        playerNameList.Add(name);
     }
 
     public void AddKillFeed(string text)
@@ -144,7 +166,7 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
 
     private IEnumerator WaitToFindGuardians()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(3f);
         GuardiansInScene = FindObjectsOfType<Guardian>().ToList();
         if (GuardiansInScene.Count > 0)
         {
@@ -171,6 +193,25 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
         yield break;
     }
 
+    public Guardian BestEnemyGuardian(Guardian mySelf)
+    {
+        Guardian enemy = null;
+        int score = -9999;
+
+        foreach (var guard in GuardiansInScene)
+        {
+            if (guard != mySelf)
+            {
+                if (guard.CurrentScore > score)
+                {
+                    enemy = guard;
+                }
+            }
+        }
+
+        return enemy != null ? enemy : null;
+    }
+
     private Guardian WinGuardian()
     {
         Guardian win = null;
@@ -186,6 +227,12 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
         }
 
         return win != null ? win : GuardiansInScene[Random.Range(0, GuardiansInScene.Count)];
+    }
+
+    public void AssignCamToWorldCanvas(Camera guardianCam, Guardian g)
+    {
+        this.worldCanvas.worldCamera = guardianCam;
+        this.guardianAssignWorlCanvas = g;
     }
 
 }

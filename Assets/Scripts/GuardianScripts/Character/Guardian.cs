@@ -21,6 +21,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     Color lastColor = Color.black;
     [SerializeField] private Canvas myCanvas;
     [SerializeField] private GameObject winLosePointPrefab;
+    [field:SerializeField] public Transform NamePosition { get; private set; }
 
     [Header("Player Stats")]
     [SerializeField] private float health = 100f;
@@ -33,7 +34,8 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     public bool IsInvinsible { get; private set; }
     [SerializeField] private float invinsibleTime = 2f;
     private float currentInvinsibleTime = 0f;
-    [SerializeField] private TextMeshProUGUI killText;
+    [SerializeField] private TextMeshProUGUI scoreText;
+    [SerializeField] private TextMeshProUGUI bestEnemyScoreText;
     public bool IsDie { get; private set; }
     [SerializeField] private float dietime = 5f;
     private float currentDietime = 0f;
@@ -123,10 +125,29 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         launchAxeAudio = FMODUnity.RuntimeManager.CreateInstance(launchAxeAudioEvent);
         axeIsBack = FMODUnity.RuntimeManager.CreateInstance(axeIsBackEvent);
     }
-    
+
+    private void Start()
+    {
+        if (entity.IsOwner)
+        {
+            GameSystem.GSystem.AssignCamToWorldCanvas(this.cameraRef.GetComponent<Camera>(), this);
+        }
+    }
+
     private void Update()
     {
-        this.killText.text = "Kill : " + this.currentKill.ToString();
+        Guardian bestEnemy = GameSystem.GSystem.BestEnemyGuardian(this);
+
+        this.scoreText.text = this.guardianName + " - " + this.CurrentScore.ToString();
+        if (bestEnemy != null)
+        {
+            this.bestEnemyScoreText.text = bestEnemy.guardianName + " - " + bestEnemy.CurrentScore.ToString();
+        }
+        else
+        {
+            this.bestEnemyScoreText.text = "";
+        }
+
         if (this.currentStunTime < Time.time)
         {
             this.IsStuned = false;
