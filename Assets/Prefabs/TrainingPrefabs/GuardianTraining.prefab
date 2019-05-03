@@ -155,7 +155,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  currentAxeReachForwardDistance: 10
+  currentAxeReachForwardDistance: 25
   axeLaunchSideBehaviour:
     serializedVersion: 2
     m_Curve:
@@ -190,7 +190,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   currentAxeReachSideDistance: 3
-  axeBackSpeed: 10
+  axeBackSpeed: 50
   distYGround: 1
   groundLayerMask:
     serializedVersion: 2
@@ -198,7 +198,7 @@ MonoBehaviour:
   ignoreLayerMask:
     serializedVersion: 2
     m_Bits: 26656
-  forcePush: 10
+  forcePush: 100
   myTrail: {fileID: 370328074292033662}
   contactParticulePrefab: {fileID: 2585152672974213350, guid: 8a16da03d5172294ab5e3c6d9a2a2a30,
     type: 3}
@@ -1534,6 +1534,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c8ea2e4cba68e64baac9b0d00cbb402, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsControllable: 1
   characterController: {fileID: 4633716989581489156}
   characterInput: {fileID: 6535912450928217169}
   cameraController: {fileID: 5054298611830547248}
@@ -1550,6 +1551,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43a920bf4c8668f46802c1fc1c1aff25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isControllable: 1
   characterController: {fileID: 4633716989581489156}
   guardian: {fileID: 5345986359602158806}
   viseurStandard: {fileID: 6336816895461505164}
@@ -1579,7 +1581,7 @@ MonoBehaviour:
   sphereGroundDetectionRadius: 0.4
   groundTolerance: 0.05
   characterControllerRadiusCompensator: 0.1
-  jumpHeight: 2
+  jumpHeight: 2.5
   jumpTimeToReachMax: 0.5
   jumpBehaviour:
     serializedVersion: 2
