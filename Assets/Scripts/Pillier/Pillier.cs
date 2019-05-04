@@ -22,6 +22,7 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
     [SerializeField] private float speedRotation = 5f;
     [SerializeField] private float animationScaleDuration = 1.0f;
     private float currentDuration = 0f;
+    [SerializeField] [Range(1.0f, 5.0f)] private float animationSpeed = 1.0f;
     //[SerializeField] private float speedScalePillier = 4f;
     //[SerializeField] private float scaleMaxPillier = 4f;
     //private bool reverseRotate = false;
@@ -42,6 +43,7 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
             state.Active = laserGO.activeSelf;
             state.Scale = pillierGO.transform.localScale;
             state.IsScaling = true;
+            state.SpeedScale = animationSpeed;
             entity.TakeControl();
         }
         state.AddCallback("Active", ActiveLaser);
@@ -53,7 +55,7 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
     {
         this.currentDir = dir;
         this.myOwner = ent;
-        this.currentDuration = Time.time + this.animationScaleDuration;
+        this.currentDuration = Time.time + (this.animationScaleDuration/this.animationSpeed);
         if (entity.IsOwner)
         {
             myOwnerColor.a = 0.75f;

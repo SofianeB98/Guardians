@@ -196,6 +196,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8c7580e53342ac47b9f59ec047b7c3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TestSacade: 1
   myGuardian: {fileID: 668}
   distance: 7
   speed: 6
