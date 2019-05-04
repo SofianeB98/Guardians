@@ -45,8 +45,6 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
 
     private void Update()
     {
-        
-        
         timerText.text = string.Format("{0:0}:{1:00}", Mathf.Floor(partyTimer / 60), partyTimer % 60 > 59 ? 59 : partyTimer % 60);
 
         if (partyTimer > 0.0f)

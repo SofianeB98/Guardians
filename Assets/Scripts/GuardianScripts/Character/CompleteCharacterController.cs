@@ -77,28 +77,38 @@ public class CompleteCharacterController : Bolt.EntityEventListener<IGuardianSta
 
     // Update is called once per frame
     public void CustomUpdate () {
-		this.DetectGround();
-		this.UpdateGravity();
-		this.finalDirection = this.direction + this.gravity;
-		this.characterController.Move(this.finalDirection * Time.deltaTime);
-		this.transform.rotation = Quaternion.AngleAxis(this.cameraReferential.eulerAngles.y, Vector3.up);//Quaternion.LookRotation(this.orientation, Vector3.up);
-        this.GroundPositionCorrection();
+        if (cameraReferential != null)
+        {
+            this.DetectGround();
+            this.UpdateGravity();
+            this.finalDirection = this.direction + this.gravity;
+            this.characterController.Move(this.finalDirection * Time.deltaTime);
+            this.transform.rotation = Quaternion.AngleAxis(this.cameraReferential.eulerAngles.y, Vector3.up);//Quaternion.LookRotation(this.orientation, Vector3.up);
+            this.GroundPositionCorrection();
+        }
+		
 	}
 
 	public void UpdateDirection(Vector3 dir) {
-		var cameraAngle = this.cameraReferential.rotation;
-		this.cameraReferential.eulerAngles = new Vector3(0,this.cameraReferential.eulerAngles.y,0);
-		dir = this.cameraReferential.rotation * dir;
-		this.cameraReferential.rotation = cameraAngle;
-		this.direction = dir * this.speed;
+	    if (cameraReferential != null)
+	    {
+	        var cameraAngle = this.cameraReferential.rotation;
+	        this.cameraReferential.eulerAngles = new Vector3(0, this.cameraReferential.eulerAngles.y, 0);
+	        dir = this.cameraReferential.rotation * dir;
+	        this.cameraReferential.rotation = cameraAngle;
+	        this.direction = dir * this.speed;
+	    }
 	}
     
 	public void UpdateRotation(Vector3 rot) {
-		var cameraAngle = this.cameraReferential.rotation;
-		this.cameraReferential.eulerAngles = new Vector3(0,this.cameraReferential.eulerAngles.y,0);
-		rot = this.cameraReferential.rotation * rot;
-		this.cameraReferential.rotation = cameraAngle;
-		this.orientation = rot;
+	    if (cameraReferential != null)
+	    {
+	        var cameraAngle = this.cameraReferential.rotation;
+	        this.cameraReferential.eulerAngles = new Vector3(0, this.cameraReferential.eulerAngles.y, 0);
+	        rot = this.cameraReferential.rotation * rot;
+	        this.cameraReferential.rotation = cameraAngle;
+	        this.orientation = rot;
+	    }
 	}
 
 	private void DetectGround() {

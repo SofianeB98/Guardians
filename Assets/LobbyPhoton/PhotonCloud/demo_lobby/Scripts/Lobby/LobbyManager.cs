@@ -72,13 +72,15 @@ namespace Bolt.Samples.Photon.Lobby
 
         void Start()
         {
+            DisconnectAll();
+
             s_Singleton = this;
             currentPanel = mainMenuPanel;
 
             backButton.gameObject.SetActive(false);
             GetComponent<Canvas>().enabled = true;
 
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
 
             SetServerInfo("Offline", "None");
 
@@ -390,5 +392,14 @@ namespace Bolt.Samples.Photon.Lobby
         //{
         //    BomberPlayerController.Spawn();
         //}
+
+
+        void DisconnectAll()
+        {
+            foreach (var connection in BoltNetwork.connections)
+            {
+                connection.Disconnect();
+            }
+        }
     }
 }
