@@ -1460,6 +1460,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69714d9a23b34bc48bb742fdd0ed8d8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TestSacade: 1
   myGuardian: {fileID: 5345986359602158806}
   distance: 7
   speed: 6
@@ -1541,12 +1542,12 @@ MonoBehaviour:
     m_Bits: 4096
   grounded: 0
   gravityForce: 9.81
-  gravityModifier: 2
+  gravityModifier: 3
   gravityMaxSpeed: 30
   sphereGroundDetectionRadius: 0.4
-  groundTolerance: 0.05
-  characterControllerRadiusCompensator: 0.1
-  jumpHeight: 2.5
+  groundTolerance: 0.1
+  characterControllerRadiusCompensator: 0
+  jumpHeight: 4
   jumpTimeToReachMax: 0.5
   jumpBehaviour:
     serializedVersion: 2

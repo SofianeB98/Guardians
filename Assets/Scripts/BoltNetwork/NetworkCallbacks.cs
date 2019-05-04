@@ -43,13 +43,7 @@ public class NetworkCallbacks : Bolt.GlobalEventListener
 
     public override void OnEvent(DisconnectEvent evnt)
     {
-        foreach (var connect in BoltNetwork.Connections)
-        {
-            LobbyManager.s_Singleton.Disconnected(connect);
-            BoltNetwork.Shutdown();
-        }
-
-        SceneManager.LoadScene(0, LoadSceneMode.Single);
+        BoltNetwork.Shutdown();
     }
 
     /*void OnGUI()

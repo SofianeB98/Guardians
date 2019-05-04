@@ -102,6 +102,7 @@ MonoBehaviour:
   doubleLaser: 1
   speedRotation: 100
   animationScaleDuration: 1
+  animationSpeed: 1
   checkLayer:
     serializedVersion: 2
     m_Bits: 512

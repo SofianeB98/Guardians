@@ -17,4 +17,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TrainingScene.unity
     guid: f94d553f051cba24f82399deb0dd2905
+  - enabled: 1
+    path: Assets/Scenes/MME_Scene/PhotonLobby_MME.unity
+    guid: c950ba4a8c1f2944994d10bbd9866f85
+  - enabled: 1
+    path: Assets/Scenes/MME_Scene/Multiplayer_TDM.unity
+    guid: 776a8c42ed669b34d9c198a22fa859ee
   m_configObjects: {}

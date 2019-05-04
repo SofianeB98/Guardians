@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[BoltGlobalBehaviour(BoltNetworkModes.Server)]
+//[BoltGlobalBehaviour(BoltNetworkModes.Server)]
 public class ServerCallbacks : Bolt.GlobalEventListener
 {
     public override void Connected(BoltConnection connection)

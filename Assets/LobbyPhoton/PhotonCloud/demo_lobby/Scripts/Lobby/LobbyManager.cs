@@ -257,6 +257,7 @@ namespace Bolt.Samples.Photon.Lobby
                 Debug.Log("Shutdown Done");
                 ChangeTo(mainMenuPanel);
             });
+            
         }
 
         // --- Countdown management
