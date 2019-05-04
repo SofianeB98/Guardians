@@ -1597,8 +1597,6 @@ MonoBehaviour:
     type: 3}
   <NamePosition>k__BackingField: {fileID: 4573350280563938888}
   health: 1
-  currentInventorySeed: 5
-  maxSeedInInventory: 5
   stunTime: 0.1
   invinsibleTime: 2.5
   dietime: 2

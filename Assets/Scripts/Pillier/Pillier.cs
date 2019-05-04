@@ -18,12 +18,14 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
     private bool destroy = false;
 
     [Header("Rotate Laser")]
-    [SerializeField] private float maxRotation = 90.0f;
+    //[SerializeField] private float maxRotation = 90.0f;
     [SerializeField] private float speedRotation = 5f;
-    [SerializeField] private float speedScalePillier = 4f;
-    [SerializeField] private float scaleMaxPillier = 4f;
-    private bool reverseRotate = false;
-    private float currentAngleRotate = 45f;
+    [SerializeField] private float animationScaleDuration = 1.0f;
+    private float currentDuration = 0f;
+    //[SerializeField] private float speedScalePillier = 4f;
+    //[SerializeField] private float scaleMaxPillier = 4f;
+    //private bool reverseRotate = false;
+    //private float currentAngleRotate = 45f;
     private int currentDir = 1;
 
     [Header("Laser")]
@@ -33,15 +35,17 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
     public override void Attached()
     {
         state.SetTransforms(state.Transform, this.transform);
+        state.SetAnimator(GetComponentInChildren<Animator>());
+        
         if (entity.IsOwner)
         {
             state.Active = laserGO.activeSelf;
             state.Scale = pillierGO.transform.localScale;
-            
+            state.IsScaling = true;
             entity.TakeControl();
         }
         state.AddCallback("Active", ActiveLaser);
-        state.AddCallback("Scale", ScalePillier);
+        //state.AddCallback("Scale", ScalePillier);
         state.AddCallback("MyColor", ColorChanged);
     }
 
@@ -49,6 +53,7 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
     {
         this.currentDir = dir;
         this.myOwner = ent;
+        this.currentDuration = Time.time + this.animationScaleDuration;
         if (entity.IsOwner)
         {
             myOwnerColor.a = 0.75f;
@@ -59,16 +64,18 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
 
     public override void SimulateOwner()
     {
-        if (this.pillierGO.transform.localScale.y < this.scaleMaxPillier)
+        if (Time.time > this.currentDuration && state.IsScaling)
         {
-            state.Scale += BoltNetwork.FrameDeltaTime * Vector3.up * this.speedScalePillier;
+            state.IsScaling = false;
+            //state.Scale += BoltNetwork.FrameDeltaTime * Vector3.up * this.speedScalePillier;
         }
-        else if (!this.laserGO.activeSelf)
+
+        if (!this.laserGO.activeSelf && !state.IsScaling)
         {
             state.Active = true;
             StartCoroutine(LaunchCheck());
         }
-        else
+        else if(this.laserGO.activeSelf && !state.IsScaling)
         {
             this.RotateLaser();
             
@@ -77,10 +84,10 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
     
     #region PillierFunction
 
-    private void ScalePillier()
-    {
-        this.pillierGO.transform.localScale = state.Scale;
-    }
+    //private void ScalePillier()
+    //{
+        //this.pillierGO.transform.localScale = state.Scale;
+    //}
 
     private void ActiveLaser()
     {
@@ -109,39 +116,9 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
 
     private void RotateLaser()
     {
-        //if (!reverseRotate)
-        {
-            //if (currentAngleRotate < 90)
-            {
-                this.transform.eulerAngles += Vector3.up * BoltNetwork.FrameDeltaTime * this.speedRotation * this.currentDir;
-                //this.currentAngleRotate += BoltNetwork.FrameDeltaTime * this.speedRotation;
-            }
-            //else
-            {
-                //this.reverseRotate = true;
-            }
-        }
-        //else
-        {
-            //if (currentAngleRotate > 0)
-            {
-            //    this.transform.eulerAngles -= Vector3.up * BoltNetwork.FrameDeltaTime * this.speedRotation;
-                //this.currentAngleRotate -= BoltNetwork.FrameDeltaTime * this.speedRotation;
-            }
-           // else
-            {
-             //   this.reverseRotate = false;
-            }
-        }
-
+        this.transform.eulerAngles += Vector3.up * BoltNetwork.FrameDeltaTime * this.speedRotation * this.currentDir;
     }
-
-    private void RotatePillier(float rotationAngle)
-    {
-        var newRotate = this.transform.eulerAngles.y + rotationAngle;
-        this.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x, newRotate, this.transform.eulerAngles.z);
-    }
-
+    
     #endregion
 
     #region PlayerInteraction

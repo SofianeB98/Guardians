@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class CameraController : Bolt.EntityBehaviour<IGuardianState>
 {
+    public bool TestSacade = true;
     [SerializeField] private Guardian myGuardian;
 
 	[SerializeField] private float distance = 10.0f;
@@ -39,7 +40,7 @@ public class CameraController : Bolt.EntityBehaviour<IGuardianState>
                 Vector3 focusPoint = focus.position + camera.right;
                 if (!this.myGuardian.IsPreLaunchSeed)
                 {
-                    this.camera.rotation = Quaternion.Euler(this.angleX, this.angleY, 0.0f);
+                    this.camera.rotation = TestSacade ? Quaternion.Lerp(this.camera.rotation, Quaternion.Euler(this.angleX, this.angleY, 0.0f), Time.deltaTime * 15.0f) : Quaternion.Euler(this.angleX, this.angleY, 0.0f);
                     this.trueDistance = Physics.Raycast(focusPoint, this.camera.rotation * new Vector3(0, 0, -this.distance), out this.rayHit, this.distance, ignoreLayerMask) ? Vector3.Distance(focusPoint, this.rayHit.point) : this.distance;
                     this.camera.position = focusPoint + this.camera.rotation * new Vector3(0, 0, -this.trueDistance);
                     if (this.timerUntilAutomatedControl < this.timeUntilAutomatedControl)
