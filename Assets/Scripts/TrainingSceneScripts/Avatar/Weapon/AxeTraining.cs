@@ -164,7 +164,7 @@ public class AxeTraining : MonoBehaviour
                                     dir = -dir;
                                 }
 
-                                dir.y = 0;
+                                //dir.y = 0;
                                 g.SetStun(dir.normalized, forcePush);
                                 objetFind = true;
                                 /////Son
