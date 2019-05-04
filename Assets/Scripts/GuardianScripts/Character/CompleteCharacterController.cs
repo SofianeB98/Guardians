@@ -215,6 +215,7 @@ public class CompleteCharacterController : Bolt.EntityEventListener<IGuardianSta
 
     public void AddForce(Vector3 dir, float force)
     {
+        Debug.Log(dir);
         this.direction = dir.normalized * force;
         /////Son
         colBalleMe.start();
