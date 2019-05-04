@@ -130,24 +130,24 @@ MonoBehaviour:
   axeRadiusLaunchCheck: 0.75
   pointOneAxeLaunch: {fileID: 4305970662412692110}
   pointTwoAxeLaunch: {fileID: 7711669725877147125}
-  axeReachTime: 0.5
+  axeReachTime: 0.2
   axeLaunchForwardBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 2
-      outSlope: 2
+      inSlope: 0.33010602
+      outSlope: 0.33010602
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.096339114
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 0
-      outSlope: 0
+      inSlope: 2
+      outSlope: 2
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
@@ -1462,11 +1462,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myGuardian: {fileID: 5345986359602158806}
   distance: 7
-  speed: 50
+  speed: 6
   inverseY: 0
-  angleYSpeed: 4
+  angleYSpeed: 25
   inverseX: 0
-  angleXSpeed: 4
+  angleXSpeed: 25
   angleXLimits: {x: 85, y: -85}
   focus: {fileID: 1581584081038079662}
   camera: {fileID: 6835961590952950620}
@@ -1591,7 +1591,7 @@ MonoBehaviour:
   characterController: {fileID: 4633716989581489156}
   videLayerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 16384
   myCanvas: {fileID: 4661636556931717381}
   winLosePointPrefab: {fileID: 1330491832018886311, guid: 4b0f69ab230867246b7e24ed7663e7d2,
     type: 3}

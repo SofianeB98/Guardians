@@ -9,13 +9,13 @@ public class CameraController : Bolt.EntityBehaviour<IGuardianState>
     [SerializeField] private Guardian myGuardian;
 
 	[SerializeField] private float distance = 10.0f;
-	[SerializeField] private float speed = 10.0f;
+	[SerializeField] [Range(1.0f, 10.0f)] private float speed = 6.0f;
 	private float angleY;
 	[SerializeField] private bool inverseY;
-	[SerializeField][Range(0.4f, 4.0f)] private float angleYSpeed = 1.0f;
+	[SerializeField][Range(1.0f, 100.0f)] private float angleYSpeed = 25.0f;
 	private float angleX;
 	[SerializeField]private bool inverseX;
-	[SerializeField][Range(0.4f,4.0f)] private float angleXSpeed = 1.0f;
+	[SerializeField][Range(1.0f,100.0f)] private float angleXSpeed = 25.0f;
 	[SerializeField] private Vector2 angleXLimits = new Vector2(85,-85);
 	[SerializeField] private Transform focus;
 	[SerializeField] private Transform camera;
@@ -25,8 +25,6 @@ public class CameraController : Bolt.EntityBehaviour<IGuardianState>
 	private float timerUntilAutomatedControl = 0.0f;
     [SerializeField] private LayerMask ignoreLayerMask;
     
-
-
     private void Start()
     {
         LoadValue();
@@ -59,8 +57,6 @@ public class CameraController : Bolt.EntityBehaviour<IGuardianState>
 
             }
         }
-	    
-        
 	}
 
 	public void UpdateAngleManual(Vector3 vec) {
@@ -103,15 +99,7 @@ public class CameraController : Bolt.EntityBehaviour<IGuardianState>
     {
         if (PlayerPrefs.HasKey("SpeedCam"))
         {
-            this.speed = PlayerPrefs.GetFloat("SpeedCam");
-        }
-        if (PlayerPrefs.HasKey("XCam"))
-        {
-            this.angleXSpeed = PlayerPrefs.GetFloat("XCam");
-        }
-        if (PlayerPrefs.HasKey("YCam"))
-        {
-            this.angleYSpeed = PlayerPrefs.GetFloat("YCam");
+            this.speed = PlayerPrefs.GetFloat("SpeedCam")/2;
         }
     }
 }

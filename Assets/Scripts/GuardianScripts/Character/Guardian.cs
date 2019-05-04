@@ -26,8 +26,8 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     [Header("Player Stats")]
     [SerializeField] private float health = 100f;
     private float lastHealth = 100f;
-    [SerializeField] private int currentInventorySeed = 5;
-    [SerializeField] private int maxSeedInInventory = 5;
+    //[SerializeField] private int currentInventorySeed = 5;
+    //[SerializeField] private int maxSeedInInventory = 5;
     public bool IsStuned { get; private set; }
     [SerializeField] private float stunTime = 5f;
     private float currentStunTime = 0f;
@@ -509,7 +509,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     
     public void CheckVide()
     {
-        if (this.currentInventorySeed < this.maxSeedInInventory)
+        //if (this.currentInventorySeed < this.maxSeedInInventory)
         {
             Collider[] col = Physics.OverlapSphere(this.feetPosition.position, 1.25f, this.videLayerMask);
 
@@ -526,9 +526,9 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
                 evnt.Send();
             }
         }
-        else
+        //else
         {
-            return;
+           // return;
         }
 
     }
@@ -568,6 +568,8 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
                 go.GetComponent<TextMeshProUGUI>().color = Color.yellow;
                 Destroy(go, 1f);
             }
+
+            return;
         }
         else
         {

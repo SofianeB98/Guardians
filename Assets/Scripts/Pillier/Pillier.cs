@@ -148,8 +148,10 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
 
     IEnumerator LaunchCheck()
     {
+        yield return new WaitForEndOfFrame();
         while (true)
         {
+            yield return new WaitForEndOfFrame();
             yield return new WaitForEndOfFrame();
             this.CheckPlayer();
             if (this.doubleLaser)
@@ -177,6 +179,7 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
 
                         g.TakeDamage(this.damage);
                         Debug.Log("Gardian toucher");
+
                         if (g != myOwner.GetComponent<Guardian>())
                         {
                             myOwner.GetComponent<Guardian>().UpdateScore(false);
@@ -192,6 +195,8 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
                         evnt.Message = s;
                         evnt.RemoveFeed = false;
                         evnt.Send();
+
+                        return;
                     }
 
                     return;

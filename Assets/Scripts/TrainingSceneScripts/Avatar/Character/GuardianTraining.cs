@@ -26,8 +26,8 @@ public class GuardianTraining : MonoBehaviour
     [Header("Player Stats")]
     [SerializeField] private float health = 100f;
     private float lastHealth = 100f;
-    [SerializeField] private int currentInventorySeed = 5;
-    [SerializeField] private int maxSeedInInventory = 5;
+    //[SerializeField] private int currentInventorySeed = 5;
+    //[SerializeField] private int maxSeedInInventory = 5;
     public bool IsStuned { get; private set; }
     [SerializeField] private float stunTime = 5f;
     private float currentStunTime = 0f;
@@ -353,7 +353,7 @@ public class GuardianTraining : MonoBehaviour
     
     public void CheckVide()
     {
-        if (this.currentInventorySeed < this.maxSeedInInventory)
+        //if (this.currentInventorySeed < this.maxSeedInInventory)
         {
             Collider[] col = Physics.OverlapSphere(this.feetPosition.position, 1.25f, this.videLayerMask);
 
@@ -363,9 +363,9 @@ public class GuardianTraining : MonoBehaviour
                 
             }
         }
-        else
+        //else
         {
-            return;
+           // return;
         }
 
     }

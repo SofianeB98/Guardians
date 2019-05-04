@@ -112,9 +112,10 @@ public class PillierTraining : MonoBehaviour
 
     IEnumerator LaunchCheck()
     {
-        
+        yield return new WaitForEndOfFrame();
         while (true)
         {
+            yield return new WaitForEndOfFrame();
             yield return new WaitForEndOfFrame();
             this.CheckPlayer();
             if (doubleLaser)
@@ -164,6 +165,7 @@ public class PillierTraining : MonoBehaviour
                     {
                         g.TakeDamage(this.damage);
                         Debug.Log("Gardian toucher");
+                        return;
                     }
 
                     return;

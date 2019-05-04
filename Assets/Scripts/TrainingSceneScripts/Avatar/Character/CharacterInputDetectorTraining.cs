@@ -32,7 +32,7 @@ public class CharacterInputDetectorTraining : MonoBehaviour
 	// Update is called once per frame
 	public void CustomUpdate ()
 	{
-        if (!this.guardian.IsDie)
+        if (!this.guardian.IsDie && Time.timeScale > 0.1f)
         {
             //this.guardian.CheckBombSeed();
             this.guardian.CheckVide();

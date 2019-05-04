@@ -198,11 +198,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myGuardian: {fileID: 559}
   distance: 7
-  speed: 30
+  speed: 6
   inverseY: 0
-  angleYSpeed: 4
+  angleYSpeed: 25
   inverseX: 0
-  angleXSpeed: 4
+  angleXSpeed: 25
   angleXLimits: {x: 85, y: -85}
   focus: {fileID: 340}
   camera: {fileID: 341}
@@ -286,8 +286,6 @@ MonoBehaviour:
     type: 3}
   <NamePosition>k__BackingField: {fileID: 8505159944757661521}
   health: 1
-  currentInventorySeed: 1
-  maxSeedInInventory: 5
   stunTime: 0.1
   invinsibleTime: 2.5
   scoreText: {fileID: 6154417976641042051}
@@ -632,33 +630,33 @@ MonoBehaviour:
   axeRadiusLaunchCheck: 1
   pointOneAxeLaunch: {fileID: 8226235363936129506}
   pointTwoAxeLaunch: {fileID: 8865149893183802608}
-  axeReachTime: 0.25
+  axeReachTime: 0.2
   axeLaunchForwardBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 1.9418
-      outSlope: 1.9418
+      inSlope: 0.33010602
+      outSlope: 0.33010602
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.0655106
+      outWeight: 0.096339114
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 0.38794518
-      outSlope: 0.38794518
+      inSlope: 2
+      outSlope: 2
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.100192666
+      inWeight: 0
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
   currentAxeReachForwardDistance: 25
-  axeBackSpeed: 60
+  axeBackSpeed: 50
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 4096

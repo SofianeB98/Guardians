@@ -5,22 +5,49 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class MainMenuScript : MonoBehaviour
+public class ManagerTraining : MonoBehaviour
 {
+    [SerializeField] private GameObject PausePanel;
+
     [SerializeField] private TextMeshProUGUI camSpeedText;
     [SerializeField] private Dropdown selectInput;
     [SerializeField] private InputField inputFieldPlayerName;
 
-    [SerializeField] [Range(2.0f,20.0f)] private float currentSensi = 12.0f;
+    [SerializeField] [Range(2.0f, 20.0f)] private float currentSensi = 12.0f;
+
+    private bool isPaused = false;
 
     private void Start()
     {
         LoadValue();
     }
 
-    public void LoadLevel(int index)
+    public void Update()
     {
-        SceneManager.LoadScene(index);
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            this.isPaused = !this.isPaused;
+        }
+
+        if (this.isPaused)
+        {
+            Time.timeScale = 0.0f;
+            this.PausePanel.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+        else
+        {
+            Time.timeScale = 1.0f;
+            this.PausePanel.SetActive(false);
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+    }
+
+    public void Resume()
+    {
+        this.isPaused = !this.isPaused;
     }
 
     public void ActiveOptionPanel(GameObject optionPanel)
@@ -28,9 +55,9 @@ public class MainMenuScript : MonoBehaviour
         optionPanel.SetActive(!optionPanel.activeSelf);
     }
 
-    public void QuitGame()
+    public void LoadLevel(int index)
     {
-        Application.Quit();
+        SceneManager.LoadScene(index);
     }
 
     public void AddSensiValue()
