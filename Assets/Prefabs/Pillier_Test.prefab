@@ -327,7 +327,7 @@ MonoBehaviour:
   laserDeuxGo: {fileID: 376}
   seedDrop: {fileID: 475}
   rdToColor: {fileID: 499}
-  doubleLaser: 1
+  doubleLaser: 0
   speedRotation: 120
   animationScaleDuration: 0.9
   animationSpeed: 3
