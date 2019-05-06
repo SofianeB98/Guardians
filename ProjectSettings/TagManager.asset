@@ -9,6 +9,7 @@ TagManager:
   - Ground
   - Spawn
   - Axe
+  - Ground_PMouvante
   layers:
   - Default
   - TransparentFX

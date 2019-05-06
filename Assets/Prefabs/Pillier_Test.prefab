@@ -335,6 +335,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   damage: 1
+  groundLayerMask:
+    serializedVersion: 2
+    m_Bits: 4096
 --- !u!1 &387
 GameObject:
   m_ObjectHideFlags: 0

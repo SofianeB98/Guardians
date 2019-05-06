@@ -7,7 +7,7 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
 {
     private BoltEntity myOwner;
     [SerializeField] private float health = 1.0f;
-
+    
     [Header("Base")]
     [SerializeField] private GameObject pillierGO;
     [SerializeField] private GameObject laserGO;
@@ -32,6 +32,11 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
     [Header("Laser")]
     [SerializeField] private LayerMask checkLayer;
     [SerializeField] private int damage = 1;
+
+    [SerializeField] private LayerMask groundLayerMask;
+    private Vector3 plateformPosition = Vector3.zero;
+    private Vector3 distPlateform = Vector3.zero;
+    private bool isOnPMouvante = false;
 
     public override void Attached()
     {
@@ -62,10 +67,13 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
             state.MyOwner = ent;
             state.MyColor = myOwnerColor;
         }
+        
     }
 
     public override void SimulateOwner()
     {
+        CheckPlateformMouvante();
+        if(this.plateformPosition != Vector3.zero) this.transform.position = this.plateformPosition - this.distPlateform;
         if (Time.time > this.currentDuration && state.IsScaling)
         {
             state.IsScaling = false;
@@ -80,7 +88,6 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
         else if(this.laserGO.activeSelf && !state.IsScaling)
         {
             this.RotateLaser();
-            
         }
     }
     
@@ -120,7 +127,21 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
     {
         this.transform.eulerAngles += Vector3.up * BoltNetwork.FrameDeltaTime * this.speedRotation * this.currentDir;
     }
-    
+
+    private void CheckPlateformMouvante()
+    {
+        RaycastHit pmHit;
+        if (Physics.SphereCast(this.transform.position + Vector3.up, 1f, Vector3.down, out pmHit, 1,
+            groundLayerMask))
+        {
+            if (pmHit.transform.tag.Contains("PMouvante"))
+            {
+                this.plateformPosition = pmHit.transform.position;
+                if(this.distPlateform == Vector3.zero) this.distPlateform = this.plateformPosition - this.transform.position;
+            }
+        }
+    }
+
     #endregion
 
     #region PlayerInteraction

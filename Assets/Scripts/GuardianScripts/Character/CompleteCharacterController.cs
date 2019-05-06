@@ -8,6 +8,7 @@ public class CompleteCharacterController : Bolt.EntityEventListener<IGuardianSta
 {
 
 	[SerializeField] private CharacterController characterController;
+    private Vector3 plateformeMouvanteDir = Vector3.zero;
 	private Vector3 direction = Vector3.zero;
 	private Vector3 orientation = Vector3.forward;
 	private Vector3 gravity = Vector3.zero;
@@ -81,7 +82,7 @@ public class CompleteCharacterController : Bolt.EntityEventListener<IGuardianSta
         {
             this.DetectGround();
             this.UpdateGravity();
-            this.finalDirection = this.direction + this.gravity;
+            this.finalDirection = this.direction + this.gravity + this.plateformeMouvanteDir;
             this.characterController.Move(this.finalDirection * Time.deltaTime);
             this.transform.rotation = Quaternion.AngleAxis(this.cameraReferential.eulerAngles.y, Vector3.up);//Quaternion.LookRotation(this.orientation, Vector3.up);
             this.GroundPositionCorrection();
@@ -117,7 +118,23 @@ public class CompleteCharacterController : Bolt.EntityEventListener<IGuardianSta
 			Vector3.down,
 			out this.lastGroundDetectedInfos,
 			4,
-		    groundLayerMask);	
+		    groundLayerMask);
+
+
+	    RaycastHit pmHit;
+	    if (Physics.SphereCast(this.transform.position, 1f, Vector3.down, out pmHit, 1,
+	        groundLayerMask))
+	    {
+	        if (pmHit.transform.tag.Contains("PMouvante"))
+	        {
+	            this.plateformeMouvanteDir = pmHit.transform.GetComponent<PlateformMovement>().VectorDirecteurPlateforme();
+	        }
+	        else
+	        {
+	            this.plateformeMouvanteDir = Vector3.zero;
+	        }
+	    }
+
 	}
 
 	private void UpdateGravity() {
@@ -178,7 +195,9 @@ public class CompleteCharacterController : Bolt.EntityEventListener<IGuardianSta
 		    this.doubleJumping = false;
 			this.jumpTimer = 0.0f;
 
-		    var evnt = AudioStartEvent.Create(entity);
+		    this.plateformeMouvanteDir = Vector3.zero;
+
+            var evnt = AudioStartEvent.Create(entity);
 		    evnt.Position = transform.position;
 		    evnt.AudioID = 0;
             evnt.Send();
@@ -192,6 +211,8 @@ public class CompleteCharacterController : Bolt.EntityEventListener<IGuardianSta
             this.jumping = true;
             this.doubleJumping = true;
             this.jumpTimer = 0.0f;
+
+            this.plateformeMouvanteDir = Vector3.zero;
 
             var evnt = AudioStartEvent.Create(entity);
             evnt.Position = transform.position;

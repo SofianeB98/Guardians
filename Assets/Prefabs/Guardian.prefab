@@ -288,7 +288,7 @@ MonoBehaviour:
   <NamePosition>k__BackingField: {fileID: 480}
   health: 1
   stunTime: 0.1
-  invinsibleTime: 2.5
+  invinsibleTime: 3.5
   scoreText: {fileID: 739}
   bestEnemyScoreText: {fileID: 738}
   dietime: 2

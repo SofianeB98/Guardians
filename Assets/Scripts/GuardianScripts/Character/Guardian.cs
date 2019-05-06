@@ -176,7 +176,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         bestEnemy = GameSystem.GSystem.BestEnemyGuardian(this);
         while (!GameSystem.GSystem.EndGame)
         {
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.5f);
             bestEnemy = GameSystem.GSystem.BestEnemyGuardian(this);
         }
 
