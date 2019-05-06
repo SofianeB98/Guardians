@@ -9,6 +9,7 @@ public class Axe : MonoBehaviour
     [SerializeField] private Rigidbody rigid;
     [SerializeField] private Transform myHandParent;
     [SerializeField] private Guardian myGuardian;
+    [SerializeField] private bool canDestroyPillier = false;
 
     [Header("Gestion Lancer De Hache")]
     [SerializeField] private float axeRadiusLaunchCheck = 1f;
@@ -150,6 +151,7 @@ public class Axe : MonoBehaviour
                 for (int i = 0; i < col.Length; i++)
                 {
                     Guardian g = col[i].GetComponent<Guardian>();
+                    Pillier p = col[i].GetComponent<Pillier>();
                     if (g != null)
                     {
                         if (g != myGuardian && g != lastGuardian)//&& !g.IsStuned)
@@ -164,7 +166,7 @@ public class Axe : MonoBehaviour
                                 }
 
                                 //dir.y = 0;
-                                g.SetStun(dir.normalized, forcePush);
+                                g.SetStun(dir.normalized, forcePush, this.myGuardian);
                                 objetFind = true;
                                 /////Son
                                 collisionPlayer.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(transform.position));
@@ -179,6 +181,16 @@ public class Axe : MonoBehaviour
                             }
 
                         }
+                    }
+                    else if (p != null && this.canDestroyPillier)
+                    {
+                        p.DestroyPillier();
+                        /////Son
+                        collisionDecor.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(transform.position));
+                        collisionDecor.start();
+                        /////Son
+                        objetFind = true;
+                        check = false;
                     }
                     else
                     {

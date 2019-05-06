@@ -319,6 +319,8 @@ MonoBehaviour:
   sensHoraireSprite: {fileID: 21300000, guid: d9aebfeae5aab85488295d2bc8c85769, type: 3}
   sensAntiHoraireSprite: {fileID: 21300000, guid: cd34c56edbaa65c41b3ba1882e78f7b1,
     type: 3}
+  lastGuardianWhoHitMe: {fileID: 0}
+  timeToNullLastEnemy: 5
   deathAudioMeEvent: "event:/Feedbacks Joueur Personnels/Joueur \xE9limin\xE9 (soi)"
   deathAudioOtherEvent: "event:/Feedbacks Objets/Joueur \xE9limin\xE9 (ennemi)"
   launchAxeAudioEvent: event:/Feedbacks Joueur Communs/Lancer de balle
@@ -628,6 +630,7 @@ MonoBehaviour:
   rigid: {fileID: 521}
   myHandParent: {fileID: 401}
   myGuardian: {fileID: 668}
+  canDestroyPillier: 0
   axeRadiusLaunchCheck: 0.75
   pointOneAxeLaunch: {fileID: 478}
   pointTwoAxeLaunch: {fileID: 481}

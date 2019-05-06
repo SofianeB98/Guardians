@@ -85,6 +85,11 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     [SerializeField] private Sprite sensHoraireSprite;
     [SerializeField] private Sprite sensAntiHoraireSprite;
 
+    [Header("Guardian Enemy")]
+    [SerializeField] private Guardian lastGuardianWhoHitMe = null;
+    [SerializeField] private float timeToNullLastEnemy = 5f;
+    private float currentTimerNullEnemy = 0f;
+
     [Header("Audio")]
     [FMODUnity.EventRef]
     [SerializeField] private string deathAudioMeEvent = "";
@@ -168,6 +173,11 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         if (this.currentInvinsibleTime < Time.time)
         {
             this.IsInvinsible = false;
+        }
+
+        if (this.currentTimerNullEnemy < Time.time)
+        {
+            this.lastGuardianWhoHitMe = null;
         }
     }
 
@@ -298,8 +308,11 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         return;
     }
 
-    public void SetStun(Vector3 dir, float force)
+    public void SetStun(Vector3 dir, float force, Guardian enemy)
     {
+        this.lastGuardianWhoHitMe = enemy;
+        this.currentTimerNullEnemy = Time.time + this.timeToNullLastEnemy;
+
         var stun = SetStunEvent.Create(entity);
         stun.IsStuned = true;
         stun.Direction = dir;
@@ -516,9 +529,21 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
             if (col.Length > 0)
             {
                 this.TakeDamage(1);
-                UpdateScore(true);
+                
 
                 string s = guardianName + " is lost in the Void !";
+
+                if (this.lastGuardianWhoHitMe != null)
+                {
+                    s = lastGuardianWhoHitMe.guardianName + " push " + guardianName + " in the void !";
+                    lastGuardianWhoHitMe.UpdateScore(false);
+                    this.lastGuardianWhoHitMe = null;
+                }
+                else
+                {
+                    UpdateScore(true);
+                }
+                
 
                 var evnt = KillFeedEvent.Create(GameSystem.GSystem.entity);
                 evnt.Message = s;
