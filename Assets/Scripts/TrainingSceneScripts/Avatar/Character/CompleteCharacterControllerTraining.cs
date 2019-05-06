@@ -7,7 +7,8 @@ using UnityEngine;
 public class CompleteCharacterControllerTraining : MonoBehaviour
 { 
     [SerializeField] private CharacterController characterController;
-	private Vector3 direction = Vector3.zero;
+    private Vector3 plateformeMouvanteDir = Vector3.zero;
+    private Vector3 direction = Vector3.zero;
 	private Vector3 orientation = Vector3.forward;
 	private Vector3 gravity = Vector3.zero;
 	private Vector3 finalDirection = Vector3.zero;
@@ -73,7 +74,7 @@ public class CompleteCharacterControllerTraining : MonoBehaviour
         
 		this.DetectGround();
 		this.UpdateGravity();
-		this.finalDirection = this.direction + this.gravity;
+		this.finalDirection = this.direction + this.gravity + this.plateformeMouvanteDir;
 		this.characterController.Move(this.finalDirection * Time.deltaTime);
 		if(this.cameraReferential != null)this.transform.rotation = Quaternion.AngleAxis(this.cameraReferential.eulerAngles.y, Vector3.up);//Quaternion.LookRotation(this.orientation, Vector3.up);
         this.GroundPositionCorrection();
@@ -108,8 +109,22 @@ public class CompleteCharacterControllerTraining : MonoBehaviour
 			Vector3.down,
 			out this.lastGroundDetectedInfos,
 			4,
-		    groundLayerMask);	
-	}
+		    groundLayerMask);
+
+	    RaycastHit pmHit;
+	    if (Physics.SphereCast(this.transform.position, 1f, Vector3.down, out pmHit, 1,
+	        groundLayerMask))
+	    {
+	        if (pmHit.transform.tag.Contains("PMouvante"))
+	        {
+	            this.plateformeMouvanteDir = pmHit.transform.GetComponent<PlateformMovementTraining>().VectorDirecteurPlateforme();
+	        }
+	        else
+	        {
+	            this.plateformeMouvanteDir = Vector3.zero;
+	        }
+	    }
+    }
 
 	private void UpdateGravity() {
 		if (!this.grounded && !this.jumping) {

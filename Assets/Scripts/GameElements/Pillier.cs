@@ -36,7 +36,6 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
     [SerializeField] private LayerMask groundLayerMask;
     private Vector3 plateformPosition = Vector3.zero;
     private Vector3 distPlateform = Vector3.zero;
-    private bool isOnPMouvante = false;
 
     public override void Attached()
     {

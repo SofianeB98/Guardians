@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlateformMovement : Bolt.EntityEventListener<IMovementPlateformState>
+public class PlateformMovementTraining : MonoBehaviour
 {
     [SerializeField] private AnimationCurve curveMovement;
     [SerializeField] private float diviseurTimer = 5f;
@@ -43,17 +43,13 @@ public class PlateformMovement : Bolt.EntityEventListener<IMovementPlateformStat
 
         this.speedMove = this.maxDistance / this.diviseurTimer;
     }
+    
 
-    public override void Attached()
-    {
-        state.SetTransforms(state.Transform, transform);
-    }
-
-    public override void SimulateOwner()
+    private void Update()
     {
         if (direction)
         {
-            currentTimer += BoltNetwork.FrameDeltaTime / diviseurTimer;
+            currentTimer += Time.deltaTime / diviseurTimer;
             if (currentTimer >= 1.0f)
             {
                 currentTimer = 1.0f;
@@ -62,7 +58,7 @@ public class PlateformMovement : Bolt.EntityEventListener<IMovementPlateformStat
         }
         else
         {
-            currentTimer -= BoltNetwork.FrameDeltaTime / diviseurTimer;
+            currentTimer -= Time.deltaTime / diviseurTimer;
             if (currentTimer <= 0.0f)
             {
                 currentTimer = 0.0f;

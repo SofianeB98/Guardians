@@ -31,7 +31,9 @@ public class PillierTraining : MonoBehaviour
     [SerializeField] private LayerMask checkLayer;
     [SerializeField] private int damage = 1;
 
-    
+    [SerializeField] private LayerMask groundLayerMask;
+    private Vector3 plateformPosition = Vector3.zero;
+    private Vector3 distPlateform = Vector3.zero;
 
     public void Init(Color myOwnerColor, int dir)
     {
@@ -42,6 +44,9 @@ public class PillierTraining : MonoBehaviour
 
     private void Update()
     {
+        CheckPlateformMouvante();
+        if (this.plateformPosition != Vector3.zero) this.transform.position = this.plateformPosition - this.distPlateform;
+
         if (this.pillierGO.transform.localScale.y < this.scaleMaxPillier)
         {
             this.pillierGO.transform.localScale += BoltNetwork.FrameDeltaTime * Vector3.up * this.speedScalePillier;
@@ -61,14 +66,28 @@ public class PillierTraining : MonoBehaviour
             
         }
     }
-    
+
+    private void CheckPlateformMouvante()
+    {
+        RaycastHit pmHit;
+        if (Physics.SphereCast(this.transform.position + Vector3.up, 1f, Vector3.down, out pmHit, 1,
+            groundLayerMask))
+        {
+            if (pmHit.transform.tag.Contains("PMouvante"))
+            {
+                this.plateformPosition = pmHit.transform.position;
+                if (this.distPlateform == Vector3.zero) this.distPlateform = this.plateformPosition - this.transform.position;
+            }
+        }
+    }
+
     #region PillierFunction
-    
+
     public void DestroyPillier()
     {
         //SeedTraining s = BoltNetwork.Instantiate(BoltPrefabs.Seed, this.seedDrop.position, Quaternion.identity).GetComponent<Seed>();
         //s.Init(0, null, Quaternion.identity, false, myOwner, state.MyColor, this.currentDir);
-        //Destroy(this.gameObject);
+        Destroy(this.gameObject);
     }
 
     private void RotateLaser()
