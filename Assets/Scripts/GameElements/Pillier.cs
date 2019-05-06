@@ -109,8 +109,8 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
 
     public void DestroyPillier()
     {
-        Seed s = BoltNetwork.Instantiate(BoltPrefabs.Seed, this.seedDrop.position, Quaternion.identity).GetComponent<Seed>();
-        s.Init(0, null, Quaternion.identity, false, myOwner, state.MyColor, this.currentDir);
+        //Seed s = BoltNetwork.Instantiate(BoltPrefabs.Seed, this.seedDrop.position, Quaternion.identity).GetComponent<Seed>();
+        //s.Init(0, null, Quaternion.identity, false, myOwner, state.MyColor, this.currentDir);
         if (entity.IsOwner)
         {
             BoltNetwork.Destroy(this.gameObject);
