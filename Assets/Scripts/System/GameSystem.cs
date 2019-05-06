@@ -124,6 +124,7 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
                 {
                     playerNameList[i].text = "";
                 }
+
                 playerNameList[i].transform.position = GuardiansInScene[i].NamePosition.position;
                 if(this.worldCanvas.worldCamera != null) playerNameList[i].transform.rotation = 
                     Quaternion.LookRotation((playerNameList[i].transform.position - this.worldCanvas.worldCamera.transform.position), Vector3.up);
@@ -184,12 +185,8 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         yield return new WaitForSeconds(10f);
-        if (BoltNetwork.IsServer)
-        {
-            var evnt = DisconnectEvent.Create(GlobalTargets.Everyone);
-            evnt.Send();
-        }
-        
+        var evnt = DisconnectEvent.Create(GlobalTargets.Everyone);
+        evnt.Send();
         yield break;
     }
 
@@ -224,6 +221,14 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
             {
                 win = GuardiansInScene[i];
                 score = GuardiansInScene[i].CurrentScore;
+            }
+            else if (GuardiansInScene[i].CurrentScore == score)
+            {
+                if (GuardiansInScene[i].CurrentKill > win.CurrentKill)
+                {
+                    win = GuardiansInScene[i];
+                    score = GuardiansInScene[i].CurrentScore;
+                }
             }
         }
 

@@ -175,7 +175,7 @@ public class Axe : MonoBehaviour
 
                                 GameObject go = Instantiate(contactParticulePrefab, this.transform.position,
                                     Quaternion.LookRotation(-dir, Vector3.up));
-                                Destroy(go, 1f);
+                                Destroy(go, 1.8f);
 
                                 check = false;
                             }

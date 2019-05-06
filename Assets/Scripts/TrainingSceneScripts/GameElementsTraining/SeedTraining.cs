@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class SeedTraining : MonoBehaviour
 {
-    private BoltEntity myOwner;
     [SerializeField] private Rigidbody rigid;
     [SerializeField] private Quaternion pillierRotate;
     [SerializeField] private GuardianTraining myGuardian;
@@ -74,7 +73,7 @@ public class SeedTraining : MonoBehaviour
         if (raycast)
         {
             PillierTraining p = Instantiate(pillier, this.transform.position - new Vector3(0, 0.4f, 0), this.pillierRotate);
-            p.Init(Color.white,this.currentDir);
+            p.Init(Color.white,this.currentDir, this.myGuardian);
             this.myGuardian.AddPillierToMyList(p);
             Destroy(this.gameObject);
         }

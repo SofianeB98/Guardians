@@ -314,6 +314,11 @@ public class GuardianTraining : MonoBehaviour
         }
     }
 
+    public void RemovePillier(PillierTraining pToRemove)
+    {
+        this.myPillier.Remove(pToRemove);
+    }
+
     #endregion
 
     #region SeedInteraction

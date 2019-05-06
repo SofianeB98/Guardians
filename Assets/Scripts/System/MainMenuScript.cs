@@ -16,6 +16,8 @@ public class MainMenuScript : MonoBehaviour
     private void Start()
     {
         LoadValue();
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     public void LoadLevel(int index)

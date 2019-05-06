@@ -120,6 +120,7 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
             evnt.EntityDestroy = entity;
             evnt.Send();
         }
+        this.myOwner.GetComponent<Guardian>().RemovePillier(this);
     }
 
     private void RotateLaser()

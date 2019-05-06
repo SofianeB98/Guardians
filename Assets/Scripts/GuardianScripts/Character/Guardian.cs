@@ -477,6 +477,11 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         }
     }
 
+    public void RemovePillier(Pillier pToRemove)
+    {
+        this.myPillier.Remove(pToRemove);
+    }
+
     #endregion
 
     #region SeedInteraction

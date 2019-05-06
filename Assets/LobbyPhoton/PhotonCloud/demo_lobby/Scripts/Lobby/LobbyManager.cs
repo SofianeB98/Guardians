@@ -86,6 +86,9 @@ namespace Bolt.Samples.Photon.Lobby
 
             Debug.Log("Lobby Scene: " + lobbyScene.SimpleSceneName);
             Debug.Log("Game Scene: " + gameScene.SimpleSceneName);
+
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
 
         void FixedUpdate()

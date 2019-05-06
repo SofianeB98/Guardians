@@ -6,8 +6,8 @@ using UnityEngine;
 
 public class PillierTraining : MonoBehaviour
 {
-    private BoltEntity myOwner;
     [SerializeField] private float health = 1.0f;
+    private GuardianTraining myguardian;
 
     [Header("Base")]
     [SerializeField] private GameObject pillierGO;
@@ -35,11 +35,11 @@ public class PillierTraining : MonoBehaviour
     private Vector3 plateformPosition = Vector3.zero;
     private Vector3 distPlateform = Vector3.zero;
 
-    public void Init(Color myOwnerColor, int dir)
+    public void Init(Color myOwnerColor, int dir, GuardianTraining g)
     {
         this.currentDir = dir;
         myOwnerColor.a = 0.75f;
-        
+        this.myguardian = g;
     }
 
     private void Update()
@@ -88,6 +88,7 @@ public class PillierTraining : MonoBehaviour
         //SeedTraining s = BoltNetwork.Instantiate(BoltPrefabs.Seed, this.seedDrop.position, Quaternion.identity).GetComponent<Seed>();
         //s.Init(0, null, Quaternion.identity, false, myOwner, state.MyColor, this.currentDir);
         Destroy(this.gameObject);
+        myguardian.RemovePillier(this);
     }
 
     private void RotateLaser()

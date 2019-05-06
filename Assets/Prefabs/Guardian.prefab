@@ -630,7 +630,7 @@ MonoBehaviour:
   rigid: {fileID: 521}
   myHandParent: {fileID: 401}
   myGuardian: {fileID: 668}
-  canDestroyPillier: 0
+  canDestroyPillier: 1
   axeRadiusLaunchCheck: 0.75
   pointOneAxeLaunch: {fileID: 478}
   pointTwoAxeLaunch: {fileID: 481}
