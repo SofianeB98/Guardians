@@ -53,6 +53,10 @@ public class CharacterInputDetector : Bolt.EntityBehaviour<IGuardianState>
                             }*/
                         }
                     }
+                    else if (this.characterController.jumping || this.characterController.doubleJumping || !this.characterController.Grounded)
+                    {
+                        this.characterController.UpdateDirWhenImJumping();
+                    }
                     else
                     {
                         this.characterController.UpdateDirection(Vector3.zero);

@@ -23,7 +23,9 @@ public class CompleteCharacterControllerTraining : MonoBehaviour
         get { return grounded; }
     }
 	private RaycastHit lastGroundDetectedInfos;
-	[SerializeField] private float gravityForce = 9.81f;
+
+    [Header("Gravity")]
+    [SerializeField] private float gravityForce = 9.81f;
 	[SerializeField] private float gravityModifier = 1;
 	[SerializeField] private float gravityMaxSpeed = 50;
 	[SerializeField] private float sphereGroundDetectionRadius = 0.4f;
@@ -31,7 +33,8 @@ public class CompleteCharacterControllerTraining : MonoBehaviour
 	[SerializeField] private float characterControllerRadiusCompensator = 0.1f;
 	
     [Header("Jump Section")]
-	[SerializeField] private float jumpHeight = 8;
+    [SerializeField] private float speedPerteSpeed = 1f;
+    [SerializeField] private float jumpHeight = 8;
 	[SerializeField] private float jumpTimeToReachMax = 0.5f;
 	[SerializeField] private AnimationCurve jumpBehaviour;
 	private float jumpTimer;
@@ -97,7 +100,12 @@ public class CompleteCharacterControllerTraining : MonoBehaviour
 		this.direction = dir * this.speed;
 	}
     
-	public void UpdateRotation(Vector3 rot) {
+    public void UpdateDirWhenImJumping()
+    {
+        this.direction = Vector3.Lerp(this.direction, Vector3.zero, Time.deltaTime * this.speedPerteSpeed);
+    }
+
+    public void UpdateRotation(Vector3 rot) {
 	    if (this.cameraReferential != null)
 	    {
 	        var cameraAngle = this.cameraReferential.rotation;
@@ -156,7 +164,6 @@ public class CompleteCharacterControllerTraining : MonoBehaviour
 		    if (this.doubleJumpTimer >= 1.0f)
 		    {
 		        this.jumping = false;
-		        this.doubleJumping = true;
 		    }
 		    else
 		    {
@@ -166,7 +173,7 @@ public class CompleteCharacterControllerTraining : MonoBehaviour
 		}
         else {
 			this.gravity = new Vector3(0,0,0);
-		    this.doubleJumping = true;
+		    this.doubleJumping = false;
         }
 	}
 

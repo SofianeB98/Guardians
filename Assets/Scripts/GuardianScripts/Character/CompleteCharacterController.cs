@@ -24,6 +24,8 @@ public class CompleteCharacterController : Bolt.EntityEventListener<IGuardianSta
         get { return grounded; }
     }
 	private RaycastHit lastGroundDetectedInfos;
+
+    [Header("Gravity")]
 	[SerializeField] private float gravityForce = 9.81f;
 	[SerializeField] private float gravityModifier = 1;
 	[SerializeField] private float gravityMaxSpeed = 50;
@@ -32,6 +34,7 @@ public class CompleteCharacterController : Bolt.EntityEventListener<IGuardianSta
 	[SerializeField] private float characterControllerRadiusCompensator = 0.1f;
 
     [Header("Jump Section")]
+    [SerializeField] private float speedPerteSpeed = 1f;
 	[SerializeField] private float jumpHeight = 8;
 	[SerializeField] private float jumpTimeToReachMax = 0.5f;
 	[SerializeField] private AnimationCurve jumpBehaviour;
@@ -106,7 +109,12 @@ public class CompleteCharacterController : Bolt.EntityEventListener<IGuardianSta
 	        this.direction = dir * this.speed;
 	    }
 	}
-    
+
+    public void UpdateDirWhenImJumping()
+    {
+        this.direction = Vector3.Lerp(this.direction, Vector3.zero, Time.deltaTime * this.speedPerteSpeed);
+    }
+
 	public void UpdateRotation(Vector3 rot) {
 	    if (cameraReferential != null)
 	    {

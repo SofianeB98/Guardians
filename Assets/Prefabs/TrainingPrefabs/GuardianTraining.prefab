@@ -1548,6 +1548,7 @@ MonoBehaviour:
   sphereGroundDetectionRadius: 0.4
   groundTolerance: 0.1
   characterControllerRadiusCompensator: 0
+  speedPerteSpeed: 0.1
   jumpHeight: 4
   jumpTimeToReachMax: 0.5
   jumpBehaviour:

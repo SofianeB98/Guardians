@@ -53,6 +53,10 @@ public class CharacterInputDetectorTraining : MonoBehaviour
                         }*/
                     }
                 }
+                else if(this.characterController.doubleJumping || this.characterController.jumping || !this.characterController.Grounded)
+                {
+                    this.characterController.UpdateDirWhenImJumping();
+                }
                 else
                 {
                     this.characterController.UpdateDirection(Vector3.zero);
