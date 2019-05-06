@@ -22,6 +22,7 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
     [SerializeField] private GameObject scorePanel;
     [SerializeField] private List<GameObject> playersScore;
     [SerializeField] private GameObject prefabPlayersScore;
+    [SerializeField] private float timeSortScore = 1f;
 
     [Header("Winner")]
     [SerializeField] private TextMeshProUGUI winnerText;
@@ -34,6 +35,7 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
     [SerializeField] private GameObject killFeedPrefab;
 
     public List<Guardian> GuardiansInScene;
+    private List<Guardian> GuardianSortByScore;
     public bool EndGame = false;
 
     private void Awake()
@@ -92,7 +94,7 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
 
     private void AssignScore()
     {
-        if (playersScore.Count > 0)
+        if (playersScore.Count > 0 && GuardianSortByScore.Count > 0)
         {
             for (int i = 0; i < playersScore.Count; i++)
             {
@@ -103,15 +105,15 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
                     {
                         if (texts[j].name.Contains("Name"))
                         {
-                            texts[j].text = GuardiansInScene[i].guardianName;
+                            texts[j].text = GuardianSortByScore[i].guardianName;
                         }
                         else if (texts[j].name.Contains("Score"))
                         {
-                            texts[j].text = GuardiansInScene[i].CurrentScore.ToString();
+                            texts[j].text = GuardianSortByScore[i].CurrentScore.ToString();
                         }
                         else if (texts[j].name.Contains("Kill"))
                         {
-                            texts[j].text = GuardiansInScene[i].CurrentKill.ToString();
+                            texts[j].text = GuardianSortByScore[i].CurrentKill.ToString();
                         }
                     }
                 }
@@ -169,6 +171,8 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
     {
         yield return new WaitForSeconds(3f);
         GuardiansInScene = FindObjectsOfType<Guardian>().ToList();
+        GuardianSortByScore = FindObjectsOfType<Guardian>().ToList();
+
         if (GuardiansInScene.Count > 0)
         {
             foreach (var VARIABLE in GuardiansInScene)
@@ -177,6 +181,8 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
                 AddPlayersScore();
             }
         }
+        
+        SortGuardianByScore();
         yield break;
     }
 
@@ -241,4 +247,48 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
         this.guardianAssignWorlCanvas = g;
     }
 
+    private void SortGuardianByScore()
+    {
+        if (GuardianSortByScore.Count > 0)
+        {
+            List<Guardian> gList = new List<Guardian>();
+
+            int scoreMin = 999999;
+            Guardian g = null;
+
+            for (int i = 0; i < GuardianSortByScore.Count; i++)
+            {
+                foreach (var gScore in GuardianSortByScore)
+                {
+                    if (gScore.CurrentScore < scoreMin)
+                    {
+                        if (!gList.Contains(gScore))
+                        {
+                            scoreMin = gScore.CurrentScore;
+                            g = gScore;
+                        }
+
+                    }
+                }
+
+                gList.Add(g);
+
+                g = null;
+                scoreMin = 999999;
+            }
+
+            gList.Reverse();
+            GuardianSortByScore = gList;
+           
+        }
+
+        StartCoroutine(WaitToSortScore());
+    }
+    
+    IEnumerator WaitToSortScore()
+    {
+        yield return new WaitForSeconds(this.timeSortScore);
+        this.SortGuardianByScore();
+        yield break;
+    }
 }

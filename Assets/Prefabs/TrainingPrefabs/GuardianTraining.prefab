@@ -127,6 +127,7 @@ MonoBehaviour:
   rigid: {fileID: 6959245732380511175}
   myHandParent: {fileID: 4873829021597750768}
   myGuardian: {fileID: 5345986359602158806}
+  canDestroyPillier: 0
   axeRadiusLaunchCheck: 0.75
   pointOneAxeLaunch: {fileID: 4305970662412692110}
   pointTwoAxeLaunch: {fileID: 7711669725877147125}
@@ -1550,6 +1551,32 @@ MonoBehaviour:
   jumpHeight: 4
   jumpTimeToReachMax: 0.5
   jumpBehaviour:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  doubleJumpHeight: 3
+  doubleJumpTimeToReachMax: 0.25
+  doubleJumpBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3

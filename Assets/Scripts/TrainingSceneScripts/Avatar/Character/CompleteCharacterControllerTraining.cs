@@ -29,12 +29,18 @@ public class CompleteCharacterControllerTraining : MonoBehaviour
 	[SerializeField] private float sphereGroundDetectionRadius = 0.4f;
 	[SerializeField] private float groundTolerance = 0.05f;
 	[SerializeField] private float characterControllerRadiusCompensator = 0.1f;
-	public bool jumping { get; private set; }
-    public bool doubleJumping { get; private set; }
+	
+    [Header("Jump Section")]
 	[SerializeField] private float jumpHeight = 8;
 	[SerializeField] private float jumpTimeToReachMax = 0.5f;
 	[SerializeField] private AnimationCurve jumpBehaviour;
 	private float jumpTimer;
+    [SerializeField] private float doubleJumpHeight = 8;
+    [SerializeField] private float doubleJumpTimeToReachMax = 0.5f;
+    [SerializeField] private AnimationCurve doubleJumpBehaviour;
+    private float doubleJumpTimer;
+    public bool jumping { get; private set; }
+    public bool doubleJumping { get; private set; }
 
     [Header("Audio")]
     [FMODUnity.EventRef]
@@ -134,7 +140,7 @@ public class CompleteCharacterControllerTraining : MonoBehaviour
 				this.gravity = new Vector3(0,-this.gravityMaxSpeed,0);
 			}
 		}
-		else if(this.jumping) {
+		else if(this.jumping && !this.doubleJumping) {
 			this.jumpTimer += Time.deltaTime / this.jumpTimeToReachMax;
 			if (this.jumpTimer >= 1.0f) {
 				this.jumping = false;
@@ -144,21 +150,21 @@ public class CompleteCharacterControllerTraining : MonoBehaviour
 				this.gravity = new Vector3(0,velocity * this.jumpHeight / Time.deltaTime,0);
 			}
 		}
-        else if (this.doubleJumping && this.jumping)
+		else if (this.doubleJumping && this.jumping)
 		{
-		    this.jumpTimer += Time.deltaTime / this.jumpTimeToReachMax;
-		    if (this.jumpTimer >= 1.0f)
+		    this.doubleJumpTimer += Time.deltaTime / this.doubleJumpTimeToReachMax;
+		    if (this.doubleJumpTimer >= 1.0f)
 		    {
 		        this.jumping = false;
 		        this.doubleJumping = true;
 		    }
 		    else
 		    {
-		        var velocity = this.jumpBehaviour.Evaluate(this.jumpTimer + Time.deltaTime / this.jumpTimeToReachMax) - this.jumpBehaviour.Evaluate(this.jumpTimer);
-		        this.gravity = new Vector3(0, velocity * this.jumpHeight / Time.deltaTime, 0);
+		        var velocity = this.doubleJumpBehaviour.Evaluate(this.doubleJumpTimer + Time.deltaTime / this.doubleJumpTimeToReachMax) - this.doubleJumpBehaviour.Evaluate(this.doubleJumpTimer);
+		        this.gravity = new Vector3(0, velocity * this.doubleJumpHeight / Time.deltaTime, 0);
 		    }
-        }
-		else {
+		}
+        else {
 			this.gravity = new Vector3(0,0,0);
 		    this.doubleJumping = true;
         }
@@ -188,11 +194,12 @@ public class CompleteCharacterControllerTraining : MonoBehaviour
 
     public void UpdateDoubleJump()
     {
-        if (!this.doubleJumping)
+        if (!this.grounded && !this.doubleJumping)
         {
             this.jumping = true;
             this.doubleJumping = true;
-            this.jumpTimer = 0.0f;
+            //this.jumpTimer = 0.0f;
+            this.doubleJumpTimer = 0.0f;
         }
     }
 

@@ -262,6 +262,32 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  doubleJumpHeight: 3
+  doubleJumpTimeToReachMax: 0.25
+  doubleJumpBehaviour:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   sautAudioEvent: event:/Feedbacks Joueur Communs/Saut
   colBalleMeEvent: event:/Feedbacks Joueur Personnels/Collision de balle (soi)
   launchSeedAudioEvent: event:/Feedbacks Joueur Communs/Lancer de graine-pilier
@@ -308,7 +334,7 @@ MonoBehaviour:
   feetPosition: {fileID: 398}
   checkRadius: 1.25
   cameraRef: {fileID: 400}
-  forceLaunch: 150
+  forceLaunch: 120
   dirLaunch: {x: 0, y: 0, z: 0}
   myPillier: []
   maxPillier: 3
@@ -320,7 +346,7 @@ MonoBehaviour:
   sensAntiHoraireSprite: {fileID: 21300000, guid: cd34c56edbaa65c41b3ba1882e78f7b1,
     type: 3}
   lastGuardianWhoHitMe: {fileID: 0}
-  timeToNullLastEnemy: 5
+  timeToNullLastEnemy: 12
   deathAudioMeEvent: "event:/Feedbacks Joueur Personnels/Joueur \xE9limin\xE9 (soi)"
   deathAudioOtherEvent: "event:/Feedbacks Objets/Joueur \xE9limin\xE9 (ennemi)"
   launchAxeAudioEvent: event:/Feedbacks Joueur Communs/Lancer de balle
@@ -630,8 +656,8 @@ MonoBehaviour:
   rigid: {fileID: 521}
   myHandParent: {fileID: 401}
   myGuardian: {fileID: 668}
-  canDestroyPillier: 1
-  axeRadiusLaunchCheck: 0.75
+  canDestroyPillier: 0
+  axeRadiusLaunchCheck: 0.8
   pointOneAxeLaunch: {fileID: 478}
   pointTwoAxeLaunch: {fileID: 481}
   axeReachTime: 0.2
@@ -667,7 +693,7 @@ MonoBehaviour:
   ignoreLayerMask:
     serializedVersion: 2
     m_Bits: 26912
-  forcePush: 80
+  forcePush: 100
   myTrail: {fileID: 533}
   contactParticulePrefab: {fileID: 2585152672974213350, guid: 8a16da03d5172294ab5e3c6d9a2a2a30,
     type: 3}
@@ -3243,7 +3269,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 378}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.596, y: 0, z: 0}
+  m_LocalPosition: {x: -0.8, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 410}
@@ -3505,7 +3531,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 381}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.596, y: 0, z: 0}
+  m_LocalPosition: {x: 0.8, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 410}

@@ -60,11 +60,11 @@ public class CharacterInputDetectorTraining : MonoBehaviour
 
                 if (this.characterController != null && Input.GetButtonDown(InputName.Jump) && isControllable)
                 {
-                    if (this.characterController.doubleJumping)
+                    if (this.characterController.Grounded)
                     {
                         this.characterController.UpdateJump();
                     }
-                    else if (!this.characterController.doubleJumping || !this.characterController.Grounded)
+                    else if (!this.characterController.Grounded)
                     {
                         this.characterController.UpdateDoubleJump();
                     }

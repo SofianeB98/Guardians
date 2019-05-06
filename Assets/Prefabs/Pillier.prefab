@@ -107,6 +107,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   damage: 1
+  groundLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &727
 MonoBehaviour:
   m_ObjectHideFlags: 0

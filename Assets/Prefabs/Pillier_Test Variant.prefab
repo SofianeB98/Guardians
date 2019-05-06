@@ -78,7 +78,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 385, guid: 155f260fbc761994085e2bcd7e6181d5, type: 3}
       propertyPath: m_Name
-      value: Pillier_Test
+      value: Pillier_Test Variant
       objectReference: {fileID: 0}
     - target: {fileID: 473, guid: 155f260fbc761994085e2bcd7e6181d5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -126,7 +126,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 735, guid: 155f260fbc761994085e2bcd7e6181d5, type: 3}
       propertyPath: _sceneGuid
-      value: 454556f7-5a24-4b87-aa4e-67816bca0768
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 735, guid: 155f260fbc761994085e2bcd7e6181d5, type: 3}
+      propertyPath: _prefabId
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 742, guid: 155f260fbc761994085e2bcd7e6181d5, type: 3}
       propertyPath: pillierGO

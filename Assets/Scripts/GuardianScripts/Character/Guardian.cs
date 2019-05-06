@@ -311,8 +311,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     public void SetStun(Vector3 dir, float force, Guardian enemy)
     {
         this.lastGuardianWhoHitMe = enemy;
-        this.currentTimerNullEnemy = Time.time + this.timeToNullLastEnemy;
-
+        
         var stun = SetStunEvent.Create(entity);
         stun.IsStuned = true;
         stun.Direction = dir;
@@ -364,7 +363,10 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     public override void OnEvent(SetStunEvent evnt)
     {
         this.IsStuned = evnt.IsStuned;
+
         this.currentStunTime = Time.time + this.stunTime;
+        this.currentTimerNullEnemy = Time.time + this.timeToNullLastEnemy;
+
         if (this.IsStuned)
         {
             this.characterController.AddForce(evnt.Direction, evnt.Force);
@@ -393,8 +395,8 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         {
             state.MyColor = lastColor;
         }
-        
 
+        this.lastGuardianWhoHitMe = null;
         var spawnPosition = RespawnPoint();
 
         this.health = this.lastHealth;
@@ -482,6 +484,36 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         this.myPillier.Remove(pToRemove);
     }
 
+    public void CheckVide()
+    {
+        //if (this.currentInventorySeed < this.maxSeedInInventory)
+        {
+            Collider[] col = Physics.OverlapSphere(this.feetPosition.position, 1.25f, this.videLayerMask);
+
+            if (col.Length > 0)
+            {
+                this.TakeDamage(1);
+                string s = guardianName + " is lost in the Void !";
+
+                if (this.lastGuardianWhoHitMe != null)
+                {
+                    s = lastGuardianWhoHitMe.guardianName + " push " + guardianName + " in the void !";
+                    lastGuardianWhoHitMe.UpdateScore(false, "Enemy is pushed in the void");
+                }
+                
+                var evnt = KillFeedEvent.Create(GameSystem.GSystem.entity);
+                evnt.Message = s;
+                evnt.RemoveFeed = false;
+                evnt.Send();
+            }
+        }
+        //else
+        {
+            // return;
+        }
+
+    }
+
     #endregion
 
     #region SeedInteraction
@@ -525,44 +557,6 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         }
     }
     
-    public void CheckVide()
-    {
-        //if (this.currentInventorySeed < this.maxSeedInInventory)
-        {
-            Collider[] col = Physics.OverlapSphere(this.feetPosition.position, 1.25f, this.videLayerMask);
-
-            if (col.Length > 0)
-            {
-                this.TakeDamage(1);
-                
-
-                string s = guardianName + " is lost in the Void !";
-
-                if (this.lastGuardianWhoHitMe != null)
-                {
-                    s = lastGuardianWhoHitMe.guardianName + " push " + guardianName + " in the void !";
-                    lastGuardianWhoHitMe.UpdateScore(false);
-                    this.lastGuardianWhoHitMe = null;
-                }
-                else
-                {
-                    UpdateScore(true);
-                }
-                
-
-                var evnt = KillFeedEvent.Create(GameSystem.GSystem.entity);
-                evnt.Message = s;
-                evnt.RemoveFeed = false;
-                evnt.Send();
-            }
-        }
-        //else
-        {
-           // return;
-        }
-
-    }
-
     public void ChangePillierDir()
     {
         if (this.currentDir == 1)
@@ -578,10 +572,11 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     }
     #endregion
 
-    public void UpdateScore(bool isMe)
+    public void UpdateScore(bool isMe, string message)
     {
         var evnt = UpdateScoreEvent.Create(entity);
         evnt.IsMe = isMe;
+        evnt.Message = message;
         evnt.Send();
     }
 
@@ -594,23 +589,12 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
             if (entity.IsOwner)
             {
                 GameObject go = Instantiate(winLosePointPrefab, this.myCanvas.transform);
-                go.GetComponent<TextMeshProUGUI>().text = "+ 10";
+                go.GetComponent<TextMeshProUGUI>().text = "+ 10 - " + evnt.Message;
                 go.GetComponent<TextMeshProUGUI>().color = Color.yellow;
                 Destroy(go, 1f);
             }
 
             return;
-        }
-        else
-        {
-            /*this.CurrentScore -= 5;
-            if (entity.IsOwner)
-            {
-                GameObject go = Instantiate(winLosePointPrefab, this.myCanvas.transform);
-                go.GetComponent<TextMeshProUGUI>().text = "- 5";
-                go.GetComponent<TextMeshProUGUI>().color = Color.red;
-                Destroy(go, 1f);
-            }*/
         }
             
     }

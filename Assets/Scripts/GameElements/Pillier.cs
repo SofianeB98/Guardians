@@ -182,11 +182,11 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
 
                         if (g != myOwner.GetComponent<Guardian>())
                         {
-                            myOwner.GetComponent<Guardian>().UpdateScore(false);
+                            myOwner.GetComponent<Guardian>().UpdateScore(false, "Enemy is fired");
                         }
                         else
                         {
-                            myOwner.GetComponent<Guardian>().UpdateScore(true);
+                            //myOwner.GetComponent<Guardian>().UpdateScore(true);
                             s = myOwner.GetComponent<Guardian>().guardianName + " kills himself !";
                         }
 
@@ -225,11 +225,11 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
                         Debug.Log("Gardian toucher");
                         if (g != myOwner.GetComponent<Guardian>())
                         {
-                            myOwner.GetComponent<Guardian>().UpdateScore(false);
+                            myOwner.GetComponent<Guardian>().UpdateScore(false, "Enemy is fired");
                         }
                         else
                         {
-                            myOwner.GetComponent<Guardian>().UpdateScore(true);
+                            //myOwner.GetComponent<Guardian>().UpdateScore(true);
                             s = myOwner.GetComponent<Guardian>().guardianName + " kills himself !";
                         }
 
