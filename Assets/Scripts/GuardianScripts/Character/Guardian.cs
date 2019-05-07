@@ -22,10 +22,12 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     [SerializeField] private Canvas myCanvas;
     [SerializeField] private GameObject winLosePointPrefab;
     [field:SerializeField] public Transform NamePosition { get; private set; }
+    [SerializeField] private Transform winPointPanel;
 
     [Header("Player Stats")]
     [SerializeField] private float health = 100f;
     private float lastHealth = 100f;
+    [SerializeField] private GameObject invinsibleFB;
     //[SerializeField] private int currentInventorySeed = 5;
     //[SerializeField] private int maxSeedInInventory = 5;
     public bool IsStuned { get; private set; }
@@ -118,12 +120,14 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
             {
                 state.GuardianName = "New Player";
             }
-            
+
+            state.Invinsible = false;
             state.MyColor = new Color(Random.value, Random.value, Random.value);
             lastColor = state.MyColor;
         }
         state.AddCallback("MyColor", ColorChanged);
         state.AddCallback("GuardianName", PlayerName);
+        state.AddCallback("Invinsible", InvinsibleCallBack);
 
         deathAudioMe = FMODUnity.RuntimeManager.CreateInstance(deathAudioMeEvent);
         deathAudioOther = FMODUnity.RuntimeManager.CreateInstance(deathAudioOtherEvent);
@@ -179,6 +183,11 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         {
             this.lastGuardianWhoHitMe = null;
         }
+    }
+
+    public override void SimulateOwner()
+    {
+        state.Invinsible = this.IsInvinsible;
     }
 
     IEnumerator BestEnemyCheck()
@@ -498,7 +507,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
                 if (this.lastGuardianWhoHitMe != null)
                 {
                     s = lastGuardianWhoHitMe.guardianName + " push " + guardianName + " in the void !";
-                    lastGuardianWhoHitMe.UpdateScore(false, "Enemy is pushed in the void");
+                    lastGuardianWhoHitMe.UpdateScore(false, "Enemy pushed");
                 }
                 
                 var evnt = KillFeedEvent.Create(GameSystem.GSystem.entity);
@@ -589,6 +598,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
             if (entity.IsOwner)
             {
                 GameObject go = Instantiate(winLosePointPrefab, this.myCanvas.transform);
+                go.transform.parent = winPointPanel;
                 go.GetComponent<TextMeshProUGUI>().text = "+ 10 - " + evnt.Message;
                 go.GetComponent<TextMeshProUGUI>().color = Color.yellow;
                 Destroy(go, 1f);
@@ -620,6 +630,10 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         this.guardianName = state.GuardianName;
     }
 
+    void InvinsibleCallBack()
+    {
+        this.invinsibleFB.SetActive(state.Invinsible);
+    }
 }
 
 /*private void Death()
