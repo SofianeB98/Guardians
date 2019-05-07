@@ -10,6 +10,7 @@ public class AxeTraining : MonoBehaviour
     [SerializeField] private Transform myHandParent;
     [SerializeField] private GuardianTraining myGuardian;
     [SerializeField] private bool canDestroyPillier = false;
+    [SerializeField] private float couldownLaunch = 1.5f;
 
     [Header("Gestion Lancer De Hache")]
     [SerializeField] private float axeRadiusLaunchCheck = 1f;
@@ -29,7 +30,7 @@ public class AxeTraining : MonoBehaviour
     }
 
     [Header("Gestion du Mouvement")]
-    [SerializeField] private float axeReachTime = 0.5f;
+    [SerializeField] [Range(0.2f, 10f)] private float axeReachTime = 0.5f;
     private float axeLaunchTimer = 0f;
     [SerializeField] private AnimationCurve axeLaunchForwardBehaviour;
     [SerializeField] private float currentAxeReachForwardDistance = 10f;
@@ -68,16 +69,16 @@ public class AxeTraining : MonoBehaviour
         collisionDecor = FMODUnity.RuntimeManager.CreateInstance(collisionDecorEvent);
         
     }
-
+    
     private void Update()
     {
         if (!canLauchAxe && !backToBucheronPos)
         {
             LaunchAxe();
         }
-        else if (this.backToBucheronPos)
+        //else if (this.backToBucheronPos)
         {
-            BackToBucheronPos();
+            //BackToBucheronPos();
         }
     }
     
@@ -87,7 +88,8 @@ public class AxeTraining : MonoBehaviour
 
         if (this.axeLaunchTimer >= 1f)
         {
-            this.backToBucheronPos = true;
+            //this.backToBucheronPos = true;
+            this.isCanLaunchAxe(true, Quaternion.identity);
             this.axeLaunchTimer = 0f;
         }
         else if(this.axeLaunchTimer < 1f)
@@ -131,8 +133,8 @@ public class AxeTraining : MonoBehaviour
     {
         if (!this.backToBucheronPos)
         {
-            this.backToBucheronPos = true;
-            this.axeLaunchTimer = 0f;
+            //this.backToBucheronPos = true;
+            //this.axeLaunchTimer = 0f;
         }
     }
 
@@ -207,7 +209,8 @@ public class AxeTraining : MonoBehaviour
 
             if (objetFind)
             {
-                ActiveBackToBucheron();
+                //ActiveBackToBucheron();
+                this.axeLaunchTimer = 1f;
             }
         }
         yield break;
@@ -270,13 +273,24 @@ public class AxeTraining : MonoBehaviour
         else if (this.canLauchAxe)
         {
             this.myTrail.enabled = false;
+            this.myTrail.Clear();
             this.rigid.isKinematic = true;
             this.transform.parent = myHandParent.transform;
             this.transform.localPosition = Vector3.zero;
-            myGuardian.SetLaunchAxe(false);
+            this.lastGuardian = null;
+
+            StartCoroutine(CouldownLaunchAxe());
+
             //this.transform.localRotation = axeInitRotate;
         }
         
+    }
+
+    IEnumerator CouldownLaunchAxe()
+    {
+        yield return new WaitForSeconds(this.couldownLaunch);
+        myGuardian.SetLaunchAxe(false);
+        yield break;
     }
 }
 

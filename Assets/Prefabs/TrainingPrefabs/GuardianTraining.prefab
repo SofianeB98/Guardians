@@ -131,7 +131,7 @@ MonoBehaviour:
   axeRadiusLaunchCheck: 0.75
   pointOneAxeLaunch: {fileID: 4305970662412692110}
   pointTwoAxeLaunch: {fileID: 7711669725877147125}
-  axeReachTime: 0.2
+  axeReachTime: 0.5
   axeLaunchForwardBehaviour:
     serializedVersion: 2
     m_Curve:
@@ -156,7 +156,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  currentAxeReachForwardDistance: 25
+  currentAxeReachForwardDistance: 30
   axeBackSpeed: 50
   groundLayerMask:
     serializedVersion: 2
@@ -1638,6 +1638,7 @@ MonoBehaviour:
     m_Bits: 512
   durationMeleeAttack: 1
   cooldownLaunchSeed: 2
+  axePrefab: {fileID: 0}
   myAxe: {fileID: 8611901290887652427}
   seedLayerMask:
     serializedVersion: 2

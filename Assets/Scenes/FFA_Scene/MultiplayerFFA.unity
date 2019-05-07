@@ -2989,17 +2989,17 @@ PrefabInstance:
     - target: {fileID: 2247677940043935633, guid: d0728146368170245a7fc217738b9d07,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 16.131083
+      value: 175.76
       objectReference: {fileID: 0}
     - target: {fileID: 2247677940043935633, guid: d0728146368170245a7fc217738b9d07,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 47.662426
+      value: 44.02
       objectReference: {fileID: 0}
     - target: {fileID: 2247677940043935633, guid: d0728146368170245a7fc217738b9d07,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -224.1
+      value: -146.6
       objectReference: {fileID: 0}
     - target: {fileID: 2247677940043935633, guid: d0728146368170245a7fc217738b9d07,
         type: 3}
@@ -3049,12 +3049,17 @@ PrefabInstance:
     - target: {fileID: 2247677940043935636, guid: d0728146368170245a7fc217738b9d07,
         type: 3}
       propertyPath: maxDistance
-      value: 20
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 2247677940043935636, guid: d0728146368170245a7fc217738b9d07,
         type: 3}
       propertyPath: diviseurTimer
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2247677940043935636, guid: d0728146368170245a7fc217738b9d07,
+        type: 3}
+      propertyPath: axis
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0728146368170245a7fc217738b9d07, type: 3}

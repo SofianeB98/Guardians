@@ -47,6 +47,11 @@ public class PlateformMovement : Bolt.EntityEventListener<IMovementPlateformStat
     public override void Attached()
     {
         state.SetTransforms(state.Transform, transform);
+        if (entity.IsOwner)
+        {
+            state.Direction = this.direction;
+        }
+        state.AddCallback("Direction", DirectionCallBack);
     }
 
     public override void SimulateOwner()
@@ -57,7 +62,7 @@ public class PlateformMovement : Bolt.EntityEventListener<IMovementPlateformStat
             if (currentTimer >= 1.0f)
             {
                 currentTimer = 1.0f;
-                direction = false;
+                state.Direction = false;
             }
         }
         else
@@ -66,7 +71,7 @@ public class PlateformMovement : Bolt.EntityEventListener<IMovementPlateformStat
             if (currentTimer <= 0.0f)
             {
                 currentTimer = 0.0f;
-                direction = true;
+                state.Direction = true;
             }
         }
         UpdateDirection(this.curveMovement.Evaluate(currentTimer)*maxDistance);
@@ -108,5 +113,10 @@ public class PlateformMovement : Bolt.EntityEventListener<IMovementPlateformStat
                 break;
         }
         return Vector3.zero;
+    }
+
+    private void DirectionCallBack()
+    {
+        this.direction = state.Direction;
     }
 }

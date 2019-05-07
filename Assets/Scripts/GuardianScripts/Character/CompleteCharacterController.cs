@@ -113,6 +113,7 @@ public class CompleteCharacterController : Bolt.EntityEventListener<IGuardianSta
     public void UpdateDirWhenImJumping()
     {
         this.direction = Vector3.Lerp(this.direction, Vector3.zero, Time.deltaTime * this.speedPerteSpeed);
+        this.plateformeMouvanteDir = Vector3.zero;
     }
 
 	public void UpdateRotation(Vector3 rot) {

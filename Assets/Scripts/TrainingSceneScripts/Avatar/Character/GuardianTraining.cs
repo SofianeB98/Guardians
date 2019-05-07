@@ -219,7 +219,7 @@ public class GuardianTraining : MonoBehaviour
 
         }
     }
-
+    
     public void BackToBucheron()
     {
         this.myAxe.ActiveBackToBucheron();

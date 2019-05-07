@@ -236,7 +236,7 @@ MonoBehaviour:
   sphereGroundDetectionRadius: 0.4
   groundTolerance: 0.1
   characterControllerRadiusCompensator: 0
-  speedPerteSpeed: 1
+  speedPerteSpeed: 4
   jumpHeight: 4.5
   jumpTimeToReachMax: 0.5
   jumpBehaviour:
@@ -658,6 +658,7 @@ MonoBehaviour:
   myHandParent: {fileID: 401}
   myGuardian: {fileID: 668}
   canDestroyPillier: 0
+  couldownLaunch: 0.25
   axeRadiusLaunchCheck: 0.8
   pointOneAxeLaunch: {fileID: 478}
   pointTwoAxeLaunch: {fileID: 481}
