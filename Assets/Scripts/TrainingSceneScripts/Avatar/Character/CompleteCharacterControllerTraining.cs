@@ -28,7 +28,9 @@ public class CompleteCharacterControllerTraining : MonoBehaviour
     [SerializeField] private float gravityForce = 9.81f;
 	[SerializeField] private float gravityModifier = 1;
 	[SerializeField] private float gravityMaxSpeed = 50;
-	[SerializeField] private float sphereGroundDetectionRadius = 0.4f;
+
+    [Header("NE PAS TOUCHER")]
+    [SerializeField] private float sphereGroundDetectionRadius = 0.4f;
 	[SerializeField] private float groundTolerance = 0.05f;
 	[SerializeField] private float characterControllerRadiusCompensator = 0.1f;
 	
@@ -79,7 +81,6 @@ public class CompleteCharacterControllerTraining : MonoBehaviour
 
     // Update is called once per frame
     public void CustomUpdate () {
-        
         
 		this.DetectGround();
 		this.UpdateGravity();

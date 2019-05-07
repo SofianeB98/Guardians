@@ -232,39 +232,39 @@ MonoBehaviour:
     m_Bits: 4096
   grounded: 0
   gravityForce: 9.81
-  gravityModifier: 3
+  gravityModifier: 4
   gravityMaxSpeed: 40
   sphereGroundDetectionRadius: 0.4
   groundTolerance: 0.1
   characterControllerRadiusCompensator: 0
   speedPerteSpeed: 4
-  jumpHeight: 4
-  jumpTimeToReachMax: 0.5
+  jumpHeight: 3
+  jumpTimeToReachMax: 0.25
   jumpBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: -0.0019264221
+      time: 0
       value: 0
-      inSlope: 3.174119
-      outSlope: 3.174119
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.049999658
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
+      inSlope: 2
+      outSlope: 2
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
       outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0.3929832
+      outSlope: 0.3929832
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.107899785
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  doubleJumpHeight: 4
+  doubleJumpHeight: 5
   doubleJumpTimeToReachMax: 0.25
   doubleJumpBehaviour:
     serializedVersion: 2
@@ -281,11 +281,11 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 0
-      outSlope: 0
+      inSlope: 0.3929832
+      outSlope: 0.3929832
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0
+      inWeight: 0.107899785
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2

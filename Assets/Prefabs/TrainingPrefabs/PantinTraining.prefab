@@ -1004,6 +1004,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69714d9a23b34bc48bb742fdd0ed8d8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TestSacade: 1
   myGuardian: {fileID: 7005612110337592879}
   distance: 7
   speed: 50
@@ -1085,11 +1086,12 @@ MonoBehaviour:
     m_Bits: 4096
   grounded: 0
   gravityForce: 9.81
-  gravityModifier: 2
-  gravityMaxSpeed: 30
+  gravityModifier: 5
+  gravityMaxSpeed: 50
   sphereGroundDetectionRadius: 0.4
-  groundTolerance: 0.05
-  characterControllerRadiusCompensator: 0.1
+  groundTolerance: 0.1
+  characterControllerRadiusCompensator: 0
+  speedPerteSpeed: 0.00001
   jumpHeight: 2
   jumpTimeToReachMax: 0.5
   jumpBehaviour:
@@ -1113,6 +1115,14 @@ MonoBehaviour:
       weightedMode: 0
       inWeight: 0
       outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  doubleJumpHeight: 8
+  doubleJumpTimeToReachMax: 0.5
+  doubleJumpBehaviour:
+    serializedVersion: 2
+    m_Curve: []
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
@@ -1141,8 +1151,6 @@ MonoBehaviour:
     type: 3}
   <NamePosition>k__BackingField: {fileID: 1508801189155261367}
   health: 1
-  currentInventorySeed: 5
-  maxSeedInInventory: 5
   stunTime: 0.1
   invinsibleTime: 2.5
   dietime: 2
@@ -1611,6 +1619,8 @@ MonoBehaviour:
   rigid: {fileID: 4890164595356772448}
   myHandParent: {fileID: 2828527115153272852}
   myGuardian: {fileID: 7005612110337592879}
+  canDestroyPillier: 0
+  couldownLaunch: 1.5
   axeRadiusLaunchCheck: 1
   pointOneAxeLaunch: {fileID: 6895540687850865340}
   pointTwoAxeLaunch: {fileID: 8553731052414043674}
@@ -1640,42 +1650,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   currentAxeReachForwardDistance: 10
-  axeLaunchSideBehaviour:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.5
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: -2
-      outSlope: -2
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  currentAxeReachSideDistance: 3
   axeBackSpeed: 10
-  distYGround: 1
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 4096
