@@ -114,7 +114,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 7866991463638253736}
   text: {fileID: 7866991464859739185}
-  speedFadeOut: 0.5
+  speedFadeOut: 0.25
 --- !u!1 &7866991464859739187
 GameObject:
   m_ObjectHideFlags: 0

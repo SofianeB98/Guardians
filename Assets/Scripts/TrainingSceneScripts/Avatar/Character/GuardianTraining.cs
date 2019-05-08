@@ -301,7 +301,7 @@ public class GuardianTraining : MonoBehaviour
     
     private Vector3 RespawnPoint()
     {
-        return new Vector3(0, 2, 0);
+        return new Vector3(0, 50, 0);
     }
 
     public void AddPillierToMyList(PillierTraining pillierToAdd)

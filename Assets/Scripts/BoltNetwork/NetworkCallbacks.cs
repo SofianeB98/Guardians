@@ -43,11 +43,11 @@ public class NetworkCallbacks : Bolt.GlobalEventListener
 
     public override void OnEvent(DisconnectEvent evnt)
     {
-        Camera[] cam = FindObjectsOfType<Camera>();
-        foreach (var VARIABLE in cam)
-        {
-            BoltNetwork.Destroy(VARIABLE.gameObject);
-        }
+        //Camera[] cam = FindObjectsOfType<Camera>();
+        //foreach (var VARIABLE in cam)
+        //{
+         //   BoltNetwork.Destroy(VARIABLE.gameObject);
+        //}
 
         BoltNetwork.Shutdown();
         
@@ -69,10 +69,7 @@ public class NetworkCallbacks : Bolt.GlobalEventListener
         {
             BoltLog.Info("Disconnected");
             player.RemovePlayer();
-
         }
-
-        
     }
 
     /*void OnGUI()

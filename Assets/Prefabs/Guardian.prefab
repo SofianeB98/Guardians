@@ -316,6 +316,7 @@ MonoBehaviour:
   <NamePosition>k__BackingField: {fileID: 480}
   winPointPanel: {fileID: 1893095237999786273}
   health: 1
+  <Life>k__BackingField: 3
   invinsibleFB: {fileID: 8877678457275977260}
   stunTime: 0.1
   invinsibleTime: 3

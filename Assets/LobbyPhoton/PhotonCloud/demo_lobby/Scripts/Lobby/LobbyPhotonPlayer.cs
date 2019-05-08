@@ -45,7 +45,14 @@ namespace Bolt.Samples.Photon.Lobby
             if (entity.IsOwner)
             {
                 state.Color = Random.ColorHSV();
-                state.Name = "Player #" + Random.Range(1, 100);
+                if (PlayerPrefs.HasKey("PlayerName"))
+                {
+                    state.Name = PlayerPrefs.GetString("PlayerName");
+                }
+                else
+                {
+                    state.Name = "Player #" + Random.Range(1, 100);
+                }
             }
 
             state.AddCallback("Name", () =>
@@ -96,7 +103,9 @@ namespace Bolt.Samples.Photon.Lobby
         public override void SimulateController()
         {
             ILobbyCommandInput input = LobbyCommand.Create();
-            
+
+            if(PlayerPrefs.HasKey("PlayerName")) playerName = PlayerPrefs.GetString("PlayerName");
+
             input.Name = playerName;
             input.Color = playerColor;
             input.Ready = ready;
@@ -146,7 +155,7 @@ namespace Bolt.Samples.Photon.Lobby
             LobbyPlayerList._instance.AddPlayer(this);
             localPlayer = this;
 
-            nameInput.interactable = true;
+            nameInput.interactable = false;
             remoteIcone.gameObject.SetActive(false);
             localIcone.gameObject.SetActive(true);
 
@@ -160,7 +169,7 @@ namespace Bolt.Samples.Photon.Lobby
 
             //we switch from simple name display to name input
             colorButton.interactable = true;
-            nameInput.interactable = true;
+            nameInput.interactable = false;
 
             nameInput.onEndEdit.RemoveAllListeners();
             nameInput.onEndEdit.AddListener(OnNameChanged);
@@ -236,11 +245,11 @@ namespace Bolt.Samples.Photon.Lobby
                 ChangeReadyButtonColor(entity.IsControlled ? JoinColor : NotReadyColor);
 
                 Text textComponent = readyButton.transform.GetChild(0).GetComponent<Text>();
-                textComponent.text = entity.IsControlled ? "JOIN" : "...";
+                textComponent.text = entity.IsControlled ? "READY ?" : "...";
                 textComponent.color = Color.white;
                 readyButton.interactable = entity.IsControlled;
                 colorButton.interactable = entity.IsControlled;
-                nameInput.interactable = entity.IsControlled;
+                //nameInput.interactable = entity.IsControlled;
             }
         }
     }

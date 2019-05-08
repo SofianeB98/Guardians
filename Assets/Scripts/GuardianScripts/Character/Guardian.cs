@@ -26,6 +26,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
 
     [Header("Player Stats")]
     [SerializeField] private float health = 100f;
+    [field: SerializeField] public int Life { get; private set; }
     private float lastHealth = 100f;
     [SerializeField] private GameObject invinsibleFB;
     //[SerializeField] private int currentInventorySeed = 5;
@@ -188,6 +189,11 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     public override void SimulateOwner()
     {
         state.Invinsible = this.IsInvinsible;
+
+        if (GameSystem.GSystem.EndGame)
+        {
+            StartCoroutine(EndGameDeleteGuardian());
+        }
     }
 
     IEnumerator BestEnemyCheck()
@@ -319,13 +325,13 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
 
     public void SetStun(Vector3 dir, float force, Guardian enemy)
     {
-        this.lastGuardianWhoHitMe = enemy;
-        
         var stun = SetStunEvent.Create(entity);
         stun.IsStuned = true;
         stun.Direction = dir;
         stun.Force = force;
         stun.Send();
+
+        this.lastGuardianWhoHitMe = enemy;
     }
 
     public void SetCooldown()
@@ -356,10 +362,26 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
                     deathAudioOther.start();
                 }
 
-                IsDie = true;
-                this.currentDietime = Time.time + this.dietime;
-                StartCoroutine(Death());
+                Life--;
+                if (Life > 0)
+                {
+                    IsDie = true;
+                    this.currentDietime = Time.time + this.dietime;
+                    StartCoroutine(Death());
+                }
+                else
+                {
+                    IsDie = true;
+                    this.currentDietime = Time.time + this.dietime;
+                    StartCoroutine(EndLife());
+                    GameSystem.GSystem.GuardianDie();
 
+                    var killFeed = KillFeedEvent.Create(GameSystem.GSystem.entity);
+                    killFeed.Message = this.guardianName + " has no more Life";
+                    killFeed.RemoveFeed = false;
+                    killFeed.Send();
+                }
+                
             }
         }
         else
@@ -633,6 +655,30 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     void InvinsibleCallBack()
     {
         this.invinsibleFB.SetActive(state.Invinsible);
+    }
+
+    IEnumerator EndGameDeleteGuardian()
+    {
+        yield return new WaitForSeconds(3f);
+        if(this.cameraRef != null) Destroy(this.cameraRef.gameObject);
+        BoltNetwork.Destroy(this.gameObject);
+        yield break;
+    }
+
+    IEnumerator EndLife()
+    {
+        yield return new WaitForSeconds(1f);
+        Destroy(this.cameraRef.gameObject);
+        this.cameraRef = null;
+        this.transform.position = new Vector3(0, 50, 0);
+
+        this.GetComponent<CharacterControllerManager>().enabled = false;
+        this.GetComponent<CameraController>().enabled = false;
+        this.GetComponent<CameraInputDetector>().enabled = false;
+        this.GetComponent<CharacterInputDetector>().enabled = false;
+        this.characterController.enabled = false;
+
+        yield break;
     }
 }
 

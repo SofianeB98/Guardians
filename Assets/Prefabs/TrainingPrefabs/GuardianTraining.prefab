@@ -1550,8 +1550,8 @@ MonoBehaviour:
   groundTolerance: 0.1
   characterControllerRadiusCompensator: 0
   speedPerteSpeed: 0.1
-  jumpHeight: 4
-  jumpTimeToReachMax: 0.5
+  jumpHeight: 2.5
+  jumpTimeToReachMax: 0.25
   jumpBehaviour:
     serializedVersion: 2
     m_Curve:
@@ -1576,7 +1576,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  doubleJumpHeight: 3
+  doubleJumpHeight: 2.5
   doubleJumpTimeToReachMax: 0.25
   doubleJumpBehaviour:
     serializedVersion: 2

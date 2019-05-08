@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 
 public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
 {
+    public bool SmashSystem = true;
     public static GameSystem GSystem;
     [Header("Party Info")]
     [SerializeField] private float partyTimer = 180.0f;
@@ -17,6 +18,7 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
     [SerializeField] private TextMeshProUGUI playerNamePrefab;
     private List<TextMeshProUGUI> playerNameList = new List<TextMeshProUGUI>();
     [SerializeField] private Guardian guardianAssignWorlCanvas;
+    [field:SerializeField] public int CurrentGuardianInLife { get; private set; }
 
     [Header("Score")]
     [SerializeField] private GameObject scorePanel;
@@ -24,9 +26,11 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
     [SerializeField] private GameObject prefabPlayersScore;
     [SerializeField] private float timeSortScore = 1f;
 
-    [Header("Winner")]
+    [Header("End Game")]
     [SerializeField] private TextMeshProUGUI winnerText;
     [SerializeField] private GameObject winnerPanel;
+    [SerializeField] private GameObject cameraFinal;
+    public bool EndGame = false;
 
     [Header("Kill Feed")]
     [SerializeField] private List<GameObject> killFeedList = new List<GameObject>();
@@ -36,20 +40,22 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
 
     public List<Guardian> GuardiansInScene;
     private List<Guardian> GuardianSortByScore;
-    public bool EndGame = false;
+    
 
     private void Awake()
     {
+        CurrentGuardianInLife = 99;
         GameSystem.GSystem = this;
         StartCoroutine(WaitToFindGuardians());
         EndGame = false;
+        
     }
 
     private void Update()
     {
         timerText.text = string.Format("{0:0}:{1:00}", Mathf.Floor(partyTimer / 60), partyTimer % 60 > 59 ? 59 : partyTimer % 60);
 
-        if (partyTimer > 0.0f)
+        if (partyTimer > 0.01f)
         {
             if (playersScore.Count > 0)
             {
@@ -73,6 +79,9 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
             partyTimer = 0.0f;
             if (!EndGame)
             {
+                
+                this.cameraFinal.SetActive(true);
+
                 if (winnerPanel.activeSelf == false)
                 {
                     winnerPanel.SetActive(true);
@@ -89,50 +98,57 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
             
         }
 
-        
+        if (CurrentGuardianInLife <= 1)
+        {
+            this.partyTimer = 0.0f;
+        }
     }
 
     private void AssignScore()
     {
-        if (playersScore.Count > 0 && GuardianSortByScore.Count > 0)
+        if (this.partyTimer > 0.2f && CurrentGuardianInLife > 1)
         {
-            for (int i = 0; i < playersScore.Count; i++)
+            if (playersScore.Count > 0 && GuardianSortByScore.Count > 0)
             {
-                TextMeshProUGUI[] texts = playersScore[i].GetComponentsInChildren<TextMeshProUGUI>();
-                if (texts.Length > 0)
+                for (int i = 0; i < playersScore.Count; i++)
                 {
-                    for (int j = 0; j < texts.Length; j++)
+                    TextMeshProUGUI[] texts = playersScore[i].GetComponentsInChildren<TextMeshProUGUI>();
+                    if (texts.Length > 0)
                     {
-                        if (texts[j].name.Contains("Name"))
+                        for (int j = 0; j < texts.Length; j++)
                         {
-                            texts[j].text = GuardianSortByScore[i].guardianName;
-                        }
-                        else if (texts[j].name.Contains("Score"))
-                        {
-                            texts[j].text = GuardianSortByScore[i].CurrentScore.ToString();
-                        }
-                        else if (texts[j].name.Contains("Kill"))
-                        {
-                            texts[j].text = GuardianSortByScore[i].CurrentKill.ToString();
+                            if (texts[j].name.Contains("Name"))
+                            {
+                                texts[j].text = GuardianSortByScore[i].guardianName;
+                            }
+                            else if (texts[j].name.Contains("Score"))
+                            {
+                                texts[j].text = GuardianSortByScore[i].CurrentScore.ToString();
+                            }
+                            else if (texts[j].name.Contains("Kill"))
+                            {
+                                texts[j].text = GuardianSortByScore[i].CurrentKill.ToString();
+                            }
                         }
                     }
-                }
 
-                if (GuardiansInScene[i] != this.guardianAssignWorlCanvas)
-                {
-                    playerNameList[i].text = GuardiansInScene[i].guardianName;
-                }
-                else
-                {
-                    playerNameList[i].text = "";
-                }
+                    if (GuardiansInScene[i] != this.guardianAssignWorlCanvas)
+                    {
+                        playerNameList[i].text = GuardiansInScene[i].guardianName;
+                    }
+                    else
+                    {
+                        playerNameList[i].text = "";
+                    }
 
-                playerNameList[i].transform.position = GuardiansInScene[i].NamePosition.position;
-                if(this.worldCanvas.worldCamera != null) playerNameList[i].transform.rotation = 
-                    Quaternion.LookRotation((playerNameList[i].transform.position - this.worldCanvas.worldCamera.transform.position), Vector3.up);
-                playerNameList[i].transform.eulerAngles = new Vector3(0, playerNameList[i].transform.eulerAngles.y, 0);
+                    playerNameList[i].transform.position = GuardiansInScene[i].NamePosition.position;
+                    if (this.worldCanvas.worldCamera != null) playerNameList[i].transform.rotation =
+                        Quaternion.LookRotation((playerNameList[i].transform.position - this.worldCanvas.worldCamera.transform.position), Vector3.up);
+                    playerNameList[i].transform.eulerAngles = new Vector3(0, playerNameList[i].transform.eulerAngles.y, 0);
+                }
             }
         }
+        
     }
 
     public void AddPlayersScore()
@@ -181,7 +197,8 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
                 AddPlayersScore();
             }
         }
-        
+
+        CurrentGuardianInLife = GuardiansInScene.Count;
         SortGuardianByScore();
         yield break;
     }
@@ -190,7 +207,7 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
     {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(8f);
         var evnt = DisconnectEvent.Create(GlobalTargets.Everyone);
         evnt.Send();
         yield break;
@@ -219,21 +236,38 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
     private Guardian WinGuardian()
     {
         Guardian win = null;
-        int score = 0;
-
-        for (int i = 0; i < this.GuardiansInScene.Count; i++)
+        if (!SmashSystem)
         {
-            if (GuardiansInScene[i].CurrentScore > score)
+            int score = 0;
+
+            if (GuardiansInScene.Count > 1)
             {
-                win = GuardiansInScene[i];
-                score = GuardiansInScene[i].CurrentScore;
-            }
-            else if (GuardiansInScene[i].CurrentScore == score)
-            {
-                if (GuardiansInScene[i].CurrentKill > win.CurrentKill)
+                for (int i = 0; i < this.GuardiansInScene.Count; i++)
                 {
-                    win = GuardiansInScene[i];
-                    score = GuardiansInScene[i].CurrentScore;
+                    if (GuardiansInScene[i].CurrentScore >= score)
+                    {
+                        if (GuardiansInScene[i].CurrentScore == score)
+                        {
+                            if (GuardiansInScene[i].CurrentKill > win.CurrentKill)
+                            {
+                                win = GuardiansInScene[i];
+                                score = GuardiansInScene[i].CurrentScore;
+                            }
+                        }
+
+                        win = GuardiansInScene[i];
+                        score = GuardiansInScene[i].CurrentScore;
+                    }
+                }
+            }
+        }
+        else
+        {
+            foreach (var guard in GuardiansInScene)
+            {
+                if (guard.Life > 0)
+                {
+                    win = guard;
                 }
             }
         }
@@ -290,5 +324,11 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
         yield return new WaitForSeconds(this.timeSortScore);
         this.SortGuardianByScore();
         yield break;
+    }
+
+    public void GuardianDie()
+    {
+        CurrentGuardianInLife--;
+        this.cameraFinal.SetActive(true);
     }
 }
