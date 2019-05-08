@@ -121,9 +121,9 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
                             {
                                 texts[j].text = GuardianSortByScore[i].guardianName;
                             }
-                            else if (texts[j].name.Contains("Score"))
+                            else if (texts[j].name.Contains("Life"))
                             {
-                                texts[j].text = GuardianSortByScore[i].CurrentScore.ToString();
+                                texts[j].text = GuardianSortByScore[i].Life.ToString();
                             }
                             else if (texts[j].name.Contains("Kill"))
                             {
@@ -134,7 +134,7 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
 
                     if (GuardiansInScene[i] != this.guardianAssignWorlCanvas)
                     {
-                        playerNameList[i].text = GuardiansInScene[i].guardianName;
+                        playerNameList[i].text = GuardiansInScene[i].guardianName + "\r\n" + GuardiansInScene[i].Life + (GuardiansInScene[i].Life > 1 ? "Vies" : "Vie");
                     }
                     else
                     {
@@ -287,18 +287,18 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
         {
             List<Guardian> gList = new List<Guardian>();
 
-            int scoreMin = 999999;
+            int life = -1;
             Guardian g = null;
 
             for (int i = 0; i < GuardianSortByScore.Count; i++)
             {
                 foreach (var gScore in GuardianSortByScore)
                 {
-                    if (gScore.CurrentScore < scoreMin)
+                    if (gScore.Life >= life)
                     {
                         if (!gList.Contains(gScore))
                         {
-                            scoreMin = gScore.CurrentScore;
+                            life = gScore.Life;
                             g = gScore;
                         }
 
@@ -308,7 +308,7 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
                 gList.Add(g);
 
                 g = null;
-                scoreMin = 999999;
+                life = -1;
             }
 
             gList.Reverse();
