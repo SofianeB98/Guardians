@@ -238,8 +238,8 @@ MonoBehaviour:
   groundTolerance: 0.1
   characterControllerRadiusCompensator: 0
   speedPerteSpeed: 4
-  jumpHeight: 3
-  jumpTimeToReachMax: 0.25
+  jumpHeight: 5
+  jumpTimeToReachMax: 0.15
   jumpBehaviour:
     serializedVersion: 2
     m_Curve:
@@ -316,7 +316,7 @@ MonoBehaviour:
   <NamePosition>k__BackingField: {fileID: 480}
   winPointPanel: {fileID: 1893095237999786273}
   health: 1
-  <Life>k__BackingField: 3
+  <Life>k__BackingField: 4
   invinsibleFB: {fileID: 8877678457275977260}
   stunTime: 0.1
   invinsibleTime: 3
@@ -342,7 +342,7 @@ MonoBehaviour:
   forceLaunch: 100
   dirLaunch: {x: 0, y: 0, z: 0}
   myPillier: []
-  maxPillier: 4
+  maxPillier: 3
   destroyAllPillierwhenIDie: 1
   myHand: {fileID: 401}
   seedReadyImage: {fileID: 745}
@@ -699,7 +699,7 @@ MonoBehaviour:
   ignoreLayerMask:
     serializedVersion: 2
     m_Bits: 26912
-  forcePush: 110
+  forcePush: 100
   myTrail: {fileID: 533}
   contactParticulePrefab: {fileID: 2585152672974213350, guid: 8a16da03d5172294ab5e3c6d9a2a2a30,
     type: 3}
