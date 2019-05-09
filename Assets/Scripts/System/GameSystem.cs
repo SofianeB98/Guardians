@@ -216,16 +216,16 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
     public Guardian BestEnemyGuardian(Guardian mySelf)
     {
         Guardian enemy = null;
-        int score = -9999;
+        int life = -1;
 
         foreach (var guard in GuardiansInScene)
         {
             if (guard != mySelf)
             {
-                if (guard.CurrentScore > score)
+                if (guard.Life > life)
                 {
                     enemy = guard;
-                    score = enemy.CurrentScore;
+                    life = enemy.Life;
                 }
             }
         }
@@ -235,7 +235,9 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
 
     private Guardian WinGuardian()
     {
-        Guardian win = null;
+
+        return GuardianSortByScore[0];
+        /*Guardian win = null;
         if (!SmashSystem)
         {
             int score = 0;
@@ -272,7 +274,7 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
             }
         }
 
-        return win != null ? win : GuardiansInScene[Random.Range(0, GuardiansInScene.Count)];
+        return win != null ? win : GuardiansInScene[Random.Range(0, GuardiansInScene.Count)];*/
     }
 
     public void AssignCamToWorldCanvas(Camera guardianCam, Guardian g)

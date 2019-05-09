@@ -57,6 +57,8 @@ public class ManagerTraining : MonoBehaviour
 
     public void LoadLevel(int index)
     {
+        this.isPaused = false;
+        Time.timeScale = 1.0f;
         SceneManager.LoadScene(index);
     }
 

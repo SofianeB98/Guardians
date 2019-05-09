@@ -153,7 +153,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         this.scoreText.text = this.guardianName + " - " + this.CurrentScore.ToString();
         if (bestEnemy != null)
         {
-            this.bestEnemyScoreText.text = bestEnemy.guardianName + " - " + bestEnemy.CurrentScore.ToString();
+            this.bestEnemyScoreText.text = bestEnemy.guardianName + " - " + bestEnemy.Life.ToString() + "Lives";
         }
         else
         {

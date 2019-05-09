@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EditorBanks:
   - {fileID: 114411290415161358}
-  - {fileID: 114945728095888198}
+  - {fileID: 114415372054182054}
   EditorEvents:
   - {fileID: 114128109078526046}
   - {fileID: 114091073404551666}
@@ -39,7 +39,7 @@ MonoBehaviour:
   - {fileID: 114732113577381722}
   StringsBanks:
   - {fileID: 114411290415161358}
-  stringsBankWriteTime: 636927979512742675
+  stringsBankWriteTime: 636929292599742596
   cacheVersion: 3
 --- !u!114 &114056122987405808
 MonoBehaviour:
@@ -56,7 +56,7 @@ MonoBehaviour:
   Path: event:/Feedbacks Objets/Collision de graine-pilier
   guid: 2b7a5c4be790cd4b8bb2f50c854b8ed1
   Banks:
-  - {fileID: 114945728095888198}
+  - {fileID: 114415372054182054}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -79,7 +79,7 @@ MonoBehaviour:
   Path: event:/Feedbacks Objets/Respawn joueur (ennemi)
   guid: 0ff5896e62bfc84080b8ef61a2b26c04
   Banks:
-  - {fileID: 114945728095888198}
+  - {fileID: 114415372054182054}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -122,7 +122,7 @@ MonoBehaviour:
   Path: event:/Feedbacks Objets/Rayon
   guid: 1f63e19bb9a79b42b7308f4ae07af9d9
   Banks:
-  - {fileID: 114945728095888198}
+  - {fileID: 114415372054182054}
   IsStream: 1
   Is3D: 1
   IsOneShot: 0
@@ -145,7 +145,7 @@ MonoBehaviour:
   Path: "event:/Feedbacks Objets/Collision de balle (d\xE9cor)"
   guid: 395cd959792132449e2cc9570d0f7121
   Banks:
-  - {fileID: 114945728095888198}
+  - {fileID: 114415372054182054}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -168,7 +168,7 @@ MonoBehaviour:
   Path: "event:/Feedbacks Joueur Personnels/Balle r\xE9cup\xE9r\xE9e"
   guid: dd98e806308f364cae6619840315c394
   Banks:
-  - {fileID: 114945728095888198}
+  - {fileID: 114415372054182054}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -191,7 +191,7 @@ MonoBehaviour:
   Path: "event:/Feedbacks Joueur Personnels/Joueur \xE9limin\xE9 (soi)"
   guid: 1073bd87f9d1ef43aaa2e4e8339141d4
   Banks:
-  - {fileID: 114945728095888198}
+  - {fileID: 114415372054182054}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -254,7 +254,7 @@ MonoBehaviour:
   Path: event:/Feedbacks Joueur Communs/Lancer de graine-pilier
   guid: b7a3c5373bc2164d830d29de582a1b11
   Banks:
-  - {fileID: 114945728095888198}
+  - {fileID: 114415372054182054}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -277,7 +277,7 @@ MonoBehaviour:
   Path: event:/Feedbacks Objets/Collision de balle (ennemi)
   guid: e3b4b2a04acaea4a9a231c609c441eda
   Banks:
-  - {fileID: 114945728095888198}
+  - {fileID: 114415372054182054}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -300,7 +300,7 @@ MonoBehaviour:
   Path: event:/Feedbacks Joueur Personnels/Collision de balle (soi)
   guid: b82d68aca143b840bf62a3ce8476c28e
   Banks:
-  - {fileID: 114945728095888198}
+  - {fileID: 114415372054182054}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -323,7 +323,7 @@ MonoBehaviour:
   Path: "event:/Feedbacks Objets/Joueur \xE9limin\xE9 (ennemi)"
   guid: 49f63088c1a3fc469a29a86f5533ed12
   Banks:
-  - {fileID: 114945728095888198}
+  - {fileID: 114415372054182054}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -366,7 +366,7 @@ MonoBehaviour:
   Path: event:/Feedbacks Objets/Destruction de pilier
   guid: 9e5e6bb251b9304f917fcbad6d69bfd2
   Banks:
-  - {fileID: 114945728095888198}
+  - {fileID: 114415372054182054}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -387,11 +387,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Path: Assets\Resources\Audio\FMOD Guardian\Build\Desktop\Master Bank.strings.bank
-  lastModified: 636927979512742675
+  lastModified: 636929292599742596
   LoadResult: 0
   FileSizes:
   - Name: Desktop
     Value: 1666
+  Exists: 1
+--- !u!114 &114415372054182054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: C:\Users\sofia\Desktop\Cours\3. Troisieme Annee\0. Projet Annuel\Projet_Unity\Multi_Project\Bolt\Guardians\Assets\Resources\Audio\FMOD
+    Guardian\Build\Desktop\Master Bank.bank
+  lastModified: 636929292599652652
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 274880
   Exists: 1
 --- !u!114 &114469869446596384
 MonoBehaviour:
@@ -408,7 +428,7 @@ MonoBehaviour:
   Path: "event:/Feedbacks Joueur Personnels/Point gagn\xE9 (soi)"
   guid: dff3463571a22a40bc089d4e939bae55
   Banks:
-  - {fileID: 114945728095888198}
+  - {fileID: 114415372054182054}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -431,7 +451,7 @@ MonoBehaviour:
   Path: event:/Feedbacks Joueur Communs/Lancer de balle
   guid: 6f87e6043d105a46912fcc2439627fba
   Banks:
-  - {fileID: 114945728095888198}
+  - {fileID: 114415372054182054}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -454,7 +474,7 @@ MonoBehaviour:
   Path: event:/Feedbacks Objets/Construction de pilier
   guid: b490196450efd7479b4f38fa44a79a07
   Banks:
-  - {fileID: 114945728095888198}
+  - {fileID: 114415372054182054}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -477,7 +497,7 @@ MonoBehaviour:
   Path: event:/Feedbacks Joueur Communs/Saut
   guid: b55ec8fa85864e4c88d006dbf7dbfe74
   Banks:
-  - {fileID: 114945728095888198}
+  - {fileID: 114415372054182054}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -523,7 +543,7 @@ MonoBehaviour:
   Path: event:/Feedbacks Joueur Personnels/Point perdu (soi)
   guid: f67feb19e814654ab583d42737252792
   Banks:
-  - {fileID: 114945728095888198}
+  - {fileID: 114415372054182054}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -609,7 +629,7 @@ MonoBehaviour:
   Path: event:/Feedbacks Joueur Personnels/Respawn joueur (soi)
   guid: 18e2a275a211fe449456f738d76fc70a
   Banks:
-  - {fileID: 114945728095888198}
+  - {fileID: 114415372054182054}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -636,4 +656,4 @@ MonoBehaviour:
   FileSizes:
   - Name: Desktop
     Value: 274880
-  Exists: 1
+  Exists: 0
