@@ -150,7 +150,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     private void Update()
     {
         //bestEnemy = GameSystem.GSystem.BestEnemyGuardian(this);
-        this.scoreText.text = this.guardianName + " - " + this.CurrentScore.ToString();
+        this.scoreText.text = this.guardianName + " - " + this.Life.ToString() + "Life";
         if (bestEnemy != null)
         {
             this.bestEnemyScoreText.text = bestEnemy.guardianName + " - " + bestEnemy.Life.ToString() + "Lives";
@@ -184,11 +184,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         {
             this.lastGuardianWhoHitMe = null;
         }
-
-        if (this.Life <= 0)
-        {
-            GameSystem.GSystem.CameraFinal.SetActive(true);
-        }
+        
     }
 
     public override void SimulateOwner()
@@ -672,21 +668,25 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
 
     IEnumerator EndLife()
     {
-        if (entity.IsOwner)
+        yield return new WaitForSeconds(1f);
+
+        if (this.Life <= 0)
         {
-            yield return new WaitForSeconds(1f);
-            Destroy(this.cameraRef.gameObject);
-            this.cameraRef = null;
-            this.transform.position = new Vector3(0, 50, 0);
-
-            this.GetComponent<CharacterControllerManager>().enabled = false;
-            this.GetComponent<CameraController>().enabled = false;
-            this.GetComponent<CameraInputDetector>().enabled = false;
-            this.GetComponent<CharacterInputDetector>().enabled = false;
-            this.characterController.enabled = false;
+            GameSystem.GSystem.CameraFinal.SetActive(true);
         }
-        
 
+        this.myCanvas.gameObject.SetActive(false);
+
+        this.GetComponent<CharacterControllerManager>().enabled = false;
+        this.GetComponent<CameraController>().enabled = false;
+        this.GetComponent<CameraInputDetector>().enabled = false;
+        this.GetComponent<CharacterInputDetector>().enabled = false;
+        this.characterController.enabled = false;
+
+        Destroy(this.cameraRef.gameObject);
+        this.cameraRef = null;
+        this.transform.position = new Vector3(0, 50, 0);
+        
         yield break;
     }
 }

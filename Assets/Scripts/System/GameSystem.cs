@@ -185,7 +185,7 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
 
     private IEnumerator WaitToFindGuardians()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2f);
         GuardiansInScene = FindObjectsOfType<Guardian>().ToList();
         GuardianSortByScore = FindObjectsOfType<Guardian>().ToList();
 

@@ -1845,7 +1845,7 @@ MonoBehaviour:
   timeSortScore: 1
   winnerText: {fileID: 529891907}
   winnerPanel: {fileID: 870800522}
-  cameraFinal: {fileID: 620711993}
+  <CameraFinal>k__BackingField: {fileID: 620711993}
   EndGame: 0
   killFeedList: []
   maxKillFeedPref: 5
