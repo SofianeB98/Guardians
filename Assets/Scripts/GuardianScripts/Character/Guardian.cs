@@ -184,6 +184,11 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         {
             this.lastGuardianWhoHitMe = null;
         }
+
+        if (this.Life <= 0)
+        {
+            GameSystem.GSystem.CameraFinal.SetActive(true);
+        }
     }
 
     public override void SimulateOwner()
@@ -667,16 +672,20 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
 
     IEnumerator EndLife()
     {
-        yield return new WaitForSeconds(1f);
-        Destroy(this.cameraRef.gameObject);
-        this.cameraRef = null;
-        this.transform.position = new Vector3(0, 50, 0);
+        if (entity.IsOwner)
+        {
+            yield return new WaitForSeconds(1f);
+            Destroy(this.cameraRef.gameObject);
+            this.cameraRef = null;
+            this.transform.position = new Vector3(0, 50, 0);
 
-        this.GetComponent<CharacterControllerManager>().enabled = false;
-        this.GetComponent<CameraController>().enabled = false;
-        this.GetComponent<CameraInputDetector>().enabled = false;
-        this.GetComponent<CharacterInputDetector>().enabled = false;
-        this.characterController.enabled = false;
+            this.GetComponent<CharacterControllerManager>().enabled = false;
+            this.GetComponent<CameraController>().enabled = false;
+            this.GetComponent<CameraInputDetector>().enabled = false;
+            this.GetComponent<CharacterInputDetector>().enabled = false;
+            this.characterController.enabled = false;
+        }
+        
 
         yield break;
     }

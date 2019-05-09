@@ -29,7 +29,7 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
     [Header("End Game")]
     [SerializeField] private TextMeshProUGUI winnerText;
     [SerializeField] private GameObject winnerPanel;
-    [SerializeField] private GameObject cameraFinal;
+    [field:SerializeField] public GameObject CameraFinal { get; private set; }
     public bool EndGame = false;
 
     [Header("Kill Feed")]
@@ -80,7 +80,7 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
             if (!EndGame)
             {
                 
-                this.cameraFinal.SetActive(true);
+                this.CameraFinal.SetActive(true);
 
                 if (winnerPanel.activeSelf == false)
                 {
@@ -216,7 +216,7 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
     public Guardian BestEnemyGuardian(Guardian mySelf)
     {
         Guardian enemy = null;
-        int life = -1;
+        int life = 0;
 
         foreach (var guard in GuardiansInScene)
         {
@@ -289,7 +289,7 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
         {
             List<Guardian> gList = new List<Guardian>();
 
-            int life = -1;
+            int life = 0;
             Guardian g = null;
 
             for (int i = 0; i < GuardianSortByScore.Count; i++)
@@ -310,10 +310,10 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
                 gList.Add(g);
 
                 g = null;
-                life = -1;
+                life = 0;
             }
 
-            gList.Reverse();
+            //gList.Reverse();
             GuardianSortByScore = gList;
            
         }
@@ -331,6 +331,5 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
     public void GuardianDie()
     {
         CurrentGuardianInLife--;
-        this.cameraFinal.SetActive(true);
     }
 }
