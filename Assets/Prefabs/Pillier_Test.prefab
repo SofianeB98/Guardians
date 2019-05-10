@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 496}
   - component: {fileID: 526}
   - component: {fileID: 732}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: LaserDeux
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -129,7 +129,7 @@ GameObject:
   - component: {fileID: 499}
   - component: {fileID: 528}
   - component: {fileID: 744}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Laser
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -296,7 +296,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sceneGuid: 
   _serializerGuid: e3e5f9ba-cded-4e90-8648-22d0cae76937
-  _prefabId: 6
+  _prefabId: 5
   _updateRate: 1
   _autoFreezeProxyFrames: 0
   _clientPredicted: 1
@@ -330,6 +330,8 @@ MonoBehaviour:
   seedDrop: {fileID: 475}
   rdToColor: {fileID: 499}
   doubleLaser: 1
+  pillierLifeTime: 15
+  maxDistanceWithMyGuardian: 20
   speedRotation: 120
   animationScaleDuration: 0.9
   animationSpeed: 3
@@ -379,7 +381,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6830900872148984756}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: GameObject (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -415,7 +417,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4094470715541879375}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -453,6 +455,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Particle System (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 685793733859050356, guid: fea5d64cb9321b640b97bb31d1d682bd,
+        type: 3}
+      propertyPath: m_Layer
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 2783069136891409010, guid: fea5d64cb9321b640b97bb31d1d682bd,
         type: 3}
@@ -544,6 +551,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Particle System (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 685793733859050356, guid: fea5d64cb9321b640b97bb31d1d682bd,
+        type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 2783069136891409010, guid: fea5d64cb9321b640b97bb31d1d682bd,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -633,6 +645,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Particle System
+      objectReference: {fileID: 0}
+    - target: {fileID: 685793733859050356, guid: fea5d64cb9321b640b97bb31d1d682bd,
+        type: 3}
+      propertyPath: m_Layer
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 2783069136891409010, guid: fea5d64cb9321b640b97bb31d1d682bd,
         type: 3}
@@ -724,6 +741,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Particle System (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 685793733859050356, guid: fea5d64cb9321b640b97bb31d1d682bd,
+        type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 2783069136891409010, guid: fea5d64cb9321b640b97bb31d1d682bd,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -813,6 +835,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Particle System (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 685793733859050356, guid: fea5d64cb9321b640b97bb31d1d682bd,
+        type: 3}
+      propertyPath: m_Layer
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 2783069136891409010, guid: fea5d64cb9321b640b97bb31d1d682bd,
         type: 3}
@@ -904,6 +931,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Particle System (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 685793733859050356, guid: fea5d64cb9321b640b97bb31d1d682bd,
+        type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 2783069136891409010, guid: fea5d64cb9321b640b97bb31d1d682bd,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -993,6 +1025,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Particle System (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 685793733859050356, guid: fea5d64cb9321b640b97bb31d1d682bd,
+        type: 3}
+      propertyPath: m_Layer
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 2783069136891409010, guid: fea5d64cb9321b640b97bb31d1d682bd,
         type: 3}
@@ -1084,6 +1121,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Particle System
       objectReference: {fileID: 0}
+    - target: {fileID: 685793733859050356, guid: fea5d64cb9321b640b97bb31d1d682bd,
+        type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 2783069136891409010, guid: fea5d64cb9321b640b97bb31d1d682bd,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1173,6 +1215,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Particle System (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 685793733859050356, guid: fea5d64cb9321b640b97bb31d1d682bd,
+        type: 3}
+      propertyPath: m_Layer
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 2783069136891409010, guid: fea5d64cb9321b640b97bb31d1d682bd,
         type: 3}
@@ -1264,6 +1311,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Particle System (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 685793733859050356, guid: fea5d64cb9321b640b97bb31d1d682bd,
+        type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 2783069136891409010, guid: fea5d64cb9321b640b97bb31d1d682bd,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1353,6 +1405,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Particle System (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 685793733859050356, guid: fea5d64cb9321b640b97bb31d1d682bd,
+        type: 3}
+      propertyPath: m_Layer
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 2783069136891409010, guid: fea5d64cb9321b640b97bb31d1d682bd,
         type: 3}
@@ -1520,6 +1577,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Particle System (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 685793733859050356, guid: fea5d64cb9321b640b97bb31d1d682bd,
+        type: 3}
+      propertyPath: m_Layer
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 2783069136891409010, guid: fea5d64cb9321b640b97bb31d1d682bd,
         type: 3}

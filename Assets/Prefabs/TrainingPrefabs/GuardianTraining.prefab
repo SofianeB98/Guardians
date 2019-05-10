@@ -165,6 +165,9 @@ MonoBehaviour:
   ignoreLayerMask:
     serializedVersion: 2
     m_Bits: 26656
+  laserLayerMask:
+    serializedVersion: 2
+    m_Bits: 32768
   forcePush: 60
   myTrail: {fileID: 370328074292033662}
   contactParticulePrefab: {fileID: 2585152672974213350, guid: 8a16da03d5172294ab5e3c6d9a2a2a30,

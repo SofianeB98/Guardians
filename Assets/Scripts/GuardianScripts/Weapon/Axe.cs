@@ -42,6 +42,7 @@ public class Axe : MonoBehaviour
     private Vector3 axeInitPos;
     private Quaternion axeInitRotate;
     [SerializeField] private LayerMask ignoreLayerMask;
+    [SerializeField] private LayerMask laserLayerMask;
     private Quaternion axeOrientation;
     [SerializeField] private float forcePush = 10f;
 
@@ -67,7 +68,7 @@ public class Axe : MonoBehaviour
 
         collisionPlayer = FMODUnity.RuntimeManager.CreateInstance(collisionPlayerEvent);
         collisionDecor = FMODUnity.RuntimeManager.CreateInstance(collisionDecorEvent);
-        
+        this.ignoreLayerMask += this.laserLayerMask;
     }
 
     private void Update()

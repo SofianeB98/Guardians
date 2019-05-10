@@ -199,6 +199,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TestSacade: 1
   myGuardian: {fileID: 668}
+  ratioDecalCam: 1
   distance: 7
   speed: 6
   inverseY: 0
@@ -316,7 +317,6 @@ MonoBehaviour:
   <NamePosition>k__BackingField: {fileID: 480}
   winPointPanel: {fileID: 1893095237999786273}
   health: 1
-  <Life>k__BackingField: 999
   invinsibleFB: {fileID: 8877678457275977260}
   stunTime: 0.1
   invinsibleTime: 2.5
@@ -699,6 +699,9 @@ MonoBehaviour:
   ignoreLayerMask:
     serializedVersion: 2
     m_Bits: 26912
+  laserLayerMask:
+    serializedVersion: 2
+    m_Bits: 32768
   forcePush: 60
   myTrail: {fileID: 533}
   contactParticulePrefab: {fileID: 2585152672974213350, guid: 8a16da03d5172294ab5e3c6d9a2a2a30,

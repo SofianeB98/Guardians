@@ -171,7 +171,7 @@ GameObject:
   - component: {fileID: 484}
   - component: {fileID: 525}
   - component: {fileID: 728}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Laser
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -393,7 +393,7 @@ GameObject:
   - component: {fileID: 497}
   - component: {fileID: 529}
   - component: {fileID: 740}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Laser2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
