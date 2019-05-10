@@ -264,8 +264,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  doubleJumpHeight: 5
-  doubleJumpTimeToReachMax: 0.25
+  doubleJumpHeight: 4
+  doubleJumpTimeToReachMax: 0.3
   doubleJumpBehaviour:
     serializedVersion: 2
     m_Curve:
@@ -316,13 +316,13 @@ MonoBehaviour:
   <NamePosition>k__BackingField: {fileID: 480}
   winPointPanel: {fileID: 1893095237999786273}
   health: 1
-  <Life>k__BackingField: 4
+  <Life>k__BackingField: 999
   invinsibleFB: {fileID: 8877678457275977260}
   stunTime: 0.1
-  invinsibleTime: 3
+  invinsibleTime: 2.5
   scoreText: {fileID: 739}
   bestEnemyScoreText: {fileID: 738}
-  dietime: 2
+  dietime: 1.5
   deathParticulePrefab: {fileID: 8888476112482742187, guid: a5b7caa76f325ad4faed44c4d24eca73,
     type: 3}
   detectionHitRadius: 0.5
@@ -339,7 +339,7 @@ MonoBehaviour:
   feetPosition: {fileID: 398}
   checkRadius: 1.25
   cameraRef: {fileID: 400}
-  forceLaunch: 100
+  forceLaunch: 80
   dirLaunch: {x: 0, y: 0, z: 0}
   myPillier: []
   maxPillier: 3
@@ -662,7 +662,7 @@ MonoBehaviour:
   myHandParent: {fileID: 401}
   myGuardian: {fileID: 668}
   canDestroyPillier: 0
-  couldownLaunch: 0.5
+  couldownLaunch: 0.1
   axeRadiusLaunchCheck: 0.8
   pointOneAxeLaunch: {fileID: 478}
   pointTwoAxeLaunch: {fileID: 481}
@@ -691,7 +691,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  currentAxeReachForwardDistance: 30
+  currentAxeReachForwardDistance: 20
   axeBackSpeed: 50
   groundLayerMask:
     serializedVersion: 2
@@ -699,7 +699,7 @@ MonoBehaviour:
   ignoreLayerMask:
     serializedVersion: 2
     m_Bits: 26912
-  forcePush: 100
+  forcePush: 60
   myTrail: {fileID: 533}
   contactParticulePrefab: {fileID: 2585152672974213350, guid: 8a16da03d5172294ab5e3c6d9a2a2a30,
     type: 3}

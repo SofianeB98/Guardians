@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 
 public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
 {
-    public bool SmashSystem = true;
+    //public bool SmashSystem = true;
     public static GameSystem GSystem;
     [Header("Party Info")]
     [SerializeField] private float partyTimer = 180.0f;
@@ -18,7 +18,7 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
     [SerializeField] private TextMeshProUGUI playerNamePrefab;
     private List<TextMeshProUGUI> playerNameList = new List<TextMeshProUGUI>();
     [SerializeField] private Guardian guardianAssignWorlCanvas;
-    [field:SerializeField] public int CurrentGuardianInLife { get; private set; }
+    //[field:SerializeField] public int CurrentGuardianInLife { get; private set; }
 
     [Header("Score")]
     [SerializeField] private GameObject scorePanel;
@@ -44,7 +44,7 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
 
     private void Awake()
     {
-        CurrentGuardianInLife = 99;
+        //CurrentGuardianInLife = 99;
         GameSystem.GSystem = this;
         StartCoroutine(WaitToFindGuardians());
         EndGame = false;
@@ -98,15 +98,15 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
             
         }
 
-        if (CurrentGuardianInLife <= 1)
-        {
-            this.partyTimer = 0.0f;
-        }
+        //if (CurrentGuardianInLife <= 1)
+        //{
+        //    this.partyTimer = 0.0f;
+        //}
     }
 
     private void AssignScore()
     {
-        if (this.partyTimer > 0.2f && CurrentGuardianInLife > 1)
+        if (this.partyTimer > 0.2f)
         {
             if (playersScore.Count > 0 && GuardianSortByScore.Count > 0)
             {
@@ -121,9 +121,9 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
                             {
                                 texts[j].text = GuardianSortByScore[i].guardianName;
                             }
-                            else if (texts[j].name.Contains("Life"))
+                            else if (texts[j].name.Contains("Score"))
                             {
-                                texts[j].text = GuardianSortByScore[i].Life.ToString();
+                                texts[j].text = GuardianSortByScore[i].CurrentScore.ToString();
                             }
                             else if (texts[j].name.Contains("Kill"))
                             {
@@ -134,7 +134,9 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
 
                     if (GuardiansInScene[i] != this.guardianAssignWorlCanvas)
                     {
-                        playerNameList[i].text = GuardiansInScene[i].guardianName + "\r\n" + GuardiansInScene[i].Life + (GuardiansInScene[i].Life > 1 ? "Vies" : "Vie");
+                        playerNameList[i].text =
+                            GuardiansInScene[i]
+                                .guardianName; //+ "\r\n" + GuardiansInScene[i].Life + (GuardiansInScene[i].Life > 1 ? "Vies" : "Vie");
                     }
                     else
                     {
@@ -198,7 +200,7 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
             }
         }
 
-        CurrentGuardianInLife = GuardiansInScene.Count;
+        //CurrentGuardianInLife = GuardiansInScene.Count;
         SortGuardianByScore();
         yield break;
     }
@@ -216,16 +218,16 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
     public Guardian BestEnemyGuardian(Guardian mySelf)
     {
         Guardian enemy = null;
-        int life = 0;
+        int score = 0;
 
         foreach (var guard in GuardiansInScene)
         {
             if (guard != mySelf)
             {
-                if (guard.Life > life)
+                if (guard.CurrentScore > score)
                 {
                     enemy = guard;
-                    life = enemy.Life;
+                    score = enemy.CurrentScore;
                 }
             }
         }
@@ -289,19 +291,31 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
         {
             List<Guardian> gList = new List<Guardian>();
 
-            int life = 0;
+            int score = 0;
             Guardian g = null;
 
             for (int i = 0; i < GuardianSortByScore.Count; i++)
             {
                 foreach (var gScore in GuardianSortByScore)
                 {
-                    if (gScore.Life >= life)
+                    if (gScore.CurrentScore >= score)
                     {
                         if (!gList.Contains(gScore))
                         {
-                            life = gScore.Life;
-                            g = gScore;
+                            if (gScore.CurrentScore == score)
+                            {
+                                if (gScore.CurrentKill > g.CurrentKill)
+                                {
+                                    score = gScore.CurrentScore;
+                                    g = gScore;
+                                }
+                            }
+                            else
+                            {
+                                score = gScore.CurrentScore;
+                                g = gScore;
+                            }
+                            
                         }
 
                     }
@@ -310,10 +324,10 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
                 gList.Add(g);
 
                 g = null;
-                life = 0;
+                score = 0;
             }
 
-            //gList.Reverse();
+            gList.Reverse();
             GuardianSortByScore = gList;
            
         }
@@ -328,8 +342,8 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
         yield break;
     }
 
-    public void GuardianDie()
-    {
-        CurrentGuardianInLife--;
-    }
+    //public void GuardianDie()
+    //{
+       // CurrentGuardianInLife--;
+    //}
 }

@@ -218,7 +218,9 @@ public class CompleteCharacterControllerTraining : MonoBehaviour
 
     public void AddForce(Vector3 dir, float force)
     {
-        this.direction = dir.normalized * force;
+        dir = dir.normalized;
+        dir.y = 0.1f;
+        this.direction = dir * force;
         /////Son
         colBalleMe.start();
         /////Son

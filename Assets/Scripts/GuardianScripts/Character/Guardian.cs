@@ -26,7 +26,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
 
     [Header("Player Stats")]
     [SerializeField] private float health = 100f;
-    [field: SerializeField] public int Life { get; private set; }
+    //[field: SerializeField] public int Life { get; private set; }
     private float lastHealth = 100f;
     [SerializeField] private GameObject invinsibleFB;
     //[SerializeField] private int currentInventorySeed = 5;
@@ -150,10 +150,10 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     private void Update()
     {
         //bestEnemy = GameSystem.GSystem.BestEnemyGuardian(this);
-        this.scoreText.text = this.guardianName + " - " + this.Life.ToString() + "Life";
+        this.scoreText.text = this.guardianName + " - " + this.CurrentScore.ToString();
         if (bestEnemy != null)
         {
-            this.bestEnemyScoreText.text = bestEnemy.guardianName + " - " + bestEnemy.Life.ToString() + "Lives";
+            this.bestEnemyScoreText.text = bestEnemy.guardianName + " - " + bestEnemy.CurrentScore.ToString();
         }
         else
         {
@@ -363,26 +363,28 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
                     deathAudioOther.start();
                 }
 
-                Life--;
+                IsDie = true;
+                this.currentDietime = Time.time + this.dietime;
+                StartCoroutine(Death());
+
+                /*Life--;
                 if (Life > 0)
                 {
-                    IsDie = true;
-                    this.currentDietime = Time.time + this.dietime;
-                    StartCoroutine(Death());
+                    
                 }
                 else
                 {
                     IsDie = true;
                     this.currentDietime = Time.time + this.dietime;
-                    StartCoroutine(EndLife());
-                    GameSystem.GSystem.GuardianDie();
+                    if(entity.IsOwner) StartCoroutine(EndLife());
+                    //GameSystem.GSystem.GuardianDie();
 
                     var killFeed = KillFeedEvent.Create(GameSystem.GSystem.entity);
                     killFeed.Message = this.guardianName + " has no more Life";
                     killFeed.RemoveFeed = false;
                     killFeed.Send();
-                }
-                
+                }*/
+
             }
         }
         else
@@ -466,7 +468,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         int currentIndex = 0;
         for (int i = 0; i < point.Length; i++)
         {
-            Collider[] col = Physics.OverlapSphere(NetworkCallbacks.SpawnPointsTransforms[i].transform.position, 5f);
+            Collider[] col = Physics.OverlapSphere(NetworkCallbacks.SpawnPointsTransforms[i].transform.position, 8f);
             if (col.Length > 0)
             {
                 for (int j = 0; j < col.Length; j++)
@@ -627,9 +629,10 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
                 Destroy(go, 1f);
             }
 
-            return;
-        }
             
+        }
+        return;
+
     }
 
     private void SetupTeam(int team)
@@ -666,29 +669,33 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         yield break;
     }
 
-    IEnumerator EndLife()
+    /*IEnumerator EndLife()
     {
         yield return new WaitForSeconds(1f);
 
-        if (this.Life <= 0)
+        if (entity.IsOwner)
         {
-            GameSystem.GSystem.CameraFinal.SetActive(true);
+            if (this.Life <= 0)
+            {
+                GameSystem.GSystem.CameraFinal.SetActive(true);
+            }
+
+            this.myCanvas.gameObject.SetActive(false);
+
+            this.GetComponent<CharacterControllerManager>().enabled = false;
+            this.GetComponent<CameraController>().enabled = false;
+            this.GetComponent<CameraInputDetector>().enabled = false;
+            this.GetComponent<CharacterInputDetector>().enabled = false;
+            this.characterController.enabled = false;
+
+            Destroy(this.cameraRef.gameObject);
+            this.cameraRef = null;
+            this.transform.position = new Vector3(0, 50, 0);
         }
-
-        this.myCanvas.gameObject.SetActive(false);
-
-        this.GetComponent<CharacterControllerManager>().enabled = false;
-        this.GetComponent<CameraController>().enabled = false;
-        this.GetComponent<CameraInputDetector>().enabled = false;
-        this.GetComponent<CharacterInputDetector>().enabled = false;
-        this.characterController.enabled = false;
-
-        Destroy(this.cameraRef.gameObject);
-        this.cameraRef = null;
-        this.transform.position = new Vector3(0, 50, 0);
+        
         
         yield break;
-    }
+    }*/
 }
 
 /*private void Death()

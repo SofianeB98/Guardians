@@ -126,7 +126,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 735, guid: 155f260fbc761994085e2bcd7e6181d5, type: 3}
       propertyPath: _sceneGuid
-      value: 
+      value: b6c196a6-c596-42bf-b6f6-a4fb0ea3baa2
       objectReference: {fileID: 0}
     - target: {fileID: 735, guid: 155f260fbc761994085e2bcd7e6181d5, type: 3}
       propertyPath: _prefabId

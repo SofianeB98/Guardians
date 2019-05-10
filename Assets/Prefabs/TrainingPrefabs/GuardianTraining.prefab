@@ -128,7 +128,7 @@ MonoBehaviour:
   myHandParent: {fileID: 4873829021597750768}
   myGuardian: {fileID: 5345986359602158806}
   canDestroyPillier: 0
-  couldownLaunch: 1.5
+  couldownLaunch: 0.1
   axeRadiusLaunchCheck: 0.75
   pointOneAxeLaunch: {fileID: 4305970662412692110}
   pointTwoAxeLaunch: {fileID: 7711669725877147125}
@@ -165,7 +165,7 @@ MonoBehaviour:
   ignoreLayerMask:
     serializedVersion: 2
     m_Bits: 26656
-  forcePush: 100
+  forcePush: 60
   myTrail: {fileID: 370328074292033662}
   contactParticulePrefab: {fileID: 2585152672974213350, guid: 8a16da03d5172294ab5e3c6d9a2a2a30,
     type: 3}
