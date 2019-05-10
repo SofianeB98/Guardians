@@ -9,7 +9,8 @@ public class CameraController : Bolt.EntityBehaviour<IGuardianState>
     public bool TestSacade = true;
     [SerializeField] private Guardian myGuardian;
 
-	[SerializeField] private float distance = 10.0f;
+    [SerializeField] [Range(-2.0f, 2.0f)] private float ratioDecalCam = 1f;
+    [SerializeField] private float distance = 10.0f;
 	[SerializeField] [Range(1.0f, 10.0f)] private float speed = 6.0f;
 	private float angleY;
 	[SerializeField] private bool inverseY;
@@ -37,7 +38,7 @@ public class CameraController : Bolt.EntityBehaviour<IGuardianState>
         {
             if (this.myGuardian != null)
             {
-                Vector3 focusPoint = focus.position + camera.right;
+                Vector3 focusPoint = focus.position + (camera.right * this.ratioDecalCam);
                 if (!this.myGuardian.IsPreLaunchSeed)
                 {
                     this.camera.rotation = TestSacade ? Quaternion.Lerp(this.camera.rotation, Quaternion.Euler(this.angleX, this.angleY, 0.0f), Time.deltaTime * 15.0f) : Quaternion.Euler(this.angleX, this.angleY, 0.0f);

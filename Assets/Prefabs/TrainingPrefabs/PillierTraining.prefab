@@ -453,6 +453,8 @@ MonoBehaviour:
   seedDrop: {fileID: 4262367893258220596}
   rdToColor: {fileID: 2958305859258270360}
   doubleLaser: 1
+  pillierLifeTime: 30
+  maxDistanceWithMyGuardian: 20
   maxRotation: 90
   speedRotation: 120
   speedScalePillier: 16
@@ -461,3 +463,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   damage: 1
+  groundLayerMask:
+    serializedVersion: 2
+    m_Bits: 4096

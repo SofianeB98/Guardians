@@ -15,6 +15,8 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
     [SerializeField] private Transform seedDrop;
     [SerializeField] private Renderer rdToColor;
     [SerializeField] private bool doubleLaser = true;
+    [SerializeField] private float pillierLifeTime = 15.0f;
+    [SerializeField] private float maxDistanceWithMyGuardian = 20.0f;
     private bool destroy = false;
 
     [Header("Rotate Laser")]
@@ -87,6 +89,14 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
         else if(this.laserGO.activeSelf && !state.IsScaling)
         {
             this.RotateLaser();
+            if (this.pillierLifeTime > 0 && Vector3.Distance(this.transform.position, myOwner.transform.position) < this.maxDistanceWithMyGuardian)
+            {
+                this.pillierLifeTime -= BoltNetwork.FrameDeltaTime;
+            }
+            else
+            {
+                DestroyPillier();
+            }
         }
     }
     

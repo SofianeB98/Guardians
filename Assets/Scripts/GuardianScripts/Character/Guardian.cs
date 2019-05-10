@@ -78,6 +78,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     public bool IsPreLaunchSeed { get; private set; }
     [SerializeField] private List<Pillier> myPillier = new List<Pillier>();
     [SerializeField] private int maxPillier = 20;
+    private int currentPillier = 0;
     [SerializeField] private bool destroyAllPillierwhenIDie = true;
     [SerializeField] private Transform myHand;
     [SerializeField] private Image seedReadyImage;
@@ -423,6 +424,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
                 BoltNetwork.Destroy(pillier.gameObject);
             }
             this.myPillier = new List<Pillier>();
+            this.currentPillier = 0;
         }
 
         if (entity.IsOwner)
@@ -505,17 +507,22 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
 
     public void AddPillierToMyList(Pillier pillierToAdd)
     {
-        this.myPillier.Add(pillierToAdd);
-        if (this.myPillier.Count > this.maxPillier)
+        if (this.currentPillier < this.maxPillier)
         {
-            BoltNetwork.Destroy(this.myPillier[0].gameObject);
-            this.myPillier.RemoveAt(0);
+            this.myPillier.Add(pillierToAdd);
+            this.currentPillier++;
+            if (this.myPillier.Count > this.maxPillier)
+            {
+                Destroy(this.myPillier[0].gameObject);
+                this.myPillier.RemoveAt(0);
+            }
         }
     }
 
     public void RemovePillier(Pillier pToRemove)
     {
         this.myPillier.Remove(pToRemove);
+        this.currentPillier--;
     }
 
     public void CheckVide()
@@ -568,27 +575,31 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
 
     public void LaunchSeed()
     {
-        this.IsPreLaunchSeed = false;
-        //if (this.currentInventorySeed > 0)
-        if(!IsCooldown)
+        if (this.currentPillier < this.maxPillier)
         {
-            Seed s = BoltNetwork.Instantiate(BoltPrefabs.Seed, this.myHand.position + this.transform.forward, Quaternion.identity).GetComponent<Seed>();
-            s.Init(this.myTeam, this, this.transform.rotation, true, entity, state.MyColor, this.currentDir);
-            s.InitVelocity(this.forceLaunch, this.dirLaunch);
+            this.IsPreLaunchSeed = false;
+            //if (this.currentInventorySeed > 0)
+            if (!IsCooldown)
+            {
+                Seed s = BoltNetwork.Instantiate(BoltPrefabs.Seed, this.myHand.position + this.transform.forward, Quaternion.identity).GetComponent<Seed>();
+                s.Init(this.myTeam, this, this.transform.rotation, true, entity, state.MyColor, this.currentDir);
+                s.InitVelocity(this.forceLaunch, this.dirLaunch);
 
-            this.seedReadyImage.color = Color.red;
+                this.seedReadyImage.color = Color.red;
 
-            var evnt = AudioStartEvent.Create(entity);
-            evnt.Position = transform.position;
-            evnt.AudioID = 1;
-            evnt.Send();
+                var evnt = AudioStartEvent.Create(entity);
+                evnt.Position = transform.position;
+                evnt.AudioID = 1;
+                evnt.Send();
 
-            //this.currentInventorySeed--;
+                //this.currentInventorySeed--;
+            }
+            else
+            {
+                // return;
+            }
         }
-        else
-        {
-           // return;
-        }
+            
     }
     
     public void ChangePillierDir()

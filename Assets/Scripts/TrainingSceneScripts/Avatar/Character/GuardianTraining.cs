@@ -76,6 +76,7 @@ public class GuardianTraining : MonoBehaviour
     public bool IsPreLaunchSeed { get; private set; }
     [SerializeField] private List<PillierTraining> myPillier = new List<PillierTraining>();
     [SerializeField] private int maxPillier = 20;
+    private int currentPillier = 0;
     [SerializeField] private bool destroyAllPillierwhenIDie = true;
     [SerializeField] private Transform myHand;
     [SerializeField] private Image seedReadyImage;
@@ -270,6 +271,7 @@ public class GuardianTraining : MonoBehaviour
                 Destroy(pillier.gameObject);
             }
             this.myPillier = new List<PillierTraining>();
+            this.currentPillier = 0;
         }
         
         var spawnPosition = RespawnPoint();
@@ -306,17 +308,23 @@ public class GuardianTraining : MonoBehaviour
 
     public void AddPillierToMyList(PillierTraining pillierToAdd)
     {
-        this.myPillier.Add(pillierToAdd);
-        if (this.myPillier.Count > this.maxPillier)
+        if (this.currentPillier < this.maxPillier)
         {
-            Destroy(this.myPillier[0].gameObject);
-            this.myPillier.RemoveAt(0);
+            this.myPillier.Add(pillierToAdd);
+            this.currentPillier++;
+            if (this.myPillier.Count > this.maxPillier)
+            {
+                Destroy(this.myPillier[0].gameObject);
+                this.myPillier.RemoveAt(0);
+            }
         }
+        
     }
 
     public void RemovePillier(PillierTraining pToRemove)
     {
         this.myPillier.Remove(pToRemove);
+        this.currentPillier--;
     }
 
     #endregion
@@ -339,21 +347,25 @@ public class GuardianTraining : MonoBehaviour
 
     public void LaunchSeed()
     {
-        this.IsPreLaunchSeed = false;
-        //if (this.currentInventorySeed > 0)
-        if(!IsCooldown)
+        if (this.currentPillier < this.maxPillier)
         {
-            SeedTraining s = Instantiate(seedT, this.myHand.position + this.transform.forward, Quaternion.identity);
-            s.Init(this.myTeam, this, this.transform.rotation, true, this.currentDir);
-            s.InitVelocity(this.forceLaunch, this.dirLaunch);
+            this.IsPreLaunchSeed = false;
+            //if (this.currentInventorySeed > 0)
+            if (!IsCooldown)
+            {
+                SeedTraining s = Instantiate(seedT, this.myHand.position + this.transform.forward, Quaternion.identity);
+                s.Init(this.myTeam, this, this.transform.rotation, true, this.currentDir);
+                s.InitVelocity(this.forceLaunch, this.dirLaunch);
 
-            this.seedReadyImage.color = Color.red;
-            
+                this.seedReadyImage.color = Color.red;
+
+            }
+            else
+            {
+                // return;
+            }
         }
-        else
-        {
-           // return;
-        }
+        
     }
     
     public void CheckVide()

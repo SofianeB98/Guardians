@@ -16,6 +16,8 @@ public class PillierTraining : MonoBehaviour
     [SerializeField] private Transform seedDrop;
     [SerializeField] private Renderer rdToColor;
     [SerializeField] private bool doubleLaser = true;
+    [SerializeField] private float pillierLifeTime = 15.0f;
+    [SerializeField] private float maxDistanceWithMyGuardian = 20.0f;
     private bool destroy = false;
 
     [Header("Rotate Laser")]
@@ -49,7 +51,7 @@ public class PillierTraining : MonoBehaviour
 
         if (this.pillierGO.transform.localScale.y < this.scaleMaxPillier)
         {
-            this.pillierGO.transform.localScale += BoltNetwork.FrameDeltaTime * Vector3.up * this.speedScalePillier;
+            this.pillierGO.transform.localScale += Time.deltaTime * Vector3.up * this.speedScalePillier;
         }
         else if (!this.laserGO.activeSelf)
         {
@@ -63,7 +65,14 @@ public class PillierTraining : MonoBehaviour
         else
         {
             this.RotateLaser();
-            
+            if (this.pillierLifeTime > 0 && Vector3.Distance(this.transform.position, myguardian.transform.position) < this.maxDistanceWithMyGuardian)
+            {
+                this.pillierLifeTime -= Time.deltaTime;
+            }
+            else
+            {
+                this.DestroyPillier();
+            }
         }
     }
 
@@ -87,8 +96,8 @@ public class PillierTraining : MonoBehaviour
     {
         //SeedTraining s = BoltNetwork.Instantiate(BoltPrefabs.Seed, this.seedDrop.position, Quaternion.identity).GetComponent<Seed>();
         //s.Init(0, null, Quaternion.identity, false, myOwner, state.MyColor, this.currentDir);
-        Destroy(this.gameObject);
         myguardian.RemovePillier(this);
+        Destroy(this.gameObject);
     }
 
     private void RotateLaser()

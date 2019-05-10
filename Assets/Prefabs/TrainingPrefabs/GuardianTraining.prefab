@@ -1464,6 +1464,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TestSacade: 1
   myGuardian: {fileID: 5345986359602158806}
+  ratioDecalCam: 1
   distance: 7
   speed: 6
   inverseY: 0
@@ -1650,7 +1651,7 @@ MonoBehaviour:
   forceLaunch: 100
   dirLaunch: {x: 0, y: 0, z: 0}
   myPillier: []
-  maxPillier: 20
+  maxPillier: 3
   destroyAllPillierwhenIDie: 1
   myHand: {fileID: 4873829021597750768}
   seedReadyImage: {fileID: 6844952309353152676}
