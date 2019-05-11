@@ -41,15 +41,21 @@ public class GuardianTraining : MonoBehaviour
     private float currentDietime = 0f;
     [SerializeField] private GameObject deathParticulePrefab;
 
-    [Header("Melee Hit Info")]
-    [SerializeField] private float detectionHitRadius = 1f;
-    [SerializeField] private Transform meleeHitPosition;
-    [SerializeField] private LayerMask meleeHitCheckLayerMask;
-    [SerializeField] private float durationMeleeAttack = 1f;
-    [SerializeField] private float cooldownLaunchSeed = 5f;
-    private float currentCooldownLaunchSeed = 0f;
-    public bool IsCooldown { get; private set; }
-    public bool IsMeleeAttack { get; private set; }
+    //[Header("Melee Hit Info")]
+    //[SerializeField] private float detectionHitRadius = 1f;
+    //[SerializeField] private Transform meleeHitPosition;
+    //[SerializeField] private LayerMask meleeHitCheckLayerMask;
+   // [SerializeField] private float durationMeleeAttack = 1f;
+
+    [Header("Fus Ro Dah")]
+    [SerializeField] private float coolDownFus = 0.1f;
+    [SerializeField] private float distanceCheck = 10.0f;
+    private float detectionRadius = 10.0f;
+    [SerializeField] [Range(0.0f, 90.0f)] private float angleMaxToCheck = 45.0f;
+    [SerializeField] private float forcePush = 50.0f;
+    [SerializeField] private LayerMask fusRoDahLayerMask;
+    public bool IsFusRoDah { get; private set; }
+    [SerializeField] private ParticleSystem fusRoDaFeedback;
 
     [Header("Axe Launch")]
     [SerializeField] private AxeTraining myAxe;
@@ -81,6 +87,9 @@ public class GuardianTraining : MonoBehaviour
     [SerializeField] private Transform myHand;
     [SerializeField] private Image seedReadyImage;
     private int currentDir = 1;
+    [SerializeField] private float cooldownLaunchSeed = 5f;
+    private float currentCooldownLaunchSeed = 0f;
+    public bool IsCooldown { get; private set; }
 
     [Header("Pillier Sens")]
     [SerializeField] private Image sensPillierImage;
@@ -141,20 +150,20 @@ public class GuardianTraining : MonoBehaviour
     }
 
     #region MeleeAttack
-    GuardianTraining currentEnemyGuardian = null;
+    /*GuardianTraining currentEnemyGuardian = null;
 
     public IEnumerator LaunchMeleeAttack()
     {
-        this.IsMeleeAttack = true;
+        this.IsFusRoDah = true;
         StartCoroutine(this.StopMeleeAttack());
         yield return new WaitForEndOfFrame();
-        while (this.IsMeleeAttack)
+        while (this.IsFusRoDah)
         {
             yield return new WaitForSeconds(12.0f/60.0f);
             MeleeAttack();
         }
 
-        this.IsMeleeAttack = false;
+        this.IsFusRoDah = false;
         yield break;
     }
     
@@ -181,7 +190,7 @@ public class GuardianTraining : MonoBehaviour
 
                 if (this.IsStuned)
                 {
-                    this.IsMeleeAttack = false;
+                    this.IsFusRoDah = false;
                 }
             }
         }
@@ -190,10 +199,64 @@ public class GuardianTraining : MonoBehaviour
     IEnumerator StopMeleeAttack()
     {
         yield return new WaitForSeconds(this.durationMeleeAttack);
-        this.IsMeleeAttack = false;
+        this.IsFusRoDah = false;
         this.IsCooldown = true;
         currentEnemyGuardian = null;
         SetCooldown();
+        yield break;
+    }
+    */
+    #endregion
+
+    #region FusRoDa
+
+    public void FusRoDa()
+    {
+        this.IsFusRoDah = true;
+        
+        Vector3 position = this.transform.position + this.transform.forward * this.distanceCheck / 2;
+        this.detectionRadius = this.distanceCheck / 2;
+
+        ParticleSystem frdParticleSystem =
+            Instantiate(this.fusRoDaFeedback, this.transform.position, this.cameraRef.rotation);
+        ParticleSystem.ShapeModule shape = frdParticleSystem.shape;
+        shape.length = this.distanceCheck;
+        shape.angle = this.angleMaxToCheck;
+        
+
+        Collider[] guardianColliders = Physics.OverlapSphere(position, detectionRadius, this.fusRoDahLayerMask);
+
+        if (guardianColliders.Length > 0)
+        {
+            foreach (var guard in guardianColliders)
+            {
+                float angle = Vector3.Angle(this.transform.forward, guard.transform.position - this.transform.position);
+
+                Debug.Log(angle);
+                float force = this.forcePush;
+
+                force = force * (1 - (Vector3.Distance(this.transform.position, guard.transform.position)) / this.distanceCheck);
+
+                if (angle <= this.angleMaxToCheck)
+                {
+                    GuardianTraining guardian = guard.GetComponent<GuardianTraining>();
+                    if (guardian != null)
+                    {
+                        guardian.SetStun((guard.transform.position - this.transform.position), force);
+                    }
+                }
+            }
+
+            StartCoroutine(CoolDownFus());
+            Destroy(frdParticleSystem, 0.8f);
+        }
+    }
+
+    IEnumerator CoolDownFus()
+    {
+        yield return new WaitForSeconds(this.coolDownFus);
+        this.IsFusRoDah = false;
+        //SetCooldown();
         yield break;
     }
 

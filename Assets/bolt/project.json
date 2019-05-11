@@ -2345,6 +2345,14 @@
       "Name": "MovementPlateformState",
       "Guid": "1d66c660-b78a-4f16-83df-0d16c2a937c5",
       "Groups": []
+    },
+    {
+      "$type": "Bolt.Compiler.EventDefinition, bolt.compiler",
+      "Properties": [],
+      "GlobalSenders": 3,
+      "Name": "FusRoDaFBEvent",
+      "Guid": "01f02187-09d5-46fa-af06-c96726bd6b88",
+      "Groups": []
     }
   ],
   "ActiveGroup": "Everything"

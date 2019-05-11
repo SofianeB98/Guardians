@@ -325,13 +325,15 @@ MonoBehaviour:
   dietime: 1.5
   deathParticulePrefab: {fileID: 8888476112482742187, guid: a5b7caa76f325ad4faed44c4d24eca73,
     type: 3}
-  detectionHitRadius: 0.5
-  meleeHitPosition: {fileID: 401}
-  meleeHitCheckLayerMask:
+  coolDownFus: 0.5
+  distanceCheck: 20
+  angleMaxToCheck: 50
+  forcePush: 80
+  fusRoDahLayerMask:
     serializedVersion: 2
-    m_Bits: 1024
-  durationMeleeAttack: 0.5
-  cooldownLaunchSeed: 1.25
+    m_Bits: 512
+  fusRoDaFeedback: {fileID: 6377280301033286328, guid: 87668814a39cb1345a87fe2d60765627,
+    type: 3}
   myAxe: {fileID: 674}
   seedLayerMask:
     serializedVersion: 2
@@ -346,6 +348,7 @@ MonoBehaviour:
   destroyAllPillierwhenIDie: 1
   myHand: {fileID: 401}
   seedReadyImage: {fileID: 745}
+  cooldownLaunchSeed: 1.25
   sensPillierImage: {fileID: 733}
   sensHoraireSprite: {fileID: 21300000, guid: d9aebfeae5aab85488295d2bc8c85769, type: 3}
   sensAntiHoraireSprite: {fileID: 21300000, guid: cd34c56edbaa65c41b3ba1882e78f7b1,

@@ -44,15 +44,15 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     private float currentDietime = 0f;
     [SerializeField] private GameObject deathParticulePrefab;
 
-    [Header("Melee Hit Info")]
-    [SerializeField] private float detectionHitRadius = 1f;
-    [SerializeField] private Transform meleeHitPosition;
-    [SerializeField] private LayerMask meleeHitCheckLayerMask;
-    [SerializeField] private float durationMeleeAttack = 1f;
-    [SerializeField] private float cooldownLaunchSeed = 5f;
-    private float currentCooldownLaunchSeed = 0f;
-    public bool IsCooldown { get; private set; }
-    public bool IsMeleeAttack { get; private set; }
+    [Header("Fus Ro Dah")]
+    [SerializeField] private float coolDownFus = 0.5f;
+    [SerializeField] private float distanceCheck = 10.0f;
+    private float detectionRadius = 10.0f;
+    [SerializeField] [Range(0.0f,90.0f)] private float angleMaxToCheck = 45.0f;
+    [SerializeField] private float forcePush = 50.0f;
+    [SerializeField] private LayerMask fusRoDahLayerMask;
+    public bool IsFusRoDah { get; private set; }
+    [SerializeField] private ParticleSystem fusRoDaFeedback;
 
     [Header("Axe Launch")]
     [SerializeField] private Axe myAxe;
@@ -83,6 +83,9 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     [SerializeField] private Transform myHand;
     [SerializeField] private Image seedReadyImage;
     private int currentDir = 1;
+    [SerializeField] private float cooldownLaunchSeed = 5f;
+    private float currentCooldownLaunchSeed = 0f;
+    public bool IsCooldown { get; private set; }
 
     [Header("Pillier Sens")]
     [SerializeField] private Image sensPillierImage;
@@ -112,6 +115,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     {
         SetupTeam(NetworkCallbacks.team);
         this.currentKill = 0;
+        
         if (entity.IsOwner)
         {
             if (PlayerPrefs.HasKey("PlayerName"))
@@ -211,26 +215,26 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     }
 
     #region MeleeAttack
-    Guardian currentEnemyGuardian = null;
+    //Guardian currentEnemyGuardian = null;
 
-    public IEnumerator LaunchMeleeAttack()
+    /*public IEnumerator LaunchMeleeAttack()
     {
-        this.IsMeleeAttack = true;
+        this.IsFusRoDah = true;
         StartCoroutine(this.StopMeleeAttack());
         yield return new WaitForEndOfFrame();
-        while (this.IsMeleeAttack)
+        while (this.IsFusRoDah)
         {
             yield return new WaitForSeconds(12.0f/60.0f);
             MeleeAttack();
         }
 
-        this.IsMeleeAttack = false;
+        this.IsFusRoDah = false;
         yield break;
     }
     
     private void MeleeAttack()
     {
-        Collider[] col = Physics.OverlapSphere(this.meleeHitPosition.position, this.detectionHitRadius, this.meleeHitCheckLayerMask);
+        Collider[] col = Physics.OverlapSphere(this.meleeHitPosition.position, this.detectionHitRadius, this.fusRoDahLayerMask);
         
         if (col != null)
         {
@@ -251,7 +255,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
 
                 if (this.IsStuned)
                 {
-                    this.IsMeleeAttack = false;
+                    this.IsFusRoDah = false;
                 }
             }
         }
@@ -260,13 +264,13 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     IEnumerator StopMeleeAttack()
     {
         yield return new WaitForSeconds(this.durationMeleeAttack);
-        this.IsMeleeAttack = false;
+        this.IsFusRoDah = false;
         this.IsCooldown = true;
         currentEnemyGuardian = null;
         SetCooldown();
         yield break;
     }
-
+    */
     #endregion
 
     #region LancerDeHache
@@ -615,6 +619,67 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
             this.sensPillierImage.sprite = this.sensHoraireSprite;
         }
     }
+    #endregion
+
+    #region FusRoDa
+
+    public void FusRoDa()
+    {
+        this.IsFusRoDah = true;
+        Vector3 position = this.transform.position + this.cameraRef.forward * this.distanceCheck / 2;
+        float radius = this.distanceCheck / 2;
+
+        var evnt = FusRoDaFBEvent.Create(entity);
+        evnt.Send();
+
+        Collider[] guardianColliders = Physics.OverlapSphere(position, radius, this.fusRoDahLayerMask);
+
+        if (guardianColliders.Length > 0)
+        {
+            foreach (var guard in guardianColliders)
+            {
+                float angle = Vector3.Angle(this.cameraRef.forward, guard.transform.position - this.transform.position);
+                float force = this.forcePush; // Vector3.Distance(this.transform.position, guard.transform.position) >= 1 ? Vector3.Distance(this.transform.position, guard.transform.position) : 1;
+
+                force = force * (1 - (Vector3.Distance(this.transform.position, guard.transform.position))/this.distanceCheck);
+
+                if(Mathf.Abs(angle) <= this.angleMaxToCheck)
+                {
+                    Guardian guardian = guard.GetComponent<Guardian>();
+                    if (guardian != null)
+                    {
+                        if (guardian != this)
+                        {
+                            guardian.SetStun((guard.transform.position - this.transform.position), force, this);
+                        }
+                        
+                    }
+                }
+            }
+        }
+
+        StartCoroutine(CoolDownFus());
+        
+    }
+
+    IEnumerator CoolDownFus()
+    {
+        yield return new WaitForSeconds(this.coolDownFus);
+        this.IsFusRoDah = false;
+        //SetCooldown();
+        yield break;
+    }
+
+    public override void OnEvent(FusRoDaFBEvent evnt)
+    {
+        ParticleSystem frdParticleSystem =
+            Instantiate(this.fusRoDaFeedback, this.transform.position, this.cameraRef.rotation);
+        ParticleSystem.ShapeModule shape = frdParticleSystem.shape;
+        shape.length = this.distanceCheck;
+        shape.angle = this.angleMaxToCheck;
+        Destroy(frdParticleSystem, 0.9f);
+    }
+
     #endregion
 
     public void UpdateScore(bool isMe, string message)

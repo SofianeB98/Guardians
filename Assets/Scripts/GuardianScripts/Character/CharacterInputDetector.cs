@@ -84,14 +84,15 @@ public class CharacterInputDetector : Bolt.EntityBehaviour<IGuardianState>
 
                 if (this.guardian != null)
                 {
-                    //if (!this.guardian.IsCooldown && !this.guardian.IsMeleeAttack && !this.guardian.IsLaunchAxe && Input.GetButtonDown(InputName.Bucheronner))
+                    //if (!this.guardian.IsCooldown && !this.guardian.IsFusRoDah && !this.guardian.IsLaunchAxe && Input.GetButtonDown(InputName.Bucheronner))
                     {
                         // this.guardian.StartCoroutine(this.guardian.LaunchMeleeAttack());
                     }
 
-                    if (Input.GetButton(InputName.Bucheronner) && !this.guardian.IsLaunchAxe && !this.guardian.IsMeleeAttack)
+                    if (Input.GetButton(InputName.Bucheronner) && !this.guardian.IsLaunchAxe && !this.guardian.IsFusRoDah)
                     {
-                        this.guardian.SetLaunchAxe(true);
+                        //this.guardian.SetLaunchAxe(true);
+                        this.guardian.FusRoDa();
                         this.characterController.WhenILaunchIMLookingToForwardCam();
                     }
                     //else if (Input.GetButtonDown(InputName.Bucheronner) && this.guardian.IsLaunchAxe && !this.guardian.MyAxe.BackToBucheron)

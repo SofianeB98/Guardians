@@ -302,9 +302,17 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
                     {
                         if (!gList.Contains(gScore))
                         {
-                            if (gScore.CurrentScore == score)
+                            if (g != null)
                             {
-                                if (gScore.CurrentKill > g.CurrentKill)
+                                if (gScore.CurrentScore == score)
+                                {
+                                    if (gScore.CurrentKill > g.CurrentKill)
+                                    {
+                                        score = gScore.CurrentScore;
+                                        g = gScore;
+                                    }
+                                }
+                                else
                                 {
                                     score = gScore.CurrentScore;
                                     g = gScore;
@@ -315,7 +323,8 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
                                 score = gScore.CurrentScore;
                                 g = gScore;
                             }
-                            
+
+
                         }
 
                     }
