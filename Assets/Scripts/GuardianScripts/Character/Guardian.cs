@@ -14,6 +14,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     {
         get { return currentKill; }
     }
+    public int CurrentSerieKill { get; private set; }
     public int CurrentScore { get; private set; }
     [SerializeField] private CompleteCharacterController characterController;
     [SerializeField] private LayerMask videLayerMask;
@@ -115,7 +116,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     {
         SetupTeam(NetworkCallbacks.team);
         this.currentKill = 0;
-        
+        CurrentSerieKill = this.currentKill;
         if (entity.IsOwner)
         {
             if (PlayerPrefs.HasKey("PlayerName"))
@@ -389,7 +390,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
                     killFeed.RemoveFeed = false;
                     killFeed.Send();
                 }*/
-
+                this.CurrentSerieKill = 0;
             }
         }
         else
@@ -688,6 +689,12 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         evnt.IsMe = isMe;
         evnt.Message = message;
         evnt.Send();
+
+        if (this.CurrentSerieKill % 5 == 0)
+        {
+            Debug.Log("Serie de" + this.CurrentSerieKill.ToString());
+        }
+
     }
 
     public override void OnEvent(UpdateScoreEvent evnt)
@@ -695,6 +702,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         if (!evnt.IsMe)
         {
             this.currentKill++;
+            this.CurrentSerieKill++;
             this.CurrentScore += 10;
             if (entity.IsOwner)
             {
