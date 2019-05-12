@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4641,7 +4641,117 @@ PrefabInstance:
     - target: {fileID: 5345986359602158806, guid: 777fae7af58bcd04db0faf14a8cfd23e,
         type: 3}
       propertyPath: forcePush
-      value: 200
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 4633716989581489156, guid: 777fae7af58bcd04db0faf14a8cfd23e,
+        type: 3}
+      propertyPath: speed
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 4633716989581489156, guid: 777fae7af58bcd04db0faf14a8cfd23e,
+        type: 3}
+      propertyPath: jumpBehaviour.m_Curve.Array.data[0].inSlope
+      value: 0.73646265
+      objectReference: {fileID: 0}
+    - target: {fileID: 4633716989581489156, guid: 777fae7af58bcd04db0faf14a8cfd23e,
+        type: 3}
+      propertyPath: jumpBehaviour.m_Curve.Array.data[0].outSlope
+      value: 0.73646265
+      objectReference: {fileID: 0}
+    - target: {fileID: 4633716989581489156, guid: 777fae7af58bcd04db0faf14a8cfd23e,
+        type: 3}
+      propertyPath: jumpBehaviour.m_Curve.Array.data[0].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 4633716989581489156, guid: 777fae7af58bcd04db0faf14a8cfd23e,
+        type: 3}
+      propertyPath: jumpBehaviour.m_Curve.Array.data[0].outWeight
+      value: 0.09120777
+      objectReference: {fileID: 0}
+    - target: {fileID: 4633716989581489156, guid: 777fae7af58bcd04db0faf14a8cfd23e,
+        type: 3}
+      propertyPath: jumpBehaviour.m_Curve.Array.data[1].inSlope
+      value: 0.09261888
+      objectReference: {fileID: 0}
+    - target: {fileID: 4633716989581489156, guid: 777fae7af58bcd04db0faf14a8cfd23e,
+        type: 3}
+      propertyPath: jumpBehaviour.m_Curve.Array.data[1].outSlope
+      value: 0.09261888
+      objectReference: {fileID: 0}
+    - target: {fileID: 4633716989581489156, guid: 777fae7af58bcd04db0faf14a8cfd23e,
+        type: 3}
+      propertyPath: jumpBehaviour.m_Curve.Array.data[1].inWeight
+      value: 0.09106856
+      objectReference: {fileID: 0}
+    - target: {fileID: 4633716989581489156, guid: 777fae7af58bcd04db0faf14a8cfd23e,
+        type: 3}
+      propertyPath: jumpBehaviour.m_Curve.Array.data[1].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 4633716989581489156, guid: 777fae7af58bcd04db0faf14a8cfd23e,
+        type: 3}
+      propertyPath: jumpBehaviour.m_Curve.Array.data[1].time
+      value: 3.0001502
+      objectReference: {fileID: 0}
+    - target: {fileID: 4633716989581489156, guid: 777fae7af58bcd04db0faf14a8cfd23e,
+        type: 3}
+      propertyPath: jumpBehaviour.m_Curve.Array.data[1].value
+      value: 1.006522
+      objectReference: {fileID: 0}
+    - target: {fileID: 4633716989581489156, guid: 777fae7af58bcd04db0faf14a8cfd23e,
+        type: 3}
+      propertyPath: doubleJumpBehaviour.m_Curve.Array.data[1].time
+      value: 5.971414
+      objectReference: {fileID: 0}
+    - target: {fileID: 4633716989581489156, guid: 777fae7af58bcd04db0faf14a8cfd23e,
+        type: 3}
+      propertyPath: doubleJumpBehaviour.m_Curve.Array.data[1].value
+      value: 1.5029279
+      objectReference: {fileID: 0}
+    - target: {fileID: 4633716989581489156, guid: 777fae7af58bcd04db0faf14a8cfd23e,
+        type: 3}
+      propertyPath: doubleJumpBehaviour.m_Curve.Array.data[0].inSlope
+      value: 0.613074
+      objectReference: {fileID: 0}
+    - target: {fileID: 4633716989581489156, guid: 777fae7af58bcd04db0faf14a8cfd23e,
+        type: 3}
+      propertyPath: doubleJumpBehaviour.m_Curve.Array.data[0].outSlope
+      value: 0.613074
+      objectReference: {fileID: 0}
+    - target: {fileID: 4633716989581489156, guid: 777fae7af58bcd04db0faf14a8cfd23e,
+        type: 3}
+      propertyPath: doubleJumpBehaviour.m_Curve.Array.data[0].outWeight
+      value: 0.05984145
+      objectReference: {fileID: 0}
+    - target: {fileID: 4633716989581489156, guid: 777fae7af58bcd04db0faf14a8cfd23e,
+        type: 3}
+      propertyPath: doubleJumpBehaviour.m_Curve.Array.data[1].inSlope
+      value: 0.01201176
+      objectReference: {fileID: 0}
+    - target: {fileID: 4633716989581489156, guid: 777fae7af58bcd04db0faf14a8cfd23e,
+        type: 3}
+      propertyPath: doubleJumpBehaviour.m_Curve.Array.data[1].outSlope
+      value: 0.01201176
+      objectReference: {fileID: 0}
+    - target: {fileID: 4633716989581489156, guid: 777fae7af58bcd04db0faf14a8cfd23e,
+        type: 3}
+      propertyPath: doubleJumpBehaviour.m_Curve.Array.data[1].inWeight
+      value: 0.07795545
+      objectReference: {fileID: 0}
+    - target: {fileID: 4633716989581489156, guid: 777fae7af58bcd04db0faf14a8cfd23e,
+        type: 3}
+      propertyPath: doubleJumpHeight
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4633716989581489156, guid: 777fae7af58bcd04db0faf14a8cfd23e,
+        type: 3}
+      propertyPath: jumpHeight
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4633716989581489156, guid: 777fae7af58bcd04db0faf14a8cfd23e,
+        type: 3}
+      propertyPath: doubleJumpBehaviour.m_Curve.Array.data[0].value
+      value: 0.005554199
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 777fae7af58bcd04db0faf14a8cfd23e, type: 3}
