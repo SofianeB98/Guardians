@@ -316,6 +316,10 @@ MonoBehaviour:
     type: 3}
   <NamePosition>k__BackingField: {fileID: 480}
   winPointPanel: {fileID: 1893095237999786273}
+  killSeries:
+  - {fileID: 536404274239884089, guid: 02972b3882dd2f14eb8d5d1687c6d9cf, type: 3}
+  - {fileID: 8287940548974856136, guid: 3cc54dd5216ba8e49bfb7907a8ffe13b, type: 3}
+  - {fileID: 8430700903237642585, guid: 3a0c13b8574c2774488484bde3edf97d, type: 3}
   health: 1
   invinsibleFB: {fileID: 8877678457275977260}
   stunTime: 0.1

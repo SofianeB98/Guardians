@@ -169,7 +169,7 @@ public class Axe : MonoBehaviour
                                 }
 
                                 //dir.y = 0;
-                                g.SetStun(dir.normalized, forcePush, this.myGuardian);
+                                g.SetStun(dir.normalized, forcePush, this.myGuardian.GetComponent<BoltEntity>());
                                 objetFind = true;
                                 /////Son
                                 collisionPlayer.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(transform.position));

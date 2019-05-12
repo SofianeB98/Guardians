@@ -217,7 +217,7 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
 
     public Guardian BestEnemyGuardian(Guardian mySelf)
     {
-        Guardian enemy = null;
+        /*Guardian enemy = null;
         int score = 0;
 
         foreach (var guard in GuardiansInScene)
@@ -230,9 +230,11 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
                     score = enemy.CurrentScore;
                 }
             }
-        }
+        }*/
 
-        return enemy != null ? enemy : null;
+        return GuardianSortByScore[0] != mySelf
+            ? GuardianSortByScore[0]
+            : GuardianSortByScore[GuardianSortByScore.Count > 1 ? 1 : 0]; //enemy != null ? enemy : null;
     }
 
     private Guardian WinGuardian()

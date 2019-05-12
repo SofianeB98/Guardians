@@ -1554,7 +1554,7 @@ MonoBehaviour:
   groundTolerance: 0.1
   characterControllerRadiusCompensator: 0
   speedPerteSpeed: 0.1
-  jumpHeight: 2.5
+  jumpHeight: 4
   jumpTimeToReachMax: 0.25
   jumpBehaviour:
     serializedVersion: 2
@@ -1562,25 +1562,25 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
+      inSlope: 0.33010602
+      outSlope: 0.33010602
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.096339114
+    - serializedVersion: 3
+      time: 1
+      value: 1
       inSlope: 2
       outSlope: 2
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
       outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0.3929832
-      outSlope: 0.3929832
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.107899785
-      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  doubleJumpHeight: 2.5
+  doubleJumpHeight: 4
   doubleJumpTimeToReachMax: 0.25
   doubleJumpBehaviour:
     serializedVersion: 2
@@ -1597,11 +1597,11 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 0.3929832
-      outSlope: 0.3929832
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.107899785
+      inWeight: 0
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2

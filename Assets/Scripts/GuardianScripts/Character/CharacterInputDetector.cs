@@ -89,7 +89,7 @@ public class CharacterInputDetector : Bolt.EntityBehaviour<IGuardianState>
                         // this.guardian.StartCoroutine(this.guardian.LaunchMeleeAttack());
                     }
 
-                    if (Input.GetButton(InputName.Bucheronner) && !this.guardian.IsLaunchAxe && !this.guardian.IsFusRoDah)
+                    if (Input.GetButtonDown(InputName.Bucheronner) && !this.guardian.IsLaunchAxe && !this.guardian.IsFusRoDah)
                     {
                         //this.guardian.SetLaunchAxe(true);
                         this.guardian.FusRoDa();

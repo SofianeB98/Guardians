@@ -89,7 +89,7 @@ public class CharacterInputDetectorTraining : MonoBehaviour
                     // this.guardian.StartCoroutine(this.guardian.LaunchMeleeAttack());
                 }
 
-                if (Input.GetButton(InputName.Bucheronner) && !this.guardian.IsFusRoDah) //&& !this.guardian.IsLaunchAxe 
+                if (Input.GetButtonDown(InputName.Bucheronner) && !this.guardian.IsFusRoDah) //&& !this.guardian.IsLaunchAxe 
                 {
                     //this.guardian.SetLaunchAxe(true);
                     this.guardian.FusRoDa();

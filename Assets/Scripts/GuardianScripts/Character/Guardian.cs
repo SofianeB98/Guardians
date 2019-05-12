@@ -24,6 +24,8 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     [SerializeField] private GameObject winLosePointPrefab;
     [field:SerializeField] public Transform NamePosition { get; private set; }
     [SerializeField] private Transform winPointPanel;
+    [SerializeField] private GameObject[] killSeries;
+    private int currentIndexKillSeries = 0;
 
     [Header("Player Stats")]
     [SerializeField] private float health = 100f;
@@ -199,12 +201,19 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
 
         if (GameSystem.GSystem.EndGame)
         {
+            foreach (var pill in myPillier)
+            {
+                BoltNetwork.Destroy(pill.gameObject);
+            }
+
+            myPillier = new List<Pillier>();
             StartCoroutine(EndGameDeleteGuardian());
         }
     }
 
     IEnumerator BestEnemyCheck()
     {
+        yield return new WaitForSeconds(2.5f);
         bestEnemy = GameSystem.GSystem.BestEnemyGuardian(this);
         while (!GameSystem.GSystem.EndGame)
         {
@@ -330,17 +339,17 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         return;
     }
 
-    public void SetStun(Vector3 dir, float force, Guardian enemy)
+    public void SetStun(Vector3 dir, float force, BoltEntity enemy)
     {
         var stun = SetStunEvent.Create(entity);
         stun.IsStuned = true;
         stun.Direction = dir;
         stun.Force = force;
+        stun.GuardianEnemy = enemy;
         stun.Send();
-
-        this.lastGuardianWhoHitMe = enemy;
+        
     }
-
+    
     public void SetCooldown()
     {
         var coolD = CooldownEvent.Create(entity, EntityTargets.OnlySelf);
@@ -391,6 +400,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
                     killFeed.Send();
                 }*/
                 this.CurrentSerieKill = 0;
+                this.currentIndexKillSeries = 0;
             }
         }
         else
@@ -402,10 +412,11 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
 
     public override void OnEvent(SetStunEvent evnt)
     {
-        this.IsStuned = evnt.IsStuned;
-
         this.currentStunTime = Time.time + this.stunTime;
         this.currentTimerNullEnemy = Time.time + this.timeToNullLastEnemy;
+
+        this.IsStuned = evnt.IsStuned;
+        this.lastGuardianWhoHitMe = evnt.GuardianEnemy.GetComponent<Guardian>();
 
         if (this.IsStuned)
         {
@@ -544,7 +555,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
                 if (this.lastGuardianWhoHitMe != null)
                 {
                     s = lastGuardianWhoHitMe.guardianName + " push " + guardianName + " in the void !";
-                    lastGuardianWhoHitMe.UpdateScore(false, "Enemy pushed");
+                    lastGuardianWhoHitMe.UpdateScore(false, "Enemy pushed", false);
                 }
                 
                 var evnt = KillFeedEvent.Create(GameSystem.GSystem.entity);
@@ -552,10 +563,6 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
                 evnt.RemoveFeed = false;
                 evnt.Send();
             }
-        }
-        //else
-        {
-            // return;
         }
 
     }
@@ -651,7 +658,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
                     {
                         if (guardian != this)
                         {
-                            guardian.SetStun((guard.transform.position - this.transform.position), force, this);
+                            guardian.SetStun((guard.transform.position - this.transform.position), force, entity);
                         }
                         
                     }
@@ -678,23 +685,19 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         ParticleSystem.ShapeModule shape = frdParticleSystem.shape;
         shape.length = this.distanceCheck;
         shape.angle = this.angleMaxToCheck;
-        Destroy(frdParticleSystem, 0.9f);
+        Destroy(frdParticleSystem.gameObject, 0.9f);
     }
 
     #endregion
 
-    public void UpdateScore(bool isMe, string message)
+    public void UpdateScore(bool isMe, string message, bool killLaser)
     {
         var evnt = UpdateScoreEvent.Create(entity);
         evnt.IsMe = isMe;
         evnt.Message = message;
+        evnt.KillLaser = killLaser;
         evnt.Send();
-
-        if (this.CurrentSerieKill % 5 == 0)
-        {
-            Debug.Log("Serie de" + this.CurrentSerieKill.ToString());
-        }
-
+        
     }
 
     public override void OnEvent(UpdateScoreEvent evnt)
@@ -703,14 +706,25 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         {
             this.currentKill++;
             this.CurrentSerieKill++;
-            this.CurrentScore += 10;
+
+            int score = evnt.KillLaser ? 10 : 5;
+
+            this.CurrentScore += score;
             if (entity.IsOwner)
             {
                 GameObject go = Instantiate(winLosePointPrefab, this.myCanvas.transform);
                 go.transform.parent = winPointPanel;
-                go.GetComponent<TextMeshProUGUI>().text = "+ 10 - " + evnt.Message;
+                go.GetComponent<TextMeshProUGUI>().text = "+ "+ score.ToString()+ " - " + evnt.Message;
                 go.GetComponent<TextMeshProUGUI>().color = Color.yellow;
                 Destroy(go, 1f);
+
+                if (this.CurrentSerieKill % 5 == 0)
+                {
+                    GameObject serie = Instantiate(killSeries[this.currentIndexKillSeries], this.myCanvas.transform);
+                    Destroy(serie, 1.5f);
+                    this.currentIndexKillSeries = this.currentIndexKillSeries+1 < killSeries.Length ? this.currentIndexKillSeries+1 : killSeries
+                        .Length - 1;
+                }
             }
 
             

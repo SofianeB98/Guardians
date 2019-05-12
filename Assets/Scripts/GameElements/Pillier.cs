@@ -192,7 +192,7 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
 
                         if (g != myOwner.GetComponent<Guardian>())
                         {
-                            myOwner.GetComponent<Guardian>().UpdateScore(false, "Enemy burned");
+                            myOwner.GetComponent<Guardian>().UpdateScore(false, "Enemy burned", true);
                         }
                         else
                         {
@@ -235,7 +235,7 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
                         Debug.Log("Gardian toucher");
                         if (g != myOwner.GetComponent<Guardian>())
                         {
-                            myOwner.GetComponent<Guardian>().UpdateScore(false, "Enemy is fired");
+                            myOwner.GetComponent<Guardian>().UpdateScore(false, "Enemy is fired", true);
                         }
                         else
                         {
