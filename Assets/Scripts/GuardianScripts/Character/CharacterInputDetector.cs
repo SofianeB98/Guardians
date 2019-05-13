@@ -105,7 +105,7 @@ public class CharacterInputDetector : Bolt.EntityBehaviour<IGuardianState>
 
                 if (this.guardian != null)
                 {
-                    if (!this.guardian.IsCooldown)
+                    if (this.guardian.PillierReadyToLaunch)
                     {
                         if (Input.GetButtonDown(InputName.LancerDeHache))
                         {

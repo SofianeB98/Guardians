@@ -83,6 +83,10 @@ public class GuardianTraining : MonoBehaviour
     [SerializeField] private List<PillierTraining> myPillier = new List<PillierTraining>();
     [SerializeField] private int maxPillier = 20;
     private int currentPillier = 0;
+    public bool PillierReadyToLaunch
+    {
+        get { return currentPillier < maxPillier; }
+    }
     [SerializeField] private bool destroyAllPillierwhenIDie = true;
     [SerializeField] private Transform myHand;
     [SerializeField] private Image seedReadyImage;
@@ -118,6 +122,7 @@ public class GuardianTraining : MonoBehaviour
         IsStuned = false;
         this.currentKill = 0;
         this.lastHealth = this.health;
+        currentPillier = 0;
         deathAudioMe = FMODUnity.RuntimeManager.CreateInstance(deathAudioMeEvent);
         deathAudioOther = FMODUnity.RuntimeManager.CreateInstance(deathAudioOtherEvent);
         launchAxeAudio = FMODUnity.RuntimeManager.CreateInstance(launchAxeAudioEvent);
@@ -135,6 +140,11 @@ public class GuardianTraining : MonoBehaviour
         if (this.currentCooldownLaunchSeed < Time.time)
         {
             this.IsCooldown = false;
+            if (currentPillier > 0)
+            {
+                this.currentPillier = this.currentPillier > 0 ? this.currentPillier-1 : 0;
+                this.SetCooldown();
+            }
         }
         else
         {
@@ -321,8 +331,8 @@ public class GuardianTraining : MonoBehaviour
 
     public void SetCooldown()
     {
-        this.IsCooldown = true;
         this.currentCooldownLaunchSeed = Time.time + cooldownLaunchSeed;
+        this.IsCooldown = true;
     }
 
     private void Respawn()
@@ -369,68 +379,6 @@ public class GuardianTraining : MonoBehaviour
         return new Vector3(0, 50, 0);
     }
 
-    public void AddPillierToMyList(PillierTraining pillierToAdd)
-    {
-        if (this.currentPillier < this.maxPillier)
-        {
-            this.myPillier.Add(pillierToAdd);
-            this.currentPillier++;
-            if (this.myPillier.Count > this.maxPillier)
-            {
-                Destroy(this.myPillier[0].gameObject);
-                this.myPillier.RemoveAt(0);
-            }
-        }
-        
-    }
-
-    public void RemovePillier(PillierTraining pToRemove)
-    {
-        this.myPillier.Remove(pToRemove);
-        this.currentPillier--;
-    }
-
-    #endregion
-
-    #region SeedInteraction
-
-    public void SetupLaunchSeed()
-    {
-        //if (this.currentInventorySeed > 0)
-        if(!this.IsCooldown)
-        {
-            IsPreLaunchSeed = true;
-            this.dirLaunch = this.cameraRef.forward;
-        }
-        else
-        {
-            return;
-        }
-    }
-
-    public void LaunchSeed()
-    {
-        if (this.currentPillier < this.maxPillier)
-        {
-            this.IsPreLaunchSeed = false;
-            //if (this.currentInventorySeed > 0)
-            if (!IsCooldown)
-            {
-                SeedTraining s = Instantiate(seedT, this.myHand.position + this.transform.forward, Quaternion.identity);
-                s.Init(this.myTeam, this, this.transform.rotation, true, this.currentDir);
-                s.InitVelocity(this.forceLaunch, this.dirLaunch);
-
-                this.seedReadyImage.color = Color.red;
-
-            }
-            else
-            {
-                // return;
-            }
-        }
-        
-    }
-    
     public void CheckVide()
     {
         //if (this.currentInventorySeed < this.maxSeedInInventory)
@@ -440,15 +388,79 @@ public class GuardianTraining : MonoBehaviour
             if (col.Length > 0)
             {
                 this.TakeDamage(1);
-                
+
             }
         }
         //else
         {
-           // return;
+            // return;
         }
 
     }
+
+    #endregion
+
+    #region SeedInteraction
+
+    public void SetupLaunchSeed()
+    {
+        //if (this.currentInventorySeed > 0)
+        //if(!this.IsCooldown)
+        {
+            IsPreLaunchSeed = true;
+            this.dirLaunch = this.cameraRef.forward;
+        }
+        //else
+        {
+         //   return;
+        }
+    }
+
+    public void LaunchSeed()
+    {
+        //if (this.currentPillier < this.maxPillier)
+        {
+            this.IsPreLaunchSeed = false;
+            //if (this.currentInventorySeed > 0)
+            //if (!IsCooldown)
+            {
+                SeedTraining s = Instantiate(seedT, this.myHand.position + this.transform.forward, Quaternion.identity);
+                s.Init(this.myTeam, this, this.transform.rotation, true, this.currentDir);
+                s.InitVelocity(this.forceLaunch, this.dirLaunch);
+
+                this.seedReadyImage.color = Color.red;
+
+            }
+            //else
+            {
+                // return;
+            }
+        }
+        
+    }
+
+    public void AddPillierToMyList(PillierTraining pillierToAdd)
+    {
+        //if (this.currentPillier < this.maxPillier)
+        //{
+        this.myPillier.Add(pillierToAdd);
+        this.currentPillier = this.currentPillier < this.maxPillier ? this.currentPillier + 1 : this.maxPillier;
+        if (this.myPillier.Count > this.maxPillier)
+            {
+                Destroy(this.myPillier[0].gameObject);
+                this.myPillier.RemoveAt(0);
+            }
+        //}
+
+    }
+
+    public void RemovePillier(PillierTraining pToRemove)
+    {
+        this.myPillier.Remove(pToRemove);
+        this.currentPillier = this.currentPillier > 0 ? this.currentPillier - 1 : 0;
+    }
+
+    
 
     public void ChangePillierDir()
     {

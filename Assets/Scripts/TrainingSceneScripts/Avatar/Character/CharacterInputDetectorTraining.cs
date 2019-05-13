@@ -105,7 +105,7 @@ public class CharacterInputDetectorTraining : MonoBehaviour
 
             if (this.guardian != null && isControllable)
             {
-                if (!this.guardian.IsCooldown)
+                if (this.guardian.PillierReadyToLaunch)
                 {
                     if (Input.GetButtonDown(InputName.LancerDeHache))
                     {

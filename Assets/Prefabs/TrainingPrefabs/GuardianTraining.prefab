@@ -1660,7 +1660,7 @@ MonoBehaviour:
   destroyAllPillierwhenIDie: 1
   myHand: {fileID: 4873829021597750768}
   seedReadyImage: {fileID: 6844952309353152676}
-  cooldownLaunchSeed: 2
+  cooldownLaunchSeed: 5
   sensPillierImage: {fileID: 4244452788175214538}
   sensHoraireSprite: {fileID: 21300000, guid: d9aebfeae5aab85488295d2bc8c85769, type: 3}
   sensAntiHoraireSprite: {fileID: 21300000, guid: cd34c56edbaa65c41b3ba1882e78f7b1,

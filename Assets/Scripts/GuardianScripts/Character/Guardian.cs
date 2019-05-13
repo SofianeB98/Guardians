@@ -82,6 +82,10 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     [SerializeField] private List<Pillier> myPillier = new List<Pillier>();
     [SerializeField] private int maxPillier = 20;
     private int currentPillier = 0;
+    public bool PillierReadyToLaunch
+    {
+        get { return currentPillier < maxPillier; }
+    }
     [SerializeField] private bool destroyAllPillierwhenIDie = true;
     [SerializeField] private Transform myHand;
     [SerializeField] private Image seedReadyImage;
@@ -176,6 +180,11 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         if (this.currentCooldownLaunchSeed < Time.time)
         {
             this.IsCooldown = false;
+            if (currentPillier > 0)
+            {
+                this.currentPillier = this.currentPillier > 0 ? this.currentPillier - 1 : 0;
+                this.SetCooldown();
+            }
         }
         else
         {
@@ -520,27 +529,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
 
         return NetworkCallbacks.SpawnPointsTransforms[currentIndex].transform.position + Vector3.up*2;
     }
-
-    public void AddPillierToMyList(Pillier pillierToAdd)
-    {
-        if (this.currentPillier < this.maxPillier)
-        {
-            this.myPillier.Add(pillierToAdd);
-            this.currentPillier++;
-            if (this.myPillier.Count > this.maxPillier)
-            {
-                Destroy(this.myPillier[0].gameObject);
-                this.myPillier.RemoveAt(0);
-            }
-        }
-    }
-
-    public void RemovePillier(Pillier pToRemove)
-    {
-        this.myPillier.Remove(pToRemove);
-        this.currentPillier--;
-    }
-
+    
     public void CheckVide()
     {
         //if (this.currentInventorySeed < this.maxSeedInInventory)
@@ -574,24 +563,24 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     public void SetupLaunchSeed()
     {
         //if (this.currentInventorySeed > 0)
-        if(!this.IsCooldown)
+        //if(!this.IsCooldown)
         {
             IsPreLaunchSeed = true;
             this.dirLaunch = this.cameraRef.forward;
         }
-        else
+        //else
         {
-            return;
+         //   return;
         }
     }
 
     public void LaunchSeed()
     {
-        if (this.currentPillier < this.maxPillier)
+        //if (this.currentPillier < this.maxPillier)
         {
             this.IsPreLaunchSeed = false;
             //if (this.currentInventorySeed > 0)
-            if (!IsCooldown)
+            //if (!IsCooldown)
             {
                 Seed s = BoltNetwork.Instantiate(BoltPrefabs.Seed, this.myHand.position + this.transform.forward, Quaternion.identity).GetComponent<Seed>();
                 s.Init(this.myTeam, this, this.transform.rotation, true, entity, state.MyColor, this.currentDir);
@@ -606,14 +595,34 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
 
                 //this.currentInventorySeed--;
             }
-            else
+            //else
             {
                 // return;
             }
         }
             
     }
-    
+
+    public void AddPillierToMyList(Pillier pillierToAdd)
+    {
+        //if (this.CurrentPillier < this.maxPillier)
+        //{
+        this.myPillier.Add(pillierToAdd);
+        this.currentPillier = this.currentPillier < this.maxPillier ? this.currentPillier + 1 : this.maxPillier;
+        if (this.myPillier.Count > this.maxPillier)
+            {
+                Destroy(this.myPillier[0].gameObject);
+                this.myPillier.RemoveAt(0);
+            }
+        //}
+    }
+
+    public void RemovePillier(Pillier pToRemove)
+    {
+        this.myPillier.Remove(pToRemove);
+        this.currentPillier = this.currentPillier > 0 ? this.currentPillier - 1 : 0;
+    }
+
     public void ChangePillierDir()
     {
         if (this.currentDir == 1)
