@@ -1638,8 +1638,9 @@ MonoBehaviour:
     type: 3}
   coolDownFus: 0.5
   distanceCheck: 20
-  angleMaxToCheck: 45
-  forcePush: 80
+  detectionRadius: 50
+  angleMaxToCheck: 30
+  forcePush: 50
   fusRoDahLayerMask:
     serializedVersion: 2
     m_Bits: 512

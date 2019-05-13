@@ -50,7 +50,7 @@ public class GuardianTraining : MonoBehaviour
     [Header("Fus Ro Dah")]
     [SerializeField] private float coolDownFus = 0.1f;
     [SerializeField] private float distanceCheck = 10.0f;
-    private float detectionRadius = 10.0f;
+    [SerializeField] private float detectionRadius = 50.0f;
     [SerializeField] [Range(0.0f, 90.0f)] private float angleMaxToCheck = 45.0f;
     [SerializeField] private float forcePush = 50.0f;
     [SerializeField] private LayerMask fusRoDahLayerMask;
@@ -224,8 +224,10 @@ public class GuardianTraining : MonoBehaviour
     {
         this.IsFusRoDah = true;
         
-        Vector3 position = this.transform.position + this.transform.forward * this.distanceCheck / 2;
-        this.detectionRadius = this.distanceCheck / 2;
+        Vector3 position = this.transform.position + (this.CameraRef.rotation * Vector3.forward * (this.distanceCheck / 2));
+        Instantiate(GameObject.CreatePrimitive(PrimitiveType.Sphere), position, Quaternion.identity);
+
+        Vector3 direction = this.CameraRef.rotation * Vector3.forward;
 
         ParticleSystem frdParticleSystem =
             Instantiate(this.fusRoDaFeedback, this.transform.position, this.cameraRef.rotation);
@@ -240,20 +242,24 @@ public class GuardianTraining : MonoBehaviour
         {
             foreach (var guard in guardianColliders)
             {
+                float distance = Vector3.Distance(this.transform.position, guard.transform.position);
                 float angle = Vector3.Angle(this.transform.forward, guard.transform.position - this.transform.position);
-
-                Debug.Log(angle);
-                float force = this.forcePush;
-
-                force = force * (1 - (Vector3.Distance(this.transform.position, guard.transform.position)) / this.distanceCheck);
-
-                if (angle <= this.angleMaxToCheck)
+                
+                if (angle <= this.angleMaxToCheck && distance <= this.distanceCheck)
                 {
-                    GuardianTraining guardian = guard.GetComponent<GuardianTraining>();
-                    if (guardian != null && guardian != this)
+                    if (!Physics.Raycast(this.transform.position, guard.transform.position - this.transform.position,
+                        distance, ~this.fusRoDahLayerMask))
                     {
-                        guardian.SetStun((guard.transform.position - this.transform.position), force);
+                        float force = this.forcePush;
+                        force = force * (1 - (Vector3.Distance(this.transform.position, guard.transform.position)) / this.distanceCheck);
+                        
+                        GuardianTraining guardian = guard.GetComponent<GuardianTraining>();
+                        if (guardian != null && guardian != this)
+                        {
+                            guardian.SetStun(direction.normalized, force);
+                        }
                     }
+                    
                 }
             }
 

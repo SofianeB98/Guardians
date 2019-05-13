@@ -50,7 +50,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     [Header("Fus Ro Dah")]
     [SerializeField] private float coolDownFus = 0.5f;
     [SerializeField] private float distanceCheck = 10.0f;
-    private float detectionRadius = 10.0f;
+    [SerializeField] private float detectionRadius = 50.0f;
     [SerializeField] [Range(0.0f,90.0f)] private float angleMaxToCheck = 45.0f;
     [SerializeField] private float forcePush = 50.0f;
     [SerializeField] private LayerMask fusRoDahLayerMask;
@@ -86,6 +86,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     {
         get { return currentPillier < maxPillier; }
     }
+    [SerializeField] private TextMeshProUGUI seedDispo_Text;
     [SerializeField] private bool destroyAllPillierwhenIDie = true;
     [SerializeField] private Transform myHand;
     [SerializeField] private Image seedReadyImage;
@@ -163,6 +164,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     {
         //bestEnemy = GameSystem.GSystem.BestEnemyGuardian(this);
         this.scoreText.text = this.guardianName + " - " + this.CurrentScore.ToString();
+        this.seedDispo_Text.text = "x" + (this.maxPillier - this.currentPillier).ToString();
         if (bestEnemy != null)
         {
             this.bestEnemyScoreText.text = bestEnemy.guardianName + " - " + bestEnemy.CurrentScore.ToString();
@@ -643,34 +645,39 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     public void FusRoDa()
     {
         this.IsFusRoDah = true;
-        Vector3 position = this.transform.position + this.cameraRef.forward * this.distanceCheck / 2;
-        float radius = this.distanceCheck / 2;
+
+        Vector3 position = this.transform.position + (this.CameraRef.rotation * Vector3.forward * (this.distanceCheck / 2));
+        Instantiate(GameObject.CreatePrimitive(PrimitiveType.Sphere), position, Quaternion.identity);
+
+        Vector3 direction = this.CameraRef.rotation * Vector3.forward;
 
         var evnt = FusRoDaFBEvent.Create(entity);
         evnt.Send();
 
-        Collider[] guardianColliders = Physics.OverlapSphere(position, radius, this.fusRoDahLayerMask);
+        Collider[] guardianColliders = Physics.OverlapSphere(position, this.detectionRadius, this.fusRoDahLayerMask);
 
         if (guardianColliders.Length > 0)
         {
             foreach (var guard in guardianColliders)
             {
-                float angle = Vector3.Angle(this.cameraRef.forward, guard.transform.position - this.transform.position);
-                float force = this.forcePush; // Vector3.Distance(this.transform.position, guard.transform.position) >= 1 ? Vector3.Distance(this.transform.position, guard.transform.position) : 1;
-
-                force = force * (1 - (Vector3.Distance(this.transform.position, guard.transform.position))/this.distanceCheck);
-
-                if(Mathf.Abs(angle) <= this.angleMaxToCheck)
+                float distance = Vector3.Distance(this.transform.position, guard.transform.position);
+                float angle = Vector3.Angle(this.transform.forward, guard.transform.position - this.transform.position);
+                
+                if (angle <= this.angleMaxToCheck && distance <= this.distanceCheck)
                 {
-                    Guardian guardian = guard.GetComponent<Guardian>();
-                    if (guardian != null)
+                    if (!Physics.Raycast(this.transform.position, guard.transform.position - this.transform.position,
+                        distance, ~this.fusRoDahLayerMask))
                     {
-                        if (guardian != this)
-                        {
-                            guardian.SetStun((guard.transform.position - this.transform.position), force, entity);
-                        }
+                        float force = this.forcePush;
+                        force = force * (1 - (Vector3.Distance(this.transform.position, guard.transform.position)) / this.distanceCheck);
                         
+                        GuardianTraining guardian = guard.GetComponent<GuardianTraining>();
+                        if (guardian != null && guardian != this)
+                        {
+                            guardian.SetStun(direction.normalized, force);
+                        }
                     }
+                    
                 }
             }
         }
