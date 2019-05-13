@@ -55,6 +55,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     [SerializeField] [Range(0.0f,90.0f)] private float angleMaxToCheck = 45.0f;
     [SerializeField] private float forcePush = 50.0f;
     [SerializeField] private LayerMask fusRoDahLayerMask;
+    [SerializeField] private LayerMask fusIgnoreLayerMask;
     public bool IsFusRoDah { get; private set; }
     [SerializeField] private ParticleSystem fusRoDaFeedback;
 
@@ -648,12 +649,13 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     {
         this.IsFusRoDah = true;
 
-        Vector3 position = this.transform.position + (this.CameraRef.rotation * Vector3.forward * (this.distanceCheck / 2));
+        Vector3 position = this.transform.position + (this.cameraRef.forward * (this.distanceCheck / 2));
         
 
         Vector3 direction = this.CameraRef.rotation * Vector3.forward;
 
         var evnt = FusRoDaFBEvent.Create(entity);
+        evnt.Rotation = this.cameraRef.rotation;
         evnt.Send();
 
         Collider[] guardianColliders = Physics.OverlapSphere(position, this.detectionRadius, this.fusRoDahLayerMask);
@@ -668,15 +670,15 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
                 if (angle <= this.angleMaxToCheck && distance <= this.distanceCheck)
                 {
                     if (!Physics.Raycast(this.transform.position, guard.transform.position - this.transform.position,
-                        distance, ~this.fusRoDahLayerMask))
+                        distance, ~this.fusIgnoreLayerMask))
                     {
                         float force = this.forcePush;
                         force = force * (1 - (Vector3.Distance(this.transform.position, guard.transform.position)) / this.distanceCheck);
                         
-                        GuardianTraining guardian = guard.GetComponent<GuardianTraining>();
+                        Guardian guardian = guard.GetComponent<Guardian>();
                         if (guardian != null && guardian != this)
                         {
-                            guardian.SetStun(direction.normalized, force);
+                            guardian.SetStun(direction.normalized, force, entity);
                         }
                     }
                     
@@ -699,7 +701,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     public override void OnEvent(FusRoDaFBEvent evnt)
     {
         ParticleSystem frdParticleSystem =
-            Instantiate(this.fusRoDaFeedback, this.transform.position, this.cameraRef.rotation);
+            Instantiate(this.fusRoDaFeedback, this.transform.position, evnt.Rotation);
         ParticleSystem.ShapeModule shape = frdParticleSystem.shape;
         shape.length = this.distanceCheck;
         shape.angle = this.angleMaxToCheck;

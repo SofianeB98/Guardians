@@ -233,60 +233,60 @@ MonoBehaviour:
     m_Bits: 4096
   grounded: 0
   gravityForce: 9.81
-  gravityModifier: 4
-  gravityMaxSpeed: 40
+  gravityModifier: 6
+  gravityMaxSpeed: 60
   sphereGroundDetectionRadius: 0.4
   groundTolerance: 0.1
   characterControllerRadiusCompensator: 0
-  speedPerteSpeed: 4
-  jumpHeight: 5
-  jumpTimeToReachMax: 0.15
+  speedPerteSpeed: 0.1
+  jumpHeight: 4
+  jumpTimeToReachMax: 0.25
   jumpBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 2
-      outSlope: 2
+      inSlope: 0.73646265
+      outSlope: 0.73646265
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0
-      outWeight: 0
+      inWeight: 0.33333334
+      outWeight: 0.09120777
     - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0.3929832
-      outSlope: 0.3929832
+      time: 3.0001502
+      value: 1.006522
+      inSlope: 0.09261888
+      outSlope: 0.09261888
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.107899785
-      outWeight: 0
+      inWeight: 0.09106856
+      outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
   doubleJumpHeight: 4
-  doubleJumpTimeToReachMax: 0.3
+  doubleJumpTimeToReachMax: 0.25
   doubleJumpBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
-      inSlope: 2
-      outSlope: 2
+      value: 0.005554199
+      inSlope: 0.613074
+      outSlope: 0.613074
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.05984145
     - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0.3929832
-      outSlope: 0.3929832
+      time: 5.971414
+      value: 1.5029279
+      inSlope: 0.01201176
+      outSlope: 0.01201176
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.107899785
+      inWeight: 0.07795545
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -333,11 +333,14 @@ MonoBehaviour:
   coolDownFus: 0.5
   distanceCheck: 20
   detectionRadius: 50
-  angleMaxToCheck: 30
-  forcePush: 50
+  angleMaxToCheck: 40
+  forcePush: 80
   fusRoDahLayerMask:
     serializedVersion: 2
     m_Bits: 512
+  fusIgnoreLayerMask:
+    serializedVersion: 2
+    m_Bits: 57856
   fusRoDaFeedback: {fileID: 6377280301033286328, guid: 87668814a39cb1345a87fe2d60765627,
     type: 3}
   myAxe: {fileID: 674}
@@ -347,7 +350,7 @@ MonoBehaviour:
   feetPosition: {fileID: 398}
   checkRadius: 1.25
   cameraRef: {fileID: 400}
-  forceLaunch: 80
+  forceLaunch: 70
   dirLaunch: {x: 0, y: 0, z: 0}
   myPillier: []
   maxPillier: 3
@@ -355,7 +358,7 @@ MonoBehaviour:
   destroyAllPillierwhenIDie: 1
   myHand: {fileID: 401}
   seedReadyImage: {fileID: 745}
-  cooldownLaunchSeed: 10
+  cooldownLaunchSeed: 5
   sensPillierImage: {fileID: 733}
   sensHoraireSprite: {fileID: 21300000, guid: d9aebfeae5aab85488295d2bc8c85769, type: 3}
   sensAntiHoraireSprite: {fileID: 21300000, guid: cd34c56edbaa65c41b3ba1882e78f7b1,
