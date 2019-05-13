@@ -62,18 +62,15 @@ public class CharacterInputDetectorTraining : MonoBehaviour
                     this.characterController.UpdateDirection(Vector3.zero);
                 }
 
-                if (this.characterController != null && Input.GetButtonDown(InputName.Jump) && isControllable)
+                if (this.characterController != null && Input.GetButtonDown(InputName.Jump) && this.characterController.Grounded && this.isControllable)
                 {
-                    if (this.characterController.Grounded)
-                    {
-                        this.characterController.UpdateJump();
-                    }
-                    else if (!this.characterController.Grounded)
-                    {
-                        this.characterController.UpdateDoubleJump();
-                    }
+                    this.characterController.UpdateJump();
+                }
 
-
+                if (this.characterController != null && Input.GetButtonDown(InputName.Jump) &&
+                    !this.characterController.Grounded && this.isControllable)
+                {
+                    this.characterController.UpdateDoubleJump();
                 }
             }
 

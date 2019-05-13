@@ -127,10 +127,10 @@ public class CompleteCharacterControllerTraining : MonoBehaviour
 		    groundLayerMask);
 
 	    RaycastHit pmHit;
-	    if (Physics.SphereCast(this.transform.position, 1f, Vector3.down, out pmHit, 1,
+	    if (Physics.SphereCast(this.transform.position, 1f, Vector3.down, out pmHit, 0.5f,
 	        groundLayerMask))
 	    {
-	        if (pmHit.transform.tag.Contains("PMouvante"))
+	        if (pmHit.transform.tag.Contains("PMouvante") && !this.jumping)
 	        {
 	            this.plateformeMouvanteDir = pmHit.transform.GetComponent<PlateformMovementTraining>().VectorDirecteurPlateforme();
 	        }
@@ -197,7 +197,8 @@ public class CompleteCharacterControllerTraining : MonoBehaviour
 			this.jumping = true;
 		    this.doubleJumping = false;
 			this.jumpTimer = 0.0f;
-		}
+		    this.plateformeMouvanteDir = Vector3.zero;
+        }
 	}
 
     public void UpdateDoubleJump()
@@ -208,6 +209,7 @@ public class CompleteCharacterControllerTraining : MonoBehaviour
             this.doubleJumping = true;
             //this.jumpTimer = 0.0f;
             this.doubleJumpTimer = 0.0f;
+            this.plateformeMouvanteDir = Vector3.zero;
         }
     }
 

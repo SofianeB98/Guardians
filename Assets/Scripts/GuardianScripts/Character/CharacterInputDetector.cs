@@ -64,18 +64,15 @@ public class CharacterInputDetector : Bolt.EntityBehaviour<IGuardianState>
                     
                 }
 
-                if (this.characterController != null && Input.GetButtonDown(InputName.Jump))
+                if (this.characterController != null && Input.GetButtonDown(InputName.Jump) && this.characterController.Grounded)
                 {
-                    if (this.characterController.Grounded)
-                    {
-                        this.characterController.UpdateJump();
-                    }
-                    else if (!this.characterController.Grounded)
-                    {
-                        this.characterController.UpdateDoubleJump();
-                    }
+                    this.characterController.UpdateJump();
+                }
 
-
+                if (this.characterController != null && Input.GetButtonDown(InputName.Jump) &&
+                    !this.characterController.Grounded)
+                {
+                    this.characterController.UpdateDoubleJump();
                 }
 
                 #endregion

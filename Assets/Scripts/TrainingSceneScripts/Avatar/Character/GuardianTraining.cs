@@ -240,7 +240,7 @@ public class GuardianTraining : MonoBehaviour
                 if (angle <= this.angleMaxToCheck)
                 {
                     GuardianTraining guardian = guard.GetComponent<GuardianTraining>();
-                    if (guardian != null)
+                    if (guardian != null && guardian != this)
                     {
                         guardian.SetStun((guard.transform.position - this.transform.position), force);
                     }
@@ -248,7 +248,7 @@ public class GuardianTraining : MonoBehaviour
             }
 
             StartCoroutine(CoolDownFus());
-            Destroy(frdParticleSystem, 0.8f);
+            Destroy(frdParticleSystem.gameObject, 0.8f);
         }
     }
 

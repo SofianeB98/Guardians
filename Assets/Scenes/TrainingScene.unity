@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2064,7 +2064,7 @@ GameObject:
   - component: {fileID: 1123389473}
   - component: {fileID: 1123389472}
   m_Layer: 12
-  m_Name: Cube (1)
+  m_Name: PlateformDeath
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2137,7 +2137,7 @@ Transform:
   m_GameObject: {fileID: 1123389471}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 7.3, z: 0}
-  m_LocalScale: {x: 250, y: 4, z: 250}
+  m_LocalScale: {x: 500, y: 4, z: 500}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 7
@@ -3600,7 +3600,7 @@ GameObject:
   - component: {fileID: 1807211267}
   - component: {fileID: 1807211266}
   m_Layer: 14
-  m_Name: Cube
+  m_Name: VideDeath
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3673,7 +3673,7 @@ Transform:
   m_GameObject: {fileID: 1807211265}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 10.548846, z: 0}
-  m_LocalScale: {x: 250, y: 4, z: 250}
+  m_LocalScale: {x: 500, y: 10, z: 500}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 6

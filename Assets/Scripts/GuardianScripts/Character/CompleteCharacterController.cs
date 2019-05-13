@@ -139,10 +139,10 @@ public class CompleteCharacterController : Bolt.EntityEventListener<IGuardianSta
 
 
 	    RaycastHit pmHit;
-	    if (Physics.SphereCast(this.transform.position, 1f, Vector3.down, out pmHit, 1,
+	    if (Physics.SphereCast(this.transform.position, 1f, Vector3.down, out pmHit, 0.5f,
 	        groundLayerMask))
 	    {
-	        if (pmHit.transform.tag.Contains("PMouvante"))
+	        if (pmHit.transform.tag.Contains("PMouvante") && !this.jumping)
 	        {
 	            this.plateformeMouvanteDir = pmHit.transform.GetComponent<PlateformMovement>().VectorDirecteurPlateforme();
 	        }

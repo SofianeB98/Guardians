@@ -92,15 +92,15 @@ public class PlateformMovementTraining : MonoBehaviour
         switch (axis)
         {
             case AxisMoving.X:
-                return Vector3.right * this.speedMove * (direction ? 1 : -1);
+                return this.transform.right * this.speedMove * (direction ? 1 : -1);
                 break;
 
             case AxisMoving.Y:
-                return Vector3.up * this.speedMove * (direction ? 1 : -1);
+                return this.transform.up * this.speedMove * (direction ? 1 : -1);
                 break;
 
             case AxisMoving.Z:
-                return Vector3.forward * this.speedMove * (direction ? 1 : -1);
+                return this.transform.forward * this.speedMove * (direction ? 1 : -1);
                 break;
         }
         return Vector3.zero;
