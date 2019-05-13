@@ -21,12 +21,16 @@ public class PillierTraining : MonoBehaviour
     private bool destroy = false;
 
     [Header("Rotate Laser")]
-    [SerializeField] private float maxRotation = 90.0f;
+    [SerializeField] private Animator anim;
+    //[SerializeField] private float maxRotation = 90.0f;
     [SerializeField] private float speedRotation = 5f;
-    [SerializeField] private float speedScalePillier = 4f;
-    [SerializeField] private float scaleMaxPillier = 4f;
-    private bool reverseRotate = false;
-    private float currentAngleRotate = 45f;
+    [SerializeField] private float animationScaleDuration = 1.0f;
+    private float currentDuration = 0f;
+    [SerializeField] [Range(1.0f, 5.0f)] private float animationSpeed = 1.0f;
+    //[SerializeField] private float speedScalePillier = 4f;
+    //[SerializeField] private float scaleMaxPillier = 4f;
+    //private bool reverseRotate = false;
+    //private float currentAngleRotate = 45f;
     private int currentDir = 1;
 
     [Header("Laser")]
@@ -37,11 +41,18 @@ public class PillierTraining : MonoBehaviour
     private Vector3 plateformPosition = Vector3.zero;
     private Vector3 distPlateform = Vector3.zero;
 
+    private void Start()
+    {
+        this.anim.SetFloat("SpeedScale", this.animationSpeed);
+        this.anim.SetBool("IsScaling", true);
+    }
+
     public void Init(Color myOwnerColor, int dir, GuardianTraining g)
     {
         this.currentDir = dir;
-        myOwnerColor.a = 0.75f;
+        myOwnerColor.a = 0.333f;
         this.myguardian = g;
+        this.currentDuration = Time.time + (this.animationScaleDuration / this.animationSpeed);
     }
 
     private void Update()
@@ -49,11 +60,12 @@ public class PillierTraining : MonoBehaviour
         CheckPlateformMouvante();
         if (this.plateformPosition != Vector3.zero) this.transform.position = this.plateformPosition - this.distPlateform;
 
-        if (this.pillierGO.transform.localScale.y < this.scaleMaxPillier)
+        if (Time.time > this.currentDuration && this.anim.GetBool("IsScaling") == true)
         {
-            this.pillierGO.transform.localScale += Time.deltaTime * Vector3.up * this.speedScalePillier;
+            this.anim.SetBool("IsScaling", false);
         }
-        else if (!this.laserGO.activeSelf)
+
+        if (!this.laserGO.activeSelf && !this.anim.GetBool("IsScaling"))
         {
             this.laserGO.SetActive(true);
             if (doubleLaser)
@@ -62,7 +74,7 @@ public class PillierTraining : MonoBehaviour
             }
             StartCoroutine(LaunchCheck());
         }
-        else
+        else if (this.laserGO.activeSelf && !this.anim.GetBool("IsScaling"))
         {
             this.RotateLaser();
             if (this.pillierLifeTime > 0 && Vector3.Distance(this.transform.position, myguardian.transform.position) < this.maxDistanceWithMyGuardian)
@@ -102,31 +114,7 @@ public class PillierTraining : MonoBehaviour
 
     private void RotateLaser()
     {
-        //if (!reverseRotate)
-        {
-            //if (currentAngleRotate < 90)
-            {
-                this.transform.eulerAngles += Vector3.up * Time.deltaTime * this.speedRotation * this.currentDir;
-                //this.currentAngleRotate += BoltNetwork.FrameDeltaTime * this.speedRotation;
-            }
-            //else
-            {
-                //this.reverseRotate = true;
-            }
-        }
-        //else
-        {
-            //if (currentAngleRotate > 0)
-            {
-            //    this.transform.eulerAngles -= Vector3.up * BoltNetwork.FrameDeltaTime * this.speedRotation;
-                //this.currentAngleRotate -= BoltNetwork.FrameDeltaTime * this.speedRotation;
-            }
-           // else
-            {
-             //   this.reverseRotate = false;
-            }
-        }
-
+        this.transform.eulerAngles += Vector3.up * Time.deltaTime * this.speedRotation * this.currentDir;
     }
 
     private void RotatePillier(float rotationAngle)

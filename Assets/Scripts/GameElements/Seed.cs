@@ -91,7 +91,7 @@ public class Seed : Bolt.EntityEventListener<ISeedState>
         bool raycast = Physics.Raycast(transform.position, Vector3.down, 0.5f, groundLayerMask);
         if (raycast)
         {
-            Pillier p = BoltNetwork.Instantiate(BoltPrefabs.Pillier_Test, this.transform.position - new Vector3(0, 0.4f, 0), this.pillierRotate).GetComponent<Pillier>();
+            Pillier p = BoltNetwork.Instantiate(BoltPrefabs.PillieCube, this.transform.position - new Vector3(0, 0.4f, 0), this.pillierRotate).GetComponent<Pillier>();
             p.Init(state.MyOwner, state.MyColor, this.currentDir);
             this.myGuardian.AddPillierToMyList(p);
             BoltNetwork.Destroy(this.gameObject);

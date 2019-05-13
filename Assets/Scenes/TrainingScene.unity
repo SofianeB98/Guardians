@@ -4741,12 +4741,12 @@ PrefabInstance:
     - target: {fileID: 4633716989581489156, guid: 777fae7af58bcd04db0faf14a8cfd23e,
         type: 3}
       propertyPath: doubleJumpHeight
-      value: 6
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4633716989581489156, guid: 777fae7af58bcd04db0faf14a8cfd23e,
         type: 3}
       propertyPath: jumpHeight
-      value: 6
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4633716989581489156, guid: 777fae7af58bcd04db0faf14a8cfd23e,
         type: 3}

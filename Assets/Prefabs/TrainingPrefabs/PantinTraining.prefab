@@ -1146,7 +1146,7 @@ MonoBehaviour:
   characterController: {fileID: 226034074380085254}
   videLayerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 16384
   myCanvas: {fileID: 4173044153934197957}
   winLosePointPrefab: {fileID: 1330491832018886311, guid: 4b0f69ab230867246b7e24ed7663e7d2,
     type: 3}
@@ -1164,6 +1164,7 @@ MonoBehaviour:
   fusRoDahLayerMask:
     serializedVersion: 2
     m_Bits: 512
+  fusRoDaFeedback: {fileID: 0}
   myAxe: {fileID: 2087588568777829380}
   seedLayerMask:
     serializedVersion: 2
