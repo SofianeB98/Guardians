@@ -26,6 +26,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     [SerializeField] private Transform winPointPanel;
     [SerializeField] private GameObject[] killSeries;
     private int currentIndexKillSeries = 0;
+    [SerializeField] private int everyXKillIWinMedal = 5;
 
     [Header("Player Stats")]
     [SerializeField] private float health = 100f;
@@ -734,7 +735,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
                 go.GetComponent<TextMeshProUGUI>().color = Color.yellow;
                 Destroy(go, 1f);
 
-                if (this.CurrentSerieKill % 5 == 0)
+                if (this.CurrentSerieKill % this.everyXKillIWinMedal == 0)
                 {
                     GameObject serie = Instantiate(killSeries[this.currentIndexKillSeries], this.myCanvas.transform);
                     Destroy(serie, 1.5f);

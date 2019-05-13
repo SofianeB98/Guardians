@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 863c413f08dd34b4ba059bc90505515f
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Kodchasan ExtraLight
+  fontNames:
+  - Kodchasan ExtraLight
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 0e74c4ff8665a344ba7a97eafca9aecc, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
