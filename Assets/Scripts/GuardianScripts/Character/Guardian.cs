@@ -187,12 +187,13 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
             {
                 this.currentPillier = this.currentPillier > 0 ? this.currentPillier - 1 : 0;
                 this.SetCooldown();
+                this.seedReadyImage.color = this.currentPillier > 0 ? Color.red : Color.green;
             }
         }
         else
         {
             this.seedReadyImage.color = Color.Lerp(this.seedReadyImage.color, Color.green,
-                Time.deltaTime);
+                Time.deltaTime / this.cooldownLaunchSeed);
         }
 
         if (this.currentInvinsibleTime < Time.time)

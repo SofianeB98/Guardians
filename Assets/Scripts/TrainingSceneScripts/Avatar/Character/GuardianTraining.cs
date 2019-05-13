@@ -80,6 +80,7 @@ public class GuardianTraining : MonoBehaviour
     [SerializeField] private float forceLaunch = 10f;
     [SerializeField] private Vector3 dirLaunch;
     public bool IsPreLaunchSeed { get; private set; }
+    [SerializeField] private TextMeshProUGUI seedDispo_Text;
     [SerializeField] private List<PillierTraining> myPillier = new List<PillierTraining>();
     [SerializeField] private int maxPillier = 20;
     private int currentPillier = 0;
@@ -132,6 +133,7 @@ public class GuardianTraining : MonoBehaviour
 
     private void Update()
     {
+        this.seedDispo_Text.text = "x" + (this.maxPillier - this.currentPillier).ToString();
         if (this.currentStunTime < Time.time)
         {
             this.IsStuned = false;
@@ -144,12 +146,13 @@ public class GuardianTraining : MonoBehaviour
             {
                 this.currentPillier = this.currentPillier > 0 ? this.currentPillier-1 : 0;
                 this.SetCooldown();
+                this.seedReadyImage.color = this.currentPillier > 0 ? Color.red : Color.green;
             }
         }
         else
         {
             this.seedReadyImage.color = Color.Lerp(this.seedReadyImage.color, Color.green,
-                Time.deltaTime);
+                Time.deltaTime/this.cooldownLaunchSeed);
         }
 
         if (this.currentInvinsibleTime < Time.time)
