@@ -4638,11 +4638,6 @@ PrefabInstance:
       propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 5345986359602158806, guid: 777fae7af58bcd04db0faf14a8cfd23e,
-        type: 3}
-      propertyPath: forcePush
-      value: 150
-      objectReference: {fileID: 0}
     - target: {fileID: 4633716989581489156, guid: 777fae7af58bcd04db0faf14a8cfd23e,
         type: 3}
       propertyPath: speed

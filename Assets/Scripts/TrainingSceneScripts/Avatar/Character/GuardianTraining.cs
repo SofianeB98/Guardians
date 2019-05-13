@@ -225,8 +225,7 @@ public class GuardianTraining : MonoBehaviour
         this.IsFusRoDah = true;
         
         Vector3 position = this.transform.position + (this.CameraRef.rotation * Vector3.forward * (this.distanceCheck / 2));
-        Instantiate(GameObject.CreatePrimitive(PrimitiveType.Sphere), position, Quaternion.identity);
-
+        
         Vector3 direction = this.CameraRef.rotation * Vector3.forward;
 
         ParticleSystem frdParticleSystem =
