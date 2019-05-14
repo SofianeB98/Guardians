@@ -233,14 +233,14 @@ MonoBehaviour:
     m_Bits: 4096
   grounded: 0
   gravityForce: 9.81
-  gravityModifier: 6
-  gravityMaxSpeed: 60
+  gravityModifier: 4
+  gravityMaxSpeed: 90
   sphereGroundDetectionRadius: 0.4
   groundTolerance: 0.1
   characterControllerRadiusCompensator: 0
   speedPerteSpeed: 0.1
   jumpHeight: 4
-  jumpTimeToReachMax: 0.25
+  jumpTimeToReachMax: 0.15
   jumpBehaviour:
     serializedVersion: 2
     m_Curve:
@@ -265,8 +265,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  doubleJumpHeight: 4
-  doubleJumpTimeToReachMax: 0.25
+  doubleJumpHeight: 3
+  doubleJumpTimeToReachMax: 0.3
   doubleJumpBehaviour:
     serializedVersion: 2
     m_Curve:
@@ -331,7 +331,7 @@ MonoBehaviour:
   deathParticulePrefab: {fileID: 8888476112482742187, guid: a5b7caa76f325ad4faed44c4d24eca73,
     type: 3}
   coolDownFus: 0.5
-  distanceCheck: 20
+  distanceCheck: 15
   detectionRadius: 50
   angleMaxToCheck: 40
   forcePush: 80
