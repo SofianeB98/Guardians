@@ -264,7 +264,7 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
         rdToColor.material.color = state.MyColor;
         if (doubleLaser)
         {
-            this.laserDeuxGo.GetComponent<Renderer>().material.color = state.MyColor;
+            this.laserDeuxGo.GetComponentInChildren<Renderer>().material.color = state.MyColor;
         }
     }
 

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f218df1d599a8744aaabfd25ca9c3ce4
+guid: ac18ce3d733cb4b488384719e28fd497
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -116,10 +116,10 @@ ModelImporter:
     400108: Object008
     400110: Object009
     2100000: 03 - Default4
-    2100002: 07 - Default
-    2100004: 09 - Default
-    2100006: 02 - Default3
-    2100008: 01 - Default2
+    2100002: 01 - Default2
+    2100004: 02 - Default3
+    2100006: 09 - Default
+    2100008: 07 - Default
     2300000: Box117
     2300002: Box118
     2300004: Box120
@@ -230,49 +230,49 @@ ModelImporter:
     3300104: Object007
     3300106: Object008
     3300108: Object009
-    4300000: Cylinder001
-    4300002: Cylinder002
-    4300004: Cylinder004
-    4300006: Cylinder005
-    4300008: Box117
+    4300000: Box150
+    4300002: Box156
+    4300004: Box151
+    4300006: Box159
+    4300008: Cylinder001
     4300010: Box118
-    4300012: Box120
-    4300014: Box128
-    4300016: Box140
-    4300018: Box142
-    4300020: Box143
-    4300022: Box150
-    4300024: Box151
-    4300026: Box154
+    4300012: Box117
+    4300014: Cylinder005
+    4300016: Box120
+    4300018: Cylinder002
+    4300020: Box140
+    4300022: Box143
+    4300024: Box154
+    4300026: Box128
     4300028: Box155
-    4300030: Box156
-    4300032: Box159
-    4300034: Box165
-    4300036: Box215
-    4300038: Box216
-    4300040: Box217
-    4300042: Box218
-    4300044: Cylinder006
+    4300030: Cylinder004
+    4300032: Box142
+    4300034: Cylinder006
+    4300036: Box229
+    4300038: Box215
+    4300040: Box238
+    4300042: Box165
+    4300044: Box233
     4300046: Box219
-    4300048: Box220
-    4300050: Cylinder007
-    4300052: Box221
-    4300054: Box222
-    4300056: Box223
-    4300058: Box224
-    4300060: Box225
-    4300062: Box229
-    4300064: Box230
-    4300066: Box233
-    4300068: Box234
-    4300070: Box235
-    4300072: Box236
-    4300074: Box237
-    4300076: Box238
-    4300078: Box239
-    4300080: Box240
-    4300082: Object003
-    4300084: Object005
+    4300048: Box240
+    4300050: Box235
+    4300052: Box230
+    4300054: Box216
+    4300056: Box234
+    4300058: Box236
+    4300060: Box239
+    4300062: Box223
+    4300064: Box222
+    4300066: Box217
+    4300068: Box221
+    4300070: Box237
+    4300072: Cylinder007
+    4300074: Box218
+    4300076: Box220
+    4300078: Box225
+    4300080: Box224
+    4300082: Object005
+    4300084: Object003
     4300086: Object006
     4300088: Box282
     4300090: Box283
@@ -281,12 +281,10 @@ ModelImporter:
     4300096: Box286
     4300098: Box287
     4300100: Object007
-    4300102: Object008
-    4300104: Object009
-    4300106: Box288
+    4300102: Object009
+    4300104: Box288
+    4300106: Object008
     4300108: Box289
-    7400000: Take 001
-    9500000: //RootNode
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -339,8 +337,8 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 0.01
-    hasPreviousCalculatedGlobalScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -367,7 +365,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

@@ -41,7 +41,7 @@ public class CameraControllerTraining : Bolt.EntityBehaviour<IGuardianState>
             if (!this.myGuardian.IsPreLaunchSeed)
             {
                 this.camera.rotation = TestSacade ? Quaternion.Lerp(this.camera.rotation, Quaternion.Euler(this.angleX, this.angleY, 0.0f), Time.deltaTime * 15.0f) : Quaternion.Euler(this.angleX, this.angleY, 0.0f);
-                this.trueDistance = Physics.Raycast(focusPoint, this.camera.rotation * new Vector3(0, 0, -this.distance), out this.rayHit, this.distance, ignoreLayerMask) ? Vector3.Distance(focusPoint, this.rayHit.point) : this.distance;
+                this.trueDistance = Physics.Raycast(focusPoint, this.camera.rotation * new Vector3(0, 0, -this.distance), out this.rayHit, this.distance, ~ignoreLayerMask) ? Vector3.Distance(focusPoint, this.rayHit.point) : this.distance;
                 this.camera.position = focusPoint + this.camera.rotation * new Vector3(0, 0, -this.trueDistance);
                 if (this.timerUntilAutomatedControl < this.timeUntilAutomatedControl)
                 {
@@ -50,7 +50,7 @@ public class CameraControllerTraining : Bolt.EntityBehaviour<IGuardianState>
             }
             else
             {
-                this.trueDistance = Physics.Raycast(focusPoint, this.camera.rotation * new Vector3(0, 0, -this.distance), out this.rayHit, this.distance, ignoreLayerMask) ? Vector3.Distance(focusPoint, this.rayHit.point) : this.distance;
+                this.trueDistance = Physics.Raycast(focusPoint, this.camera.rotation * new Vector3(0, 0, -this.distance), out this.rayHit, this.distance, ~ignoreLayerMask) ? Vector3.Distance(focusPoint, this.rayHit.point) : this.distance;
                 this.myGuardian.transform.rotation = Quaternion.AngleAxis(this.camera.eulerAngles.y, Vector3.up);
                 this.camera.rotation = Quaternion.Euler(this.angleX, this.angleY, 0.0f);
                 this.camera.position = focusPoint + this.camera.rotation * new Vector3(0, 0, -this.trueDistance);

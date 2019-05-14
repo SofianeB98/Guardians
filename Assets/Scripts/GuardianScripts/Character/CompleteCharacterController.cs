@@ -144,8 +144,19 @@ public class CompleteCharacterController : Bolt.EntityEventListener<IGuardianSta
 	    {
 	        if (pmHit.transform.tag.Contains("PMouvante") && !this.jumping)
 	        {
-	            this.plateformeMouvanteDir = pmHit.transform.GetComponent<PlateformMovement>().VectorDirecteurPlateforme();
-	        }
+	            RotatePlateformMovement rpm = pmHit.transform.GetComponentInParent<RotatePlateformMovement>();
+                PlateformMovement pm = pmHit.transform.GetComponent<PlateformMovement>();
+
+	            if (rpm != null)
+	            {
+	                this.plateformeMouvanteDir = rpm.VectorDirecteurPlateforme(this.transform);
+                }
+                else if (pm != null)
+	            {
+	                this.plateformeMouvanteDir = pm.VectorDirecteurPlateforme();
+                }
+                
+            }
 	        else
 	        {
 	            this.plateformeMouvanteDir = Vector3.zero;
