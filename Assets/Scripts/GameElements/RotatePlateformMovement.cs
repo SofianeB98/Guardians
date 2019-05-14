@@ -18,8 +18,7 @@ public class RotatePlateformMovement : Bolt.EntityEventListener<IMovementPlatefo
             state.Rotation = this.transform.rotation;
         }
 
-        speedToReach = (2 * Mathf.PI * Vector3.Distance(objectToRotate.position, this.transform.position) *
-                        (this.speed / 360));
+        
 
     }
 
@@ -38,7 +37,22 @@ public class RotatePlateformMovement : Bolt.EntityEventListener<IMovementPlatefo
 
     public Vector3 VectorDirecteurPlateforme(Transform avatarPos)
     {
-        return this.transform.right * this.speedToReach;
+        speedToReach = 2 * Mathf.PI * Vector3.Distance(objectToRotate.position, avatarPos.position) *
+                        (this.speed / 360);
+        Vector3 dirPerso = (avatarPos.position - objectToRotate.position).normalized;
+        dirPerso.y = 0;
+
+        //float angleRad = Vector3.Angle(Vector3.forward, dirPerso);
+        
+        //Debug.Log(angleRad);
+        
+        //Quaternion rotation = Quaternion.AngleAxis(angleRad, Vector3.up);
+
+        Quaternion rotation = Quaternion.FromToRotation(Vector3.forward, dirPerso);
+
+        Vector3 dir = rotation * Vector3.right * speedToReach;
+
+        return dir; //this.transform.right * this.speedToReach;
     }
 
     private void RotationCallback()
