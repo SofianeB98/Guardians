@@ -74,12 +74,21 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
 
         this.plateformPosition = point;
         //CheckPlateformMouvante();
-        StartCoroutine(PositionActualliser());
+        //StartCoroutine(PositionActualliser());
     }
 
     public override void SimulateOwner()
     {
-        
+        if (rpm != null)
+        {
+            if (anglePositionRecal > 999) this.anglePositionRecal = rpm.AngleToRotate(this.plateformPosition);
+            //this.plateformPosition = rpm.FinalPos(anglePositionRecal, this.plateformPosition);
+            this.transform.position = rpm.FinalPos(anglePositionRecal, this.transform.position);
+        }
+        else
+        {
+            CheckPlateformMouvante();
+        }
 
         if (Time.time > this.currentDuration && state.IsScaling)
         {
@@ -278,8 +287,8 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
             if (rpm != null)
             {
                 if (anglePositionRecal > 999) this.anglePositionRecal = rpm.AngleToRotate(this.plateformPosition);
-                this.plateformPosition = rpm.FinalPos(anglePositionRecal, this.plateformPosition);
-                this.transform.position = this.plateformPosition;
+                //this.plateformPosition = rpm.FinalPos(anglePositionRecal, this.plateformPosition);
+                this.transform.position = rpm.FinalPos(anglePositionRecal, this.transform.position);
             }
             else
             {

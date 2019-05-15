@@ -58,22 +58,47 @@ public class RotatePlateformMovement : Bolt.EntityEventListener<IMovementPlatefo
 
     public float AngleToRotate(Vector3 pos)
     {
-        pos.y = objectToRotate.position.y;
-        return Vector3.Angle(objectToRotate.forward, (pos - objectToRotate.position).normalized);
+        Vector3 centre = objectToRotate.position;
+        
+        Vector3 initDir = this.transform.position - centre;
+        initDir = initDir.normalized;
+
+        Vector3 focusDir = (pos - centre).normalized;
+        
+        
+        //Get the dot product
+        float dot = Vector3.Dot(initDir, focusDir);
+        // Divide the dot by the product of the magnitudes of the vectors
+        dot = dot / (initDir.magnitude * focusDir.magnitude);
+        //Get the arc cosin of the angle, you now have your angle in radians 
+        var acos = Mathf.Acos(dot);
+        //Multiply by 180/Mathf.PI to convert to degrees
+        var angle = acos * 180 / Mathf.PI;
+        //Congrats, you made it really hard on yourself.
+
+        angle = initDir.x > focusDir.x ? angle *1 : angle *-1;
+
+        //print(angle);
+        
+        return angle;
     }
 
     public Vector3 FinalPos(float angle, Vector3 pos)
     {
         Vector3 centre = objectToRotate.position;
-        centre.y = pos.y;
+        centre.y = this.transform.position.y;
 
         Quaternion rot = Quaternion.AngleAxis(angle, Vector3.up);
 
-        pos.y = objectToRotate.position.y;
+        Vector3 initDir = this.transform.position - centre;
+        initDir = initDir.normalized;
 
-        float distance = Vector3.Distance(objectToRotate.position, pos);
+        centre.y = pos.y;
 
-        Vector3 positionFinal = centre + objectToRotate.rotation* Vector3.forward * distance; //rot * objectToRotate.forward * distance;
+        float distance = Vector3.Distance(centre, pos);
+
+        Vector3 positionFinal = centre + rot * initDir * distance;
+        
 
         return positionFinal;
     }
