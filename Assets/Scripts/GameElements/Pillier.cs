@@ -7,7 +7,9 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
 {
     private BoltEntity myOwner;
     [SerializeField] private float health = 1.0f;
-    
+
+    private RotatePlateformMovement rpm = null;
+
     [Header("Base")]
     [SerializeField] private GameObject pillierGO;
     [SerializeField] private GameObject laserGO;
@@ -37,6 +39,7 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
 
     [SerializeField] private LayerMask groundLayerMask;
     private Vector3 plateformPosition = Vector3.zero;
+    private float anglePositionRecal = 1000;
     private Vector3 distPlateform = Vector3.zero;
 
     public override void Attached()
@@ -57,7 +60,7 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
         state.AddCallback("MyColor", ColorChanged);
     }
 
-    public void Init(BoltEntity ent, Color myOwnerColor, int dir)
+    public void Init(BoltEntity ent, Color myOwnerColor, int dir, Vector3 point)
     {
         this.currentDir = dir;
         this.myOwner = ent;
@@ -68,13 +71,16 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
             state.MyOwner = ent;
             state.MyColor = myOwnerColor;
         }
-        
+
+        this.plateformPosition = point;
+        //CheckPlateformMouvante();
+        StartCoroutine(PositionActualliser());
     }
 
     public override void SimulateOwner()
     {
-        CheckPlateformMouvante();
-        if(this.plateformPosition != Vector3.zero) this.transform.position = this.plateformPosition - this.distPlateform;
+        
+
         if (Time.time > this.currentDuration && state.IsScaling)
         {
             state.IsScaling = false;
@@ -140,14 +146,19 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
 
     private void CheckPlateformMouvante()
     {
-        RaycastHit pmHit;
-        if (Physics.SphereCast(this.transform.position + Vector3.up, 1f, Vector3.down, out pmHit, 1,
-            groundLayerMask))
+        Collider[] col = Physics.OverlapSphere(this.transform.position, 1f, groundLayerMask);
+        foreach (var truc in col)
         {
-            if (pmHit.transform.tag.Contains("PMouvante"))
+            Debug.Log(truc.name);
+            if (truc.transform.tag.Contains("PMouvante"))
             {
-                this.plateformPosition = pmHit.transform.position;
-                if(this.distPlateform == Vector3.zero) this.distPlateform = this.plateformPosition - this.transform.position;
+                rpm = truc.gameObject.GetComponentInParent<RotatePlateformMovement>();
+                Debug.Log("Find !");
+            }
+
+            if (truc == col[col.Length - 1] && rpm == null)
+            {
+                this.plateformPosition = Vector3.zero;
             }
         }
     }
@@ -258,6 +269,25 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
     }
 
     #endregion
+
+    IEnumerator PositionActualliser()
+    {
+        while (this.plateformPosition != Vector3.zero)
+        {
+            yield return new WaitForEndOfFrame();
+            if (rpm != null)
+            {
+                if (anglePositionRecal > 999) this.anglePositionRecal = rpm.AngleToRotate(this.plateformPosition);
+                this.plateformPosition = rpm.FinalPos(anglePositionRecal, this.plateformPosition);
+                this.transform.position = this.plateformPosition;
+            }
+            else
+            {
+                CheckPlateformMouvante();
+            }
+        }
+        yield break;
+    }
 
     void ColorChanged()
     {

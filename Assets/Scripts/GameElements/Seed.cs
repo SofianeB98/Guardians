@@ -88,11 +88,13 @@ public class Seed : Bolt.EntityEventListener<ISeedState>
 
     private void CheckGround()
     {
-        bool raycast = Physics.Raycast(transform.position, Vector3.down, 0.5f, groundLayerMask);
+        RaycastHit hit;
+        bool raycast = Physics.Raycast(transform.position, Vector3.down, out hit, 0.5f, groundLayerMask);
         if (raycast)
         {
             Pillier p = BoltNetwork.Instantiate(BoltPrefabs.PillieCube, this.transform.position - new Vector3(0, 0.4f, 0), this.pillierRotate).GetComponent<Pillier>();
-            p.Init(state.MyOwner, state.MyColor, this.currentDir);
+            //p.transform.SetParent(hit.transform);
+            p.Init(state.MyOwner, state.MyColor, this.currentDir, hit.point);
             this.myGuardian.AddPillierToMyList(p);
             BoltNetwork.Destroy(this.gameObject);
         }

@@ -1800,12 +1800,16 @@ MonoBehaviour:
     type: 3}
   coolDownFus: 0.5
   distanceCheck: 20
+  diviseurDistance: 1
   detectionRadius: 50
   angleMaxToCheck: 30
   forcePush: 50
   fusRoDahLayerMask:
     serializedVersion: 2
     m_Bits: 512
+  fusIgnoreLayerMask:
+    serializedVersion: 2
+    m_Bits: 57856
   fusRoDaFeedback: {fileID: 6377280301033286328, guid: 87668814a39cb1345a87fe2d60765627,
     type: 3}
   myAxe: {fileID: 8611901290887652427}

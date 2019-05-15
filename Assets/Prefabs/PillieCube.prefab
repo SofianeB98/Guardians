@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4497744719602692314}
   - component: {fileID: 8478079145083535013}
   - component: {fileID: 3117274974745883840}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: LaserGODeux
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -104,7 +104,7 @@ GameObject:
   - component: {fileID: 3567340750937571911}
   - component: {fileID: 7127497255715370278}
   - component: {fileID: 877545587182746167}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: LaserGO
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -226,7 +226,7 @@ GameObject:
   - component: {fileID: 1219881025164672688}
   - component: {fileID: 3806848988261334774}
   - component: {fileID: 5032646942625444814}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PillieCube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -335,7 +335,7 @@ GameObject:
   - component: {fileID: 8740441097130420546}
   - component: {fileID: 5650088413714852251}
   - component: {fileID: 727219039410930916}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Laser
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -412,7 +412,7 @@ GameObject:
   - component: {fileID: 6518343787091720153}
   - component: {fileID: 769200255019903067}
   - component: {fileID: 1000147234096465350}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Laser
   m_TagString: Untagged
   m_Icon: {fileID: 0}

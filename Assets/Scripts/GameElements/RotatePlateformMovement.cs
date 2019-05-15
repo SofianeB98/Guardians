@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using FMOD;
 using UnityEngine;
 
 public class RotatePlateformMovement : Bolt.EntityEventListener<IMovementPlateformState>
@@ -53,6 +54,28 @@ public class RotatePlateformMovement : Bolt.EntityEventListener<IMovementPlatefo
         Vector3 dir = rotation * Vector3.right * speedToReach;
 
         return dir; //this.transform.right * this.speedToReach;
+    }
+
+    public float AngleToRotate(Vector3 pos)
+    {
+        pos.y = objectToRotate.position.y;
+        return Vector3.Angle(objectToRotate.forward, (pos - objectToRotate.position).normalized);
+    }
+
+    public Vector3 FinalPos(float angle, Vector3 pos)
+    {
+        Vector3 centre = objectToRotate.position;
+        centre.y = pos.y;
+
+        Quaternion rot = Quaternion.AngleAxis(angle, Vector3.up);
+
+        pos.y = objectToRotate.position.y;
+
+        float distance = Vector3.Distance(objectToRotate.position, pos);
+
+        Vector3 positionFinal = centre + objectToRotate.rotation* Vector3.forward * distance; //rot * objectToRotate.forward * distance;
+
+        return positionFinal;
     }
 
     private void RotationCallback()

@@ -25,6 +25,7 @@ ModelImporter:
     100038: Sphere014
     100040: Sphere015
     100042: Sphere016
+    100044: Body001
     400000: Arms001
     400002: Body
     400004: Box041
@@ -47,6 +48,7 @@ ModelImporter:
     400038: Sphere014
     400040: Sphere015
     400042: Sphere016
+    400044: Body001
     2100000: No Name
     2300000: Box041
     2300002: Cylinder008

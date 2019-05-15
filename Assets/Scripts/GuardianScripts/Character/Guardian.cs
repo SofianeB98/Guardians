@@ -51,6 +51,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     [Header("Fus Ro Dah")]
     [SerializeField] private float coolDownFus = 0.5f;
     [SerializeField] private float distanceCheck = 10.0f;
+    [SerializeField] [Range(1.0f, 7.0f)] private float diviseurDistance = 1.0f;
     [SerializeField] private float detectionRadius = 50.0f;
     [SerializeField] [Range(0.0f,90.0f)] private float angleMaxToCheck = 45.0f;
     [SerializeField] private float forcePush = 50.0f;
@@ -673,8 +674,9 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
                         distance, ~this.fusIgnoreLayerMask))
                     {
                         float force = this.forcePush;
-                        force = force * (1 - (Vector3.Distance(this.transform.position, guard.transform.position)) / this.distanceCheck);
-                        
+                        force = force * (1 - ((Vector3.Distance(this.transform.position, guard.transform.position)) / this.distanceCheck) /this.diviseurDistance);
+
+
                         Guardian guardian = guard.GetComponent<Guardian>();
                         if (guardian != null && guardian != this)
                         {
