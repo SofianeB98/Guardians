@@ -47,6 +47,7 @@ public class CompleteCharacterController : Bolt.EntityEventListener<IGuardianSta
     private float doubleJumpTimer;
     public bool jumping { get; private set; }
     public bool doubleJumping { get; private set; }
+    [SerializeField] private JumpSectionValue jumpData;
 
     [Header("Audio")]
     [FMODUnity.EventRef]
@@ -72,6 +73,9 @@ public class CompleteCharacterController : Bolt.EntityEventListener<IGuardianSta
         colBalleMe = FMODUnity.RuntimeManager.CreateInstance(colBalleMeEvent);
 
         launchSeedAudio = FMODUnity.RuntimeManager.CreateInstance(launchSeedAudioEvent);
+
+        if(jumpData != null) this.InjectJumpData();
+
     }
 
     public override void Attached()
@@ -285,5 +289,16 @@ public class CompleteCharacterController : Bolt.EntityEventListener<IGuardianSta
         /////Son
         colBalleMe.start();
         /////Son
+    }
+
+    private void InjectJumpData()
+    {
+        speedPerteSpeed = jumpData.speedPerteSpeed;
+        jumpHeight = jumpData.jumpHeight;
+        jumpTimeToReachMax = jumpData.jumpTimeToReachMax;
+        jumpBehaviour = jumpData.jumpBehaviour;
+        doubleJumpHeight = jumpData.doubleJumpHeight;
+        doubleJumpTimeToReachMax = jumpData.doubleJumpTimeToReachMax;
+        doubleJumpBehaviour = jumpData.doubleJumpBehaviour;
     }
 }

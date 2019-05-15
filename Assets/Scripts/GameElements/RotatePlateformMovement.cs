@@ -76,7 +76,7 @@ public class RotatePlateformMovement : Bolt.EntityEventListener<IMovementPlatefo
         var angle = acos * 180 / Mathf.PI;
         //Congrats, you made it really hard on yourself.
 
-        angle = initDir.x > focusDir.x ? angle *1 : angle *-1;
+        angle = initDir.x > focusDir.x ? angle * -1 : angle *1;
 
         //print(angle);
         
