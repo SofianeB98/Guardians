@@ -125,11 +125,16 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     [SerializeField] private string axeIsBackEvent = "";
     [SerializeField] private FMOD.Studio.EventInstance axeIsBack;
 
+    private GameObject bwok;
+
     public override void Attached()
     {
+        bwok = GameObject.Find("/" + this.gameObject.name + "/HeadPosition/Bwok");
+
         SetupTeam(NetworkCallbacks.team);
         this.currentKill = 0;
         CurrentSerieKill = this.currentKill;
+
         if (entity.IsOwner)
         {
             if (PlayerPrefs.HasKey("PlayerName"))
@@ -140,14 +145,17 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
             {
                 state.GuardianName = "New Player";
             }
-
+            state.ActiveEE = true;
             state.Invinsible = false;
             state.MyColor = new Color(Random.value, Random.value, Random.value);
             lastColor = state.MyColor;
         }
+        
         state.AddCallback("MyColor", ColorChanged);
         state.AddCallback("GuardianName", PlayerName);
         state.AddCallback("Invinsible", InvinsibleCallBack);
+
+        state.AddCallback("ActiveEE", ActiveEasterE);
 
         deathAudioMe = FMODUnity.RuntimeManager.CreateInstance(deathAudioMeEvent);
         deathAudioOther = FMODUnity.RuntimeManager.CreateInstance(deathAudioOtherEvent);
@@ -155,6 +163,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         axeIsBack = FMODUnity.RuntimeManager.CreateInstance(axeIsBackEvent);
 
         StartCoroutine(BestEnemyCheck());
+        
     }
 
     private void Start()
@@ -752,7 +761,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         ParticleSystem frdParticleSystem =
             Instantiate(this.fusRoDaFeedback, this.transform.position, evnt.Rotation);
         ParticleSystem.ShapeModule shape = frdParticleSystem.shape;
-        Destroy(frdParticleSystem.gameObject, 0.9f);
+        Destroy(frdParticleSystem.gameObject, 1.2f);
 
         switch (mode)
         {
@@ -768,6 +777,22 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
                 break;
         }
         
+    }
+
+    #endregion
+
+    #region EE
+
+    private void ActiveEasterE()
+    {
+        if (this.state.GuardianName.Contains("Bwok"))
+        {
+            bwok.SetActive(state.ActiveEE);
+        }
+        else
+        {
+            if(entity.IsOwner) state.ActiveEE = false;
+        }
     }
 
     #endregion
@@ -789,7 +814,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
             this.currentKill++;
             this.CurrentSerieKill++;
 
-            int score = evnt.KillLaser ? 10 : 5;
+            int score = evnt.KillLaser ? 10 : 10;
 
             this.CurrentScore += score;
             if (entity.IsOwner)

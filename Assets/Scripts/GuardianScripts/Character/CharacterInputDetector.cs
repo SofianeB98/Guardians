@@ -130,7 +130,7 @@ public class CharacterInputDetector : Bolt.EntityBehaviour<IGuardianState>
                             this.viseurStandard.SetActive(true);
                         }
                     }
-                    if (Input.GetAxis(InputName.ChangeSeedSelection) != 0f && !this.seedInput)
+                    /*if (Input.GetAxis(InputName.ChangeSeedSelection) != 0f && !this.seedInput)
                     {
                         this.guardian.ChangePillierDir();
                         this.seedInput = true;
@@ -138,7 +138,7 @@ public class CharacterInputDetector : Bolt.EntityBehaviour<IGuardianState>
                     else if (Input.GetAxis(InputName.ChangeSeedSelection) == 0 && this.seedInput)
                     {
                         this.seedInput = false;
-                    }
+                    }*/
                 }
 
                 #endregion

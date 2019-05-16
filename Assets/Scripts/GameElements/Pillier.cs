@@ -15,7 +15,8 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
     [SerializeField] private GameObject laserGO;
     [SerializeField] private GameObject laserDeuxGo;
     [SerializeField] private Transform seedDrop;
-    [SerializeField] private Renderer rdToColor;
+    [SerializeField] private Renderer laserRD;
+    [SerializeField] private Renderer laserDeuxRD;
     [SerializeField] private bool doubleLaser = true;
     [SerializeField] private float pillierLifeTime = 15.0f;
     [SerializeField] private float maxDistanceWithMyGuardian = 20.0f;
@@ -178,16 +179,18 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
 
     IEnumerator LaunchCheck()
     {
-        yield return new WaitForEndOfFrame();
         while (true)
         {
             yield return new WaitForEndOfFrame();
-            yield return new WaitForEndOfFrame();
-            this.CheckPlayer();
-            if (this.doubleLaser)
+            if (this.laserGO.activeSelf)
             {
-                CheckPlayerDouble();
+                this.CheckPlayer();
+                if (this.doubleLaser)
+                {
+                    CheckPlayerDouble();
+                }
             }
+            
         }
         yield break;
     }
@@ -300,10 +303,10 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
 
     void ColorChanged()
     {
-        rdToColor.material.color = state.MyColor;
+        laserRD.material.color = state.MyColor;
         if (doubleLaser)
         {
-            this.laserDeuxGo.GetComponentInChildren<Renderer>().material.color = state.MyColor;
+            laserDeuxRD.material.color = state.MyColor;
         }
     }
 
