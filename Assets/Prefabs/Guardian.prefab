@@ -213,7 +213,7 @@ MonoBehaviour:
   timeUntilAutomatedControl: 5
   ignoreLayerMask:
     serializedVersion: 2
-    m_Bits: 4096
+    m_Bits: 59936
 --- !u!114 &670
 MonoBehaviour:
   m_ObjectHideFlags: 0
