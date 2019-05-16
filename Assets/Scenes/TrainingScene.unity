@@ -4869,12 +4869,37 @@ PrefabInstance:
     - target: {fileID: 774219217755305883, guid: 777fae7af58bcd04db0faf14a8cfd23e,
         type: 3}
       propertyPath: m_havePropertiesChanged
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 774219217755305883, guid: 777fae7af58bcd04db0faf14a8cfd23e,
         type: 3}
       propertyPath: m_isInputParsingRequired
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5345986359602158806, guid: 777fae7af58bcd04db0faf14a8cfd23e,
+        type: 3}
+      propertyPath: mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5345986359602158806, guid: 777fae7af58bcd04db0faf14a8cfd23e,
+        type: 3}
+      propertyPath: fusDetectionRadius
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5345986359602158806, guid: 777fae7af58bcd04db0faf14a8cfd23e,
+        type: 3}
+      propertyPath: diviseurDistance
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5345986359602158806, guid: 777fae7af58bcd04db0faf14a8cfd23e,
+        type: 3}
+      propertyPath: distanceCheck
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 5345986359602158806, guid: 777fae7af58bcd04db0faf14a8cfd23e,
+        type: 3}
+      propertyPath: forcePush
+      value: 200
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 777fae7af58bcd04db0faf14a8cfd23e, type: 3}

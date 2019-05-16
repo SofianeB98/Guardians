@@ -49,11 +49,14 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     [SerializeField] private GameObject deathParticulePrefab;
 
     [Header("Fus Ro Dah")]
+    [SerializeField] private FusRoDaMode mode = FusRoDaMode.Cone;
     [SerializeField] private float coolDownFus = 0.5f;
     [SerializeField] private float distanceCheck = 10.0f;
     [SerializeField] [Range(1.0f, 7.0f)] private float diviseurDistance = 1.0f;
-    [SerializeField] private float detectionRadius = 50.0f;
-    [SerializeField] [Range(0.0f,90.0f)] private float angleMaxToCheck = 45.0f;
+    [SerializeField] private float fusDetectionRadius = 50.0f;
+    [SerializeField] [Range(0.0f,90.0f)] private float angleMaxToCheckCone = 45.0f;
+    [SerializeField] private Transform pointStartLaser;
+    [SerializeField] private Transform pointEndLaser;
     [SerializeField] private float forcePush = 50.0f;
     [SerializeField] private LayerMask fusRoDahLayerMask;
     [SerializeField] private LayerMask fusIgnoreLayerMask;
@@ -650,45 +653,88 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     {
         this.IsFusRoDah = true;
 
-        Vector3 position = this.transform.position + (this.cameraRef.forward * (this.distanceCheck / 2));
-        
-
-        Vector3 direction = this.CameraRef.rotation * Vector3.forward;
-
         var evnt = FusRoDaFBEvent.Create(entity);
         evnt.Rotation = this.cameraRef.rotation;
         evnt.Send();
 
-        Collider[] guardianColliders = Physics.OverlapSphere(position, this.detectionRadius, this.fusRoDahLayerMask);
-
-        if (guardianColliders.Length > 0)
+        switch (mode)
         {
-            foreach (var guard in guardianColliders)
-            {
-                float distance = Vector3.Distance(this.transform.position, guard.transform.position);
-                float angle = Vector3.Angle(this.transform.forward, guard.transform.position - this.transform.position);
+            case FusRoDaMode.Cone:
+                Vector3 position = this.transform.position + (this.cameraRef.forward * (this.distanceCheck / 2));
+                Vector3 direction = this.CameraRef.rotation * Vector3.forward;
                 
-                if (angle <= this.angleMaxToCheck && distance <= this.distanceCheck)
+                Collider[] guardianColliders = Physics.OverlapSphere(position, this.fusDetectionRadius, this.fusRoDahLayerMask);
+
+                if (guardianColliders.Length > 0)
                 {
-                    if (!Physics.Raycast(this.transform.position, guard.transform.position - this.transform.position,
-                        distance, ~this.fusIgnoreLayerMask))
+                    foreach (var guard in guardianColliders)
                     {
-                        float force = this.forcePush;
-                        force = force * (1 - ((Vector3.Distance(this.transform.position, guard.transform.position)) / this.distanceCheck) /this.diviseurDistance);
+                        float distance = Vector3.Distance(this.transform.position, guard.transform.position);
+                        float angle = Vector3.Angle(this.transform.forward, guard.transform.position - this.transform.position);
 
-
-                        Guardian guardian = guard.GetComponent<Guardian>();
-                        if (guardian != null && guardian != this)
+                        if (angle <= this.angleMaxToCheckCone && distance <= this.distanceCheck)
                         {
-                            guardian.SetStun(direction.normalized, force, entity);
+                            if (!Physics.Raycast(this.transform.position, guard.transform.position - this.transform.position,
+                                distance, ~this.fusIgnoreLayerMask))
+                            {
+                                float force = this.forcePush;
+                                force = force * (1 - ((Vector3.Distance(this.transform.position, guard.transform.position)) / this.distanceCheck) / this.diviseurDistance);
+
+
+                                Guardian guardian = guard.GetComponent<Guardian>();
+                                if (guardian != null && guardian != this)
+                                {
+                                    guardian.SetStun(direction.normalized, force, entity);
+                                }
+                            }
+
                         }
                     }
-                    
                 }
-            }
+
+                StartCoroutine(CoolDownFus());
+                break;
+
+            case FusRoDaMode.Laser:
+                this.pointStartLaser.rotation = cameraRef.rotation;
+                this.pointEndLaser.localPosition = new Vector3(this.pointEndLaser.localPosition.x, this.pointEndLaser.localPosition.y, this.distanceCheck);
+                
+                Collider[] laserCol = Physics.OverlapCapsule(this.pointStartLaser.position, this.pointEndLaser.position,
+                    this.fusDetectionRadius, this.fusRoDahLayerMask);
+
+                Vector3 dir = this.cameraRef.rotation * Vector3.forward;
+
+                if (laserCol.Length > 0)
+                {
+                    foreach (var guard in laserCol)
+                    {
+                        float distance = Vector3.Distance(this.transform.position, guard.transform.position);
+                        float angle = Vector3.Angle(this.transform.forward, guard.transform.position - this.transform.position);
+
+                        if (angle <= this.angleMaxToCheckCone && distance <= this.distanceCheck)
+                        {
+                            if (!Physics.Raycast(this.transform.position, guard.transform.position - this.transform.position,
+                                distance, ~this.fusIgnoreLayerMask))
+                            {
+                                float force = this.forcePush;
+                                force = force * (1 - ((Vector3.Distance(this.transform.position, guard.transform.position)) / this.distanceCheck) / this.diviseurDistance);
+
+
+                                Guardian guardian = guard.GetComponent<Guardian>();
+                                if (guardian != null && guardian != this)
+                                {
+                                    guardian.SetStun(dir.normalized, force, entity);
+                                }
+                            }
+
+                        }
+                    }
+                }
+                StartCoroutine(CoolDownFus());
+                break;
         }
 
-        StartCoroutine(CoolDownFus());
+        
         
     }
 
@@ -702,12 +748,26 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
 
     public override void OnEvent(FusRoDaFBEvent evnt)
     {
+        //Switch mode
         ParticleSystem frdParticleSystem =
             Instantiate(this.fusRoDaFeedback, this.transform.position, evnt.Rotation);
         ParticleSystem.ShapeModule shape = frdParticleSystem.shape;
-        shape.length = this.distanceCheck;
-        shape.angle = this.angleMaxToCheck;
         Destroy(frdParticleSystem.gameObject, 0.9f);
+
+        switch (mode)
+        {
+            case FusRoDaMode.Cone:
+                shape.length = this.distanceCheck;
+                shape.angle = this.angleMaxToCheckCone;
+                break;
+
+            case FusRoDaMode.Laser:
+                shape.length = this.distanceCheck;
+                shape.angle = 0f;
+                shape.radius = this.fusDetectionRadius;
+                break;
+        }
+        
     }
 
     #endregion
