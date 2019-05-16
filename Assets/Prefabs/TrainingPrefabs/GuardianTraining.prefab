@@ -1764,6 +1764,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78820d8b59912a84c8f9956bdefa98dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  guardian: {fileID: 5345986359602158806}
   characterController: {fileID: 3171287610574492857}
   cameraReferential: {fileID: 6835961590952950620}
   speed: 8
@@ -1861,15 +1862,15 @@ MonoBehaviour:
   dietime: 2
   deathParticulePrefab: {fileID: 8888476112482742187, guid: a5b7caa76f325ad4faed44c4d24eca73,
     type: 3}
-  mode: 0
+  mode: 1
   coolDownFus: 0.5
   distanceCheck: 20
-  diviseurDistance: 1
-  fusDetectionRadius: 50
+  diviseurDistance: 2
+  fusDetectionRadius: 2
   angleMaxToCheckCone: 45
   pointStartLaser: {fileID: 3377799640311085664}
   pointEndLaser: {fileID: 5653224911915074966}
-  forcePush: 50
+  forcePush: 100
   fusRoDahLayerMask:
     serializedVersion: 2
     m_Bits: 512

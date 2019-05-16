@@ -1241,6 +1241,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78820d8b59912a84c8f9956bdefa98dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  guardian: {fileID: 7005612110337592879}
   characterController: {fileID: 5701804232137150164}
   cameraReferential: {fileID: 7721003270595701169}
   speed: 8
@@ -1251,6 +1252,7 @@ MonoBehaviour:
   gravityForce: 9.81
   gravityModifier: 5
   gravityMaxSpeed: 50
+  speedLoseForcePush: 10
   sphereGroundDetectionRadius: 0.4
   groundTolerance: 0.1
   characterControllerRadiusCompensator: 0
@@ -1289,6 +1291,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  jumpData: {fileID: 0}
   sautAudioEvent: event:/Feedbacks Joueur Communs/Saut
   colBalleMeEvent: event:/Feedbacks Joueur Personnels/Collision de balle (soi)
   launchSeedAudioEvent: event:/Feedbacks Joueur Communs/Lancer de graine-pilier
@@ -1314,19 +1317,26 @@ MonoBehaviour:
     type: 3}
   <NamePosition>k__BackingField: {fileID: 1508801189155261367}
   health: 1
-  stunTime: 0.1
+  stunTime: 0.25
   invinsibleTime: 2.5
   dietime: 2
   deathParticulePrefab: {fileID: 8888476112482742187, guid: a5b7caa76f325ad4faed44c4d24eca73,
     type: 3}
+  mode: 0
   coolDownFus: 0.1
   distanceCheck: 10
-  detectionRadius: 50
-  angleMaxToCheck: 45
+  diviseurDistance: 1
+  fusDetectionRadius: 50
+  angleMaxToCheckCone: 45
+  pointStartLaser: {fileID: 0}
+  pointEndLaser: {fileID: 0}
   forcePush: 50
   fusRoDahLayerMask:
     serializedVersion: 2
     m_Bits: 512
+  fusIgnoreLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
   fusRoDaFeedback: {fileID: 0}
   myAxe: {fileID: 2087588568777829380}
   seedLayerMask:

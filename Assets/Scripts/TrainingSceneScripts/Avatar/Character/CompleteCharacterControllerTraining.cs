@@ -5,7 +5,8 @@ using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
 public class CompleteCharacterControllerTraining : MonoBehaviour
-{ 
+{
+    [SerializeField] private GuardianTraining guardian;
     [SerializeField] private CharacterController characterController;
     private Vector3 plateformeMouvanteDir = Vector3.zero;
     private Vector3 direction = Vector3.zero;
@@ -28,6 +29,7 @@ public class CompleteCharacterControllerTraining : MonoBehaviour
     [SerializeField] private float gravityForce = 9.81f;
 	[SerializeField] private float gravityModifier = 1;
 	[SerializeField] private float gravityMaxSpeed = 50;
+    [SerializeField] private float speedLoseForcePush = 5f;
 
     [Header("NE PAS TOUCHER")]
     [SerializeField] private float sphereGroundDetectionRadius = 0.4f;
@@ -226,9 +228,20 @@ public class CompleteCharacterControllerTraining : MonoBehaviour
         dir = dir.normalized;
         dir.y += 0.1f;
         this.direction = dir * force;
+        StartCoroutine(SmoothForceDown());
         /////Son
         colBalleMe.start();
         /////Son
+    }
+
+    IEnumerator SmoothForceDown()
+    {
+        while (this.guardian.IsStuned)
+        {
+            yield return new WaitForEndOfFrame();
+            this.direction = Vector3.Lerp(this.direction, Vector3.zero, Time.deltaTime * this.speedLoseForcePush);
+        }
+        yield break;
     }
 
     private void InjectJumpData()

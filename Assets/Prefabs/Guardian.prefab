@@ -201,7 +201,7 @@ MonoBehaviour:
   TestSacade: 1
   myGuardian: {fileID: 668}
   ratioDecalCam: 1
-  distance: 7
+  distance: 6
   speed: 6
   inverseY: 0
   angleYSpeed: 25
@@ -226,6 +226,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffc00c44950fe094187f2c28d7b6295d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  guardian: {fileID: 0}
   characterController: {fileID: 546}
   cameraReferential: {fileID: 400}
   speed: 12
@@ -236,6 +237,7 @@ MonoBehaviour:
   gravityForce: 9.81
   gravityModifier: 4
   gravityMaxSpeed: 90
+  speedLoseForcePush: 8
   sphereGroundDetectionRadius: 0.4
   groundTolerance: 0.1
   characterControllerRadiusCompensator: 0
@@ -266,7 +268,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  doubleJumpHeight: 3
+  doubleJumpHeight: 4
   doubleJumpTimeToReachMax: 0.3
   doubleJumpBehaviour:
     serializedVersion: 2
@@ -325,7 +327,7 @@ MonoBehaviour:
   everyXKillIWinMedal: 5
   health: 1
   invinsibleFB: {fileID: 8877678457275977260}
-  stunTime: 0.1
+  stunTime: 0.25
   invinsibleTime: 2.5
   scoreText: {fileID: 739}
   bestEnemyScoreText: {fileID: 738}
@@ -333,7 +335,7 @@ MonoBehaviour:
   deathParticulePrefab: {fileID: 8888476112482742187, guid: a5b7caa76f325ad4faed44c4d24eca73,
     type: 3}
   mode: 1
-  coolDownFus: 0.5
+  coolDownFus: 1
   distanceCheck: 15
   diviseurDistance: 2
   fusDetectionRadius: 2
