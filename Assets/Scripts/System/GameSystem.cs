@@ -338,7 +338,7 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
                 score = 0;
             }
 
-            gList.Reverse();
+            //gList.Reverse();
             GuardianSortByScore = gList;
            
         }
