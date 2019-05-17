@@ -428,8 +428,8 @@ MonoBehaviour:
   seedDrop: {fileID: 3724255335374809179}
   rdToColor: {fileID: 1996057116586858305}
   doubleLaser: 1
-  pillierLifeTime: 15
-  maxDistanceWithMyGuardian: 50
+  pillierLifeTime: 8
+  maxDistanceWithMyGuardian: 55
   anim: {fileID: 4346341265503837729}
   speedRotation: 120
   animationScaleDuration: 1
