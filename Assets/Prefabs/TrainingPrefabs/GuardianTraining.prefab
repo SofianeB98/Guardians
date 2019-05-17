@@ -1767,7 +1767,7 @@ MonoBehaviour:
   guardian: {fileID: 5345986359602158806}
   characterController: {fileID: 3171287610574492857}
   cameraReferential: {fileID: 6835961590952950620}
-  speed: 8
+  speed: 15
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 4096
@@ -1775,11 +1775,12 @@ MonoBehaviour:
   gravityForce: 9.81
   gravityModifier: 4
   gravityMaxSpeed: 40
+  speedLoseForcePush: 5
   sphereGroundDetectionRadius: 0.4
   groundTolerance: 0.1
   characterControllerRadiusCompensator: 0
   speedPerteSpeed: 0.1
-  jumpHeight: 4
+  jumpHeight: 3
   jumpTimeToReachMax: 0.25
   jumpBehaviour:
     serializedVersion: 2
@@ -1787,51 +1788,51 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 0.33010602
-      outSlope: 0.33010602
+      inSlope: 0.73646265
+      outSlope: 0.73646265
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0
-      outWeight: 0.096339114
+      inWeight: 0.33333334
+      outWeight: 0.09120777
     - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 2
-      outSlope: 2
+      time: 3.0001502
+      value: 1.006522
+      inSlope: 0.09261888
+      outSlope: 0.09261888
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0
-      outWeight: 0
+      inWeight: 0.09106856
+      outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  doubleJumpHeight: 4
+  doubleJumpHeight: 3
   doubleJumpTimeToReachMax: 0.25
   doubleJumpBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
-      inSlope: 2
-      outSlope: 2
+      value: 0.005554199
+      inSlope: 0.613074
+      outSlope: 0.613074
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.05984145
     - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
+      time: 5.971414
+      value: 1.5029279
+      inSlope: 0.01201176
+      outSlope: 0.01201176
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0
+      inWeight: 0.07795545
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  jumpData: {fileID: 11400000, guid: 71133bce26b37dd4088f7fb770a622d9, type: 2}
+  jumpData: {fileID: 11400000, guid: 415851df593f140418e93388e5f42ea9, type: 2}
   sautAudioEvent: event:/Feedbacks Joueur Communs/Saut
   colBalleMeEvent: event:/Feedbacks Joueur Personnels/Collision de balle (soi)
   launchSeedAudioEvent: event:/Feedbacks Joueur Communs/Lancer de graine-pilier
@@ -1863,14 +1864,14 @@ MonoBehaviour:
   deathParticulePrefab: {fileID: 8888476112482742187, guid: a5b7caa76f325ad4faed44c4d24eca73,
     type: 3}
   mode: 1
-  coolDownFus: 0.5
-  distanceCheck: 20
-  diviseurDistance: 2
+  coolDownFus: 1
+  distanceCheck: 30
+  diviseurDistance: 5
   fusDetectionRadius: 2
-  angleMaxToCheckCone: 45
+  angleMaxToCheckCone: 50
   pointStartLaser: {fileID: 3377799640311085664}
   pointEndLaser: {fileID: 5653224911915074966}
-  forcePush: 100
+  forcePush: 200
   fusRoDahLayerMask:
     serializedVersion: 2
     m_Bits: 512
