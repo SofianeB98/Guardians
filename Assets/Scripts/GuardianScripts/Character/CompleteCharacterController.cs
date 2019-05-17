@@ -82,6 +82,7 @@ public class CompleteCharacterController : Bolt.EntityEventListener<IGuardianSta
     public override void Attached()
     {
         state.SetTransforms(state.Transform, transform);
+        state.SetAnimator(GetComponentInChildren<Animator>());
         if (entity.IsOwner)
         {
             this.cameraReferential.parent = null;
@@ -99,6 +100,7 @@ public class CompleteCharacterController : Bolt.EntityEventListener<IGuardianSta
             this.DetectGround();
             this.UpdateGravity();
             this.finalDirection = this.direction + this.gravity + this.plateformeMouvanteDir;
+            
             this.characterController.Move(this.finalDirection * Time.deltaTime);
             this.transform.rotation = Quaternion.AngleAxis(this.cameraReferential.eulerAngles.y, Vector3.up);//Quaternion.LookRotation(this.orientation, Vector3.up);
             this.GroundPositionCorrection();
