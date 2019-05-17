@@ -124,13 +124,11 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     [FMODUnity.EventRef]
     [SerializeField] private string axeIsBackEvent = "";
     [SerializeField] private FMOD.Studio.EventInstance axeIsBack;
-
-    private GameObject bwok;
+    
+    [SerializeField] private GameObject bwok;
 
     public override void Attached()
     {
-        bwok = GameObject.Find("/" + this.gameObject.name + "/HeadPosition/Bwok");
-
         SetupTeam(NetworkCallbacks.team);
         this.currentKill = 0;
         CurrentSerieKill = this.currentKill;
@@ -853,7 +851,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
 
     void ColorChanged()
     {
-        GetComponent<Renderer>().material.color = state.MyColor;
+        //GetComponent<Renderer>().material.color = state.MyColor;
     }
 
     void PlayerName()

@@ -1,34 +1,36 @@
 fileFormatVersion: 2
-guid: 15a3850e317aae8439bcf032131cd9a7
+guid: c61e381cab9932542a73d35385268d1e
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: //RootNode
-    100002: Bras001
-    100004: Corps001
-    100006: Head
-    100008: Jambes001
-    400000: //RootNode
-    400002: Bras001
-    400004: Corps001
-    400006: Head
-    400008: Jambes001
-    2100000: Tete
-    2100002: Jambes
-    2100004: Corps
-    2100006: Bras
-    2300000: Bras001
-    2300002: Corps001
-    2300004: Head
-    2300006: Jambes001
-    3300000: Bras001
-    3300002: Corps001
-    3300004: Head
-    3300006: Jambes001
-    4300000: Head
-    4300002: Jambes001
-    4300004: Corps001
-    4300006: Bras001
+    100000: Bras
+    100002: Corps003
+    100004: Jambes
+    100006: //RootNode
+    100008: Tete001
+    400000: Bras
+    400002: Corps003
+    400004: Jambes
+    400006: //RootNode
+    400008: Tete001
+    2100000: Jambes
+    2100002: Bras
+    2100004: Tete
+    2100006: Corps
+    2300000: Bras
+    2300002: Corps003
+    2300004: Jambes
+    2300006: Tete001
+    3300000: Bras
+    3300002: Corps003
+    3300004: Jambes
+    3300006: Tete001
+    4300000: Jambes
+    4300002: Bras
+    4300004: Tete001
+    4300006: Corps003
+    7400000: Take 001
+    9500000: //RootNode
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -81,8 +83,8 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 1
-    hasPreviousCalculatedGlobalScale: 0
+    previousCalculatedGlobalScale: 0.01
+    hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -109,7 +111,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  animationType: 2
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

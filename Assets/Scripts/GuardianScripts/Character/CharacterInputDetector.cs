@@ -16,12 +16,9 @@ public class CharacterInputDetector : Bolt.EntityBehaviour<IGuardianState>
     [SerializeField] private GameObject viseurSeed;
 
     private bool seedInput = false;
-
-
+    
     void Awake()
 	{
-	    
-
         if (this.characterController == null) this.characterController = this.GetComponent<CompleteCharacterController>();
 	    if (this.guardian == null) this.guardian = this.GetComponent<Guardian>();
 
@@ -44,6 +41,8 @@ public class CharacterInputDetector : Bolt.EntityBehaviour<IGuardianState>
                                                              || Mathf.Abs(Input.GetAxis(InputName.Vertical)) > 0.1f))
                     {
                         var tmpVec = new Vector3(Input.GetAxis(InputName.Horizontal), 0, Input.GetAxis(InputName.Vertical)).normalized;
+                        state.xInput = Input.GetAxis(InputName.Horizontal);
+                        state.yInput = Input.GetAxis(InputName.Vertical);
                         this.characterController.UpdateDirection(tmpVec);
                         if (tmpVec != Vector3.zero)
                         {
@@ -56,10 +55,14 @@ public class CharacterInputDetector : Bolt.EntityBehaviour<IGuardianState>
                     else if (this.characterController.jumping || this.characterController.doubleJumping)
                     {
                         this.characterController.UpdateDirWhenImJumping();
+                        state.xInput = 0;
+                        state.yInput = 0;
                     }
                     else
                     {
                         this.characterController.UpdateDirection(Vector3.zero);
+                        state.xInput = 0;
+                        state.yInput = 0;
                     }
                     
                 }
