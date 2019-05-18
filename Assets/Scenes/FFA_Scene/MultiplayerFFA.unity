@@ -1428,7 +1428,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!81 &620711994
 AudioListener:
   m_ObjectHideFlags: 0
@@ -3174,6 +3174,8 @@ MonoBehaviour:
   playerNamePrefab: {fileID: 7538161374688258212, guid: a9a6d6b13ba2a094991494da7b05e6f7,
     type: 3}
   guardianAssignWorlCanvas: {fileID: 0}
+  GameStart: 0
+  timerBeforeStartGame: 8
   scorePanel: {fileID: 910760189}
   playersScore: []
   prefabPlayersScore: {fileID: 7976445404899690474, guid: 73acfd8f38acf2248bbaaad4849f8132,

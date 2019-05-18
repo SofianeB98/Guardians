@@ -27,7 +27,7 @@ public class CharacterInputDetector : Bolt.EntityBehaviour<IGuardianState>
 	// Update is called once per frame
 	public void CustomUpdate ()
 	{
-	    if (!GameSystem.GSystem.EndGame)
+	    if (!GameSystem.GSystem.EndGame && GameSystem.GSystem.GameStart)
 	    {
             if (entity.IsOwner && !this.guardian.IsDie)
             {

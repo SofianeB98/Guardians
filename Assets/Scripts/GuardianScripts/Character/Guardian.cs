@@ -239,7 +239,12 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
 
     IEnumerator BestEnemyCheck()
     {
-        yield return new WaitForSeconds(2.5f);
+        //yield return new WaitForSeconds(3.5f);
+        while (!GameSystem.GSystem.GameStart)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+        yield return new WaitForEndOfFrame();
         bestEnemy = GameSystem.GSystem.BestEnemyGuardian(this);
         while (!GameSystem.GSystem.EndGame)
         {

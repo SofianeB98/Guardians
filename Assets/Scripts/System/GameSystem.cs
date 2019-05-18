@@ -11,6 +11,7 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
 {
     //public bool SmashSystem = true;
     public static GameSystem GSystem;
+
     [Header("Party Info")]
     [SerializeField] private float partyTimer = 180.0f;
     [SerializeField] private TextMeshProUGUI timerText;
@@ -18,6 +19,9 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
     [SerializeField] private TextMeshProUGUI playerNamePrefab;
     private List<TextMeshProUGUI> playerNameList = new List<TextMeshProUGUI>();
     [SerializeField] private Guardian guardianAssignWorlCanvas;
+    [field: SerializeField] public bool GameStart = false;
+    [SerializeField] private float timerBeforeStartGame = 3f;
+    private float currentTimerBeforeStart = 0f;
     //[field:SerializeField] public int CurrentGuardianInLife { get; private set; }
 
     [Header("Score")]
@@ -48,55 +52,81 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
         GameSystem.GSystem = this;
         StartCoroutine(WaitToFindGuardians());
         EndGame = false;
-        
+        GameStart = false;
+        this.currentTimerBeforeStart = this.timerBeforeStartGame;
     }
 
     private void Update()
     {
         timerText.text = string.Format("{0:0}:{1:00}", Mathf.Floor(partyTimer / 60), partyTimer % 60 > 59 ? 59 : partyTimer % 60);
 
-        if (partyTimer > 0.01f)
+        if (GameStart)
         {
-            if (playersScore.Count > 0)
+            if (partyTimer > 0.01f)
             {
-                AssignScore();
+                if (playersScore.Count > 0)
+                {
+                    AssignScore();
+                }
+
+                partyTimer -= Time.deltaTime;
+
+                if (Input.GetKeyDown(KeyCode.Tab))
+                {
+                    this.scorePanel.SetActive(!this.scorePanel.activeSelf);
+                }
+                else if (Input.GetKeyUp(KeyCode.Tab))
+                {
+                    this.scorePanel.SetActive(!this.scorePanel.activeSelf);
+                }
+
             }
-
-            partyTimer -= Time.deltaTime;
-
-            if (Input.GetKeyDown(KeyCode.Tab))
+            else
             {
-                this.scorePanel.SetActive(!this.scorePanel.activeSelf);
-            }
-            else if (Input.GetKeyUp(KeyCode.Tab))
-            {
-                this.scorePanel.SetActive(!this.scorePanel.activeSelf);
-            }
+                partyTimer = 0.0f;
+                if (!EndGame)
+                {
 
+                    this.CameraFinal.SetActive(true);
+
+                    if (winnerPanel.activeSelf == false)
+                    {
+                        winnerPanel.SetActive(true);
+                        this.scorePanel.SetActive(true);
+                    }
+
+                    winnerText.text = "Winner is " + WinGuardian().guardianName;
+
+                    StartCoroutine(Deconnect());
+
+                    Debug.Log("Party Fini");
+                    EndGame = true;
+                }
+
+            }
         }
         else
         {
-            partyTimer = 0.0f;
-            if (!EndGame)
+            //if (BoltNetwork.IsServer)
             {
-                
-                this.CameraFinal.SetActive(true);
-
-                if (winnerPanel.activeSelf == false)
+                if (currentTimerBeforeStart > 0)
                 {
-                    winnerPanel.SetActive(true);
-                    this.scorePanel.SetActive(true);
+                    this.currentTimerBeforeStart -= Time.deltaTime;
                 }
-
-                winnerText.text = "Winner is " + WinGuardian().guardianName;
-
-                StartCoroutine(Deconnect());
-
-                Debug.Log("Party Fini");
-                EndGame = true;
+                else
+                {
+                    GameStart = true;
+                }
             }
-            
+            //else
+            {
+                //var evnt = DecompteStartEvent.Create(entity, EntityTargets.EveryoneExceptOwner);
+               // evnt.CurrentDecompte = this.currentTimerBeforeStart;
+               // evnt.GameStart = this.GameStart;
+              //  evnt.Send();
+            }
         }
+        
 
         //if (CurrentGuardianInLife <= 1)
         //{
@@ -187,7 +217,12 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
 
     private IEnumerator WaitToFindGuardians()
     {
-        yield return new WaitForSeconds(2f);
+        //yield return new WaitForSeconds(this.timerBeforeStartGame);
+        while (!GameStart)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+
         GuardiansInScene = FindObjectsOfType<Guardian>().ToList();
         GuardianSortByScore = FindObjectsOfType<Guardian>().ToList();
 
@@ -351,6 +386,12 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
         yield return new WaitForSeconds(this.timeSortScore);
         this.SortGuardianByScore();
         yield break;
+    }
+
+    public override void OnEvent(DecompteStartEvent evnt)
+    {
+        currentTimerBeforeStart = evnt.CurrentDecompte;
+        GameStart = evnt.GameStart;
     }
 
     //public void GuardianDie()
