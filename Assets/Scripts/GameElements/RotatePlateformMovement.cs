@@ -45,7 +45,7 @@ public class RotatePlateformMovement : Bolt.EntityEventListener<IMovementPlatefo
         //Debug.Log(angleRad);
         
         //Quaternion rotation = Quaternion.AngleAxis(angleRad, Vector3.up);
-
+        
         Quaternion rotation = Quaternion.FromToRotation(Vector3.forward, dirPerso);
 
         Vector3 dir = rotation * Vector3.right * speedToReach * this.dir;

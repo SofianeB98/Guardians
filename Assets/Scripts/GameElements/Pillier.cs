@@ -80,7 +80,7 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
 
     public override void SimulateOwner()
     {
-        if (rpm != null)
+        /*if (rpm != null)
         {
             if (anglePositionRecal > 999) this.anglePositionRecal = rpm.AngleToRotate(this.plateformPosition);
             //this.plateformPosition = rpm.FinalPos(anglePositionRecal, this.plateformPosition);
@@ -89,7 +89,7 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
         else
         {
             CheckPlateformMouvante();
-        }
+        }*/
 
         if (Time.time > this.currentDuration && state.IsScaling)
         {

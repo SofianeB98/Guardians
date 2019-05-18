@@ -95,6 +95,7 @@ public class Seed : Bolt.EntityEventListener<ISeedState>
             Pillier p = BoltNetwork.Instantiate(BoltPrefabs.PillieCube, this.transform.position - new Vector3(0, 0.4f, 0), this.pillierRotate).GetComponent<Pillier>();
             //p.transform.SetParent(hit.transform);
             p.Init(state.MyOwner, state.MyColor, this.currentDir, hit.point);
+            p.transform.SetParent(hit.transform);
             this.myGuardian.AddPillierToMyList(p);
             BoltNetwork.Destroy(this.gameObject);
         }
