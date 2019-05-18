@@ -126,6 +126,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     [SerializeField] private FMOD.Studio.EventInstance axeIsBack;
     
     [SerializeField] private GameObject bwok;
+    [SerializeField] private GameObject spike;
 
     public override void Attached()
     {
@@ -786,6 +787,10 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         if (this.state.GuardianName.Contains("Bwok"))
         {
             bwok.SetActive(state.ActiveEE);
+        }
+        else if (this.state.GuardianName.Contains("Spike"))
+        {
+            spike.SetActive(state.ActiveEE);
         }
         else
         {

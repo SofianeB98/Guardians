@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SofianeJumpData
   m_EditorClassIdentifier: 
   speedPerteSpeed: 0.5
-  jumpHeight: 8
+  jumpHeight: 10
   jumpTimeToReachMax: 0.3
   jumpBehaviour:
     serializedVersion: 2
@@ -21,25 +21,25 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 0.73646265
-      outSlope: 0.73646265
+      inSlope: 1.275772
+      outSlope: 1.275772
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.09120777
+      inWeight: 0
+      outWeight: 0.08863199
     - serializedVersion: 3
-      time: 3.0001502
-      value: 1.006522
-      inSlope: 0.09261888
-      outSlope: 0.09261888
+      time: 1
+      value: 0.8
+      inSlope: 0.17684275
+      outSlope: 0.17684275
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.09106856
-      outWeight: 0.33333334
+      inWeight: 0.107899785
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  doubleJumpHeight: 8
+  doubleJumpHeight: 10
   doubleJumpTimeToReachMax: 0.2
   doubleJumpBehaviour:
     serializedVersion: 2
@@ -47,21 +47,21 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 0.73646265
-      outSlope: 0.73646265
+      inSlope: 1.275772
+      outSlope: 1.275772
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.09120777
+      inWeight: 0
+      outWeight: 0.08863199
     - serializedVersion: 3
-      time: 3.0001502
-      value: 1.006522
-      inSlope: 0.09261888
-      outSlope: 0.09261888
+      time: 1
+      value: 0.8
+      inSlope: 0.17684275
+      outSlope: 0.17684275
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.09106856
-      outWeight: 0.33333334
+      inWeight: 0.107899785
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
