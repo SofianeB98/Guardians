@@ -14,54 +14,54 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speedPerteSpeed: 0.5
   jumpHeight: 4
-  jumpTimeToReachMax: 0.25
+  jumpTimeToReachMax: 0.3
   jumpBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.005554199
-      inSlope: 0.613074
-      outSlope: 0.613074
+      value: 0
+      inSlope: 0.73646265
+      outSlope: 0.73646265
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0
-      outWeight: 0.05984145
+      inWeight: 0.33333334
+      outWeight: 0.09120777
     - serializedVersion: 3
-      time: 5.971414
-      value: 1.5029279
-      inSlope: 0.01201176
-      outSlope: 0.01201176
+      time: 3.0001502
+      value: 1.006522
+      inSlope: 0.09261888
+      outSlope: 0.09261888
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.07795545
-      outWeight: 0
+      inWeight: 0.09106856
+      outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
   doubleJumpHeight: 4
-  doubleJumpTimeToReachMax: 0.25
+  doubleJumpTimeToReachMax: 0.2
   doubleJumpBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.005554199
-      inSlope: 0.613074
-      outSlope: 0.613074
+      value: 0
+      inSlope: 0.73646265
+      outSlope: 0.73646265
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0
-      outWeight: 0.05984145
+      inWeight: 0.33333334
+      outWeight: 0.09120777
     - serializedVersion: 3
-      time: 5.971414
-      value: 1.5029279
-      inSlope: 0.01201176
-      outSlope: 0.01201176
+      time: 3.0001502
+      value: 1.006522
+      inSlope: 0.09261888
+      outSlope: 0.09261888
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.07795545
-      outWeight: 0
+      inWeight: 0.09106856
+      outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4

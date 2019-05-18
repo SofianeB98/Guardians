@@ -7,7 +7,7 @@ public class RotatePlateformMovement : Bolt.EntityEventListener<IMovementPlatefo
 {
     [SerializeField] private Transform objectToRotate;
     [SerializeField] private bool canRotateObject = false;
-    
+    [SerializeField] [Range(-1,1)] private int dir = 1;
     [SerializeField] private float speed = 10f;
     private float speedToReach = 0f;
 
@@ -18,16 +18,13 @@ public class RotatePlateformMovement : Bolt.EntityEventListener<IMovementPlatefo
         {
             state.Rotation = this.transform.rotation;
         }
-
-        
-
     }
 
     public override void SimulateOwner()
     {
         //if (canRotateObject)
         {
-            this.transform.RotateAround(objectToRotate.position, Vector3.up, this.speed * BoltNetwork.FrameDeltaTime);
+            this.transform.RotateAround(objectToRotate.position, Vector3.up, this.speed * BoltNetwork.FrameDeltaTime * dir);
         }
         //else
         {
@@ -51,7 +48,7 @@ public class RotatePlateformMovement : Bolt.EntityEventListener<IMovementPlatefo
 
         Quaternion rotation = Quaternion.FromToRotation(Vector3.forward, dirPerso);
 
-        Vector3 dir = rotation * Vector3.right * speedToReach;
+        Vector3 dir = rotation * Vector3.right * speedToReach * this.dir;
 
         return dir; //this.transform.right * this.speedToReach;
     }
