@@ -2360,6 +2360,26 @@ PrefabInstance:
       propertyPath: _sceneGuid
       value: 6a329356-8510-45c9-97b6-46cfd0023320
       objectReference: {fileID: 0}
+    - target: {fileID: 1340695495321031621, guid: 94b5af2011b7e3d4e8eeaa162ad2b0b8,
+        type: 3}
+      propertyPath: _sceneGuid
+      value: 1332a8c8-8923-425c-aa8b-2e4d56ac9406
+      objectReference: {fileID: 0}
+    - target: {fileID: 3173420523822648165, guid: 94b5af2011b7e3d4e8eeaa162ad2b0b8,
+        type: 3}
+      propertyPath: _sceneGuid
+      value: f3d30593-d387-4f7f-b561-44ad4a40778b
+      objectReference: {fileID: 0}
+    - target: {fileID: 5784587192376601982, guid: 94b5af2011b7e3d4e8eeaa162ad2b0b8,
+        type: 3}
+      propertyPath: _sceneGuid
+      value: 5f060a79-9286-42ff-96ba-3d1231e9781a
+      objectReference: {fileID: 0}
+    - target: {fileID: 6325826494603589695, guid: 94b5af2011b7e3d4e8eeaa162ad2b0b8,
+        type: 3}
+      propertyPath: _sceneGuid
+      value: efc7d05d-1548-4c13-bdef-482e835e4ec4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 94b5af2011b7e3d4e8eeaa162ad2b0b8, type: 3}
 --- !u!4 &7559315997967558630 stripped

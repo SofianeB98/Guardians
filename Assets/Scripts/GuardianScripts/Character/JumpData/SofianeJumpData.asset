@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SofianeJumpData
   m_EditorClassIdentifier: 
   speedPerteSpeed: 1
-  jumpHeight: 5
+  jumpHeight: 6
   jumpTimeToReachMax: 0.25
   jumpBehaviour:
     serializedVersion: 2
@@ -39,14 +39,14 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  doubleJumpHeight: 5
+  doubleJumpHeight: 6
   doubleJumpTimeToReachMax: 0.25
   doubleJumpBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.1
       inSlope: 1.275772
       outSlope: 1.275772
       tangentMode: 0

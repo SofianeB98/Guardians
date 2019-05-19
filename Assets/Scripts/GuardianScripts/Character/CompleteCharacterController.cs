@@ -235,7 +235,7 @@ public class CompleteCharacterController : Bolt.EntityEventListener<IGuardianSta
 
 		    
 
-			this.jumpTimer = 0.0f;
+			this.jumpTimer = -1.00f;
 
 		    this.plateformeMouvanteDir = Vector3.zero;
 
@@ -254,7 +254,7 @@ public class CompleteCharacterController : Bolt.EntityEventListener<IGuardianSta
             this.doubleJumping = true;
             
 
-            this.jumpTimer = 0.0f;
+            //this.jumpTimer = 0.0f;
             this.doubleJumpTimer = 0.0f;
 
             this.plateformeMouvanteDir = Vector3.zero;
