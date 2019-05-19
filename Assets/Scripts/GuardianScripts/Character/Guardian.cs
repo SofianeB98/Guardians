@@ -679,7 +679,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     public void FusRoDa()
     {
         this.IsFusRoDah = true;
-
+        state.FusRoDa = true;
         var evnt = FusRoDaFBEvent.Create(entity);
         evnt.Rotation = this.cameraRef.rotation;
         evnt.Send();
@@ -762,11 +762,13 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         }
 
         
-        
+
     }
 
     IEnumerator CoolDownFus()
     {
+        yield return new WaitForSeconds(0.1f);
+        state.FusRoDa = false;
         yield return new WaitForSeconds(this.coolDownFus);
         this.IsFusRoDah = false;
         //SetCooldown();
