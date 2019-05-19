@@ -61,7 +61,7 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
         state.AddCallback("MyColor", ColorChanged);
     }
 
-    public void Init(BoltEntity ent, Color myOwnerColor, int dir, Vector3 point)
+    public void Init(BoltEntity ent, Color myOwnerColor, int dir, Vector3 point, Vector3 normal)
     {
         this.currentDir = dir;
         this.myOwner = ent;
@@ -74,6 +74,12 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
         }
 
         this.plateformPosition = point;
+
+        if (normal != Vector3.zero)
+        {
+            this.transform.rotation = Quaternion.FromToRotation(this.transform.up, normal);
+        }
+
         //CheckPlateformMouvante();
         //StartCoroutine(PositionActualliser());
     }
@@ -151,7 +157,8 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
 
     private void RotateLaser()
     {
-        this.transform.eulerAngles += Vector3.up * BoltNetwork.FrameDeltaTime * this.speedRotation * this.currentDir;
+        //this.transform.eulerAngles = this.transform.rotation * Vector3.up * BoltNetwork.FrameDeltaTime * this.speedRotation * this.currentDir;
+        this.transform.RotateAround(this.transform.position, this.transform.up, BoltNetwork.FrameDeltaTime * this.speedRotation * this.currentDir);
     }
 
     private void CheckPlateformMouvante()

@@ -22,6 +22,8 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
     [field: SerializeField] public bool GameStart = false;
     [SerializeField] private float timerBeforeStartGame = 3f;
     private float currentTimerBeforeStart = 0f;
+    [SerializeField] private GameObject compteurPreGamePanel;
+    [SerializeField] private TextMeshProUGUI compteurPreGameText;
     //[field:SerializeField] public int CurrentGuardianInLife { get; private set; }
 
     [Header("Score")]
@@ -54,6 +56,7 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
         EndGame = false;
         GameStart = false;
         this.currentTimerBeforeStart = this.timerBeforeStartGame;
+        this.compteurPreGamePanel.SetActive(true);
     }
 
     private void Update()
@@ -112,10 +115,13 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
                 if (currentTimerBeforeStart > 0)
                 {
                     this.currentTimerBeforeStart -= Time.deltaTime;
+                    this.compteurPreGameText.text =
+                        "Debut de partie dans \r\n" + this.currentTimerBeforeStart.ToString("0");
                 }
                 else
                 {
                     GameStart = true;
+                    this.compteurPreGamePanel.SetActive(false);
                 }
             }
             //else

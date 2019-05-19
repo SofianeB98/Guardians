@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using Bolt;
 using TMPro;
 using UnityEngine;
@@ -130,6 +131,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     
     [SerializeField] private GameObject bwok;
     [SerializeField] private GameObject spike;
+    [SerializeField] private GameObject bouc;
 
     public override void Attached()
     {
@@ -157,6 +159,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         state.AddCallback("GuardianName", PlayerName);
         state.AddCallback("Invinsible", InvinsibleCallBack);
 
+        state.AddCallback("BoucRot", RotateBoucCallBack);
         state.AddCallback("ActiveEE", ActiveEasterE);
 
         deathAudioMe = FMODUnity.RuntimeManager.CreateInstance(deathAudioMeEvent);
@@ -227,6 +230,8 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     public override void SimulateOwner()
     {
         state.Invinsible = this.IsInvinsible;
+
+        if(bouc.activeSelf) state.BoucRot *= Quaternion.AngleAxis(50 * Time.deltaTime, bouc.transform.up);
 
         if (GameSystem.GSystem.EndGame)
         {
@@ -686,7 +691,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
                 Vector3 direction = this.CameraRef.rotation * Vector3.forward;
                 
                 Collider[] guardianColliders = Physics.OverlapSphere(position, this.fusDetectionRadius, this.fusRoDahLayerMask);
-
+               
                 if (guardianColliders.Length > 0)
                 {
                     foreach (var guard in guardianColliders)
@@ -802,6 +807,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         {
             bwok.SetActive(state.ActiveEE);
             spike.SetActive(state.ActiveEE);
+            bouc.SetActive(state.ActiveEE);
         }
         else if (this.state.GuardianName.Contains("Bwok"))
         {
@@ -811,10 +817,19 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         {
             spike.SetActive(state.ActiveEE);
         }
+        else if (this.state.GuardianName.Contains("Ves"))
+        {
+            bouc.SetActive(state.ActiveEE);
+        }
         else
         {
             if(entity.IsOwner) state.ActiveEE = false;
         }
+    }
+
+    private void RotateBoucCallBack()
+    {
+        this.bouc.transform.rotation = state.BoucRot;
     }
 
     #endregion

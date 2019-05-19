@@ -67,7 +67,7 @@ public class Seed : Bolt.EntityEventListener<ISeedState>
     public override void SimulateOwner()
     {
         this.transform.position = this.rigid.position;
-        CheckGround();
+        //CheckGround();
     }
 
     private void OnCollisionEnter(Collision col)
@@ -84,6 +84,21 @@ public class Seed : Bolt.EntityEventListener<ISeedState>
                 this.rigid.isKinematic = true;
             }
         }
+        else
+        {
+            if (col.transform.tag.Contains(this.groundTag) && !col.transform.tag.Contains("PMouvante"))
+            {
+                Vector3 normal = col.contacts[0].normal;
+
+                Pillier p = BoltNetwork.Instantiate(BoltPrefabs.PillieCube, this.transform.position - new Vector3(0, 0.4f, 0), this.pillierRotate).GetComponent<Pillier>();
+                //p.transform.SetParent(hit.transform);
+                p.Init(state.MyOwner, state.MyColor, this.currentDir, col.contacts[0].point, normal);
+
+                this.myGuardian.AddPillierToMyList(p);
+                //BoltNetwork.Destroy(this.gameObject);
+                DestroyOnPickUp();
+            }
+        }
     }
 
     private void CheckGround()
@@ -94,7 +109,7 @@ public class Seed : Bolt.EntityEventListener<ISeedState>
         {
             Pillier p = BoltNetwork.Instantiate(BoltPrefabs.PillieCube, this.transform.position - new Vector3(0, 0.4f, 0), this.pillierRotate).GetComponent<Pillier>();
             //p.transform.SetParent(hit.transform);
-            p.Init(state.MyOwner, state.MyColor, this.currentDir, hit.point);
+            p.Init(state.MyOwner, state.MyColor, this.currentDir, hit.point, Vector3.zero);
 
             this.myGuardian.AddPillierToMyList(p);
             BoltNetwork.Destroy(this.gameObject);
@@ -103,20 +118,16 @@ public class Seed : Bolt.EntityEventListener<ISeedState>
 
     public void DestroyOnPickUp()
     {
-        if (entity.IsAttached)
+        if (entity.IsOwner)
         {
-            if (entity.IsOwner)
-            {
-                BoltNetwork.Destroy(this.gameObject);
-            }
-            else
-            {
-                var evnt = DestroyEvent.Create(state.MyOwner, EntityTargets.Everyone);
-                evnt.EntityDestroy = entity;
-                evnt.Send();
-            }
+            BoltNetwork.Destroy(this.gameObject);
         }
-        
+        else
+        {
+            var evnt = DestroyEvent.Create(state.MyOwner, EntityTargets.Everyone);
+            evnt.EntityDestroy = entity;
+            evnt.Send();
+        }
     }
     
 }
