@@ -28,6 +28,9 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     private int currentIndexKillSeries = 0;
     [SerializeField] private int everyXKillIWinMedal = 5;
 
+    [Header("Renderer")]
+    [SerializeField] private Renderer[] renderersAvatar;
+
     [Header("Player Stats")]
     [SerializeField] private float health = 100f;
     //[field: SerializeField] public int Life { get; private set; }
@@ -458,8 +461,12 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
 
     public override void OnEvent(CooldownEvent evnt)
     {
-        this.IsCooldown = true;
-        this.currentCooldownLaunchSeed = Time.time + evnt.Durantion;
+        if (!this.IsCooldown)
+        {
+            this.IsCooldown = true;
+            this.currentCooldownLaunchSeed = Time.time + evnt.Durantion;
+        }
+        
     }
 
     private void Respawn()
@@ -478,7 +485,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         {
             state.MyColor = lastColor;
         }
-
+        
         this.lastGuardianWhoHitMe = null;
         var spawnPosition = RespawnPoint();
 
@@ -598,7 +605,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
 
     public void LaunchSeed()
     {
-        //if (this.currentPillier < this.maxPillier)
+        if (this.currentPillier < this.maxPillier)
         {
             this.IsPreLaunchSeed = false;
             //if (this.currentInventorySeed > 0)
@@ -609,6 +616,8 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
                 s.InitVelocity(this.forceLaunch, this.dirLaunch);
 
                 this.seedReadyImage.color = Color.red;
+
+                this.currentPillier = this.currentPillier < this.maxPillier ? this.currentPillier + 1 : this.maxPillier;
 
                 var evnt = AudioStartEvent.Create(entity);
                 evnt.Position = transform.position;
@@ -630,7 +639,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         //if (this.CurrentPillier < this.maxPillier)
         //{
         this.myPillier.Add(pillierToAdd);
-        this.currentPillier = this.currentPillier < this.maxPillier ? this.currentPillier + 1 : this.maxPillier;
+        
         if (this.myPillier.Count > this.maxPillier)
             {
                 Destroy(this.myPillier[0].gameObject);
@@ -644,7 +653,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         this.myPillier.Remove(pToRemove);
         this.currentPillier = this.currentPillier > 0 ? this.currentPillier - 1 : 0;
     }
-
+    
     public void ChangePillierDir()
     {
         if (this.currentDir == 1)
@@ -789,7 +798,12 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
 
     private void ActiveEasterE()
     {
-        if (this.state.GuardianName.Contains("Bwok"))
+        if (this.state.GuardianName.Contains("Captain") || this.state.GuardianName.Contains("Dreaa") || this.state.GuardianName.Contains("Slenzy"))
+        {
+            bwok.SetActive(state.ActiveEE);
+            spike.SetActive(state.ActiveEE);
+        }
+        else if (this.state.GuardianName.Contains("Bwok"))
         {
             bwok.SetActive(state.ActiveEE);
         }
@@ -807,6 +821,8 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
 
     public void UpdateScore(bool isMe, string message, bool killLaser)
     {
+        if (killLaser) this.currentPillier = this.currentPillier > 0 ? this.currentPillier - 1 : 0;
+
         var evnt = UpdateScoreEvent.Create(entity);
         evnt.IsMe = isMe;
         evnt.Message = message;
@@ -822,6 +838,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
             this.currentKill++;
             this.CurrentSerieKill++;
 
+            
             int score = evnt.KillLaser ? 10 : 10;
 
             this.CurrentScore += score;
@@ -861,6 +878,12 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
 
     void ColorChanged()
     {
+        foreach (var rd in renderersAvatar)
+        {
+            rd.material.SetColor("_EmissionColor", state.MyColor);
+        }
+
+
         //GetComponent<Renderer>().material.color = state.MyColor;
     }
 

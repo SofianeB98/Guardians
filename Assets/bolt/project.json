@@ -385,6 +385,7 @@
             "_ExtrapolationCorrectionFrames": 6,
             "ExtrapolationMaxFrames": 9,
             "MecanimMode": 1,
+            "MecanimDirection": 1,
             "SnapMagnitude": 10.0
           }
         },
@@ -428,6 +429,7 @@
             "_ExtrapolationCorrectionFrames": 6,
             "ExtrapolationMaxFrames": 9,
             "MecanimMode": 1,
+            "MecanimDirection": 1,
             "SnapMagnitude": 10.0
           }
         },
@@ -762,7 +764,6 @@
         {
           "Name": "xInput",
           "Enabled": true,
-          "Expanded": true,
           "Priority": 1,
           "PropertyType": {
             "$type": "Bolt.Compiler.PropertyTypeFloat, bolt.compiler",
@@ -790,7 +791,6 @@
         {
           "Name": "yInput",
           "Enabled": true,
-          "Expanded": true,
           "Priority": 1,
           "PropertyType": {
             "$type": "Bolt.Compiler.PropertyTypeFloat, bolt.compiler",
@@ -812,6 +812,40 @@
             "MecanimMode": 1,
             "MecanimDirection": 1,
             "MecanimDamping": 0.1,
+            "SnapMagnitude": 10.0
+          }
+        },
+        {
+          "Name": "Jumping",
+          "Enabled": true,
+          "Priority": 1,
+          "PropertyType": {
+            "$type": "Bolt.Compiler.PropertyTypeBool, bolt.compiler"
+          },
+          "AssetSettings": {
+            "$type": "Bolt.Compiler.PropertyStateSettings, bolt.compiler",
+            "ExtrapolationErrorTolerance": 0.25,
+            "_ExtrapolationCorrectionFrames": 6,
+            "ExtrapolationMaxFrames": 9,
+            "MecanimMode": 1,
+            "MecanimDirection": 1,
+            "SnapMagnitude": 10.0
+          }
+        },
+        {
+          "Name": "Grounded",
+          "Enabled": true,
+          "Priority": 1,
+          "PropertyType": {
+            "$type": "Bolt.Compiler.PropertyTypeBool, bolt.compiler"
+          },
+          "AssetSettings": {
+            "$type": "Bolt.Compiler.PropertyStateSettings, bolt.compiler",
+            "ExtrapolationErrorTolerance": 0.25,
+            "_ExtrapolationCorrectionFrames": 6,
+            "ExtrapolationMaxFrames": 9,
+            "MecanimMode": 1,
+            "MecanimDirection": 1,
             "SnapMagnitude": 10.0
           }
         }

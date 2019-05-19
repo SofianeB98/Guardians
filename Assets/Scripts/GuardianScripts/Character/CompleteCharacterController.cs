@@ -99,6 +99,10 @@ public class CompleteCharacterController : Bolt.EntityEventListener<IGuardianSta
         {
             this.DetectGround();
             this.UpdateGravity();
+
+            state.Jumping = this.jumping;
+            state.Grounded = this.grounded;
+
             this.finalDirection = this.direction + this.gravity + this.plateformeMouvanteDir;
             
             this.characterController.Move(this.finalDirection * Time.deltaTime);
@@ -228,7 +232,9 @@ public class CompleteCharacterController : Bolt.EntityEventListener<IGuardianSta
 
 		    this.doubleJumping = false;
             this.jumping = true;
+
 		    
+
 			this.jumpTimer = 0.0f;
 
 		    this.plateformeMouvanteDir = Vector3.zero;
@@ -246,6 +252,8 @@ public class CompleteCharacterController : Bolt.EntityEventListener<IGuardianSta
         {
             this.jumping = true;
             this.doubleJumping = true;
+            
+
             this.jumpTimer = 0.0f;
             this.doubleJumpTimer = 0.0f;
 
