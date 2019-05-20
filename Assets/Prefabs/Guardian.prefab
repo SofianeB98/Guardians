@@ -276,8 +276,12 @@ MonoBehaviour:
   winPointPanel: {fileID: 1145}
   killSeries:
   - {fileID: 536404274239884089, guid: 02972b3882dd2f14eb8d5d1687c6d9cf, type: 3}
+  - {fileID: 5539576358832217434, guid: 1ec81111a951a5440b1c5438baaa7251, type: 3}
+  - {fileID: 5539576358832217434, guid: a30beaf9353b2204cbf7c53433f8b52c, type: 3}
+  - {fileID: 5539576358832217434, guid: f08b800e384f2e44c80f7758f5ed637e, type: 3}
   - {fileID: 8287940548974856136, guid: 3cc54dd5216ba8e49bfb7907a8ffe13b, type: 3}
-  - {fileID: 8430700903237642585, guid: 3a0c13b8574c2774488484bde3edf97d, type: 3}
+  - {fileID: 5539576358832217434, guid: 06dbc99d443858e418cc7885f5084095, type: 3}
+  - {fileID: 5539576358832217434, guid: 70810ce45b0ff7d408148f5c0b3bbedf, type: 3}
   everyXKillIWinMedal: 2
   renderersAvatar:
   - {fileID: 1672133048901585809}
@@ -4435,19 +4439,19 @@ PrefabInstance:
     - target: {fileID: 13700000, guid: 47fbeaf61b4c76549984eef944e80406, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: ea72dd05e82528441ad17ee86f91b5ce, type: 2}
+      objectReference: {fileID: 2100000, guid: 2b29d8c7f6340d445af61801d15f75b8, type: 2}
     - target: {fileID: 13700002, guid: 47fbeaf61b4c76549984eef944e80406, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: d69c43de780a13c4fb8fc216cdec975b, type: 2}
+      objectReference: {fileID: 2100000, guid: d0123f49a89123548a3765de79195f1f, type: 2}
     - target: {fileID: 13700004, guid: 47fbeaf61b4c76549984eef944e80406, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 89875d5a6f33eb84e9b2c5be314167bf, type: 2}
+      objectReference: {fileID: 2100000, guid: 9f8ce614915caf746994669a7c89d145, type: 2}
     - target: {fileID: 13700006, guid: 47fbeaf61b4c76549984eef944e80406, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 2439b08af612cd34790094dc3caf0edd, type: 2}
+      objectReference: {fileID: 2100000, guid: e9c48cb5b808ba24f9b40cc12b428ef2, type: 2}
     - target: {fileID: 9500000, guid: 47fbeaf61b4c76549984eef944e80406, type: 3}
       propertyPath: m_Controller
       value: 

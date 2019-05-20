@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ReplicantCorps
-  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+  m_Name: ReplicantBrasToon
+  m_Shader: {fileID: 4800000, guid: 1ca37bf2c3d89a74b9880e17c2f3e6a6, type: 3}
   m_ShaderKeywords: _EMISSION _METALLICGLOSSMAP _NORMALMAP _USEEMISSIVE_ON _USELIGHT_ON
     _USENORMAL_ON _USEOUTLINE_ON _USERIM_ON _USETRANSPARENCYOUTLINE_ON
   m_LightmapFlags: 1
@@ -49,11 +49,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissiveTex:
-        m_Texture: {fileID: 2800000, guid: 55d7dbc7689cac14199f464828ca59e8, type: 3}
+        m_Texture: {fileID: 2800000, guid: d5d43be64d18ead4a8141dca900a99f7, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 4fc7fe910efe63b48ae97b5d4fa71227, type: 3}
+        m_Texture: {fileID: 2800000, guid: 2185d390ad5b8c04bb5086b549a57b31, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -61,7 +61,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
-        m_Texture: {fileID: 2800000, guid: 9aa07b49e97b90344ad888f0eb1b1856, type: 3}
+        m_Texture: {fileID: 2800000, guid: 39aae3cf48f7b6146bcc89d7baae5c1b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:

@@ -1,0 +1,6 @@
+
+1) Le "T" à la fin du nom du shader signifie que c'est la version qui gère la transparence.
+
+2) Les shaders sont rangés dans "Custom/Outlined/NomDuShader".
+
+3) Si vous observez une erreur, ou un résultat vraiment inattendu, vous me prévenez.

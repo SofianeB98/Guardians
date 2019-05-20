@@ -4,6 +4,7 @@ using System.ComponentModel;
 using Bolt;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
 public class Guardian : Bolt.EntityEventListener<IGuardianState>
@@ -28,6 +29,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     [SerializeField] private GameObject[] killSeries;
     private int currentIndexKillSeries = 0;
     [SerializeField] private int everyXKillIWinMedal = 5;
+    private int scoreAdditionel = 0;
 
     [Header("Renderer")]
     [SerializeField] private Renderer[] renderersAvatar;
@@ -498,6 +500,8 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
 
         this.transform.position = spawnPosition;
 
+        this.scoreAdditionel = 0;
+
         IsDie = false;
     }
 
@@ -838,12 +842,13 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
 
     public void UpdateScore(bool isMe, string message, bool killLaser)
     {
-        if (killLaser) this.currentPillier = this.currentPillier > 0 ? this.currentPillier - 1 : 0;
+        if (killLaser && !isMe) this.currentPillier = this.currentPillier > 0 ? this.currentPillier - 1 : 0;
 
         var evnt = UpdateScoreEvent.Create(entity);
         evnt.IsMe = isMe;
         evnt.Message = message;
         evnt.KillLaser = killLaser;
+        evnt.ScoreAdd = this.scoreAdditionel;
         evnt.Send();
         
     }
@@ -857,6 +862,10 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
 
             
             int score = evnt.KillLaser ? 10 : 10;
+            
+
+
+            score = score + evnt.ScoreAdd;
 
             this.CurrentScore += score;
             if (entity.IsOwner)
@@ -867,12 +876,21 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
                 go.GetComponent<TextMeshProUGUI>().color = Color.yellow;
                 Destroy(go, 1f);
 
-                if (this.CurrentSerieKill % this.everyXKillIWinMedal == 0)
+                if (this.CurrentSerieKill % this.everyXKillIWinMedal == 0 && this.CurrentSerieKill <= this.everyXKillIWinMedal * 6)
                 {
+                    this.scoreAdditionel = this.CurrentSerieKill <= this.everyXKillIWinMedal * 6 ? this.CurrentSerieKill : 20;
                     GameObject serie = Instantiate(killSeries[this.currentIndexKillSeries], this.myCanvas.transform);
                     Destroy(serie, 1.5f);
                     this.currentIndexKillSeries = this.currentIndexKillSeries+1 < killSeries.Length ? this.currentIndexKillSeries+1 : killSeries
                         .Length - 1;
+                }
+                else if(this.CurrentSerieKill > this.everyXKillIWinMedal * 6)
+                {
+                    this.scoreAdditionel = this.CurrentSerieKill <= this.everyXKillIWinMedal * 6 ? this.CurrentSerieKill : 20;
+                    GameObject serie = Instantiate(killSeries[this.currentIndexKillSeries], this.myCanvas.transform);
+                    Destroy(serie, 1.5f);
+                    this.currentIndexKillSeries = this.currentIndexKillSeries + 1 < killSeries.Length ? this.currentIndexKillSeries + 1 : killSeries
+                                                                                                                                              .Length - 1;
                 }
             }
 
@@ -897,7 +915,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     {
         foreach (var rd in renderersAvatar)
         {
-            rd.material.SetColor("_EmissionColor", state.MyColor);
+            rd.material.SetColor("_ColorEmissive", state.MyColor);
         }
 
 
