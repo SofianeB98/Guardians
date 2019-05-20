@@ -10,6 +10,7 @@
         [Toggle] _UseEmissive("Use Emissive", Float) = 0
         _EmissiveTex ("EmissiveTex", 2D) = "white" {}
         [HDR] _ColorEmissive ("Color Emissive", Color) = (1,1,1,1)
+        _EmissiveIntensity ("Intensity", Range(0,20)) = 1
         _RangeEmissive ("Range alpha missive", Range(0,2)) = 0.5
         
         [Header(Light Properties)]
@@ -94,6 +95,7 @@
             sampler2D _EmissiveTex;
             uniform float _UseEmissive;
             uniform float4 _ColorEmissive;
+            uniform float _EmissiveIntensity;
             uniform float _RangeEmissive;
 
             //Outline
@@ -232,12 +234,12 @@
 
             //Emissive 
             fixed4 emissive = tex2D(_EmissiveTex, i.uv);
-            emissive.rgb *= _ColorEmissive.rgb;
+            emissive.rgb *= _ColorEmissive.rgb * _EmissiveIntensity;
 
 
                 if (emissive.a >= _RangeEmissive && _UseEmissive == 1) //Filtre de la texture emissive via l'alpha
                 {
-                    return col *(_AmbientColor + diffuse + specular + rim + emissive);
+                    return emissive;
                 }
                 else
                 {

@@ -20,6 +20,8 @@
         [Toggle] _UseEmissive("Use Emissive", Float) = 1
         _EmissiveMap("Emissive map", 2D) = "white" {}
         [HDR] _ColorEmissive ("Emissive Color", Color) = (1,1,1,1)
+        _EmissiveIntensity ("Intensity", Range(0,20)) = 1
+
 
         [Header(Outline properties)]
         [Toggle] _UseOutline ("Use Outline", Float) = 1
@@ -51,6 +53,7 @@
     fixed4 _Color;
     fixed4 _ColorEmissive;
     uint _UseEmissive;
+    uniform float _EmissiveIntensity;
     float _NormalIntensity;   
     uint _UseNormal;
     ENDCG
@@ -123,7 +126,7 @@
             //EMISSIVE
             if(_UseEmissive == 1)
             {
-                o.Emission = tex2D(_EmissiveMap, IN.uv_MainTex) * _ColorEmissive;
+                o.Emission = tex2D(_EmissiveMap, IN.uv_MainTex) * _ColorEmissive *_EmissiveIntensity;
             }
         }
         ENDCG

@@ -108,31 +108,39 @@ public class CharacterInputDetector : Bolt.EntityBehaviour<IGuardianState>
 
                 if (this.guardian != null)
                 {
-                    if (this.guardian.PillierReadyToLaunch)
+
+                    if (Input.GetButtonDown(InputName.LancerDeHache))
                     {
-                        if (Input.GetButtonDown(InputName.LancerDeHache))
+                        if (this.guardian.PillierReadyToLaunch)
                         {
                             this.guardian.SetupLaunchSeed();
-                            this.viseurSeed.SetActive(true);
-                            this.viseurStandard.SetActive(false);
                         }
+                        this.viseurSeed.SetActive(true);
+                        this.viseurStandard.SetActive(false);
+                    }
 
-                        if (Input.GetButton(InputName.LancerDeHache))
+                    if (Input.GetButton(InputName.LancerDeHache))
+                    {
+                        if (this.guardian.PillierReadyToLaunch)
                         {
                             this.guardian.SetupLaunchSeed();
-                            this.viseurSeed.SetActive(true);
-                            this.viseurStandard.SetActive(false);
                         }
+                        
+                        this.viseurSeed.SetActive(true);
+                        this.viseurStandard.SetActive(false);
+                    }
 
-                        if (Input.GetButtonUp(InputName.LancerDeHache))
+                    if (Input.GetButtonUp(InputName.LancerDeHache))
+                    {
+                        if (this.guardian.PillierReadyToLaunch)
                         {
                             this.guardian.LaunchSeed();
                             this.guardian.SetCooldown();
-
-                            this.viseurSeed.SetActive(false);
-                            this.viseurStandard.SetActive(true);
                         }
+                        this.viseurSeed.SetActive(false);
+                        this.viseurStandard.SetActive(true);
                     }
+                    
                     /*if (Input.GetAxis(InputName.ChangeSeedSelection) != 0f && !this.seedInput)
                     {
                         this.guardian.ChangePillierDir();

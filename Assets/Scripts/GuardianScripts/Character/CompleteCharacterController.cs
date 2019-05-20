@@ -14,7 +14,7 @@ public class CompleteCharacterController : Bolt.EntityEventListener<IGuardianSta
 	private Vector3 gravity = Vector3.zero;
 	private Vector3 finalDirection = Vector3.zero;
 	[SerializeField] private Transform cameraReferential;
-	[SerializeField] [Range(1,15)] private float speed = 10;
+	[SerializeField] [Range(1,25)] private float speed = 10;
     [SerializeField] private LayerMask groundLayerMask;
 	private Vector3 groundPosition;
 	private bool groundDetected;

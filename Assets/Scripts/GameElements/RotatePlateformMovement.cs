@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class RotatePlateformMovement : Bolt.EntityEventListener<IMovementPlateformState>
 {
+    [SerializeField] private Transform startPointAngle;
     [SerializeField] private Transform objectToRotate;
     [SerializeField] private bool canRotateObject = false;
     [SerializeField] [Range(-1,1)] private int dir = 1;
@@ -57,7 +58,7 @@ public class RotatePlateformMovement : Bolt.EntityEventListener<IMovementPlatefo
     {
         Vector3 centre = objectToRotate.position;
         
-        Vector3 initDir = this.transform.position - centre;
+        Vector3 initDir = this.startPointAngle.position - centre;
         initDir = initDir.normalized;
 
         Vector3 focusDir = (pos - centre).normalized;
@@ -73,7 +74,7 @@ public class RotatePlateformMovement : Bolt.EntityEventListener<IMovementPlatefo
         var angle = acos * 180 / Mathf.PI;
         //Congrats, you made it really hard on yourself.
 
-        angle = initDir.x > focusDir.x ? angle * -1 : angle *1;
+        //angle = initDir.x > focusDir.x ? angle * -1 : angle *1;
 
         //print(angle);
         
@@ -83,11 +84,11 @@ public class RotatePlateformMovement : Bolt.EntityEventListener<IMovementPlatefo
     public Vector3 FinalPos(float angle, Vector3 pos)
     {
         Vector3 centre = objectToRotate.position;
-        centre.y = this.transform.position.y;
+        centre.y = this.startPointAngle.position.y;
 
         Quaternion rot = Quaternion.AngleAxis(angle, Vector3.up);
 
-        Vector3 initDir = this.transform.position - centre;
+        Vector3 initDir = this.startPointAngle.position - centre;
         initDir = initDir.normalized;
 
         centre.y = pos.y;

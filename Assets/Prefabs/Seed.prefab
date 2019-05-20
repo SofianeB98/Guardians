@@ -132,6 +132,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4096
   trailRenderer: {fileID: 1014}
+  videLayerMask:
+    serializedVersion: 2
+    m_Bits: 16384
   collisionObstacleEvent: "event:/Feedbacks Objets/Collision de balle (d\xE9cor)"
 --- !u!114 &1172
 MonoBehaviour:

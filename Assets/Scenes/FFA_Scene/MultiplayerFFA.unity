@@ -1045,6 +1045,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: LD2_UnrealArenaTrue
       objectReference: {fileID: 0}
+    - target: {fileID: 759929949876360005, guid: fc7c5e46c11254d48adcd0b74dfbdcc9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 800398469, guid: fc7c5e46c11254d48adcd0b74dfbdcc9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2200,11 +2205,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: VortexLevel
-      objectReference: {fileID: 0}
-    - target: {fileID: 342855533167167723, guid: acbf849d81aceda408de72287d505084,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 342855533167167720, guid: acbf849d81aceda408de72287d505084,
         type: 3}

@@ -68,6 +68,9 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     [SerializeField] private LayerMask fusIgnoreLayerMask;
     public bool IsFusRoDah { get; private set; }
     [SerializeField] private ParticleSystem fusRoDaFeedback;
+    [SerializeField] private TextMeshProUGUI pushDispoText;
+    [SerializeField] private Image pushDispoImage;
+    [SerializeField] private Image pushDispoViseur;
 
     [Header("Axe Launch")]
     [SerializeField] private Axe myAxe;
@@ -102,15 +105,16 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     [SerializeField] private bool destroyAllPillierwhenIDie = true;
     [SerializeField] private Transform myHand;
     [SerializeField] private Image seedReadyImage;
+    [SerializeField] private Image[] seedReadyImagesViseur;
     private int currentDir = 1;
     [SerializeField] private float cooldownLaunchSeed = 5f;
     private float currentCooldownLaunchSeed = 0f;
     public bool IsCooldown { get; private set; }
 
-    [Header("Pillier Sens")]
+    /*[Header("Pillier Sens")]
     [SerializeField] private Image sensPillierImage;
     [SerializeField] private Sprite sensHoraireSprite;
-    [SerializeField] private Sprite sensAntiHoraireSprite;
+    [SerializeField] private Sprite sensAntiHoraireSprite;*/
 
     [Header("Guardian Enemy")]
     [SerializeField] private Guardian lastGuardianWhoHitMe = null;
@@ -178,6 +182,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         if (entity.IsOwner)
         {
             GameSystem.GSystem.AssignCamToWorldCanvas(this.cameraRef.GetComponent<Camera>(), this);
+            this.pushDispoViseur.color = Color.blue;
         }
     }
 
@@ -201,17 +206,25 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
             this.IsStuned = false;
         }
 
-        if (this.currentCooldownLaunchSeed < Time.time)
+        /*if (this.currentCooldownLaunchSeed < Time.time)
         {
             this.IsCooldown = false;
+            this.currentPillier = this.currentPillier > 0 ? this.currentPillier - 1 : 0;
+            this.seedReadyImagesViseur[this.currentPillier].color = Color.green;
+
             if (currentPillier > 0)
             {
-                this.currentPillier = this.currentPillier > 0 ? this.currentPillier - 1 : 0;
                 this.SetCooldown();
                 this.seedReadyImage.color = this.currentPillier > 0 ? Color.red : Color.green;
             }
         }
         else
+        {
+            this.seedReadyImage.color = Color.Lerp(this.seedReadyImage.color, Color.green,
+                Time.deltaTime / this.cooldownLaunchSeed);
+        }*/
+
+        if (this.currentPillier > 0)
         {
             this.seedReadyImage.color = Color.Lerp(this.seedReadyImage.color, Color.green,
                 Time.deltaTime / this.cooldownLaunchSeed);
@@ -393,9 +406,34 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     
     public void SetCooldown()
     {
-        var coolD = CooldownEvent.Create(entity, EntityTargets.OnlySelf);
+        /*var coolD = CooldownEvent.Create(entity, EntityTargets.OnlySelf);
         coolD.Durantion = this.cooldownLaunchSeed;
-        coolD.Send();
+        coolD.Send();*/
+        if (!this.IsCooldown)
+        {
+            this.IsCooldown = true;
+            StartCoroutine(SeedCooldown());
+        }
+    }
+
+    IEnumerator SeedCooldown()
+    {
+        yield return new WaitForSeconds(this.cooldownLaunchSeed);
+        this.currentPillier = this.currentPillier > 0 ? this.currentPillier - 1 : 0;
+        this.seedReadyImagesViseur[this.currentPillier].color = Color.green;
+
+        if (currentPillier > 0)
+        {
+            this.seedReadyImage.color = Color.red;
+            StartCoroutine(SeedCooldown());
+        }
+        else
+        {
+            this.seedReadyImage.color = Color.green;
+            this.IsCooldown = false;
+        }
+
+        yield break;
     }
 
     public override void OnEvent(TakeDamageEvent evnt)
@@ -473,7 +511,6 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
             this.IsCooldown = true;
             this.currentCooldownLaunchSeed = Time.time + evnt.Durantion;
         }
-        
     }
 
     private void Respawn()
@@ -485,9 +522,19 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
                 BoltNetwork.Destroy(pillier.gameObject);
             }
             this.myPillier = new List<Pillier>();
-            this.currentPillier = 0;
-        }
 
+            foreach (var seedOk in this.seedReadyImagesViseur)
+            {
+                seedOk.color = Color.green;
+            }
+
+            this.currentPillier = 0;
+            this.seedReadyImage.color = Color.green;
+            this.currentCooldownLaunchSeed = Time.time + 1;
+            this.IsCooldown = false;
+            
+        }
+        
         if (entity.IsOwner)
         {
             state.MyColor = lastColor;
@@ -501,7 +548,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         this.transform.position = spawnPosition;
 
         this.scoreAdditionel = 0;
-
+        StopAllCoroutines();
         IsDie = false;
     }
 
@@ -628,6 +675,8 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
 
                 this.currentPillier = this.currentPillier < this.maxPillier ? this.currentPillier + 1 : this.maxPillier;
 
+                this.seedReadyImagesViseur[this.currentPillier - 1].color = Color.red;
+
                 var evnt = AudioStartEvent.Create(entity);
                 evnt.Position = transform.position;
                 evnt.AudioID = 1;
@@ -662,18 +711,24 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         this.myPillier.Remove(pToRemove);
         this.currentPillier = this.currentPillier > 0 ? this.currentPillier - 1 : 0;
     }
-    
+
+    public void SeedLostInSpace()
+    {
+        this.currentPillier = this.currentPillier > 0 ? this.currentPillier - 1 : 0;
+        this.seedReadyImagesViseur[this.currentPillier].color = Color.green;
+    }
+
     public void ChangePillierDir()
     {
         if (this.currentDir == 1)
         {
             this.currentDir = -1;
-            this.sensPillierImage.sprite = this.sensAntiHoraireSprite;
+            //this.sensPillierImage.sprite = this.sensAntiHoraireSprite;
         }
         else
         {
             this.currentDir = 1;
-            this.sensPillierImage.sprite = this.sensHoraireSprite;
+            //this.sensPillierImage.sprite = this.sensHoraireSprite;
         }
     }
     #endregion
@@ -771,10 +826,17 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
 
     IEnumerator CoolDownFus()
     {
+        this.pushDispoImage.color = Color.red;
+        this.pushDispoViseur.color = Color.red;
+        this.pushDispoText.text = "x0";
         yield return new WaitForSeconds(0.1f);
         state.FusRoDa = false;
+        this.pushDispoImage.color = Color.Lerp(this.pushDispoImage.color, Color.blue, Time.deltaTime);
         yield return new WaitForSeconds(this.coolDownFus);
         this.IsFusRoDah = false;
+        this.pushDispoText.text = "x1";
+        this.pushDispoImage.color = Color.blue;
+        this.pushDispoViseur.color = Color.blue;
         //SetCooldown();
         yield break;
     }
@@ -915,7 +977,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     {
         foreach (var rd in renderersAvatar)
         {
-            rd.material.SetColor("_ColorEmissive", state.MyColor);
+            rd.material.SetColor("_EmissionColor", state.MyColor);
         }
 
 

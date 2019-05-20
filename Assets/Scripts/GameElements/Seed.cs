@@ -16,6 +16,7 @@ public class Seed : Bolt.EntityEventListener<ISeedState>
     [SerializeField] private LayerMask groundLayerMask;
     [SerializeField] private TrailRenderer trailRenderer;
     private int currentDir = 1;
+    [SerializeField] private LayerMask videLayerMask;
 
     //Son
     [FMODUnity.EventRef]
@@ -67,6 +68,7 @@ public class Seed : Bolt.EntityEventListener<ISeedState>
     public override void SimulateOwner()
     {
         this.transform.position = this.rigid.position;
+        CheckVide();
         //CheckGround();
     }
 
@@ -98,6 +100,10 @@ public class Seed : Bolt.EntityEventListener<ISeedState>
                 //BoltNetwork.Destroy(this.gameObject);
                 DestroyOnPickUp();
             }
+            else if (col.transform.tag.Contains("PMouvante"))
+            {
+                CheckGround();
+            }
         }
     }
 
@@ -112,7 +118,8 @@ public class Seed : Bolt.EntityEventListener<ISeedState>
             p.Init(state.MyOwner, state.MyColor, this.currentDir, hit.point, Vector3.zero);
 
             this.myGuardian.AddPillierToMyList(p);
-            BoltNetwork.Destroy(this.gameObject);
+            //BoltNetwork.Destroy(this.gameObject);
+            DestroyOnPickUp();
         }
     }
 
@@ -129,5 +136,20 @@ public class Seed : Bolt.EntityEventListener<ISeedState>
             evnt.Send();
         }
     }
-    
+
+    public void CheckVide()
+    {
+        //if (this.currentInventorySeed < this.maxSeedInInventory)
+        {
+            Collider[] col = Physics.OverlapSphere(this.transform.position, 1f, this.videLayerMask);
+
+            if (col.Length > 0)
+            {
+                this.myGuardian.SeedLostInSpace();
+                DestroyOnPickUp();
+            }
+        }
+
+    }
+
 }
