@@ -21,15 +21,7 @@ public class NetworkCallbacks : Bolt.GlobalEventListener
         SpawnPointsTransforms = GameObject.FindGameObjectsWithTag("Spawn");
 
         // randomize a position
-        int index = team < SpawnPointsTransforms.Length ? team : team - SpawnPointsTransforms.Length;
-        index = index < SpawnPointsTransforms.Length ? index : index - SpawnPointsTransforms.Length;
-        index = index < SpawnPointsTransforms.Length ? index : index - SpawnPointsTransforms.Length;
-        index = index < SpawnPointsTransforms.Length ? index : index - SpawnPointsTransforms.Length;
-
-        var spawnPosition = SpawnPointsTransforms[index].transform.position + Vector3.up * 2;
-
-        // instantiate guardian
-        BoltEntity go = BoltNetwork.Instantiate(BoltPrefabs.Guardian, spawnPosition , Quaternion.identity);
+        
         UpdateTeam();
     }
 
@@ -38,6 +30,16 @@ public class NetworkCallbacks : Bolt.GlobalEventListener
         if (team < 20)
         {
             team++;
+
+            int index = team < SpawnPointsTransforms.Length ? team : team - SpawnPointsTransforms.Length;
+            index = index < SpawnPointsTransforms.Length ? index : index - SpawnPointsTransforms.Length;
+            index = index < SpawnPointsTransforms.Length ? index : index - SpawnPointsTransforms.Length;
+            index = index < SpawnPointsTransforms.Length ? index : index - SpawnPointsTransforms.Length;
+
+            var spawnPosition = SpawnPointsTransforms[index].transform.position + Vector3.up * 2;
+
+            // instantiate guardian
+            BoltEntity go = BoltNetwork.Instantiate(BoltPrefabs.Guardian, spawnPosition, Quaternion.identity);
         }
     }
 

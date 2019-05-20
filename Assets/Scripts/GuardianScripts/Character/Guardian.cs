@@ -56,8 +56,10 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
 
     [Header("Fus Ro Dah")]
     [SerializeField] private FusRoDaMode mode = FusRoDaMode.Cone;
+    [SerializeField] private Transform startPointFus;
     [SerializeField] private float coolDownFus = 0.5f;
     [SerializeField] private float distanceCheck = 10.0f;
+    private float finalDistance = 0f;
     [SerializeField] [Range(1.0f, 7.0f)] private float diviseurDistance = 1.0f;
     [SerializeField] private float fusDetectionRadius = 50.0f;
     [SerializeField] [Range(0.0f,90.0f)] private float angleMaxToCheckCone = 45.0f;
@@ -667,7 +669,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
             //if (this.currentInventorySeed > 0)
             //if (!IsCooldown)
             {
-                Seed s = BoltNetwork.Instantiate(BoltPrefabs.Seed, this.myHand.position + this.transform.forward, Quaternion.identity).GetComponent<Seed>();
+                Seed s = BoltNetwork.Instantiate(BoltPrefabs.Seed, this.myHand.position + this.transform.forward + Vector3.up, Quaternion.identity).GetComponent<Seed>();
                 s.Init(this.myTeam, this, this.transform.rotation, true, entity, state.MyColor, this.currentDir);
                 s.InitVelocity(this.forceLaunch, this.dirLaunch);
 
@@ -739,6 +741,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     {
         this.IsFusRoDah = true;
         state.FusRoDa = true;
+
         var evnt = FusRoDaFBEvent.Create(entity);
         evnt.Rotation = this.cameraRef.rotation;
         evnt.Send();
@@ -746,7 +749,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         switch (mode)
         {
             case FusRoDaMode.Cone:
-                Vector3 position = this.transform.position + (this.cameraRef.forward * (this.distanceCheck / 2));
+                Vector3 position = this.startPointFus.position + (this.cameraRef.forward * (this.distanceCheck / 2));
                 Vector3 direction = this.CameraRef.rotation * Vector3.forward;
                 
                 Collider[] guardianColliders = Physics.OverlapSphere(position, this.fusDetectionRadius, this.fusRoDahLayerMask);
@@ -794,18 +797,17 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
                 {
                     foreach (var guard in laserCol)
                     {
-                        float distance = Vector3.Distance(this.transform.position, guard.transform.position);
-                        float angle = Vector3.Angle(this.transform.forward, guard.transform.position - this.transform.position);
+                        float distance = Vector3.Distance(this.startPointFus.position, guard.transform.position);
+                        //float angle = Vector3.Angle(this.transform.forward, guard.transform.position - this.transform.position);
 
-                        if (angle <= this.angleMaxToCheckCone && distance <= this.distanceCheck)
+                        if (distance <= this.distanceCheck)
                         {
-                            if (!Physics.Raycast(this.transform.position, guard.transform.position - this.transform.position,
+                            if (!Physics.Raycast(this.startPointFus.position, guard.transform.position - this.transform.position,
                                 distance, ~this.fusIgnoreLayerMask))
                             {
                                 float force = this.forcePush;
-                                force = force * (1 - ((Vector3.Distance(this.transform.position, guard.transform.position)) / this.distanceCheck) / this.diviseurDistance);
-
-
+                                force = force * (1 - ((Vector3.Distance(this.startPointFus.position, guard.transform.position)) / this.distanceCheck) / this.diviseurDistance);
+                                
                                 Guardian guardian = guard.GetComponent<Guardian>();
                                 if (guardian != null && guardian != this)
                                 {
@@ -845,9 +847,10 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     {
         //Switch mode
         ParticleSystem frdParticleSystem =
-            Instantiate(this.fusRoDaFeedback, this.transform.position, evnt.Rotation);
+            Instantiate(this.fusRoDaFeedback, this.startPointFus.position, evnt.Rotation);
         ParticleSystem.ShapeModule shape = frdParticleSystem.shape;
         Destroy(frdParticleSystem.gameObject, 1.2f);
+        ParticleSystem.MainModule main = frdParticleSystem.main;
 
         switch (mode)
         {
@@ -860,6 +863,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
                 shape.length = this.distanceCheck;
                 shape.angle = 0f;
                 shape.radius = this.fusDetectionRadius;
+                main.startSize = this.fusDetectionRadius;
                 break;
         }
         
