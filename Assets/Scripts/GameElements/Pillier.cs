@@ -15,8 +15,9 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
     [SerializeField] private GameObject laserGO;
     [SerializeField] private GameObject laserDeuxGo;
     [SerializeField] private Transform seedDrop;
-    [SerializeField] private Renderer laserRD;
-    [SerializeField] private Renderer laserDeuxRD;
+    //[SerializeField] private Renderer laserRD;
+    //[SerializeField] private Renderer laserDeuxRD;
+    [SerializeField] private Renderer pillierRd;
     [SerializeField] private bool doubleLaser = true;
     [SerializeField] private float pillierLifeTime = 15.0f;
     [SerializeField] private float maxDistanceWithMyGuardian = 20.0f;
@@ -311,11 +312,12 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
 
     void ColorChanged()
     {
-        laserRD.material.color = state.MyColor;
-        if (doubleLaser)
-        {
-            laserDeuxRD.material.color = state.MyColor;
-        }
+        //laserRD.material.color = state.MyColor;
+        //if (doubleLaser)
+        //{
+        //laserDeuxRD.material.color = state.MyColor;
+        //}
+        pillierRd.material.SetColor("_EmissionColor", state.MyColor);
     }
 
 }
