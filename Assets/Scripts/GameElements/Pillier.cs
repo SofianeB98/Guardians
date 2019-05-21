@@ -197,7 +197,8 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
                     CheckPlayerDouble();
                 }
             }
-            
+            yield return new WaitForEndOfFrame();
+
         }
         yield break;
     }

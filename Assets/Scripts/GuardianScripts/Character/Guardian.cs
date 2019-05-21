@@ -462,7 +462,11 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
                 }
 
                 IsDie = true;
-                
+
+                GameObject go = Instantiate(deathParticulePrefab, this.transform.position, Quaternion.identity);
+                go.transform.SetParent(this.transform);
+                Destroy(go, 1.9f);
+
                 this.currentDietime = Time.time + this.dietime;
                 StartCoroutine(Death());
 
@@ -571,8 +575,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
             }
             
         }
-        GameObject go = Instantiate(deathParticulePrefab, this.transform.position, Quaternion.identity);
-        Destroy(go, 1.5f);
+        
         
         var flash = TakeDamageEvent.Create(entity);
         flash.GetDamage = 0;
