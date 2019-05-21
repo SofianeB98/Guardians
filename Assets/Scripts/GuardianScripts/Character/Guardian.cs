@@ -53,6 +53,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     [SerializeField] private float dietime = 5f;
     private float currentDietime = 0f;
     [SerializeField] private GameObject deathParticulePrefab;
+    [SerializeField] private GameObject respawnParticulePrefab;
 
     [Header("Fus Ro Dah")]
     [SerializeField] private FusRoDaMode mode = FusRoDaMode.Cone;
@@ -498,6 +499,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         else
         {
             Respawn();
+
         }
         
     }
@@ -565,8 +567,13 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
 
         this.scoreAdditionel = 0;
         StopAllCoroutines();
-        
-        
+
+        GameObject go = Instantiate(respawnParticulePrefab, this.transform.position, Quaternion.identity);
+        go.transform.SetParent(this.transform);
+        Destroy(go, 2.1f);
+
+        //respawnParticulePrefab
+
     }
 
     IEnumerator Death()
