@@ -2506,6 +2506,36 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: -44.956
       objectReference: {fileID: 0}
+    - target: {fileID: 342855531335640137, guid: acbf849d81aceda408de72287d505084,
+        type: 3}
+      propertyPath: _sceneGuid
+      value: 7b5412a6-873e-45c8-adc5-0a78fa09513a
+      objectReference: {fileID: 0}
+    - target: {fileID: 342855531484753250, guid: acbf849d81aceda408de72287d505084,
+        type: 3}
+      propertyPath: _sceneGuid
+      value: 641168bf-3902-48a4-9373-f49fb8f320ea
+      objectReference: {fileID: 0}
+    - target: {fileID: 342855532004316075, guid: acbf849d81aceda408de72287d505084,
+        type: 3}
+      propertyPath: _sceneGuid
+      value: 45634484-1c7b-4257-b038-f1b516a2b464
+      objectReference: {fileID: 0}
+    - target: {fileID: 342855532252158953, guid: acbf849d81aceda408de72287d505084,
+        type: 3}
+      propertyPath: _sceneGuid
+      value: 0397962c-cde2-440e-a89b-c422f4e80589
+      objectReference: {fileID: 0}
+    - target: {fileID: 342855532689960325, guid: acbf849d81aceda408de72287d505084,
+        type: 3}
+      propertyPath: _sceneGuid
+      value: 387c93ad-7f63-46a5-b217-c88c0931c1ae
+      objectReference: {fileID: 0}
+    - target: {fileID: 342855533140731553, guid: acbf849d81aceda408de72287d505084,
+        type: 3}
+      propertyPath: _sceneGuid
+      value: b50c4a1c-8f88-41b3-b7d5-88da8de2e750
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: acbf849d81aceda408de72287d505084, type: 3}
 --- !u!1001 &3099269091620887604

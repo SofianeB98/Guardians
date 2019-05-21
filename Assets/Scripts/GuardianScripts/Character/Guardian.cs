@@ -390,10 +390,14 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
 
     public void TakeDamage(float getDamage)
     {
-        var flash = TakeDamageEvent.Create(entity);
-        flash.GetDamage = getDamage;
-        flash.Respawn = false;
-        flash.Send();
+        //if (!this.IsDie && !this.IsInvinsible)
+        {
+            var flash = TakeDamageEvent.Create(entity);
+            flash.GetDamage = getDamage;
+            flash.Respawn = false;
+            flash.Send();
+        }
+        
         return;
     }
 
@@ -525,6 +529,8 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
 
     private void Respawn()
     {
+        IsDie = false;
+
         if (this.destroyAllPillierwhenIDie)
         {
             foreach (var pillier in this.myPillier)
@@ -560,7 +566,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         this.scoreAdditionel = 0;
         StopAllCoroutines();
         
-        IsDie = false;
+        
     }
 
     IEnumerator Death()
@@ -749,12 +755,9 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     public void FusRoDa()
     {
         this.IsFusRoDah = true;
+
         state.FusRoDa = true;
-
-        var evnt = FusRoDaFBEvent.Create(entity);
-        evnt.Rotation = this.cameraRef.rotation;
-        evnt.Send();
-
+        
         switch (mode)
         {
             case FusRoDaMode.Cone:
@@ -831,8 +834,9 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
                 break;
         }
 
-        
-
+        var evnt = FusRoDaFBEvent.Create(entity);
+        evnt.Rotation = this.cameraRef.rotation;
+        evnt.Send();
     }
 
     IEnumerator CoolDownFus()
@@ -860,6 +864,8 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         ParticleSystem.ShapeModule shape = frdParticleSystem.shape;
         Destroy(frdParticleSystem.gameObject, 1.2f);
         ParticleSystem.MainModule main = frdParticleSystem.main;
+        main.startColor = state.MyColor;
+        main = frdParticleSystem.GetComponent<ParticleSystem>().main;
         main.startColor = state.MyColor;
 
         switch (mode)
