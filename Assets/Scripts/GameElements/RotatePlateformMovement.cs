@@ -19,6 +19,8 @@ public class RotatePlateformMovement : Bolt.EntityEventListener<IMovementPlatefo
         {
             state.Rotation = this.transform.rotation;
         }
+
+        if (objectToRotate == null) objectToRotate = this.transform.parent;
     }
 
     public override void SimulateOwner()
