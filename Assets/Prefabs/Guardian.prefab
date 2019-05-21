@@ -250,6 +250,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   jumpData: {fileID: 11400000, guid: 71133bce26b37dd4088f7fb770a622d9, type: 2}
+  jumpParticulePrefab: {fileID: 0}
   sautAudioEvent: event:/Feedbacks Joueur Communs/Saut
   colBalleMeEvent: event:/Feedbacks Joueur Personnels/Collision de balle (soi)
   launchSeedAudioEvent: event:/Feedbacks Joueur Communs/Lancer de graine-pilier
@@ -298,6 +299,7 @@ MonoBehaviour:
   dietime: 2
   deathParticulePrefab: {fileID: 675500399448280104, guid: 022bef47cbd3d924aa0496312df55e1c,
     type: 3}
+  respawnParticulePrefab: {fileID: 0}
   mode: 1
   startPointFus: {fileID: 910}
   coolDownFus: 1

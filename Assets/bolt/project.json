@@ -2754,6 +2754,14 @@
       "Name": "DecompteStartEvent",
       "Guid": "eee732b1-0099-42d2-b979-7c500bb6f60b",
       "Groups": []
+    },
+    {
+      "$type": "Bolt.Compiler.EventDefinition, bolt.compiler",
+      "Properties": [],
+      "GlobalSenders": 3,
+      "Name": "JumpFeedBackEvent",
+      "Guid": "9518e55d-f8a2-4f1e-8a0d-ee86c5f2ccf5",
+      "Groups": []
     }
   ],
   "ActiveGroup": "Everything"

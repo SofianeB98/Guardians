@@ -49,6 +49,7 @@ public class CompleteCharacterController : Bolt.EntityEventListener<IGuardianSta
     public bool jumping { get; private set; }
     public bool doubleJumping { get; private set; }
     [SerializeField] private JumpSectionValue jumpData;
+    [SerializeField] private GameObject jumpParticulePrefab;
 
     [Header("Audio")]
     [FMODUnity.EventRef]
@@ -274,6 +275,10 @@ public class CompleteCharacterController : Bolt.EntityEventListener<IGuardianSta
             case 0:
                 sautAudio.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(evnt.Position));
                 sautAudio.start();
+
+                GameObject go = Instantiate(jumpParticulePrefab, this.transform.position - Vector3.up, Quaternion.identity);
+                //go.transform.SetParent(this.transform);
+                Destroy(go, 1f);
                 break;
 
             case 1:
@@ -312,6 +317,11 @@ public class CompleteCharacterController : Bolt.EntityEventListener<IGuardianSta
         }
         yield break;
     }
+
+    //public override void OnEvent(JumpFeedBackEvent evnt)
+    //{
+        
+    //}
 
     private void InjectJumpData()
     {
