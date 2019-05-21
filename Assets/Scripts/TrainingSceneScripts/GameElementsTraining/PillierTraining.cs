@@ -47,18 +47,25 @@ public class PillierTraining : MonoBehaviour
         this.anim.SetBool("IsScaling", true);
     }
 
-    public void Init(Color myOwnerColor, int dir, GuardianTraining g)
+    public void Init(Color myOwnerColor, int dir, GuardianTraining g, Vector3 point, Vector3 normal)
     {
         this.currentDir = dir;
         myOwnerColor.a = 0.333f;
         this.myguardian = g;
         this.currentDuration = Time.time + (this.animationScaleDuration / this.animationSpeed);
+
+        this.plateformPosition = point;
+
+        if (normal != Vector3.zero)
+        {
+            this.transform.rotation = Quaternion.FromToRotation(this.transform.up, normal);
+        }
     }
 
     private void Update()
     {
-        CheckPlateformMouvante();
-        if (this.plateformPosition != Vector3.zero) this.transform.position = this.plateformPosition - this.distPlateform;
+        //CheckPlateformMouvante();
+        //if (this.plateformPosition != Vector3.zero) this.transform.position = this.plateformPosition - this.distPlateform;
 
         if (Time.time > this.currentDuration && this.anim.GetBool("IsScaling") == true)
         {
@@ -114,15 +121,10 @@ public class PillierTraining : MonoBehaviour
 
     private void RotateLaser()
     {
-        this.transform.eulerAngles += Vector3.up * Time.deltaTime * this.speedRotation * this.currentDir;
+        //this.transform.eulerAngles += Vector3.up * Time.deltaTime * this.speedRotation * this.currentDir;
+        this.transform.RotateAround(this.transform.position, this.transform.up, Time.deltaTime * this.speedRotation * this.currentDir);
     }
-
-    private void RotatePillier(float rotationAngle)
-    {
-        var newRotate = this.transform.eulerAngles.y + rotationAngle;
-        this.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x, newRotate, this.transform.eulerAngles.z);
-    }
-
+    
     #endregion
 
     #region PlayerInteraction

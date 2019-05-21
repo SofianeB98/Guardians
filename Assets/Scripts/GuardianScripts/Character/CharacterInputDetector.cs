@@ -115,8 +115,8 @@ public class CharacterInputDetector : Bolt.EntityBehaviour<IGuardianState>
                         {
                             this.guardian.SetupLaunchSeed();
                         }
-                        this.viseurSeed.SetActive(true);
-                        this.viseurStandard.SetActive(false);
+                        //this.viseurSeed.SetActive(true);
+                        //this.viseurStandard.SetActive(false);
                     }
 
                     if (Input.GetButton(InputName.LancerDeHache))
@@ -126,8 +126,8 @@ public class CharacterInputDetector : Bolt.EntityBehaviour<IGuardianState>
                             this.guardian.SetupLaunchSeed();
                         }
                         
-                        this.viseurSeed.SetActive(true);
-                        this.viseurStandard.SetActive(false);
+                        //this.viseurSeed.SetActive(true);
+                        //this.viseurStandard.SetActive(false);
                     }
 
                     if (Input.GetButtonUp(InputName.LancerDeHache))
@@ -137,8 +137,8 @@ public class CharacterInputDetector : Bolt.EntityBehaviour<IGuardianState>
                             this.guardian.LaunchSeed();
                             this.guardian.SetCooldown();
                         }
-                        this.viseurSeed.SetActive(false);
-                        this.viseurStandard.SetActive(true);
+                        //this.viseurSeed.SetActive(false);
+                        //this.viseurStandard.SetActive(true);
                     }
                     
                     /*if (Input.GetAxis(InputName.ChangeSeedSelection) != 0f && !this.seedInput)

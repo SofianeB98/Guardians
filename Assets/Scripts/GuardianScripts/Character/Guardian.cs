@@ -206,6 +206,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         if (this.currentStunTime < Time.time)
         {
             this.IsStuned = false;
+            
         }
 
         /*if (this.currentCooldownLaunchSeed < Time.time)
@@ -247,8 +248,9 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     public override void SimulateOwner()
     {
         state.Invinsible = this.IsInvinsible;
-
-        if(bouc.activeSelf) state.BoucRot *= Quaternion.AngleAxis(50 * Time.deltaTime, bouc.transform.up);
+        state.Stuned = this.IsStuned;
+        state.Death = this.IsDie;
+        if (bouc.activeSelf) state.BoucRot *= Quaternion.AngleAxis(50 * Time.deltaTime, bouc.transform.up);
 
         if (GameSystem.GSystem.EndGame)
         {
@@ -460,6 +462,11 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
                 }
 
                 IsDie = true;
+
+                GameObject go = Instantiate(deathParticulePrefab, this.transform.position, Quaternion.identity);
+                go.transform.SetParent(this.transform);
+                Destroy(go, 1.9f);
+
                 this.currentDietime = Time.time + this.dietime;
                 StartCoroutine(Death());
 
@@ -497,6 +504,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         this.currentTimerNullEnemy = Time.time + this.timeToNullLastEnemy;
 
         this.IsStuned = evnt.IsStuned;
+        state.Stuned = this.IsStuned;
         this.lastGuardianWhoHitMe = evnt.GuardianEnemy.GetComponent<Guardian>();
 
         if (this.IsStuned)
@@ -551,6 +559,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
 
         this.scoreAdditionel = 0;
         StopAllCoroutines();
+        
         IsDie = false;
     }
 
@@ -566,8 +575,8 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
             }
             
         }
-        GameObject go = Instantiate(deathParticulePrefab, this.transform.position, Quaternion.identity);
-        Destroy(go, 0.9f);
+        
+        
         var flash = TakeDamageEvent.Create(entity);
         flash.GetDamage = 0;
         flash.Respawn = true;
@@ -926,15 +935,15 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
             this.currentKill++;
             this.CurrentSerieKill++;
 
-            
-            int score = evnt.KillLaser ? 10 : 10;
+
+            int score = 10;//evnt.KillLaser ? 10 : 10;
             
 
 
             score = score + evnt.ScoreAdd;
 
             this.CurrentScore += score;
-            if (entity.IsOwner)
+            //if (entity.IsOwner)
             {
                 GameObject go = Instantiate(winLosePointPrefab, this.myCanvas.transform);
                 go.transform.parent = winPointPanel;

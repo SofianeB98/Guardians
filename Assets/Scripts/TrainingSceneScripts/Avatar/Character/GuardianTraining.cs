@@ -55,8 +55,10 @@ public class GuardianTraining : MonoBehaviour
     
     [Header("Fus Ro Dah")]
     [SerializeField] private FusRoDaMode mode = FusRoDaMode.Cone;
+    [SerializeField] private Transform startPointFus;
     [SerializeField] private float coolDownFus = 0.1f;
     [SerializeField] private float distanceCheck = 10.0f;
+    private float finalDistance = 0f;
     [SerializeField] [Range(1.0f, 7.0f)] private float diviseurDistance = 1.0f;
     [SerializeField] private float fusDetectionRadius = 50.0f;
     [SerializeField] [Range(0.0f, 90.0f)] private float angleMaxToCheckCone = 45.0f;
@@ -102,6 +104,7 @@ public class GuardianTraining : MonoBehaviour
     [SerializeField] private bool destroyAllPillierwhenIDie = true;
     [SerializeField] private Transform myHand;
     [SerializeField] private Image seedReadyImage;
+    [SerializeField] private Image[] seedReadyImagesViseur;
     private int currentDir = 1;
     [SerializeField] private float cooldownLaunchSeed = 5f;
     private float currentCooldownLaunchSeed = 0f;
@@ -290,7 +293,7 @@ public class GuardianTraining : MonoBehaviour
                 this.pointEndLaser.localPosition = new Vector3(this.pointEndLaser.localPosition.x, this.pointEndLaser.localPosition.y, this.distanceCheck);
 
                 ParticleSystem frParticleSystem =
-                    Instantiate(this.fusRoDaFeedback, this.transform.position, this.cameraRef.rotation);
+                    Instantiate(this.fusRoDaFeedback, this.startPointFus.position, this.cameraRef.rotation);
                 ParticleSystem.ShapeModule shpe = frParticleSystem.shape;
                 shpe.length = this.distanceCheck;
                 shpe.angle = 0f;
@@ -305,16 +308,16 @@ public class GuardianTraining : MonoBehaviour
                 {
                     foreach (var guard in laserCol)
                     {
-                        float distance = Vector3.Distance(this.transform.position, guard.transform.position);
-                        float angle = Vector3.Angle(this.transform.forward, guard.transform.position - this.transform.position);
+                        float distance = Vector3.Distance(this.startPointFus.position, guard.transform.position);
+                        //float angle = Vector3.Angle(this.transform.forward, guard.transform.position - this.transform.position);
 
-                        if (angle <= this.angleMaxToCheckCone && distance <= this.distanceCheck)
+                        if (distance <= this.distanceCheck)
                         {
-                            if (!Physics.Raycast(this.transform.position, guard.transform.position - this.transform.position,
+                            if (!Physics.Raycast(this.startPointFus.position, guard.transform.position - this.transform.position,
                                 distance, ~this.fusIgnoreLayerMask))
                             {
                                 float force = this.forcePush;
-                                force = force * (1 - ((Vector3.Distance(this.transform.position, guard.transform.position)) / this.distanceCheck) / this.diviseurDistance);
+                                force = force * (1 - ((Vector3.Distance(this.startPointFus.position, guard.transform.position)) / this.distanceCheck) / this.diviseurDistance);
 
                                 GuardianTraining guardian = guard.GetComponent<GuardianTraining>();
                                 if (guardian != null && guardian != this)
@@ -497,9 +500,13 @@ public class GuardianTraining : MonoBehaviour
             //if (this.currentInventorySeed > 0)
             //if (!IsCooldown)
             {
-                SeedTraining s = Instantiate(seedT, this.myHand.position + this.transform.forward, Quaternion.identity);
+                SeedTraining s = Instantiate(seedT, this.myHand.position + this.transform.forward + Vector3.up, Quaternion.identity);
                 s.Init(this.myTeam, this, this.transform.rotation, true, this.currentDir);
                 s.InitVelocity(this.forceLaunch, this.dirLaunch);
+
+                this.currentPillier = this.currentPillier < this.maxPillier ? this.currentPillier + 1 : this.maxPillier;
+
+                this.seedReadyImagesViseur[this.currentPillier - 1].color = Color.red;
 
                 this.seedReadyImage.color = Color.red;
 
@@ -517,7 +524,7 @@ public class GuardianTraining : MonoBehaviour
         //if (this.currentPillier < this.maxPillier)
         //{
         this.myPillier.Add(pillierToAdd);
-        this.currentPillier = this.currentPillier < this.maxPillier ? this.currentPillier + 1 : this.maxPillier;
+        
         if (this.myPillier.Count > this.maxPillier)
             {
                 Destroy(this.myPillier[0].gameObject);
@@ -533,7 +540,11 @@ public class GuardianTraining : MonoBehaviour
         this.currentPillier = this.currentPillier > 0 ? this.currentPillier - 1 : 0;
     }
 
-    
+    public void SeedLostInSpace()
+    {
+        this.currentPillier = this.currentPillier > 0 ? this.currentPillier - 1 : 0;
+        this.seedReadyImagesViseur[this.currentPillier].color = Color.green;
+    }
 
     public void ChangePillierDir()
     {
