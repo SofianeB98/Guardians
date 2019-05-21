@@ -249,6 +249,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     {
         state.Invinsible = this.IsInvinsible;
         state.Stuned = this.IsStuned;
+        state.Death = this.IsDie;
         if (bouc.activeSelf) state.BoucRot *= Quaternion.AngleAxis(50 * Time.deltaTime, bouc.transform.up);
 
         if (GameSystem.GSystem.EndGame)
@@ -461,7 +462,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
                 }
 
                 IsDie = true;
-                state.Death = true;
+                
                 this.currentDietime = Time.time + this.dietime;
                 StartCoroutine(Death());
 
@@ -520,7 +521,6 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
 
     private void Respawn()
     {
-        state.Death = false;
         if (this.destroyAllPillierwhenIDie)
         {
             foreach (var pillier in this.myPillier)
