@@ -860,6 +860,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         ParticleSystem.ShapeModule shape = frdParticleSystem.shape;
         Destroy(frdParticleSystem.gameObject, 1.2f);
         ParticleSystem.MainModule main = frdParticleSystem.main;
+        main.startColor = state.MyColor;
 
         switch (mode)
         {
