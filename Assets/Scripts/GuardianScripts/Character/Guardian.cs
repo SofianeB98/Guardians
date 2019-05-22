@@ -703,23 +703,13 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         if (this.currentPillier < this.maxPillier)
         {
             this.IsPreLaunchSeed = false;
+
+            if (entity.IsOwner) StartCoroutine(LaunchSeedTrueFalse());
+
             //if (this.currentInventorySeed > 0)
             //if (!IsCooldown)
             {
-                Seed s = BoltNetwork.Instantiate(BoltPrefabs.Seed, this.myHand.position + this.transform.forward + Vector3.up, Quaternion.identity).GetComponent<Seed>();
-                s.Init(this.myTeam, this, this.transform.rotation, true, entity, state.MyColor, this.currentDir);
-                s.InitVelocity(this.forceLaunch, this.dirLaunch);
-
-                this.seedReadyImage.color = Color.red;
-
-                this.currentPillier = this.currentPillier < this.maxPillier ? this.currentPillier + 1 : this.maxPillier;
-
-                this.seedReadyImagesViseur[this.currentPillier - 1].color = Color.red;
-
-                var evnt = AudioStartEvent.Create(entity);
-                evnt.Position = transform.position;
-                evnt.AudioID = 1;
-                evnt.Send();
+                
 
                 //this.currentInventorySeed--;
             }
@@ -729,6 +719,32 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
             }
         }
             
+    }
+
+    IEnumerator LaunchSeedTrueFalse()
+    {
+        state.LaunchSeed = true;
+        yield return new WaitForSeconds(0.5f);
+
+        {
+            Seed s = BoltNetwork.Instantiate(BoltPrefabs.Seed, this.myHand.position + this.transform.forward + Vector3.up, Quaternion.identity).GetComponent<Seed>();
+            s.Init(this.myTeam, this, this.transform.rotation, true, entity, state.MyColor, this.currentDir);
+            s.InitVelocity(this.forceLaunch, this.dirLaunch);
+
+            this.seedReadyImage.color = Color.red;
+
+            this.currentPillier = this.currentPillier < this.maxPillier ? this.currentPillier + 1 : this.maxPillier;
+
+            this.seedReadyImagesViseur[this.currentPillier - 1].color = Color.red;
+
+            var evnt = AudioStartEvent.Create(entity);
+            evnt.Position = transform.position;
+            evnt.AudioID = 1;
+            evnt.Send();
+        }
+
+        state.LaunchSeed = false;
+        yield break;
     }
 
     public void AddPillierToMyList(Pillier pillierToAdd)

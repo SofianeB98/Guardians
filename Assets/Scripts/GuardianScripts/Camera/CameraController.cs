@@ -39,6 +39,7 @@ public class CameraController : Bolt.EntityBehaviour<IGuardianState>
             if (this.myGuardian != null)
             {
                 Vector3 focusPoint = focus.position + (camera.right * this.ratioDecalCam);
+                if(state.LaunchSeed) state.LaunchSeedDir = angleX;
                 if (!this.myGuardian.IsPreLaunchSeed)
                 {
                     this.camera.rotation = TestSacade ? Quaternion.Lerp(this.camera.rotation, Quaternion.Euler(this.angleX, this.angleY, 0.0f), Time.deltaTime * 15.0f) : Quaternion.Euler(this.angleX, this.angleY, 0.0f);
