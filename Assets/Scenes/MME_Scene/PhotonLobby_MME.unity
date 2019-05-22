@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -376,11 +376,11 @@ PrefabInstance:
     - target: {fileID: 11475086, guid: c0978251ff7b10d4fb954a4b56acd9f0, type: 3}
       propertyPath: gameScene.sceneAsset
       value: 
-      objectReference: {fileID: 102900000, guid: 776a8c42ed669b34d9c198a22fa859ee,
+      objectReference: {fileID: 102900000, guid: 765896632ccc41b44b2f3443c5f7addd,
         type: 3}
     - target: {fileID: 11475086, guid: c0978251ff7b10d4fb954a4b56acd9f0, type: 3}
       propertyPath: gameScene.sceneName
-      value: Scenes/MME_Scene/Multiplayer_TDM
+      value: Scenes/FFA_Scene/MultiplayerFFA
       objectReference: {fileID: 0}
     - target: {fileID: 11475086, guid: c0978251ff7b10d4fb954a4b56acd9f0, type: 3}
       propertyPath: lobbyScene.sceneAsset
