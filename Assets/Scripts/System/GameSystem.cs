@@ -116,7 +116,7 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
                 {
                     this.currentTimerBeforeStart -= Time.deltaTime;
                     this.compteurPreGameText.text =
-                        "Debut de partie dans \r\n" + this.currentTimerBeforeStart.ToString("0");
+                        "Début de partie dans \r\n" + this.currentTimerBeforeStart.ToString("0");
                 }
                 else
                 {

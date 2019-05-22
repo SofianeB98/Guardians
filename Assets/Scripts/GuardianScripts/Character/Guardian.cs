@@ -750,11 +750,17 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         if (this.currentPillier < this.maxPillier)
         {
             this.IsPreLaunchSeed = false;
+            this.currentPillier = this.currentPillier < this.maxPillier ? this.currentPillier + 1 : this.maxPillier;
+            this.seedReadyImagesViseur[this.currentPillier - 1].color = this.colorNoReady;
+            this.seedReadyUI[this.currentPillier - 1].color = this.colorNoReady;
 
-            if (entity.IsOwner) StartCoroutine(LaunchSeedTrueFalse());
+            if (entity.IsOwner)
+            {
+                StartCoroutine(LaunchSeedTrueFalse());
+            }
             
-            
-            this.maskPanel.sizeDelta = new Vector2(this.maskPanel.rect.width, this.maskPanel.rect.height - (this.maxHeightMask / this.maxPillier));
+
+            this.maskPanel.sizeDelta = new Vector2(this.maskPanel.rect.width, this.maskPanel.rect.height > 0 ? this.maskPanel.rect.height - (this.maxHeightMask / this.maxPillier) : 0);
             //if (this.currentInventorySeed > 0)
             //if (!IsCooldown)
             {
@@ -773,7 +779,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     IEnumerator LaunchSeedTrueFalse()
     {
         state.LaunchSeed = true;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.1f);
 
         {
             Seed s = BoltNetwork.Instantiate(BoltPrefabs.Seed, this.myHand.position + this.transform.forward + Vector3.up, Quaternion.identity).GetComponent<Seed>();
@@ -781,12 +787,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
             s.InitVelocity(this.forceLaunch, this.dirLaunch);
 
             this.seedReadyImage.color = Color.red;
-
-            this.currentPillier = this.currentPillier < this.maxPillier ? this.currentPillier + 1 : this.maxPillier;
-
-            this.seedReadyImagesViseur[this.currentPillier - 1].color = this.colorNoReady;
-            this.seedReadyUI[this.currentPillier - 1].color = this.colorNoReady;
-
+            
             var evnt = AudioStartEvent.Create(entity);
             evnt.Position = transform.position;
             evnt.AudioID = 1;
@@ -822,7 +823,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         this.currentPillier = this.currentPillier > 0 ? this.currentPillier - 1 : 0;
         this.seedReadyImagesViseur[this.currentPillier].color = this.colorReady;
         this.seedReadyUI[this.currentPillier].color = this.colorReady;
-        this.maskPanel.sizeDelta = new Vector2(this.maskPanel.rect.width, this.maskPanel.rect.height + (this.maxHeightMask / this.maxPillier));
+        this.maskPanel.sizeDelta = new Vector2(this.maskPanel.rect.width, this.maskPanel.rect.height < this.maxHeightMask ? this.maskPanel.rect.height + (this.maxHeightMask / this.maxPillier) : this.maxHeightMask);
     }
 
     public void ChangePillierDir()
@@ -1019,7 +1020,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
             this.currentPillier = this.currentPillier > 0 ? this.currentPillier - 1 : 0;
             this.seedReadyImagesViseur[this.currentPillier].color = this.colorReady;
             this.seedReadyUI[this.currentPillier].color = this.colorReady;
-            this.maskPanel.sizeDelta = new Vector2(this.maskPanel.rect.width, this.maskPanel.rect.height + (this.maxHeightMask / this.maxPillier));
+            this.maskPanel.sizeDelta = new Vector2(this.maskPanel.rect.width, this.maskPanel.rect.height < this.maxHeightMask ? this.maskPanel.rect.height + (this.maxHeightMask / this.maxPillier) : this.maxHeightMask);
         }
 
         var evnt = UpdateScoreEvent.Create(entity);

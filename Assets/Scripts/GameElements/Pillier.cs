@@ -9,6 +9,7 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
     [SerializeField] private float health = 1.0f;
 
     private RotatePlateformMovement rpm = null;
+    private PlateformMovement pm = null;
 
     [Header("Base")]
     [SerializeField] private GameObject pillierGO;
@@ -93,6 +94,11 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
             //this.plateformPosition = rpm.FinalPos(anglePositionRecal, this.plateformPosition);
             this.transform.position = rpm.FinalPos(anglePositionRecal, this.transform.position);
         }
+        else if (pm != null)
+        {
+            this.plateformPosition = pm.transform.position;
+            this.transform.position = this.plateformPosition - this.distPlateform;
+        }
         else
         {
             CheckPlateformMouvante();
@@ -170,7 +176,24 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
             Debug.Log(truc.name);
             if (truc.transform.tag.Contains("PMouvante"))
             {
-                rpm = truc.gameObject.GetComponentInParent<RotatePlateformMovement>();
+                RotatePlateformMovement test = truc.gameObject.GetComponentInParent<RotatePlateformMovement>();
+                PlateformMovement test2 = truc.gameObject.GetComponentInParent<PlateformMovement>();
+
+                if (test != null)
+                {
+                    rpm = test;
+                }
+                else if (test2 != null)
+                {
+                    pm = test2;
+                    this.plateformPosition = pm.transform.position;
+                    if (this.distPlateform == Vector3.zero)
+                    {
+                        this.distPlateform = this.plateformPosition - this.transform.position;
+                        
+                    }
+                }
+                
                 Debug.Log("Find !");
             }
 
