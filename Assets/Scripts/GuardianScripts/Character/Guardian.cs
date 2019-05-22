@@ -78,6 +78,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     [SerializeField] private TextMeshProUGUI pushDispoText;
     [SerializeField] private Image pushDispoImage;
     [SerializeField] private Image pushDispoViseur;
+    [SerializeField] private Color pushReadyColor;
 
     [Header("Axe Launch")]
     [SerializeField] private Axe myAxe;
@@ -930,17 +931,17 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
 
     IEnumerator CoolDownFus()
     {
-        this.pushDispoImage.color = Color.red;
-        this.pushDispoViseur.color = Color.red;
-        this.pushDispoText.text = "x0";
+        //this.pushDispoImage.color = Color.red;
+        this.pushDispoViseur.color = this.colorNoReady;
+        //this.pushDispoText.text = "x0";
         yield return new WaitForSeconds(0.1f);
         state.FusRoDa = false;
-        this.pushDispoImage.color = Color.Lerp(this.pushDispoImage.color, Color.blue, Time.deltaTime);
+        //this.pushDispoImage.color = Color.Lerp(this.pushDispoImage.color, this.pushReadyColor, Time.deltaTime);
         yield return new WaitForSeconds(this.coolDownFus);
         this.IsFusRoDah = false;
-        this.pushDispoText.text = "x1";
-        this.pushDispoImage.color = Color.blue;
-        this.pushDispoViseur.color = Color.blue;
+        //this.pushDispoText.text = "x1";
+        //this.pushDispoImage.color = this.pushReadyColor;
+        this.pushDispoViseur.color = this.pushReadyColor;
         //SetCooldown();
         yield break;
     }
@@ -1013,7 +1014,13 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
 
     public void UpdateScore(bool isMe, string message, bool killLaser)
     {
-        if (killLaser && !isMe) this.currentPillier = this.currentPillier > 0 ? this.currentPillier - 1 : 0;
+        if (killLaser && !isMe)
+        {
+            this.currentPillier = this.currentPillier > 0 ? this.currentPillier - 1 : 0;
+            this.seedReadyImagesViseur[this.currentPillier].color = this.colorReady;
+            this.seedReadyUI[this.currentPillier].color = this.colorReady;
+            this.maskPanel.sizeDelta = new Vector2(this.maskPanel.rect.width, this.maskPanel.rect.height + (this.maxHeightMask / this.maxPillier));
+        }
 
         var evnt = UpdateScoreEvent.Create(entity);
         evnt.IsMe = isMe;

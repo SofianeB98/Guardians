@@ -328,6 +328,7 @@ MonoBehaviour:
   pushDispoText: {fileID: 1422}
   pushDispoImage: {fileID: 1410}
   pushDispoViseur: {fileID: 1415}
+  pushReadyColor: {r: 0, g: 0.52242804, b: 1, a: 1}
   myAxe: {fileID: 1326}
   seedLayerMask:
     serializedVersion: 2
@@ -4507,7 +4508,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 1, a: 1}
+  m_Color: {r: 0, g: 0.52242804, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
