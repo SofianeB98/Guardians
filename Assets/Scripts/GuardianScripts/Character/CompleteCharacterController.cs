@@ -50,6 +50,7 @@ public class CompleteCharacterController : Bolt.EntityEventListener<IGuardianSta
     public bool doubleJumping { get; private set; }
     [SerializeField] private JumpSectionValue jumpData;
     [SerializeField] private GameObject jumpParticulePrefab;
+    [SerializeField] private Transform feetPosition;
 
     [Header("Audio")]
     [FMODUnity.EventRef]
@@ -276,8 +277,9 @@ public class CompleteCharacterController : Bolt.EntityEventListener<IGuardianSta
                 sautAudio.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(evnt.Position));
                 sautAudio.start();
 
-                GameObject go = Instantiate(jumpParticulePrefab, this.transform.position - Vector3.up, Quaternion.identity);
+                GameObject go = Instantiate(jumpParticulePrefab, this.feetPosition.position, Quaternion.identity);
                 //go.transform.SetParent(this.transform);
+                go.transform.rotation = Quaternion.AngleAxis(-90, Vector3.right);
                 Destroy(go, 1f);
                 break;
 

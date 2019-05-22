@@ -47,13 +47,17 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     public bool IsInvinsible { get; private set; }
     [SerializeField] private float invinsibleTime = 2f;
     private float currentInvinsibleTime = 0f;
+    [SerializeField] private TextMeshProUGUI myNameText;
     [SerializeField] private TextMeshProUGUI scoreText;
+    [SerializeField] private TextMeshProUGUI bestEnemyNameText;
     [SerializeField] private TextMeshProUGUI bestEnemyScoreText;
     public bool IsDie { get; private set; }
     [SerializeField] private float dietime = 5f;
     private float currentDietime = 0f;
     [SerializeField] private GameObject deathParticulePrefab;
     [SerializeField] private GameObject respawnParticulePrefab;
+    [SerializeField] private ParticleSystem masterKillPrefab;
+    private ParticleSystem currentMK;
 
     [Header("Fus Ro Dah")]
     [SerializeField] private FusRoDaMode mode = FusRoDaMode.Cone;
@@ -166,7 +170,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         
         state.AddCallback("MyColor", ColorChanged);
         state.AddCallback("GuardianName", PlayerName);
-        state.AddCallback("Invinsible", InvinsibleCallBack);
+        //state.AddCallback("Invinsible", InvinsibleCallBack);
 
         state.AddCallback("BoucRot", RotateBoucCallBack);
         state.AddCallback("ActiveEE", ActiveEasterE);
@@ -193,11 +197,13 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     private void Update()
     {
         //bestEnemy = GameSystem.GSystem.BestEnemyGuardian(this);
-        this.scoreText.text = this.guardianName + " - " + this.CurrentScore.ToString();
+        this.myNameText.text = this.guardianName.ToString();
+        this.scoreText.text = this.CurrentScore.ToString();
         this.seedDispo_Text.text = "x" + (this.maxPillier - this.currentPillier).ToString();
         if (bestEnemy != null)
         {
-            this.bestEnemyScoreText.text = bestEnemy.guardianName + " - " + bestEnemy.CurrentScore.ToString();
+            this.bestEnemyNameText.text = bestEnemy.guardianName;
+            this.bestEnemyScoreText.text = bestEnemy.CurrentScore.ToString();
         }
         else
         {
@@ -472,6 +478,14 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
                 go.transform.SetParent(this.transform);
                 Destroy(go, 1.9f);
 
+                if (currentMK != null)
+                {
+                    ParticleSystem.MainModule main = currentMK.main;
+                    main.loop = false;
+                    Destroy(currentMK.gameObject, 1.2f);
+                }
+                
+
                 this.currentDietime = Time.time + this.dietime;
                 StartCoroutine(Death());
 
@@ -568,9 +582,10 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         this.scoreAdditionel = 0;
         StopAllCoroutines();
 
-        GameObject go = Instantiate(respawnParticulePrefab, this.transform.position, Quaternion.identity);
+        GameObject go = Instantiate(respawnParticulePrefab, this.feetPosition.position, Quaternion.identity);
         go.transform.SetParent(this.transform);
-        Destroy(go, 2.1f);
+        go.transform.rotation = Quaternion.AngleAxis(-90, Vector3.right);
+        Destroy(go, 2.5f);
 
         //respawnParticulePrefab
 
@@ -980,6 +995,14 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
                     Destroy(serie, 1.5f);
                     this.currentIndexKillSeries = this.currentIndexKillSeries + 1 < killSeries.Length ? this.currentIndexKillSeries + 1 : killSeries
                                                                                                                                               .Length - 1;
+                    if (this.currentMK == null)
+                    {
+                        ParticleSystem mk = Instantiate(masterKillPrefab, this.feetPosition.position,
+                            Quaternion.identity, this.transform);
+                        ParticleSystem.MainModule main = mk.main;
+                        main.startColor = state.MyColor;
+                        this.currentMK = mk;
+                    }
                 }
             }
 
