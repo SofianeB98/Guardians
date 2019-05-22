@@ -287,6 +287,8 @@ MonoBehaviour:
   - {fileID: 5539576358832217434, guid: 06dbc99d443858e418cc7885f5084095, type: 3}
   - {fileID: 5539576358832217434, guid: 70810ce45b0ff7d408148f5c0b3bbedf, type: 3}
   everyXKillIWinMedal: 2
+  guardianExplode: {fileID: 1335174408775357942, guid: fd06ab7e9062cac42b01c629ed786916,
+    type: 3}
   renderersAvatar:
   - {fileID: 1672133048901585809}
   - {fileID: 1672133048901585811}
@@ -4063,7 +4065,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.028044581, g: 1, b: 0, a: 1}
+  m_Color: {r: 1, g: 0.7984427, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -4328,7 +4330,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.028044581, g: 1, b: 0, a: 1}
+  m_Color: {r: 1, g: 0.7984427, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -4434,7 +4436,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.028044581, g: 1, b: 0, a: 1}
+  m_Color: {r: 1, g: 0.7984427, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:

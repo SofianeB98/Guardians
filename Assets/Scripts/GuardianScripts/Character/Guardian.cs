@@ -30,6 +30,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     private int currentIndexKillSeries = 0;
     [SerializeField] private int everyXKillIWinMedal = 5;
     private int scoreAdditionel = 0;
+    [SerializeField] private GameObject guardianExplode;
 
     [Header("Renderer")]
     [SerializeField] private Renderer[] renderersAvatar;
@@ -552,6 +553,9 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         }
         else
         {
+            GameObject go = Instantiate(this.guardianExplode, this.feetPosition.position, this.transform.rotation);
+            Destroy(go.gameObject, 4f);
+
             Respawn();
 
         }

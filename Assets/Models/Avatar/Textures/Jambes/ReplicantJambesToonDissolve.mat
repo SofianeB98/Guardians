@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ReplicantCorpsToonDissolve
+  m_Name: ReplicantJambesToonDissolve
   m_Shader: {fileID: 4800000, guid: e7f69b5836fefaf40a7b9d28c175b6de, type: 3}
   m_ShaderKeywords: _EMISSION _METALLICGLOSSMAP _NORMALMAP _USEEMISSIVE_ON _USELIGHT_ON
     _USENORMAL_ON _USEOUTLINE_ON _USERIM_ON _USETRANSPARENCYOUTLINE_ON
@@ -49,11 +49,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissiveTex:
-        m_Texture: {fileID: 2800000, guid: 55d7dbc7689cac14199f464828ca59e8, type: 3}
+        m_Texture: {fileID: 2800000, guid: 28bd10205d1a9c642b28072d7eaa7632, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 4fc7fe910efe63b48ae97b5d4fa71227, type: 3}
+        m_Texture: {fileID: 2800000, guid: 054a86a866027ba448c8541483be4e76, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -61,7 +61,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
-        m_Texture: {fileID: 2800000, guid: 9aa07b49e97b90344ad888f0eb1b1856, type: 3}
+        m_Texture: {fileID: 2800000, guid: 40d0d1ffa0733b0459b1dae522eba285, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -113,7 +113,7 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _ColorEmissive: {r: 1.9999998, g: 1.9999998, b: 1.9999998, a: 1}
     - _ColorMain: {r: 1, g: 1, b: 1, a: 1}
-    - _DirectionDissolve: {r: -0.3, g: 1.27, b: 0.24, a: 0}
+    - _DirectionDissolve: {r: 0, g: 1, b: 0, a: 0}
     - _EmissionColor: {r: 4, g: 4, b: 4, a: 1}
     - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _OutlineDissolve: {r: 0, g: 0.95686275, b: 2, a: 1}
