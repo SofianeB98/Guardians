@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="AudioFile" id="{64c906d8-f5cf-4e16-9a51-d30f7d3e29f9}">
+        <property name="assetPath">
+            <value>Double saut.wav</value>
+        </property>
+        <property name="frequencyInKHz">
+            <value>44.0999985</value>
+        </property>
+        <property name="channelCount">
+            <value>2</value>
+        </property>
+        <property name="length">
+            <value>0.20984126984126983</value>
+        </property>
+        <relationship name="masterAssetFolder">
+            <destination>{f4d0295b-25cd-44f7-b660-34a4e5ce003a}</destination>
+        </relationship>
+    </object>
+</objects>

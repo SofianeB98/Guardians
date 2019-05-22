@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="AudioFile" id="{62799861-9fe1-48a1-8c7c-95217926f8d4}">
+        <property name="assetPath">
+            <value>Joueur éliminé 2 V2.wav</value>
+        </property>
+        <property name="frequencyInKHz">
+            <value>44.0999985</value>
+        </property>
+        <property name="channelCount">
+            <value>2</value>
+        </property>
+        <property name="length">
+            <value>1.9895464852607709</value>
+        </property>
+        <relationship name="masterAssetFolder">
+            <destination>{f4d0295b-25cd-44f7-b660-34a4e5ce003a}</destination>
+        </relationship>
+    </object>
+</objects>

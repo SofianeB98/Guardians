@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="AudioFile" id="{851a17b9-3504-4daa-93d2-b302ae3cc668}">
+        <property name="assetPath">
+            <value>crackling-fireplace_daniel-simion.wav</value>
+        </property>
+        <property name="isStreaming">
+            <value>true</value>
+        </property>
+        <property name="frequencyInKHz">
+            <value>44.0999985</value>
+        </property>
+        <property name="channelCount">
+            <value>2</value>
+        </property>
+        <property name="length">
+            <value>64.831564625850334</value>
+        </property>
+        <relationship name="masterAssetFolder">
+            <destination>{f4d0295b-25cd-44f7-b660-34a4e5ce003a}</destination>
+        </relationship>
+    </object>
+</objects>

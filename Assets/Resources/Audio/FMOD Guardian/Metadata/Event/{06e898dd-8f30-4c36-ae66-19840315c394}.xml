@@ -2,13 +2,13 @@
 <objects serializationModel="Studio.01.10.00">
     <object class="Event" id="{06e898dd-8f30-4c36-ae66-19840315c394}">
         <property name="name">
-            <value>Balle récupérée</value>
+            <value>Souffle rechargé</value>
         </property>
         <property name="outputFormat">
             <value>1</value>
         </property>
         <relationship name="folder">
-            <destination>{b1074698-1edf-477b-b366-cf79e85f5973}</destination>
+            <destination>{fcb42af6-3b56-45d9-b929-e71beab0b2bb}</destination>
         </relationship>
         <relationship name="mixer">
             <destination>{4cd6262c-488a-4223-8472-bc8c39639db2}</destination>
@@ -30,9 +30,6 @@
         </relationship>
         <relationship name="timeline">
             <destination>{a998fcbe-236a-4cfe-9d29-20786ae1118b}</destination>
-        </relationship>
-        <relationship name="banks">
-            <destination>{ee14753f-c627-4dbb-b922-e4015acc6c37}</destination>
         </relationship>
     </object>
     <object class="EventMixer" id="{4cd6262c-488a-4223-8472-bc8c39639db2}">

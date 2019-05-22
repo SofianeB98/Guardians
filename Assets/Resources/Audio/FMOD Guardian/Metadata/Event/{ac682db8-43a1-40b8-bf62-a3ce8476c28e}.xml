@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.01.10.00">
     <object class="Event" id="{ac682db8-43a1-40b8-bf62-a3ce8476c28e}">
         <property name="name">
-            <value>Collision de balle (soi)</value>
+            <value>Collision du souffle (soi)</value>
         </property>
         <property name="outputFormat">
             <value>1</value>

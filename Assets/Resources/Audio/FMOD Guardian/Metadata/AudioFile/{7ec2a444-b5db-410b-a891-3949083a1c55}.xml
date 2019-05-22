@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="AudioFile" id="{7ec2a444-b5db-410b-a891-3949083a1c55}">
+        <property name="assetPath">
+            <value>Déplacement 1.wav</value>
+        </property>
+        <property name="frequencyInKHz">
+            <value>44.0999985</value>
+        </property>
+        <property name="channelCount">
+            <value>2</value>
+        </property>
+        <property name="length">
+            <value>0.40131519274376415</value>
+        </property>
+        <relationship name="masterAssetFolder">
+            <destination>{f4d0295b-25cd-44f7-b660-34a4e5ce003a}</destination>
+        </relationship>
+    </object>
+</objects>
