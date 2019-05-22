@@ -297,7 +297,7 @@ MonoBehaviour:
   seedDrop: {fileID: 798}
   pillierRd: {fileID: 961}
   doubleLaser: 1
-  pillierLifeTime: 999999
+  pillierLifeTime: 8
   maxDistanceWithMyGuardian: 100
   speedRotation: 150
   animationScaleDuration: 1
