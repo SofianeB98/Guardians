@@ -118,6 +118,12 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     private float currentCooldownLaunchSeed = 0f;
     public bool IsCooldown { get; private set; }
 
+    [Header("UI Seed Recharge Gestion")]
+    [SerializeField] private Image[] seedReadyUI;
+    [SerializeField] private float maxHeightMask = 122f;
+    [SerializeField] private RectTransform maskPanel;
+    [SerializeField] private Color colorReady;
+    [SerializeField] private Color colorNoReady;
     /*[Header("Pillier Sens")]
     [SerializeField] private Image sensPillierImage;
     [SerializeField] private Sprite sensHoraireSprite;
@@ -164,7 +170,37 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
             }
             state.ActiveEE = true;
             state.Invinsible = false;
-            state.MyColor = new Color(Random.value, Random.value, Random.value);
+
+            if (state.GuardianName.Contains("Sofiane"))
+            {
+                state.MyColor = Color.blue;
+            }
+            else if (state.GuardianName.Contains("Arthur"))
+            {
+                state.MyColor = Color.green;
+            }
+            else if (state.GuardianName.Contains("Scotty"))
+            {
+                state.MyColor = Color.magenta;
+            }
+            else if (state.GuardianName.Contains("Matthias"))
+            {
+                state.MyColor = Color.red;
+            }
+            else if (state.GuardianName.Contains("Morgane"))
+            {
+                state.MyColor = Color.yellow;
+            }
+            else if (state.GuardianName.Contains("Jordan"))
+            {
+                state.MyColor = Color.white;
+            }
+            else
+            {
+                state.MyColor = new Color(Random.value, Random.value, Random.value);
+            }
+
+            
             lastColor = state.MyColor;
         }
         
@@ -238,6 +274,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         {
             this.seedReadyImage.color = Color.Lerp(this.seedReadyImage.color, Color.green,
                 Time.deltaTime / this.cooldownLaunchSeed);
+            this.maskPanel.sizeDelta += new Vector2(0, Time.deltaTime * (this.maxHeightMask/this.maxPillier) / this.cooldownLaunchSeed);
         }
 
         if (this.currentInvinsibleTime < Time.time)
@@ -435,7 +472,9 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     {
         yield return new WaitForSeconds(this.cooldownLaunchSeed);
         this.currentPillier = this.currentPillier > 0 ? this.currentPillier - 1 : 0;
-        this.seedReadyImagesViseur[this.currentPillier].color = Color.green;
+
+        this.seedReadyImagesViseur[this.currentPillier].color = this.colorReady;
+        this.seedReadyUI[this.currentPillier].color = this.colorReady;
 
         if (currentPillier > 0)
         {
@@ -557,8 +596,15 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
 
             foreach (var seedOk in this.seedReadyImagesViseur)
             {
-                seedOk.color = Color.green;
+                seedOk.color = this.colorReady;
             }
+
+            foreach (var seedOk in this.seedReadyUI)
+            {
+                seedOk.color = this.colorReady;
+            }
+
+            this.maskPanel.sizeDelta = new Vector2(this.maskPanel.rect.width, this.maxHeightMask);
 
             this.currentPillier = 0;
             this.seedReadyImage.color = Color.green;
@@ -705,7 +751,9 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
             this.IsPreLaunchSeed = false;
 
             if (entity.IsOwner) StartCoroutine(LaunchSeedTrueFalse());
-
+            
+            
+            this.maskPanel.sizeDelta = new Vector2(this.maskPanel.rect.width, this.maskPanel.rect.height - (this.maxHeightMask / this.maxPillier));
             //if (this.currentInventorySeed > 0)
             //if (!IsCooldown)
             {
@@ -735,7 +783,8 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
 
             this.currentPillier = this.currentPillier < this.maxPillier ? this.currentPillier + 1 : this.maxPillier;
 
-            this.seedReadyImagesViseur[this.currentPillier - 1].color = Color.red;
+            this.seedReadyImagesViseur[this.currentPillier - 1].color = this.colorNoReady;
+            this.seedReadyUI[this.currentPillier - 1].color = this.colorNoReady;
 
             var evnt = AudioStartEvent.Create(entity);
             evnt.Position = transform.position;
@@ -770,7 +819,9 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     public void SeedLostInSpace()
     {
         this.currentPillier = this.currentPillier > 0 ? this.currentPillier - 1 : 0;
-        this.seedReadyImagesViseur[this.currentPillier].color = Color.green;
+        this.seedReadyImagesViseur[this.currentPillier].color = this.colorReady;
+        this.seedReadyUI[this.currentPillier].color = this.colorReady;
+        this.maskPanel.sizeDelta = new Vector2(this.maskPanel.rect.width, this.maskPanel.rect.height + (this.maxHeightMask / this.maxPillier));
     }
 
     public void ChangePillierDir()

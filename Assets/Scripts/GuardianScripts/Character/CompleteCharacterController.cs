@@ -105,6 +105,7 @@ public class CompleteCharacterController : Bolt.EntityEventListener<IGuardianSta
             state.Jumping = this.jumping;
             state.DoubleJumping = this.doubleJumping;
             state.Grounded = this.grounded;
+            
 
             this.finalDirection = this.direction + this.gravity + this.plateformeMouvanteDir;
             
