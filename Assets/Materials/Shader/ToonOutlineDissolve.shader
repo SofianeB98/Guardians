@@ -14,11 +14,11 @@
         _RangeEmissive ("Range alpha emissive", Range(0,2)) = 0.5
         
         [Header(Light Properties)]
-        [HDR] _AmbientColor("Ambient Color", Color) = (0.4,0.4,0.4,1)
+         _AmbientColor("Ambient Color", Color) = (0.4,0.4,0.4,1)
         _SmoothnessLightEdge ("Smoothness light edge", Range(0,1)) = 0
         [Space(5)]
         [Toggle] _UseSpecular("Use Specular", Float) = 1
-        [HDR] _SpecularColor("Specular Color", Color) = (0.9,0.9,0.9,1)
+         _SpecularColor("Specular Color", Color) = (0.9,0.9,0.9,1)
         _Glossiness("Glossiness", Float) = 32
 
         [Header(Rim light Properties)]
@@ -29,7 +29,7 @@
 
         [Header(NormalMap properties)]
         [Toggle] _UseNormal ("Use Normal", Float) = 1
-        _NormalIntensity ("Normal Intensity", Range(0, 2)) = 1
+        _NormalIntensity ("Normal Intensity", Range(-2, 2)) = 1
 		[NoScaleOffset] _NormalMap("NormalMap", 2D) = "white" {}
 
         [Header(Outline properties)]
@@ -155,9 +155,10 @@
                 dissVal = tex2D(_DissolveTexture, i.uv) * _OutlineColor;
                 worldOrientation = mul(unity_ObjectToWorld, _DirectionDissolve);
                 resulDot = (dot(i.worldPos, normalize(worldOrientation))+1)/2;
-                clip(resulDot - _Amount); //Discard les pixels positionnés != que dans la direction donnée (dot entre pos du pixels)
-                clip(dissVal.r - _Amount); //Discard les pixels selon la textureDissolve
+                clip(resulDot +0.25  - _Amount); //Discard les pixels positionnés != que dans la direction donnée (dot entre pos du pixels)
+                clip(dissVal.r +0.25 - _Amount); //Discard les pixels selon la textureDissolve
                 _OutlineDissolve = _OutlineDissolve * (step(dissVal.r - _Amount, _Step) + step(resulDot - _Amount, _Step)); //Les step déterminent là où la couleur sera utilée, ils renvoient 0 et 1
+                
                 if(_OutlineColor.a == 0)
                 {
                     discard;
@@ -245,7 +246,7 @@
             //DIFFUSE
             float3 lightDirection = normalize(i.lightDir);
             float4 diffuse = saturate(dot(worldNormal, -lightDirection));
-           // diffuse *= _NormalIntensity;
+            //diffuse *= _NormalIntensity;
 			diffuse = light * diffuse; //NORMAL MAP
             
             //Specular & Rim lightning
@@ -277,7 +278,14 @@
 
                 if (emissive.a >= _RangeEmissive && _UseEmissive == 1) //Filtre de la texture emissive via l'alpha
                 {
-                    return emissive;
+                    if (_UseNormal == 1)
+                    {
+                        return half4(col.rgb *(_AmbientColor + diffuse + specular + rim).rgb + emissive.rgb, col.a);
+                    }
+                    else
+                    {
+                        return half4(col.rgb *(_AmbientColor + light + specular + rim).rgb + emissive.rgb, col.a);
+                    }
                 }
                 else
                 {

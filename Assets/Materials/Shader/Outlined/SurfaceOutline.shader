@@ -22,7 +22,6 @@
         [HDR] _ColorEmissive ("Emissive Color", Color) = (1,1,1,1)
         _EmissiveIntensity ("Intensity", Range(0,20)) = 1
 
-
         [Header(Outline properties)]
         [Toggle] _UseOutline ("Use Outline", Float) = 1
         [HDR] _OutlineColor ("Outline color", Color) = (0,0,0,1)

@@ -317,7 +317,8 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
         //{
         //laserDeuxRD.material.color = state.MyColor;
         //}
-        pillierRd.material.SetColor("_EmissionColor", state.MyColor);
+        pillierRd.material.SetColor("_ColorEmissive", state.MyColor);
+        pillierRd.material.SetFloat("_EmissiveIntensity", 1.5f);
     }
 
 }

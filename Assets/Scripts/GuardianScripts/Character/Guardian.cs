@@ -1101,7 +1101,8 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     {
         foreach (var rd in renderersAvatar)
         {
-            rd.material.SetColor("_EmissionColor", state.MyColor);
+            rd.material.SetColor("_ColorEmissive", state.MyColor);
+            rd.material.SetFloat("_EmissiveIntensity", 1.5f);
         }
 
 

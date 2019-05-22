@@ -8,13 +8,6 @@
 		[Toggle] _UseLight ("Use Light", Int) = 1
 		_Alpha ("Alpha", Range(0,1)) = 1
 
-        [Header(Outline properties)]
-        [Toggle] _UseOutline ("Use Outline", Float) = 1
-        [Toggle] _UseTransparencyOutline ("Use transparency on Outline", Float) = 1
-		_OutlineColor ("Outline Color", Color) = (0,0,0,1)
-		_Outline ("Outline width", Range (0.0, 0.15)) = .005
-		_OutlineOffset ("Outline Offset", Vector) = (0, 0, 0)
-
         [Header(Emissive Properties)]
         [Toggle] _UseEmissive("Use Emissive", Float) = 1
         _EmissiveTex ("EmissiveTex", 2D) = "white" {}
@@ -24,8 +17,15 @@
 
 		[Header(NormalMap properties)]
         [Toggle] _UseNormal ("Use Normal", Int) = 1
-        _NormalIntensity ("Normal Intensity", Range(1, 2)) = 1
+        _NormalIntensity ("Normal Intensity", Range(-2, 2)) = 1
 		[NoScaleOffset] _NormalMap("NormalMap", 2D) = "white" {}
+
+		[Header(Outline properties)]
+        [Toggle] _UseOutline ("Use Outline", Float) = 1
+        [Toggle] _UseTransparencyOutline ("Use transparency on Outline", Float) = 1
+		[HDR] _OutlineColor ("Outline Color", Color) = (0,0,0,1)
+		_Outline ("Outline width", Range (0.0, 0.15)) = .005
+		_OutlineOffset ("Outline Offset", Vector) = (0, 0, 0)
 	}
  
 	CGINCLUDE
@@ -219,29 +219,25 @@
 				
 				half3 tex = tex2D(_MainTex, i.uv).rgb;
 				half3 color =  tex * _Color.rgb;
+
+				//Emissive 
+            	fixed4 emissive = tex2D(_EmissiveTex, i.uv);
+            	emissive.rgb *= _ColorEmissive.rgb * _EmissiveIntensity;
 				
 				if (_UseNormal == 1)
 				{
 					color *= diffuse;
 				}
-				if(_UseLight)
+				if(_UseLight == 1)
 				{
 					color *= light;
 				}
+				if (emissive.a >= _RangeEmissive && _UseEmissive == 1) //Filtre de la texture emissive via l'alpha
+            	{
+					color.rgb += emissive.rgb;
+				}
 
-            //Emissive 
-            fixed4 emissive = tex2D(_EmissiveTex, i.uv);
-            emissive.rgb *= _ColorEmissive.rgb * _EmissiveIntensity;
-			
-
-            if (emissive.a >= _RangeEmissive && _UseEmissive == 1) //Filtre de la texture emissive via l'alpha
-            {
-                return half4(emissive.rgb, _Alpha);
-            }
-            else
-            {
-                return half4(color, _Alpha);
-            }
+			return half4 (color.rgb, _Alpha);
 			}			
 			ENDCG
 		}
