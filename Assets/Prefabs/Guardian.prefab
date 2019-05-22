@@ -184,7 +184,7 @@ MonoBehaviour:
   guardian: {fileID: 1320}
   characterController: {fileID: 1109}
   cameraReferential: {fileID: 713}
-  speed: 18
+  speed: 16
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 4096
@@ -249,7 +249,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  jumpData: {fileID: 11400000, guid: 71133bce26b37dd4088f7fb770a622d9, type: 2}
+  jumpData: {fileID: 11400000, guid: 415851df593f140418e93388e5f42ea9, type: 2}
   jumpParticulePrefab: {fileID: 3262837594414097853, guid: 1d4d772b21228e24c9d8f5ea5a1ae861,
     type: 3}
   feetPosition: {fileID: 711}
@@ -5864,10 +5864,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 715}
     m_Modifications:
-    - target: {fileID: 100138, guid: 47fbeaf61b4c76549984eef944e80406, type: 3}
-      propertyPath: m_Name
-      value: Replicant
-      objectReference: {fileID: 0}
     - target: {fileID: 400138, guid: 47fbeaf61b4c76549984eef944e80406, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -5928,6 +5924,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: c48706c35804896438394d8501bd4506, type: 2}
+    - target: {fileID: 100138, guid: 47fbeaf61b4c76549984eef944e80406, type: 3}
+      propertyPath: m_Name
+      value: Replicant
+      objectReference: {fileID: 0}
     - target: {fileID: 400012, guid: 47fbeaf61b4c76549984eef944e80406, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 26.576107
@@ -6687,11 +6687,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 919}
     m_Modifications:
-    - target: {fileID: 4437369723854770923, guid: 0945b9921afdb7b428a0b7e85f634b3e,
-        type: 3}
-      propertyPath: m_Name
-      value: suiveur_def01 (1)
-      objectReference: {fileID: 0}
     - target: {fileID: 4437369723854278347, guid: 0945b9921afdb7b428a0b7e85f634b3e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6761,6 +6756,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4437369723854770923, guid: 0945b9921afdb7b428a0b7e85f634b3e,
+        type: 3}
+      propertyPath: m_Name
+      value: suiveur_def01 (1)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0945b9921afdb7b428a0b7e85f634b3e, type: 3}
@@ -6863,11 +6863,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 919}
     m_Modifications:
-    - target: {fileID: 4437369723854770923, guid: 0945b9921afdb7b428a0b7e85f634b3e,
-        type: 3}
-      propertyPath: m_Name
-      value: suiveur_def01
-      objectReference: {fileID: 0}
     - target: {fileID: 4437369723854278347, guid: 0945b9921afdb7b428a0b7e85f634b3e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6937,6 +6932,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4437369723854770923, guid: 0945b9921afdb7b428a0b7e85f634b3e,
+        type: 3}
+      propertyPath: m_Name
+      value: suiveur_def01
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0945b9921afdb7b428a0b7e85f634b3e, type: 3}
