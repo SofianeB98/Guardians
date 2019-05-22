@@ -14,11 +14,11 @@
         _RangeEmissive ("Range alpha missive", Range(0,2)) = 0.5
         
         [Header(Light Properties)]
-        [HDR] _AmbientColor("Ambient Color", Color) = (0.4,0.4,0.4,1)
+         _AmbientColor("Ambient Color", Color) = (0.4,0.4,0.4,1)
         _SmoothnessLightEdge ("Smoothness light edge", Range(0,1)) = 0
         [Space(5)]
         [Toggle] _UseSpecular("Use Specular", Float) = 1
-        [HDR] _SpecularColor("Specular Color", Color) = (0.9,0.9,0.9,1)
+         _SpecularColor("Specular Color", Color) = (0.9,0.9,0.9,1)
         _Glossiness("Glossiness", Float) = 32
 
         [Header(Rim light Properties)]
@@ -29,12 +29,12 @@
 
         [Header(NormalMap properties)]
         [Toggle] _UseNormal ("Use Normal", Float) = 1
-        _NormalIntensity ("Normal Intensity", Range(0, 2)) = 1
+        _NormalIntensity ("Normal Intensity", Range(-2, 2)) = 1
 		[NoScaleOffset] _NormalMap("NormalMap", 2D) = "white" {}
 
         [Header(Outline properties)]
         [Toggle] _UseOutline ("Use Outline", Float) = 1
-        _OutlineColor ("Outline color", Color) = (0,0,0,1)
+        [HDR] _OutlineColor ("Outline color", Color) = (0,0,0,1)
 		_OutlineWidth ("Outlines width", Range (0.0, 2.0)) = 1.1
         _OutlineOffset ("Outline Offset", Vector) = (0, 0, 0)
         
@@ -208,12 +208,16 @@
             float3 lightDirection = normalize(i.lightDir);
             float4 diffuse = saturate(dot(worldNormal, -lightDirection));
            // diffuse *= _NormalIntensity;
-			diffuse = light * diffuse; //NORMAL MAP
+
             
             //Specular & Rim lightning
             float4 specular = 0;
             float4 rim = 0;
             float3 viewDir = normalize(i.viewDir);
+
+            //Emissive 
+            fixed4 emissive = tex2D(_EmissiveTex, i.uv);
+            emissive.rgb *= _ColorEmissive.rgb * _EmissiveIntensity;
             
             if(_UseSpecular ==1 )
             {
@@ -223,7 +227,6 @@
                 float specularIntensitySmooth = smoothstep(0.005, 0.01, specularIntensity);
                 specular = specularIntensitySmooth * _SpecularColor;
             }
-
             if(_UseRim == 1)
             {
                 float4 rimDot = saturate(1 - dot(viewDir, normal));
@@ -231,27 +234,21 @@
                 rimIntensity = smoothstep(_RimAmount - 0.01, _RimAmount + 0.01, rimIntensity);
                 rim = rimIntensity * _RimColor;
             }
+            if (_UseNormal == 1)
+            {
+                diffuse = light * diffuse; //NORMAL MAP
+            }
+            else
+            {
+                diffuse = light;
+            }
+            if (emissive.a >= _RangeEmissive && _UseEmissive == 1) //Filtre de la texture emissive via l'alpha
+            {
+                col.rgb += emissive.rgb;
+            }
+            
+            return col * (_AmbientColor + specular + rim + diffuse);
 
-            //Emissive 
-            fixed4 emissive = tex2D(_EmissiveTex, i.uv);
-            emissive.rgb *= _ColorEmissive.rgb * _EmissiveIntensity;
-
-
-                if (emissive.a >= _RangeEmissive && _UseEmissive == 1) //Filtre de la texture emissive via l'alpha
-                {
-                    return emissive;
-                }
-                else
-                {
-                    if (_UseNormal == 1)
-                    {
-                        return col *(_AmbientColor + diffuse + specular + rim);
-                    }
-                    else
-                    {
-                        return col *(_AmbientColor + light + specular + rim);
-                    }
-                }   
             }
             ENDCG
         }
