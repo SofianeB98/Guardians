@@ -144,12 +144,13 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     [SerializeField] private string deathAudioOtherEvent = "";
     [SerializeField] private FMOD.Studio.EventInstance deathAudioOther;
     [FMODUnity.EventRef]
-    [SerializeField] private string launchAxeAudioEvent = "";
-    [SerializeField] private FMOD.Studio.EventInstance launchAxeAudio;
+    [SerializeField] private string respawnAudioOtherEvent = "";
+    [SerializeField] private FMOD.Studio.EventInstance respawnAudioOther;
     [FMODUnity.EventRef]
-    [SerializeField] private string axeIsBackEvent = "";
-    [SerializeField] private FMOD.Studio.EventInstance axeIsBack;
-    
+    [SerializeField] private string respawnAudioMeEvent = "";
+    [SerializeField] private FMOD.Studio.EventInstance respawnAudioMe;
+
+
     [SerializeField] private GameObject bwok;
     [SerializeField] private GameObject spike;
     [SerializeField] private GameObject bouc;
@@ -215,8 +216,8 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
 
         deathAudioMe = FMODUnity.RuntimeManager.CreateInstance(deathAudioMeEvent);
         deathAudioOther = FMODUnity.RuntimeManager.CreateInstance(deathAudioOtherEvent);
-        launchAxeAudio = FMODUnity.RuntimeManager.CreateInstance(launchAxeAudioEvent);
-        axeIsBack = FMODUnity.RuntimeManager.CreateInstance(axeIsBackEvent);
+        respawnAudioOther = FMODUnity.RuntimeManager.CreateInstance(respawnAudioOtherEvent);
+        respawnAudioMe = FMODUnity.RuntimeManager.CreateInstance(respawnAudioMeEvent);
 
         StartCoroutine(BestEnemyCheck());
         
@@ -414,8 +415,6 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         if (evnt.Launch)
         {
             /////Son
-            launchAxeAudio.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(transform.position));
-            launchAxeAudio.start();
             /////Son
             this.myAxe.isCanLaunchAxe(!evnt.Launch, evnt.Orientation);
         }
@@ -424,7 +423,6 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
             if (entity.IsOwner)
             {
                 /////Son
-                axeIsBack.start();
                 /////Son
             }
         }
@@ -595,7 +593,8 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         {
             foreach (var pillier in this.myPillier)
             {
-                BoltNetwork.Destroy(pillier.gameObject);
+                //BoltNetwork.Destroy(pillier.gameObject);
+                pillier.ActiveDestroy();
             }
             this.myPillier = new List<Pillier>();
 
@@ -621,8 +620,14 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         if (entity.IsOwner)
         {
             state.MyColor = lastColor;
+            respawnAudioMe.start();
         }
-        
+        else
+        {
+            respawnAudioOther.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(transform.position));
+            respawnAudioOther.start();
+        }
+
         this.lastGuardianWhoHitMe = null;
         var spawnPosition = RespawnPoint();
 
@@ -819,7 +824,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
 
     public void RemovePillier(Pillier pToRemove)
     {
-        this.myPillier.Remove(pToRemove);
+        if(this.myPillier.Contains(pToRemove)) this.myPillier.Remove(pToRemove);
         //this.currentPillier = this.currentPillier > 0 ? this.currentPillier - 1 : 0;
     }
 
@@ -853,7 +858,12 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         this.IsFusRoDah = true;
 
         state.FusRoDa = true;
-        
+
+        var evntAudio = AudioStartEvent.Create(entity);
+        evntAudio.Position = transform.position;
+        evntAudio.AudioID = 2;
+        evntAudio.Send();
+
         switch (mode)
         {
             case FusRoDaMode.Cone:

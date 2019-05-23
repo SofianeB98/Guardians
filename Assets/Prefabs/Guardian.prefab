@@ -254,8 +254,11 @@ MonoBehaviour:
     type: 3}
   feetPosition: {fileID: 711}
   sautAudioEvent: event:/Feedbacks Joueur Communs/Saut
-  colBalleMeEvent: event:/Feedbacks Joueur Personnels/Collision de balle (soi)
+  colBalleMeEvent: event:/Feedbacks Joueur Personnels/Collision du souffle (soi)
+  colBalleOtherEvent: event:/Feedbacks Objets/Collision du souffle (ennemi)
   launchSeedAudioEvent: event:/Feedbacks Joueur Communs/Lancer de graine-pilier
+  launchAxeAudioEvent: event:/Feedbacks Joueur Communs/Souffle repoussant
+  doubleSautEvent: event:/Feedbacks Joueur Communs/Double saut
 --- !u!114 &1320
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -363,8 +366,8 @@ MonoBehaviour:
   timeToNullLastEnemy: 6
   deathAudioMeEvent: "event:/Feedbacks Joueur Personnels/Joueur \xE9limin\xE9 (soi)"
   deathAudioOtherEvent: "event:/Feedbacks Objets/Joueur \xE9limin\xE9 (ennemi)"
-  launchAxeAudioEvent: event:/Feedbacks Joueur Communs/Lancer de balle
-  axeIsBackEvent: "event:/Feedbacks Joueur Personnels/Balle r\xE9cup\xE9r\xE9e"
+  respawnAudioOtherEvent: event:/Feedbacks Objets/Respawn joueur (ennemi)
+  respawnAudioMeEvent: event:/Feedbacks Joueur Personnels/Respawn joueur (soi)
   bwok: {fileID: 2291815605867431642}
   spike: {fileID: 100000}
   bouc: {fileID: 684}

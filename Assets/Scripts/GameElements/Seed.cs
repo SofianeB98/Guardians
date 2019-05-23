@@ -19,13 +19,13 @@ public class Seed : Bolt.EntityEventListener<ISeedState>
     [SerializeField] private LayerMask videLayerMask;
 
     //Son
-    [FMODUnity.EventRef]
-    public string collisionObstacleEvent;
-    public FMOD.Studio.EventInstance collisionObstacle;
+    //[FMODUnity.EventRef]
+    //public string collisionObstacleEvent;
+    //public FMOD.Studio.EventInstance collisionObstacle;
     
     public override void Attached()
     {
-        collisionObstacle = FMODUnity.RuntimeManager.CreateInstance(collisionObstacleEvent);
+        //collisionObstacle = FMODUnity.RuntimeManager.CreateInstance(collisionObstacleEvent);
 
         state.SetTransforms(state.Transform, this.transform);
         if (entity.IsOwner)
@@ -75,8 +75,8 @@ public class Seed : Bolt.EntityEventListener<ISeedState>
     private void OnCollisionEnter(Collision col)
     {
         /////Son
-        collisionObstacle.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(transform.position));
-        collisionObstacle.start();
+        //collisionObstacle.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(transform.position));
+        //collisionObstacle.start();
         /////Son
 
         if (!this.isLaunchPlayer)

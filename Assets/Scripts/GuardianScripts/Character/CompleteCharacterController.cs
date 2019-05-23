@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Bolt;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
@@ -60,8 +61,17 @@ public class CompleteCharacterController : Bolt.EntityEventListener<IGuardianSta
     public string colBalleMeEvent;
     public FMOD.Studio.EventInstance colBalleMe;
     [FMODUnity.EventRef]
+    public string colBalleOtherEvent;
+    public FMOD.Studio.EventInstance colBalleOther;
+    [FMODUnity.EventRef]
     [SerializeField] private string launchSeedAudioEvent = "";
     [SerializeField] private FMOD.Studio.EventInstance launchSeedAudio;
+    [FMODUnity.EventRef]
+    [SerializeField] private string launchAxeAudioEvent = "";
+    [SerializeField] private FMOD.Studio.EventInstance launchAxeAudio;
+    [FMODUnity.EventRef]
+    [SerializeField] private string doubleSautEvent = "";
+    [SerializeField] private FMOD.Studio.EventInstance doubleSaut;
 
     // Use this for initialization
     void Awake () {
@@ -74,10 +84,14 @@ public class CompleteCharacterController : Bolt.EntityEventListener<IGuardianSta
 
         sautAudio = FMODUnity.RuntimeManager.CreateInstance(sautAudioEvent);
         colBalleMe = FMODUnity.RuntimeManager.CreateInstance(colBalleMeEvent);
+        colBalleOther = FMODUnity.RuntimeManager.CreateInstance(colBalleOtherEvent);
 
         launchSeedAudio = FMODUnity.RuntimeManager.CreateInstance(launchSeedAudioEvent);
+        launchAxeAudio = FMODUnity.RuntimeManager.CreateInstance(launchAxeAudioEvent);
 
-        if(jumpData != null) this.InjectJumpData();
+        doubleSaut = FMODUnity.RuntimeManager.CreateInstance(doubleSautEvent);
+
+        if (jumpData != null) this.InjectJumpData();
 
     }
 
@@ -265,7 +279,7 @@ public class CompleteCharacterController : Bolt.EntityEventListener<IGuardianSta
 
             var evnt = AudioStartEvent.Create(entity);
             evnt.Position = transform.position;
-            evnt.AudioID = 0;
+            evnt.AudioID = 3;
             evnt.Send();
         }
     }
@@ -290,6 +304,28 @@ public class CompleteCharacterController : Bolt.EntityEventListener<IGuardianSta
                 launchSeedAudio.start();
                 /////Son
                 break;
+
+            case 2:
+                /////Son
+                launchAxeAudio.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(transform.position));
+                launchAxeAudio.start();
+                /////Son
+                break;
+
+            case 3:
+                doubleSaut.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(evnt.Position));
+                doubleSaut.start();
+
+                GameObject gogo = Instantiate(jumpParticulePrefab, this.feetPosition.position, Quaternion.identity);
+                //go.transform.SetParent(this.transform);
+                gogo.transform.rotation = Quaternion.AngleAxis(-90, Vector3.right);
+                Destroy(gogo, 1f);
+                break;
+
+            case 4:
+                colBalleOther.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(evnt.Position));
+                colBalleOther.start();
+                break;
         }
     }
 
@@ -306,9 +342,21 @@ public class CompleteCharacterController : Bolt.EntityEventListener<IGuardianSta
 
         this.direction = dir * force;
         StartCoroutine(SmoothForceDown());
-        /////Son
-        colBalleMe.start();
-        /////Son
+
+        if (entity.IsOwner)
+        {
+            /////Son
+            colBalleMe.start();
+            /////Son
+        }
+        else
+        {
+            var evnt = AudioStartEvent.Create(entity, EntityTargets.EveryoneExceptOwner);
+            evnt.Position = transform.position;
+            evnt.AudioID = 4;
+            evnt.Send();
+        }
+
     }
 
     IEnumerator SmoothForceDown()

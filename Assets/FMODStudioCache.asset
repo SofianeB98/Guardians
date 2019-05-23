@@ -20,25 +20,22 @@ MonoBehaviour:
   - {fileID: 114381480791562610}
   - {fileID: 114945819226513440}
   - {fileID: 114392202281110236}
-  - {fileID: 114031370388971278}
-  - {fileID: 114069875499548090}
   - {fileID: 114378290443121840}
-  - {fileID: 114777870251614130}
-  - {fileID: 114302635634149334}
-  - {fileID: 114137357443711064}
   - {fileID: 114743599126186278}
   - {fileID: 114911261559897472}
-  - {fileID: 114270744377705194}
-  - {fileID: 114503173307571072}
-  - {fileID: 114919659241466752}
-  - {fileID: 114560835942678742}
-  - {fileID: 114467607747203412}
+  - {fileID: 114349288354585230}
+  - {fileID: 114716583832886408}
+  - {fileID: 114384556259997230}
+  - {fileID: 114900922719912640}
+  - {fileID: 114786472143282732}
+  - {fileID: 114192196136331864}
+  - {fileID: 114964466056812386}
   MasterBanks:
   - {fileID: 114566029054956252}
   - {fileID: 114331563166837336}
   StringsBanks:
   - {fileID: 114602940312651748}
-  stringsBankWriteTime: 636941113824507454
+  stringsBankWriteTime: 636942036678970983
   cacheVersion: 3
 --- !u!114 &114031370388971278
 MonoBehaviour:
@@ -109,6 +106,29 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 40
   Length: 440
+--- !u!114 &114192196136331864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Feedbacks Objets/Collision du souffle (ennemi)
+  guid: e3b4b2a04acaea4a9a231c609c441eda
+  Banks:
+  - {fileID: 114331563166837336}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1502
 --- !u!114 &114270744377705194
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169,12 +189,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: C:\Users\sofia\Desktop\Cours\3. Troisieme Annee\0. Projet Annuel\Projet_Unity\Multi_Project\Bolt\Guardians\Assets\Resources\Audio\FMOD
     Guardian\Build\Desktop\Master Bank.bank
-  lastModified: 636941113824357547
+  lastModified: 636942036678880343
   LoadResult: 0
   FileSizes:
   - Name: Desktop
-    Value: 274880
+    Value: 1382368
   Exists: 1
+--- !u!114 &114349288354585230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Feedbacks Joueur Communs/Double saut
+  guid: 1742799d14206a428705089a9ce0323b
+  Banks:
+  - {fileID: 114331563166837336}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 40
+  Length: 197
 --- !u!114 &114378290443121840
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,7 +240,7 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 1
   MaxDistance: 50
-  Length: 1054
+  Length: 2459
 --- !u!114 &114381480791562610
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -220,7 +263,30 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 0
   MaxDistance: 0
-  Length: 1064
+  Length: 3350
+--- !u!114 &114384556259997230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Feedbacks Joueur Communs/Souffle repoussant
+  guid: 6f87e6043d105a46912fcc2439627fba
+  Banks:
+  - {fileID: 114331563166837336}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 25
+  Length: 922
 --- !u!114 &114392202281110236
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -369,12 +435,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Path: Assets\Resources\Audio\FMOD Guardian\Build\Desktop\Master Bank.strings.bank
-  lastModified: 636941113824507454
+  lastModified: 636942036678970983
   LoadResult: 0
   FileSizes:
   - Name: Desktop
-    Value: 1666
+    Value: 1534
   Exists: 1
+--- !u!114 &114716583832886408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: "event:/Feedbacks Joueur Communs/D\xE9placement"
+  guid: 6839150256749c4c98954b748777c5a7
+  Banks:
+  - {fileID: 114331563166837336}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 900
 --- !u!114 &114743599126186278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -397,7 +486,7 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 1
   MaxDistance: 40
-  Length: 348
+  Length: 143
 --- !u!114 &114777870251614130
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -421,6 +510,52 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 25
   Length: 400
+--- !u!114 &114786472143282732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Feedbacks Joueur Personnels/Collision du souffle (soi)
+  guid: b82d68aca143b840bf62a3ce8476c28e
+  Banks:
+  - {fileID: 114331563166837336}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 1502
+--- !u!114 &114900922719912640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Interfaces/Clic sur bouton
+  guid: 71f560fb79e73f4c816d2d9368247762
+  Banks:
+  - {fileID: 114331563166837336}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 226
 --- !u!114 &114911261559897472
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -443,7 +578,7 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 1
   MaxDistance: 25
-  Length: 184
+  Length: 341
 --- !u!114 &114919659241466752
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -490,3 +625,26 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 1228
+--- !u!114 &114964466056812386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: "event:/Interfaces/Compte \xE0 rebours"
+  guid: ec92bc8aae1216478acb970c35b7a60d
+  Banks:
+  - {fileID: 114331563166837336}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 371
