@@ -174,7 +174,7 @@ public class CompleteCharacterController : Bolt.EntityEventListener<IGuardianSta
 	        if (pmHit.transform.tag.Contains("PMouvante") && !this.jumping)
 	        {
 	            RotatePlateformMovement rpm = pmHit.transform.GetComponentInParent<RotatePlateformMovement>();
-                PlateformMovement pm = pmHit.transform.GetComponent<PlateformMovement>();
+                PlateformMovement pm = pmHit.transform.GetComponentInParent<PlateformMovement>();
 
 	            if (rpm != null)
 	            {
