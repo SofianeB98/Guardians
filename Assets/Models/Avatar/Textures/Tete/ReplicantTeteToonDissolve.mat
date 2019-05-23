@@ -111,7 +111,7 @@ Material:
     m_Colors:
     - _AmbientColor: {r: 0.4528302, g: 0.4528302, b: 0.4528302, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _ColorEmissive: {r: 1.9999998, g: 1.9999998, b: 1.9999998, a: 1}
+    - _ColorEmissive: {r: 1.4980392, g: 1.4980392, b: 1.4980392, a: 1}
     - _ColorMain: {r: 1, g: 1, b: 1, a: 1}
     - _DirectionDissolve: {r: 0, g: 1, b: 0, a: 0}
     - _EmissionColor: {r: 4, g: 4, b: 4, a: 1}

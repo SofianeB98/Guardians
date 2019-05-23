@@ -9,8 +9,8 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: wallDiagonal
   m_Shader: {fileID: 4800000, guid: 1ca37bf2c3d89a74b9880e17c2f3e6a6, type: 3}
-  m_ShaderKeywords: _EMISSION _METALLICGLOSSMAP _NORMALMAP _USEEMISSIVE_ON _USELIGHT_ON
-    _USENORMAL_ON _USEOUTLINE_ON _USERIM_ON _USETRANSPARENCYOUTLINE_ON
+  m_ShaderKeywords: _EMISSION _METALLICGLOSSMAP _NORMALMAP _USELIGHT_ON _USENORMAL_ON
+    _USEOUTLINE_ON _USESPECULAR_ON _USETRANSPARENCYOUTLINE_ON
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -94,22 +94,22 @@ Material:
     - _RimAmount: 0.5
     - _RimThreshold: 0.25
     - _Smoothness: 1
-    - _SmoothnessLightEdge: 0.5
+    - _SmoothnessLightEdge: 0
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _Step: 0.01
     - _UVSec: 0
-    - _UseEmissive: 1
+    - _UseEmissive: 0
     - _UseLight: 1
     - _UseNormal: 1
     - _UseOutline: 1
-    - _UseRim: 1
-    - _UseSpecular: 0
+    - _UseRim: 0
+    - _UseSpecular: 1
     - _UseTransparencyOutline: 1
     - _ZWrite: 1
     m_Colors:
-    - _AmbientColor: {r: 0.4528302, g: 0.4528302, b: 0.4528302, a: 1}
+    - _AmbientColor: {r: 0.7294118, g: 0.7294118, b: 0.7294118, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _ColorEmissive: {r: 0, g: 0, b: 0, a: 1}
     - _ColorMain: {r: 1, g: 1, b: 1, a: 1}
@@ -119,4 +119,4 @@ Material:
     - _OutlineDissolve: {r: 0, g: 0, b: 0, a: 1}
     - _OutlineOffset: {r: 0, g: 0, b: 0, a: 1}
     - _RimColor: {r: 1, g: 1, b: 1, a: 1}
-    - _SpecularColor: {r: 0, g: 0, b: 0, a: 1}
+    - _SpecularColor: {r: 0.7294118, g: 0.7294118, b: 0.7294118, a: 1}

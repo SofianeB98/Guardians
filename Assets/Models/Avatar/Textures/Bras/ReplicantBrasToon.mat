@@ -10,7 +10,7 @@ Material:
   m_Name: ReplicantBrasToon
   m_Shader: {fileID: 4800000, guid: 1ca37bf2c3d89a74b9880e17c2f3e6a6, type: 3}
   m_ShaderKeywords: _EMISSION _METALLICGLOSSMAP _NORMALMAP _USEEMISSIVE_ON _USELIGHT_ON
-    _USENORMAL_ON _USEOUTLINE_ON _USERIM_ON _USETRANSPARENCYOUTLINE_ON
+    _USENORMAL_ON _USEOUTLINE_ON _USESPECULAR_ON _USETRANSPARENCYOUTLINE_ON
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -79,22 +79,22 @@ Material:
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _EmissiveIntensity: 1
+    - _EmissiveIntensity: 10
     - _GlossMapScale: 1
-    - _Glossiness: 1
+    - _Glossiness: 3
     - _GlossyReflections: 1
     - _Metallic: 0
     - _Mode: 0
-    - _NormalIntensity: 1.5
+    - _NormalIntensity: 1
     - _OcclusionStrength: 1
     - _Outline: 0.005
-    - _OutlineWidth: 0.02
+    - _OutlineWidth: 0.03
     - _Parallax: 0.02
     - _RangeEmissive: 0
     - _RimAmount: 0.5
     - _RimThreshold: 0.25
     - _Smoothness: 1
-    - _SmoothnessLightEdge: 0.5
+    - _SmoothnessLightEdge: 0
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -104,14 +104,14 @@ Material:
     - _UseLight: 1
     - _UseNormal: 1
     - _UseOutline: 1
-    - _UseRim: 1
-    - _UseSpecular: 0
+    - _UseRim: 0
+    - _UseSpecular: 1
     - _UseTransparencyOutline: 1
     - _ZWrite: 1
     m_Colors:
-    - _AmbientColor: {r: 0.4528302, g: 0.4528302, b: 0.4528302, a: 1}
+    - _AmbientColor: {r: 0.7294118, g: 0.7294118, b: 0.7294118, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _ColorEmissive: {r: 1.9999998, g: 1.9999998, b: 1.9999998, a: 1}
+    - _ColorEmissive: {r: 0, g: 0.47901297, b: 2, a: 1}
     - _ColorMain: {r: 1, g: 1, b: 1, a: 1}
     - _DirectionDissolve: {r: 0, g: 1, b: 0, a: 0}
     - _EmissionColor: {r: 4, g: 4, b: 4, a: 1}
@@ -119,4 +119,4 @@ Material:
     - _OutlineDissolve: {r: 0, g: 0, b: 0, a: 1}
     - _OutlineOffset: {r: 0, g: 0, b: 0, a: 1}
     - _RimColor: {r: 1, g: 1, b: 1, a: 1}
-    - _SpecularColor: {r: 0, g: 0, b: 0, a: 1}
+    - _SpecularColor: {r: 0.36078432, g: 0.36078432, b: 0.36078432, a: 1}

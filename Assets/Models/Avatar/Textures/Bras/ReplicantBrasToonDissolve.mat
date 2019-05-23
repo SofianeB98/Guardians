@@ -79,7 +79,7 @@ Material:
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _EmissiveIntensity: 1
+    - _EmissiveIntensity: 10
     - _GlossMapScale: 1
     - _Glossiness: 1
     - _GlossyReflections: 1
