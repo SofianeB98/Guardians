@@ -368,8 +368,8 @@ MonoBehaviour:
   - {fileID: 8656973881092430953}
   - {fileID: 2208347161771379218}
   doubleLaser: 1
-  pillierLifeTime: 999999
-  maxDistanceWithMyGuardian: 999999
+  pillierLifeTime: 8
+  maxDistanceWithMyGuardian: 300
   speedRotation: 150
   animationScaleDuration: 1
   animationSpeed: 3
