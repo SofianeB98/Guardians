@@ -173,7 +173,17 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
               //  evnt.Send();
             }
         }
-        
+
+
+        if (Input.GetKeyDown(KeyCode.KeypadPlus))
+        {
+            this.partyTimer = 999;
+        }
+
+        if (Input.GetKeyDown(KeyCode.KeypadMinus))
+        {
+            this.partyTimer = 5;
+        }
 
         //if (CurrentGuardianInLife <= 1)
         //{
@@ -291,7 +301,7 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
     {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-        yield return new WaitForSeconds(8f);
+        yield return new WaitForSeconds(5f);
         var evnt = DisconnectEvent.Create(GlobalTargets.Everyone);
         evnt.Send();
         yield break;
