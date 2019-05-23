@@ -10,7 +10,7 @@ Material:
   m_Name: rotateplaform
   m_Shader: {fileID: 4800000, guid: 1ca37bf2c3d89a74b9880e17c2f3e6a6, type: 3}
   m_ShaderKeywords: _EMISSION _METALLICGLOSSMAP _NORMALMAP _USEEMISSIVE_ON _USELIGHT_ON
-    _USENORMAL_ON _USEOUTLINE_ON _USESPECULAR_ON _USETRANSPARENCYOUTLINE_ON
+    _USENORMAL_ON _USEOUTLINE_ON _USETRANSPARENCYOUTLINE_ON
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -79,7 +79,7 @@ Material:
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _EmissiveIntensity: 3
+    - _EmissiveIntensity: 0.8
     - _GlossMapScale: 1
     - _Glossiness: 5
     - _GlossyReflections: 1
@@ -105,14 +105,14 @@ Material:
     - _UseNormal: 1
     - _UseOutline: 1
     - _UseRim: 0
-    - _UseSpecular: 1
+    - _UseSpecular: 0
     - _UseTransparencyOutline: 1
     - _ZWrite: 1
     m_Colors:
     - _AmbientColor: {r: 0.7294118, g: 0.7294118, b: 0.7294118, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _ColorEmissive: {r: 1, g: 1, b: 1, a: 1}
-    - _ColorMain: {r: 1, g: 1, b: 1, a: 1}
+    - _ColorEmissive: {r: 0.6823128, g: 0.7075472, b: 0.6107601, a: 1}
+    - _ColorMain: {r: 0.6698113, g: 0.6698113, b: 0.6698113, a: 1}
     - _DirectionDissolve: {r: 0, g: 1, b: 0, a: 0}
     - _EmissionColor: {r: 4, g: 4, b: 4, a: 1}
     - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
