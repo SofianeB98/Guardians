@@ -98,7 +98,7 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
                         this.scorePanel.SetActive(true);
                     }
 
-                    winnerText.text = "Winner is " + WinGuardian().guardianName;
+                    winnerText.text = "Le vainqueur est \r\n" + WinGuardian().guardianName;
 
                     StartCoroutine(Deconnect());
 

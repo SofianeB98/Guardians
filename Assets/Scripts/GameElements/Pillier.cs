@@ -18,7 +18,8 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
     [SerializeField] private Transform seedDrop;
     //[SerializeField] private Renderer laserRD;
     //[SerializeField] private Renderer laserDeuxRD;
-    [SerializeField] private Renderer pillierRd;
+    [SerializeField] private Renderer[] pillierRd;
+    [SerializeField] private ParticleSystem[] laserPSRD;
     [SerializeField] private bool doubleLaser = true;
     [SerializeField] private float pillierLifeTime = 15.0f;
     [SerializeField] private float maxDistanceWithMyGuardian = 20.0f;
@@ -39,7 +40,9 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
     [Header("Laser")]
     [SerializeField] private LayerMask checkLayer;
     [SerializeField] private int damage = 1;
+    
 
+    [Header("Ground")]
     [SerializeField] private LayerMask groundLayerMask;
     private Vector3 plateformPosition = Vector3.zero;
     private float anglePositionRecal = 1000;
@@ -110,12 +113,12 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
             //state.Scale += BoltNetwork.FrameDeltaTime * Vector3.up * this.speedScalePillier;
         }
 
-        if (!this.laserGO.activeSelf && !state.IsScaling)
+        if (!this.laserGO.activeSelf && !state.IsScaling && !state.Destroy)
         {
             state.Active = true;
             StartCoroutine(LaunchCheck());
         }
-        else if(this.laserGO.activeSelf && !state.IsScaling)
+        else if(this.laserGO.activeSelf && !state.IsScaling && !state.Destroy)
         {
             this.RotateLaser();
             if (this.pillierLifeTime > 0 && Vector3.Distance(this.transform.position, myOwner.transform.position) < this.maxDistanceWithMyGuardian)
@@ -124,9 +127,10 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
             }
             else
             {
-                DestroyPillier();
+                ActiveDestroy();
             }
         }
+        
     }
     
     #region PillierFunction
@@ -210,7 +214,7 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
 
     IEnumerator LaunchCheck()
     {
-        while (true)
+        while (!state.Destroy)
         {
             yield return new WaitForEndOfFrame();
             if (this.laserGO.activeSelf)
@@ -220,6 +224,10 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
                 {
                     CheckPlayerDouble();
                 }
+            }
+            else
+            {
+                break;
             }
             yield return new WaitForEndOfFrame();
 
@@ -333,6 +341,23 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
         yield break;
     }
 
+    public void ActiveDestroy()
+    {
+        //DestroyPillier();
+        state.Destroy = true;
+        state.Active = false;
+        StartCoroutine(Destroy());
+    }
+
+    IEnumerator Destroy()
+    {
+        yield return new WaitForSeconds(1f);
+        {
+            DestroyPillier();
+        }
+        yield break;
+    }
+
     void ColorChanged()
     {
         //laserRD.material.color = state.MyColor;
@@ -340,8 +365,20 @@ public class Pillier : Bolt.EntityEventListener<IPillierState>
         //{
         //laserDeuxRD.material.color = state.MyColor;
         //}
-        pillierRd.material.SetColor("_ColorEmissive", state.MyColor);
-        pillierRd.material.SetFloat("_EmissiveIntensity", 1.5f);
+        foreach (var pillier in pillierRd)
+        {
+            pillier.material.SetColor("_ColorEmissive", state.MyColor);
+            pillier.material.SetFloat("_EmissiveIntensity", 1.5f);
+        }
+
+        foreach (var laser in laserPSRD)
+        {
+            ParticleSystem.MainModule main = laser.main;
+            main.startColor = new ParticleSystem.MinMaxGradient(state.MyColor, state.MyColor);
+            ParticleSystem.TrailModule trail = laser.trails;
+            trail.colorOverLifetime = new ParticleSystem.MinMaxGradient(state.MyColor, state.MyColor);
+        }
+
     }
 
 }

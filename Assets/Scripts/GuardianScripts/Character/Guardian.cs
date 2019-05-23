@@ -783,7 +783,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     IEnumerator LaunchSeedTrueFalse()
     {
         state.LaunchSeed = true;
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.15f);
 
         {
             Seed s = BoltNetwork.Instantiate(BoltPrefabs.Seed, this.myHand.position + this.transform.forward + Vector3.up, Quaternion.identity).GetComponent<Seed>();
@@ -810,7 +810,8 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
         
         if (this.myPillier.Count > this.maxPillier)
             {
-                Destroy(this.myPillier[0].gameObject);
+                //Destroy(this.myPillier[0].gameObject);
+                this.myPillier[0].ActiveDestroy();
                 this.myPillier.RemoveAt(0);
             }
         //}
@@ -819,7 +820,7 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
     public void RemovePillier(Pillier pToRemove)
     {
         this.myPillier.Remove(pToRemove);
-        this.currentPillier = this.currentPillier > 0 ? this.currentPillier - 1 : 0;
+        //this.currentPillier = this.currentPillier > 0 ? this.currentPillier - 1 : 0;
     }
 
     public void SeedLostInSpace()
@@ -918,7 +919,10 @@ public class Guardian : Bolt.EntityEventListener<IGuardianState>
                                 Guardian guardian = guard.GetComponent<Guardian>();
                                 if (guardian != null && guardian != this)
                                 {
-                                    guardian.SetStun(dir.normalized, force, entity);
+                                    if (!guardian.IsDie && !guardian.IsStuned && !guardian.IsInvinsible)
+                                    {
+                                        guardian.SetStun(dir.normalized, force, entity);
+                                    }
                                 }
                             }
 

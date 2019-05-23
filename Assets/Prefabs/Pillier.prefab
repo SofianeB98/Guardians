@@ -98,7 +98,7 @@ MonoBehaviour:
   laserGO: {fileID: 402}
   laserDeuxGo: {fileID: 519}
   seedDrop: {fileID: 720}
-  pillierRd: {fileID: 0}
+  pillierRd: []
   doubleLaser: 1
   pillierLifeTime: 15
   maxDistanceWithMyGuardian: 20
