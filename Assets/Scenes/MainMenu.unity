@@ -4735,7 +4735,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: Shock'n Droid
+  m_text: Shock'n Droids
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 145ece9b30cedb94caf6ef6e6ae9119a, type: 2}
   m_sharedMaterial: {fileID: 21504851211741568, guid: 145ece9b30cedb94caf6ef6e6ae9119a,
@@ -4764,7 +4764,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 145.25
+  m_fontSize: 134.25
   m_fontSizeBase: 137.6
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -4805,7 +4805,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1762163495}
-    characterCount: 13
+    characterCount: 14
     spriteCount: 0
     spaceCount: 1
     wordCount: 2

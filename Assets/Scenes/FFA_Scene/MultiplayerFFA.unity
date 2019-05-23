@@ -675,8 +675,8 @@ GameObject:
   m_Component:
   - component: {fileID: 620711996}
   - component: {fileID: 620711995}
-  - component: {fileID: 620711994}
   - component: {fileID: 620711997}
+  - component: {fileID: 620711994}
   m_Layer: 0
   m_Name: FinalCam
   m_TagString: Untagged
@@ -684,14 +684,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!81 &620711994
-AudioListener:
+--- !u!114 &620711994
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 620711993}
   m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ListenerNumber: 0
 --- !u!20 &620711995
 Camera:
   m_ObjectHideFlags: 0
@@ -1813,7 +1818,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91170a2484a32ea4e90eb0ae0de8613f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  partyTimer: 180
+  partyTimer: 35
   timerText: {fileID: 1767789090}
   worldCanvas: {fileID: 1732005628}
   playerNamePrefab: {fileID: 7538161374688258212, guid: a9a6d6b13ba2a094991494da7b05e6f7,
@@ -1837,6 +1842,7 @@ MonoBehaviour:
   killFeedPanel: {fileID: 376036964}
   killFeedPrefab: {fileID: 7866991463638253738, guid: 923fae23d2beb3341b5939bd228cbbe5,
     type: 3}
+  rebourtAudioEvent: "event:/Interfaces/Compte \xE0 rebours"
   GuardiansInScene: []
 --- !u!4 &1148599481
 Transform:

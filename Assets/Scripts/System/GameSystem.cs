@@ -11,6 +11,7 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
 {
     //public bool SmashSystem = true;
     public static GameSystem GSystem;
+    private float lastSecond = 0f;
 
     [Header("Party Info")]
     [SerializeField] private float partyTimer = 180.0f;
@@ -44,6 +45,11 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
     [SerializeField] private GameObject killFeedPanel;
     [SerializeField] private GameObject killFeedPrefab;
 
+    [Header("Son")]
+    [FMODUnity.EventRef]
+    [SerializeField] private string rebourtAudioEvent = "";
+    [SerializeField] private FMOD.Studio.EventInstance rebourtAudio;
+
     public List<Guardian> GuardiansInScene;
     private List<Guardian> GuardianSortByScore;
     
@@ -57,6 +63,8 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
         GameStart = false;
         this.currentTimerBeforeStart = this.timerBeforeStartGame;
         this.compteurPreGamePanel.SetActive(true);
+        this.lastSecond = Time.time + 1f;
+        rebourtAudio = FMODUnity.RuntimeManager.CreateInstance(rebourtAudioEvent);
     }
 
     private void Update()
@@ -73,6 +81,29 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
                 }
 
                 partyTimer -= Time.deltaTime;
+
+                if (this.partyTimer > 29.9f && this.partyTimer < 30.0f)
+                {
+                    rebourtAudio.start();
+                }
+
+                if (this.partyTimer > 19.9f && this.partyTimer < 20.0f)
+                {
+                    rebourtAudio.start();
+                }
+
+                if (this.partyTimer <= 10)
+                {
+                    if (Time.time > this.lastSecond)
+                    {
+                        rebourtAudio.start();
+                        this.lastSecond = Time.time + 1f;
+                    }
+                }
+                else
+                {
+                    this.lastSecond = Time.time + 1f;
+                }
 
                 if (Input.GetKeyDown(KeyCode.Tab))
                 {
@@ -117,10 +148,20 @@ public class GameSystem : Bolt.EntityEventListener<IGameSystemeState>
                     this.currentTimerBeforeStart -= Time.deltaTime;
                     this.compteurPreGameText.text =
                         "Début de partie dans \r\n" + this.currentTimerBeforeStart.ToString("0");
+
+                    if (this.currentTimerBeforeStart >= 0)
+                    {
+                        if (Time.time > this.lastSecond)
+                        {
+                            rebourtAudio.start();
+                            this.lastSecond = Time.time + 1f;
+                        }
+                    }
                 }
                 else
                 {
                     GameStart = true;
+                    rebourtAudio.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
                     this.compteurPreGamePanel.SetActive(false);
                 }
             }
