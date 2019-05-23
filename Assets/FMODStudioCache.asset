@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EditorBanks:
   - {fileID: 114602940312651748}
-  - {fileID: 114331563166837336}
+  - {fileID: 114333319055535468}
   EditorEvents:
   - {fileID: 114593866940965320}
   - {fileID: 114381480791562610}
@@ -35,7 +35,7 @@ MonoBehaviour:
   - {fileID: 114331563166837336}
   StringsBanks:
   - {fileID: 114602940312651748}
-  stringsBankWriteTime: 636942036678970983
+  stringsBankWriteTime: 636942292588324800
   cacheVersion: 3
 --- !u!114 &114031370388971278
 MonoBehaviour:
@@ -121,7 +121,7 @@ MonoBehaviour:
   Path: event:/Feedbacks Objets/Collision du souffle (ennemi)
   guid: e3b4b2a04acaea4a9a231c609c441eda
   Banks:
-  - {fileID: 114331563166837336}
+  - {fileID: 114333319055535468}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -194,6 +194,26 @@ MonoBehaviour:
   FileSizes:
   - Name: Desktop
     Value: 1382368
+  Exists: 0
+--- !u!114 &114333319055535468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: C:\Users\Public\Documents\Unity Projects\Guardians\Assets\Resources\Audio\FMOD
+    Guardian\Build\Desktop\Master Bank.bank
+  lastModified: 636942292588294798
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 1382368
   Exists: 1
 --- !u!114 &114349288354585230
 MonoBehaviour:
@@ -210,7 +230,7 @@ MonoBehaviour:
   Path: event:/Feedbacks Joueur Communs/Double saut
   guid: 1742799d14206a428705089a9ce0323b
   Banks:
-  - {fileID: 114331563166837336}
+  - {fileID: 114333319055535468}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -233,7 +253,7 @@ MonoBehaviour:
   Path: "event:/Feedbacks Objets/Joueur \xE9limin\xE9 (ennemi)"
   guid: 49f63088c1a3fc469a29a86f5533ed12
   Banks:
-  - {fileID: 114331563166837336}
+  - {fileID: 114333319055535468}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -256,7 +276,7 @@ MonoBehaviour:
   Path: "event:/Feedbacks Joueur Personnels/Joueur \xE9limin\xE9 (soi)"
   guid: 1073bd87f9d1ef43aaa2e4e8339141d4
   Banks:
-  - {fileID: 114331563166837336}
+  - {fileID: 114333319055535468}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -279,7 +299,7 @@ MonoBehaviour:
   Path: event:/Feedbacks Joueur Communs/Souffle repoussant
   guid: 6f87e6043d105a46912fcc2439627fba
   Banks:
-  - {fileID: 114331563166837336}
+  - {fileID: 114333319055535468}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -302,7 +322,7 @@ MonoBehaviour:
   Path: event:/Feedbacks Objets/Rayon
   guid: 1f63e19bb9a79b42b7308f4ae07af9d9
   Banks:
-  - {fileID: 114331563166837336}
+  - {fileID: 114333319055535468}
   IsStream: 1
   Is3D: 1
   IsOneShot: 0
@@ -414,7 +434,7 @@ MonoBehaviour:
   Path: event:/Feedbacks Objets/Respawn joueur (ennemi)
   guid: 0ff5896e62bfc84080b8ef61a2b26c04
   Banks:
-  - {fileID: 114331563166837336}
+  - {fileID: 114333319055535468}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -435,7 +455,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Path: Assets\Resources\Audio\FMOD Guardian\Build\Desktop\Master Bank.strings.bank
-  lastModified: 636942036678970983
+  lastModified: 636942292588324800
   LoadResult: 0
   FileSizes:
   - Name: Desktop
@@ -456,7 +476,7 @@ MonoBehaviour:
   Path: "event:/Feedbacks Joueur Communs/D\xE9placement"
   guid: 6839150256749c4c98954b748777c5a7
   Banks:
-  - {fileID: 114331563166837336}
+  - {fileID: 114333319055535468}
   IsStream: 0
   Is3D: 1
   IsOneShot: 0
@@ -479,7 +499,7 @@ MonoBehaviour:
   Path: event:/Feedbacks Joueur Communs/Saut
   guid: b55ec8fa85864e4c88d006dbf7dbfe74
   Banks:
-  - {fileID: 114331563166837336}
+  - {fileID: 114333319055535468}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -525,7 +545,7 @@ MonoBehaviour:
   Path: event:/Feedbacks Joueur Personnels/Collision du souffle (soi)
   guid: b82d68aca143b840bf62a3ce8476c28e
   Banks:
-  - {fileID: 114331563166837336}
+  - {fileID: 114333319055535468}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -548,7 +568,7 @@ MonoBehaviour:
   Path: event:/Interfaces/Clic sur bouton
   guid: 71f560fb79e73f4c816d2d9368247762
   Banks:
-  - {fileID: 114331563166837336}
+  - {fileID: 114333319055535468}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -571,7 +591,7 @@ MonoBehaviour:
   Path: event:/Feedbacks Joueur Communs/Lancer de graine-pilier
   guid: b7a3c5373bc2164d830d29de582a1b11
   Banks:
-  - {fileID: 114331563166837336}
+  - {fileID: 114333319055535468}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -617,7 +637,7 @@ MonoBehaviour:
   Path: event:/Feedbacks Joueur Personnels/Respawn joueur (soi)
   guid: 18e2a275a211fe449456f738d76fc70a
   Banks:
-  - {fileID: 114331563166837336}
+  - {fileID: 114333319055535468}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -640,7 +660,7 @@ MonoBehaviour:
   Path: "event:/Interfaces/Compte \xE0 rebours"
   guid: ec92bc8aae1216478acb970c35b7a60d
   Banks:
-  - {fileID: 114331563166837336}
+  - {fileID: 114333319055535468}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
