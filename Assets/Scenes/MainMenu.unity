@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: 798128fb7e3249f46a986a32212017dc, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 1d3f5254e25764546b2211aa1dd32efe, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.39530692, g: 0.48573196, b: 0.5722903, a: 1}
+  m_IndirectSpecularColor: {r: 0.85714316, g: 0.5755278, b: 0.41129833, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -859,7 +859,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 340.15, y: -394}
+  m_AnchoredPosition: {x: 259.2, y: -394}
   m_SizeDelta: {x: 660.3, y: 114}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &201569148
@@ -3845,7 +3845,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 340.15, y: -146}
+  m_AnchoredPosition: {x: 259.2, y: -146}
   m_SizeDelta: {x: 660.3, y: 114}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1510391664
@@ -4227,7 +4227,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 340.15, y: -203.75}
+  m_AnchoredPosition: {x: 259.2, y: -203.75}
   m_SizeDelta: {x: 660.3, y: 122.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1663830783
@@ -5211,6 +5211,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4107475824767507924, guid: 5104f8bd950da574ba4986d48064f598,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 81f6c4737cabc9d4aace8b0d93dd8ca9, type: 2}
     - target: {fileID: 2152283718481359474, guid: 5104f8bd950da574ba4986d48064f598,
         type: 3}
       propertyPath: InitialModule.startColor.maxColor.r
@@ -5226,11 +5231,6 @@ PrefabInstance:
       propertyPath: InitialModule.startColor.maxColor.b
       value: 0.5451228
       objectReference: {fileID: 0}
-    - target: {fileID: 4107475824767507924, guid: 5104f8bd950da574ba4986d48064f598,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 81f6c4737cabc9d4aace8b0d93dd8ca9, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5104f8bd950da574ba4986d48064f598, type: 3}
 --- !u!1 &1949177231
@@ -5457,7 +5457,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 340.15, y: -270}
+  m_AnchoredPosition: {x: 259.2, y: -270}
   m_SizeDelta: {x: 660.3, y: 114}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2068327108
