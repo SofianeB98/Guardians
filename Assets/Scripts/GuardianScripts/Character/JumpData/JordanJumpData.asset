@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: JordanJumpData
   m_EditorClassIdentifier: 
   speedPerteSpeed: 0.5
-  jumpHeight: 1
+  jumpHeight: 10
   jumpTimeToReachMax: 0.25
   jumpBehaviour:
     serializedVersion: 2
